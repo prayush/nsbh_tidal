@@ -1,0 +1,66 @@
+From 3356845176a6871391a14d11e20dc08b35b75535 Mon Sep 17 00:00:00 2001
+From: Michael Puerrer <michael.puerrer@ligo.org>
+Date: Mon, 13 Apr 2015 17:59:20 +0100
+Subject: [PATCH] Modify spin bounds so that they cover [-1,0.99]
+
+Note: this introduces some mismatch error at extreme spins. Up to 0.3%
+for spins 0.99.
+---
+ .../src/LALSimIMRSEOBNRv2ROMDoubleSpinLM.c         | 26 +++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinLM.c b/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinLM.c
+index 81461dd..cb7dfb7 100644
+--- a/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinLM.c
++++ b/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinLM.c
+@@ -198,6 +198,13 @@ static const double gPhi_sub1[] = {0.0001, 0.00010116, 0.000102339, 0.000103536,
+ #define gA_sub2 gA_sub1
+ #define gPhi_sub2 gPhi_sub1
+ 
++/////////////////////////////////////////////////////////////////////////////////////////////////
++// FIXME: For now we have the spin bounds [-0.9999, 0.98999]
++// What is the error induced, by changing the endpoints to -1 and 0.99?
++// If these errors are very small, then we can just change chi1vec_sub1,2, chi2vec_sub1,2 below
++// It looks like this is no problem for spins -1.0 with the mismatch < 0.02%
++// For spins 0.99 I find a mismatch of up to 0.3% (up to M=200Msun). So, this needs to be fixed.
++/////////////////////////////////////////////////////////////////////////////////////////////////
+ /******* B-spline knots over the parameter space *******/
+ static const double etavec_sub1[] = {0.01, 0.011, 0.012, 0.013, 0.015, 0.017, 0.018, 0.02, 0.021, 0.022, \
+ 0.023, 0.024, 0.025, 0.027, 0.03, 0.035, 0.037, 0.04, 0.042, 0.045, \
+@@ -206,10 +213,14 @@ static const double etavec_sub1[] = {0.01, 0.011, 0.012, 0.013, 0.015, 0.017, 0.
+ 0.22, 0.23, 0.235, 0.24, 0.241, 0.242, 0.243, 0.244, 0.245, 0.246, \
+ 0.247, 0.248, 0.2485, 0.2488, 0.249, 0.2491, 0.2492, 0.2493, 0.2494, \
+ 0.2495, 0.2496, 0.2497, 0.2498, 0.2499, 0.24995, 0.25};
+-static const double chi1vec_sub1[] = {-0.9999, -0.8, -0.6, -0.4, -0.2, 0., 0.2, 0.4, 0.6, 0.8, 0.9, \
+-0.98999};
+-static const double chi2vec_sub1[] = {-0.9999, -0.8, -0.6, -0.4, -0.2, 0., 0.2, 0.4, 0.6, 0.8, 0.9, \
+-0.98999};
++// static const double chi1vec_sub1[] = {-0.9999, -0.8, -0.6, -0.4, -0.2, 0., 0.2, 0.4, 0.6, 0.8, 0.9, 
++// 0.98999};
++// static const double chi2vec_sub1[] = {-0.9999, -0.8, -0.6, -0.4, -0.2, 0., 0.2, 0.4, 0.6, 0.8, 0.9, 
++// 0.98999};
++static const double chi1vec_sub1[] = {-1.0, -0.8, -0.6, -0.4, -0.2, 0., 0.2, 0.4, 0.6, 0.8, 0.9, \
++0.99};
++static const double chi2vec_sub1[] = {-1.0, -0.8, -0.6, -0.4, -0.2, 0., 0.2, 0.4, 0.6, 0.8, 0.9, \
++0.99};
+ 
+ static const int ncx_sub1 = 67+2;       // points in eta  + 2
+ static const int ncy_sub1 = 12+2;       // points in chi1 + 2
+@@ -221,9 +232,12 @@ static const double etavec_sub2[] = {0.01, 0.011, 0.012, 0.013, 0.015, 0.017, 0.
+ 0.048, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, \
+ 0.095, 0.1, 0.105, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.2, \
+ 0.22, 0.23, 0.235, 0.24, 0.244, 0.246, 0.248, 0.25};
++// static const double chi1vec_sub2[] = {0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.68, 0.69, 0.7, 0.71, 0.72, 0.73, 
++// 0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.88, 0.93, 0.96, 0.98, 0.98999};
++// static const double chi2vec_sub2[] = {-0.9999, -0.5, 0., 0.5, 0.98999};
+ static const double chi1vec_sub2[] = {0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.68, 0.69, 0.7, 0.71, 0.72, 0.73, \
+-0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.88, 0.93, 0.96, 0.98, 0.98999};
+-static const double chi2vec_sub2[] = {-0.9999, -0.5, 0., 0.5, 0.98999};
++0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.88, 0.93, 0.96, 0.98, 0.99};
++static const double chi2vec_sub2[] = {-1.0, -0.5, 0., 0.5, 0.99};
+ 
+ static const int ncx_sub2 = 49+2;       // points in eta  + 2
+ static const int ncy_sub2 = 23+2;       // points in chi1 + 2
+-- 
+1.8.5.3
+
