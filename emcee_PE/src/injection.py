@@ -10,6 +10,24 @@ from matplotlib import pyplot as plt
 
 from match import *
 
+##############################################################
+# Additional imports for Tidal waveform generation
+from pycbc.waveform import *
+from TidalTest import *
+
+def convert_FrequencySeries_to_lalREAL16FrequencySeries( h, name=None ):
+  tmp = lal.CreateCOMPLEX16Sequence( len(h) )
+  tmp.data = np.array(h.data)
+  hnew = lal.COMPLEX16FrequencySeries()
+  hnew.data = tmp
+  hnew.deltaF = h.delta_f
+  hnew.epoch = h._epoch
+  if name is not None: hnew.name = name
+  return hnew
+
+#############################################################
+#############################################################
+
 def InjectWaveform(m1, m2, S1x=0, S1y=0, S1z=0, S2x=0, S2y=0, S2z=0, f_min=10.0, f_max=2048.0, f_ref=0.0, deltaF=0.1, approximant=lalsim.SEOBNRv2, make_plots=False):
   fs = 2*f_max
   deltaT = 1./fs
@@ -114,7 +132,7 @@ def InjectWaveform_ChooseFD(m1, m2, S1x=0, S1y=0, S1z=0, S2x=0, S2y=0, S2z=0, f_
   amplitudeO = -1
   phaseO = -1
   [Hp, Hc] = lalsim.SimInspiralChooseFDWaveform(phiRef, deltaF, m1SI, m2SI, S1x, S1y, S1z, S2x, S2y, S2z, f_min, f_max, f_ref, r, i, 0, 0, None, None, amplitudeO, phaseO, approximant)
-  
+
   if make_plots:
     f = np.arange(Hp.data.length) * Hp.deltaF
     amp_hp = np.abs(Hp.data.data)
@@ -142,6 +160,50 @@ def InjectWaveform_ChooseFD(m1, m2, S1x=0, S1y=0, S1z=0, S2x=0, S2y=0, S2z=0, f_
   
   return [Hp, Hc]
   
+#############################################################
+def InjectTidalWaveform_ChooseFD(m1, m2, S1x=0, S1y=0, S1z=0, S2x=0, S2y=0, S2z=0, Lambda=500, f_min=10.0, f_max=2048.0, f_ref=0.0, deltaF=0.1, approximant=lalsim.SEOBNRv2, distance=1e6*PC_SI, make_plots=False):
+  #
+  try: approx = lalsim.GetStringFromApproximant(approximant)
+  except: raise IOError("Approximant %d not supported" % approximant)
+  
+  # Initialization of class requires approximant name
+  tw = tidalWavs(approx=approx, verbose=False)
+  
+  Mtotal = m1 + m2
+  eta = m1 * m2 / Mtotal**2
+  [hp, hc] = tw.getWaveform( Mtotal, eta, S2z, Lambda, distance=distance,\
+                             delta_f=deltaF, f_lower=f_min, f_final=f_max )
+  Hp = convert_FrequencySeries_to_lalREAL16FrequencySeries( hp )
+  Hc = convert_FrequencySeries_to_lalREAL16FrequencySeries( hc )
+
+  if make_plots:
+    f = np.arange(Hp.data.length) * Hp.deltaF
+    amp_hp = np.abs(Hp.data.data)
+    phi_hp = np.unwrap(np.angle(Hp.data.data))
+    
+    # Make plots of injection
+    plt.loglog(f, amp_hp)
+    plt.xlabel(r'$f[Hz]$')
+    plt.ylabel(r'$|\tilde h|$')
+    plt.xlim([f_min, f_max])
+    plt.savefig('injection_amplitude.png')
+    plt.clf()
+
+    plt.semilogx(f, phi_hp)
+    plt.xlabel(r'$f[Hz]$')
+    plt.ylabel(r'$\phi[\tilde h]$')
+    plt.xlim([f_min, f_max])
+    plt.savefig('injection_phase.png')
+    plt.clf()
+
+    plt.plot(f, np.real(Hp.data.data))
+    plt.xlim([f_min, 3*f_min])
+    plt.savefig('injection_re_h.png')
+    plt.clf()
+  
+  return [Hp, Hc]
+#############################################################
+#############################################################
 
 if __name__ == "__main__":
   # tests

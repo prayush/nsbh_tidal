@@ -179,7 +179,7 @@ eta_min = options.eta_min
 signal_approximant=eval(options.signal_approximant)
 template_approximant=eval(options.template_approximant)
 
-if options.lalsim_psd = 'ET-D': # not in lalsimulation
+if options.lalsim_psd == 'ET-D': # not in lalsimulation
   n = int(options.f_max / options.deltaF)
   ET_psd = lal.CreateREAL8FrequencySeries('ET_psd', 0, 1, options.deltaF, 1, n)
   lalsimulation.SimNoisePSDFromFile(ET_psd, 1, '/Users/mpuer/Downloads/ET.txt') # FIXME need an option for path to file
@@ -224,7 +224,7 @@ else:
     if lalsim.SimInspiralImplementedFDApproximants(signal_approximant): 
       # FD approximant : call wrapper around ChooseFDWaveform()
       print 'Injecting FD approximant via ChooseFDWaveform()'
-      [hps, hcs] = InjectWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
+      [hps, hcs] = InjectTidalWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
       f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)
     else: 
       # TD approximant : InjectWaveform will call SimInspiralTD()

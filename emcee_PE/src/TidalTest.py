@@ -82,14 +82,14 @@ class tidalWavs():
         return psi
     #
     def getWaveform(self, M, eta, sBH, Lambda, distance=1e6*lal.PC_SI, \
-                    f_lower=15.,\
+                    f_lower=15., f_final=4096., \
                     delta_t=1./8192., delta_f=1./256, tidal=True):
         if self.approx in fd_approximants():
             m1, m2 = self.mtot_eta_to_m1_m2(M, eta)
             hp, hc = get_fd_waveform(approximant=self.approx,\
                         mass1=m1, mass2=m2, spin1z=sBH, spin2z=0,\
                         distance=distance, \
-                        f_lower=f_lower, delta_f=delta_f)
+                        f_lower=f_lower, f_final=f_final, delta_f=delta_f)
         else: raise IOError("Approx not supported")
         if not tidal or Lambda==0:
             if self.verbose:
