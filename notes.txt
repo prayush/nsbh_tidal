@@ -1,0 +1,22 @@
+Inject Lackey et al model.
+Recover with point-particle waveforms.
+
+code convention m2 >= m1
+
+Small range of allowed configurations for injections:
+	- 2 <= q <= 5
+	- 1.2 <= m1 <= 1.4 (NS)
+        NS: 0
+	BH: [-0.5, 0.75]
+
+Prior for masses:
+	m1_min = m2_min = 1.2
+	M_tot_max = 25? (should be large enough to encompass the line of const Mc from the most extreme injection)
+	m1_max = 2?
+	m2_max = 23?
+	all spins allowed?
+
+PK: add amplitude and phase modifications in inject.py
+First hardwire Lambda parameter to test
+MP: Then include Lambda as a parameter of the likelihood and prior and update post-processing code.
+
