@@ -13,7 +13,7 @@ from match import *
 ##############################################################
 # Additional imports for Tidal waveform generation
 from pycbc.waveform import *
-from TidalTest import *
+from TidalWaveforms import *
 
 def convert_FrequencySeries_to_lalREAL16FrequencySeries( h, name=None ):
   tmp = lal.CreateCOMPLEX16Sequence( len(h) )
