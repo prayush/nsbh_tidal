@@ -289,6 +289,11 @@ print "Using PSD ", options.lalsim_psd
 if inject_tidal:
   print "Lambda_signal = ", Lambda_signal
 
+if recover_tidal:
+  print 'Templates are LAL FD waveform with tidal corrections'
+  # Instantiate the class only once
+  tw = tidalWavs(approx=options.template_approximant.split('.')[1], verbose=False)
+
 # Define the probability function as likelihood * prior.
 ndim = 4
 def lnprior(theta):
@@ -334,7 +339,6 @@ def lnlikeMatch(theta, s):
   if recover_tidal:
     # LAL FD waveform with tidal corrections
     # FIXME: For the moment we set Lambda_template = Lambda_signal
-    tw = tidalWavs(approx=options.template_approximant.split('.')[1], verbose=False)
     [hp, hc] = tw.getWaveform( M, eta, chi2, Lambda=Lambda_signal, delta_f=deltaF, f_lower=f_min, f_final=f_max )
     hp = convert_FrequencySeries_to_lalREAL16FrequencySeries( hp ) # converts from pycbc.types.frequencyseries.FrequencySeries to COMPLEX16FrequencySeries
     assert hp.deltaF == deltaF
