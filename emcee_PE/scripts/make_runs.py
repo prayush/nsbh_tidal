@@ -7,6 +7,7 @@
 
 import os
 import commands as cmd
+import numpy as np
 
 chi1 = 0.   # small BH
 chi2 = 0.5  # larger BH

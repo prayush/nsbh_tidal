@@ -16,6 +16,8 @@ import sys,os
 import emcee
 import matplotlib as mpl
 mpl.use('Agg')
+from matplotlib import rc
+rc('text', usetex=True)
 import matplotlib.pyplot as pl
 from matplotlib.ticker import MaxNLocator
 import triangle
