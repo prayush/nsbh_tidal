@@ -28,7 +28,7 @@ class tidalWavs():
         if 'PhenomC' in approx:
             self.g0, self.g1, self.g2, self.g3 =\
                     -1.9051, 15.564, -0.41109, 5.7044
-        elif 'SEOBNR' in approx: 
+        elif 'SEOBNR' in approx:
             self.g0, self.g1, self.g2, self.g3 =\
                     -4.6339, 27.719, 10.268, -41.741
     #

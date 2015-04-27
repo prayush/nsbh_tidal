@@ -96,6 +96,13 @@ parser.add_option("--no-parallel-tempering", dest="pt", action="store_false",
 parser.add_option("-t", "--number-of-threads", dest="nThreads", type="int",
                   help="Number of threads for ensemble sampler.", metavar="number_of_threads")
 
+# Additional options for tidal corection waveforms
+parser.add_option("", "--inject-tidal", dest="inject_tidal", action="store_true",
+                  help="Inject waveform LAL waveform with additional tidal corrections.", metavar="inject_tidal")
+parser.add_option("", "--recover-tidal", dest="recover_tidal", action="store_true",
+                  help="Recover with waveform LAL waveform with additional tidal corrections.", metavar="recover_tidal")
+parser.add_option("-L", "--Lambda_signal", dest="Lambda_signal", type="float",
+                  help="Tidal deformability Lambda of signal.", metavar="Lambda_signal")
 
 parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0, 
   chi1_signal=0.0, chi2_signal=0.0, f_min=10, f_max=2048, deltaF=0.5, 
@@ -105,7 +112,8 @@ parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0,
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
   chi1_min=-1, chi1_max=0.99, chi2_min=-1, chi2_max=0.99,
   eta_stdev_init=0.15, Mc_stdev_init=5, chi1_stdev_init=0.4, chi2_stdev_init=0.4, post_process='',
-  nThreads=1, pt=False)
+  nThreads=1, pt=False,
+  inject_tidal=False, recover_tidal=False, Lambda_signal=500)
 
 (options, args) = parser.parse_args()
 
@@ -181,6 +189,11 @@ eta_min = options.eta_min
 signal_approximant=eval(options.signal_approximant)
 template_approximant=eval(options.template_approximant)
 
+inject_tidal = options.inject_tidal
+recover_tidal = options.recover_tidal
+Lambda_signal = options.Lambda_signal
+
+
 if options.lalsim_psd == 'ET-D': # not in lalsimulation
   n = int(options.f_max / options.deltaF)
   ET_psd = lal.CreateREAL8FrequencySeries('ET_psd', 0, 1, options.deltaF, 1, n)
@@ -197,7 +210,6 @@ if post_process_directory != '':
   post_process = True
 else:
   post_process = False
-
 
 # we just use hp here; need to change only if we want to inject precessing approximants
 
@@ -225,9 +237,14 @@ else:
     print "Preparing injection for ", options.signal_approximant
     if lalsim.SimInspiralImplementedFDApproximants(signal_approximant): 
       # FD approximant : call wrapper around ChooseFDWaveform()
-      print 'Injecting FD approximant via ChooseFDWaveform()'
-      [hps, hcs] = InjectTidalWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
-      f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)
+      if inject_tidal:
+        print 'Injecting FD approximant with tidal modifications based on ChooseFDWaveform()'
+        [hps, hcs] = InjectTidalWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
+        Lambda=Lambda_signal, f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)
+      else:
+        print 'Injecting FD approximant via ChooseFDWaveform()'
+        [hps, hcs] = InjectWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
+        f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)
     else: 
       # TD approximant : InjectWaveform will call SimInspiralTD()
       print 'Injecting TD approximant via SimInspiralTD()'
@@ -269,7 +286,8 @@ print "Prior:\n [m1_min, m1_max] = [{0}, {1}], [m2_min, m2_max] = [{2}, {3}]".fo
 print "Signal snr: ", SNR
 print "Using {0} as signal and {1} as templates.".format(options.signal_approximant, options.template_approximant)
 print "Using PSD ", options.lalsim_psd
-
+if inject_tidal:
+  print "Lambda_signal = ", Lambda_signal
 
 # Define the probability function as likelihood * prior.
 ndim = 4
@@ -291,6 +309,12 @@ def lnprior(theta):
     return -np.inf
   if chi2 < chi2_min or chi2 > chi2_max:
     return -np.inf
+  
+  # Additional priors to avoid calling tidal model outside of region of validity
+  if recover_tidal and eta < 6./49.:
+    return -np.inf
+  if recover_tidal and (chi2 > 0.75 or chi2 < -0.75):
+    return -np.inf
   return 0.0
 
 def lnlikeMatch(theta, s):
@@ -306,7 +330,18 @@ def lnlikeMatch(theta, s):
   m2_SI = m2*lal.MSUN_SI
   # print M, q, chi1, chi2
   # generate wf
-  [hp, hc] = lalsimulation.SimInspiralChooseFDWaveform(phi0, deltaF, m1_SI, m2_SI, s1x, s1y, chi1, s2x, s2y, chi2, f_min, f_max, f_ref, distance, inclination, 0, 0, None, None, ampOrder, phOrder, template_approximant)
+  
+  if recover_tidal:
+    # LAL FD waveform with tidal corrections
+    # FIXME: For the moment we set Lambda_template = Lambda_signal
+    tw = tidalWavs(approx=options.template_approximant.split('.')[1], verbose=False)
+    [hp, hc] = tw.getWaveform( M, eta, chi2, Lambda=Lambda_signal, delta_f=deltaF, f_lower=f_min, f_final=f_max )
+    hp = convert_FrequencySeries_to_lalREAL16FrequencySeries( hp ) # converts from pycbc.types.frequencyseries.FrequencySeries to COMPLEX16FrequencySeries
+    assert hp.deltaF == deltaF
+  else:
+    # standard LAL FD waveform
+    [hp, hc] = lalsimulation.SimInspiralChooseFDWaveform(phi0, deltaF, m1_SI, m2_SI, s1x, s1y, chi1, s2x, s2y, chi2, f_min, f_max, f_ref, distance, inclination, 0, 0, None, None, ampOrder, phOrder, template_approximant)
+    
   psdfun = lalsim_psd
   ma = match_FS(s, hp, psdfun, zpf=2)
   if np.isnan(ma):
