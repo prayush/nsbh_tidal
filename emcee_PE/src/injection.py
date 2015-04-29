@@ -1,12 +1,17 @@
 # MP 11/2014 - 04/2015
 
 from __future__ import division
+
+from matplotlib import use, rc
+use('Agg')
+rc('text', usetex=True)
+from matplotlib import pyplot as plt
+
 import numpy as np
 from scipy import interpolate
 import lal
 from lal import MSUN_SI, PC_SI
 import lalsimulation as lalsim
-from matplotlib import pyplot as plt
 
 from match import *
 
