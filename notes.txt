@@ -20,6 +20,10 @@ PK: add amplitude and phase modifications in inject.py
 First hardwire Lambda parameter to test
 MP: Then include Lambda as a parameter of the likelihood and prior and update post-processing code.
 
+TODO: 
+  - implement marginalized time and phase likelihood (tested against lalinference)
+  - couple to PK's C nested sampling code?
+
 Test runs:
         gsissh sugar.phy.syr.edu
         /home/prayush/projects/nsbh/TidalParameterEstimation/TestCases
