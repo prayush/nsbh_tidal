@@ -1,0 +1,1543 @@
+@String{mnras = "Mon.\ Not.\ Roy.\ Astr.\ Soc."}
+
+@String{aap = "Astron.\ Astrophys."}
+
+@String{cqg =    "Class.\ Quantum Grav."}
+
+@String{prl =    "Phys.\ Rev.\ Lett."}
+
+@String{pr =     "Phys.\ Rev."}
+
+@String{prd =    "Phys.\ Rev.\ D"}
+
+@String{ptp =    "Prog.\ Theo.\ Phys."}
+
+@String{prep =    "Phys.\ Rep."}
+
+@String{rpp =    "Rep.\ Prog.\ Phys."}
+ 
+@String{procrsoca = "Proc.\ R.\ Soc.\ A"}
+
+@String{apj =    "Astrophys.\ J."}
+
+@String{apjs =    "Astrophys.\ J. Suppl. Ser."}
+
+@String{apjlet = "Astrophys.\ J.\ Lett."}
+
+@String{aj = "Astron.\ J."}
+
+@String{atmp = "Adv.\ Theor.\ Math.\ Phys."}
+
+@String{grg =    "Gen.\ Relativ.\ Gravit."}
+
+@String{jmp =    "J.\ Math.\ Phys."}
+
+@String{jcp =    "J.\ Comput.\ Phys."}
+
+@String{JHypDifferEqn = "J.~Hyp.~Differ.~Eqn."}
+
+@String{physlet = "Phys.\ Lett."}
+
+@String{cmp =    "Commun.\ Math.\ Phys."}
+ 
+@String{anph =   "Ann.\ Phys."}
+
+@String{rmp =    "Rev.\ Mod.\ Phys."}
+
+@String{ae =     "Andrew M.\ Abrahams and Charles R.\ Evans"}
+
+@String{CPC =    "Comput.\ Phys.\ Commun."}
+
+@String{JHypDiffEqns = "J.\ Hyperbol.\ Differ.\ Eq."}
+
+@String{SIAM-JSC = "SIAM J. Sci. Comput"}
+
+@String{lrr = "Living Rev.~Rel."}
+
+@String{grqc =         "http://www.arxiv.org/abs/gr-qc/"}
+
+@String{candf =  "Comput. Fluids"}
+
+@String{arxiv =        "http://www.arxiv.org/abs/"}
+@conference{Reed.W;Hill.T1973,
+    Author = {Reed, WH and Hill, TR},
+    Booktitle = {Conference: National topical meeting on mathematical models and computational techniques for analysis of nuclear systems, Ann Arbor, Michigan, USA, 8 Apr 1973},
+    Date-Added = {2009-09-14 14:12:25 -0700},
+    Date-Modified = {2009-09-14 14:12:28 -0700},
+    Title = {{Triangular mesh methods for the neutron transport equation}},
+    Year = {1973}}
+
+@article{Cockburn.B;Gopalakrishnan.J;Lazarov.R2009a,
+    Author = {Cockburn, B. and Gopalakrishnan, J. and Lazarov, R.},
+    Date-Added = {2009-09-14 14:39:25 -0700},
+    Date-Modified = {2009-09-14 14:39:25 -0700},
+    Journal = {SIAM J. Numer. Anal},
+    Number = {2},
+    Title = {{Unified hybridization of discontinuous Galerkin, mixed and continuous Galerkin methods for second order elliptic problems}},
+    Volume = {47},
+    Year = {2009}}
+
+@incollection{Cockburn.B;Karniadakis.G;Shu.C2000,
+    Address = {Berlin},
+    Author = {Cockburn, Bernardo and Karniadakis, George E. and Shu, Chi-Wang},
+    Booktitle = {Discontinuous {G}alerkin methods ({N}ewport, {RI}, 1999)},
+    Date-Added = {2009-09-14 14:22:00 -0700},
+    Date-Modified = {2009-09-14 14:22:35 -0700},
+    Mrclass = {65-02 (65M60 65N30 76M25)},
+    Mrnumber = {MR1842161 (2002e:65002)},
+    Pages = {3--50},
+    Publisher = {Springer},
+    Series = {Lect. Notes Comput. Sci. Eng.},
+    Title = {The development of discontinuous {G}alerkin methods},
+    Volume = {11},
+    Year = {2000}}
+
+@ARTICLE{brown:12dg,
+   author = {{Brown}, J.~D. and {Diener}, P. and {Field}, S.~E. and {Hesthaven}, J.~S. and 
+	{Herrmann}, F. and {Mrou{\'e}}, A.~H. and {Sarbach}, O. and 
+	{Schnetter}, E. and {Tiglio}, M. and {Wagman}, M.},
+    title = "{Numerical simulations with a first-order BSSN formulation of Einstein's field equations}",
+  journal = prd,
+archivePrefix = "arXiv",
+   eprint = {1202.1038},
+ primaryClass = "gr-qc",
+     year = 2012,
+    month = apr,
+   volume = 85,
+   number = 8,
+      eid = {084004},
+    pages = {084004},
+      doi = {10.1103/PhysRevD.85.084004},
+   adsurl = {http://adsabs.harvard.edu/abs/2012PhRvD..85h4004B},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{radice:11,
+   author = {{Radice}, D. and {Rezzolla}, L.},
+    title = "{Discontinuous Galerkin methods for general-relativistic hydrodynamics: Formulation and application to spherically symmetric spacetimes}",
+  journal = prd,
+archivePrefix = "arXiv",
+   eprint = {1103.2426},
+ primaryClass = "gr-qc",
+     year = 2011,
+    month = jul,
+   volume = 84,
+   number = 2,
+      eid = {024010},
+    pages = {024010},
+      doi = {10.1103/PhysRevD.84.024010},
+   adsurl = {http://adsabs.harvard.edu/abs/2011PhRvD..84b4010R},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{field:10,
+   author = {{Field}, S.~E. and {Hesthaven}, J.~S. and {Lau}, S.~R. and {Mroue}, A.~H.
+	},
+    title = "{Discontinuous Galerkin method for the spherically reduced Baumgarte-Shapiro-Shibata-Nakamura system with second-order operators}",
+  journal = prd,
+archivePrefix = "arXiv",
+   eprint = {1008.1820},
+ primaryClass = "gr-qc",
+ keywords = {Numerical relativity, Spectral methods, Collocation methods},
+     year = 2010,
+    month = nov,
+   volume = 82,
+   number = 10,
+      eid = {104051},
+    pages = {104051},
+      doi = {10.1103/PhysRevD.82.104051},
+   adsurl = {http://adsabs.harvard.edu/abs/2010PhRvD..82j4051F},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{field:09,
+   author = {{Field}, S.~E. and {Hesthaven}, J.~S. and {Lau}, S.~R.},
+    title = "{Discontinuous Galerkin method for computing gravitational waveforms from extreme mass ratio binaries}",
+  journal = cqg,
+archivePrefix = "arXiv",
+   eprint = {0902.1287},
+ primaryClass = "gr-qc",
+     year = 2009,
+    month = aug,
+   volume = 26,
+   number = 16,
+    pages = {165010},
+      doi = {10.1088/0264-9381/26/16/165010},
+   adsurl = {http://adsabs.harvard.edu/abs/2009CQGra..26p5010F},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{ ISI:000187438300006,
+Author = {Qiu, JX and Shu, CW},
+Title = {{Hermite WENO schemes and their application as limiters for Runge-Kutta
+   discontinuous Galerkin method: one-dimensional case}},
+Journal = jcp,
+Year = {{2004}},
+Volume = {{193}},
+Number = {{1}},
+Pages = {{115-135}},
+Month = {{JAN 1}},
+DOI = {{10.1016/j.jcp.2003.07.026}},
+ISSN = {{0021-9991}},
+ResearcherID-Numbers = {{Qiu, Jianxian/A-3032-2011}},
+Unique-ID = {{ISI:000187438300006}},
+}
+
+@article{ ISI:000227761300009,
+Author = {Qiu, JX and Shu, CW},
+Title = {{Runge-Kutta discontinuous Galerkin method using WENO limiters}},
+Journal = SIAM-JSC,
+Year = {{2005}},
+Volume = {{26}},
+Number = {{3}},
+Pages = {{907-929}},
+DOI = {{10.1137/S1064827503425298}},
+ISSN = {{1064-8275}},
+ResearcherID-Numbers = {{Qiu, Jianxian/A-3032-2011}},
+Unique-ID = {{ISI:000227761300009}},
+}
+
+@article{ ISI:000227372700002,
+Author = {Qiu, JX and Shu, CW},
+Title = {{Hermite WENO schemes and their application as limiters for Runge-Kutta
+   discontinuous Galerkin method II: Two dimensional case}},
+Journal = candf,
+Year = {{2005}},
+Volume = {{34}},
+Number = {{6}},
+Pages = {{642-663}},
+Month = {{JUL}},
+DOI = {{10.1016/j.compfluid.2004.05.005}},
+ISSN = {{0045-7930}},
+ResearcherID-Numbers = {{Qiu, Jianxian/A-3032-2011}},
+Unique-ID = {{ISI:000227372700002}},
+}
+
+@article{ ISI:000236518800008,
+Author = {Xing, YL and Shu, CW},
+Title = {{High order well-balanced finite volume WENO schemes and discontinuous
+   Galerkin methods for a class of hyperbolic systems with source terms}},
+Journal = jcp,
+Year = {{2006}},
+Volume = {{214}},
+Number = {{2}},
+Pages = {{567-598}},
+Month = {{MAY 20}},
+DOI = {{10.1016/j.jcp.2005.10.005}},
+ISSN = {{0021-9991}},
+ResearcherID-Numbers = {{xing, yulong/C-1484-2011}},
+Unique-ID = {{ISI:000236518800008}},
+}
+
+@article{ ISI:000290185000015,
+Author = {Zhu, Jun and Qiu, Jianxian},
+Title = {{Local DG method using WENO type limiters for convection-diffusion
+   problems}},
+Journal = jcp,
+Year = {{2011}},
+Volume = {{230}},
+Number = {{11, SI}},
+Pages = {{4353-4375}},
+Month = {{MAY 20}},
+DOI = {{10.1016/j.jcp.2010.03.023}},
+ISSN = {{0021-9991}},
+Unique-ID = {{ISI:000290185000015}},
+}
+
+
+@Article{Chen:2005p57,
+author = {QY Chen and D Gottlieb and JS Hesthaven}, 
+journal = {SIAM J. Numer. Anal.},
+title = {Spectral methods based on prolate spheroidal wave functions for hyperbolic PDEs},
+abstract = {We examine the merits of using prolate spheroidal wave functions (PSWFs) as basis functions when solving hyperbolic PDEs using pseudospectral methods.The relevant approximation theory is reviewed and some new approximation results in Sobolev spaces are established. An optimal choice of the band-limit parameter for PSWFs is derived for single-mode functions.Our conclusion is that one might gain from using the PSWFs over the traditional Chebyshev or Legendre methods in terms of accuracy and efficiency for marginally resolved broadband solutions.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {5},
+pages = {1912--1933},
+volume = {43},
+year = {2005},
+month = {Jan},
+language = {English},
+keywords = {Chebyshev, Spectral Methods, Quadrature, Fourier-Analysis, Penalty Methods, Accuracy, Collocation, Prolate Spheroidal Wave Functions, Equations, Pseudospectral Approximations}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1137/S0036142903432425},
+pmid = {000234470800006},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p57},
+rating = {0}
+}
+
+
+
+@Article{Diamessis:2005p58,
+author = {PJ Diamessis and JA Domaradzki and JS Hesthaven}, 
+journal = {J Comput Phys},
+title = {A spectral multidomain penalty method model for the simulation of high Reynolds number localized incompressible stratified turbulence},
+abstract = {A spectral multidomain penalty method model has been developed for the simulation of high Reynolds number localized stratified turbulence. This is the first time that a penalty method, with a particular focus on subdomain interface treatment, has been used with a multidomain scheme to simulate incompressible flows. The temporal discretization ensures maximum temporal accuracy by combining third order stiffly stable and backward differentiation schemes with a high-order boundary condition for the pressure. In the non-periodic vertical direction, a spectral multidomain discretization is used and its stability for under-resolved simulations at high Reynolds numbers is ensured through use of penalty techniques, spectral filtering and strong adaptive interfacial averaging. The penalty method is implemented in different formulations for both the explicit non-linear term advancement and the implicit treatment of the viscous terms. The multidomain model is validated by comparing results of simulations of the mid-to-late time stratified turbulent wake with non-zero net momentum to the corresponding laboratory data for a towed sphere. The model replicates correctly the characteristic vorticity and internal wave structure of the stratified wake and exhibits robust agreement with experiments in terms of the temporal power laws in the evolution of mean profile characteristic velocity and lengthscales. (C) 2004 Elsevier Inc. All rights reserved.},
+affiliation = {Univ So Calif, Dept Aerosp Engn {\&} Mech, Los Angeles, CA 90089 USA},
+number = {1},
+pages = {298--322},
+volume = {202},
+year = {2005},
+month = {Jan},
+language = {English},
+keywords = {Large-Eddy Simulations, Under-Resolution, Wakes, Penalty Methods, Spectral Multidomain, Navier-Stokes Equations, Shallow-Water Equations, Vanishing Viscosity, Turbulence, Element Model, Froude-Number, Boundary-Conditions, Stratified Flow, Channel Flows, Filtering Techniques, Domain Decomposition Schemes}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1016/j.jcp.2004.07.007},
+pmid = {000225578400014},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p58},
+rating = {0}
+}
+
+@Article{EngsigKarup:2006p44,
+author = {Allan P Engsig-Karup and Jan S Hesthaven and Harry B Bingham and Per A Madsen}, 
+journal = {J Eng Math},
+title = {Nodal DG-FEM solution of high-order Boussinesq-type equations},
+abstract = {A discontinuous Galerkin finite-element method (DG-FEM) solution to a set of high-order Boussinesq-type equations for modelling highly nonlinear and dispersive water waves in one horizontal dimension is presented. The continuous equations are discretized using nodal polynomial basis functions of arbitrary order in space on each element of an unstructured computational domain. A fourth-order explicit Runge-Kutta scheme is used to advance the solution in time. Methods for introducing artificial damping to control mild nonlinear instabilities are also discussed. The accuracy and convergence of the model with both h (grid size) and p (order) refinement are confirmed for the linearized equations, and calculations are provided for two nonlinear test cases in one horizontal dimension: harmonic generation over a submerged bar, and reflection of a steep solitary wave from a vertical wall. Test cases for two horizontal dimensions will be considered in future work.},
+affiliation = {Tech Univ Denmark, Dept Mech Engn, DK-2800 Lyngby, Denmark},
+number = {3},
+pages = {351--370},
+volume = {56},
+year = {2006},
+month = {Jan},
+language = {English},
+keywords = {Discontinuous Galerkin Finite-Element Method, Model, Water-Waves, High-Order Boussinesq-Type Equations, Propagation, Form, Unstructured Grids, Shallow-Water, Finite-Element-Method, Stability, Gravity Waves}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1007/s10665-006-9064-z},
+pmid = {000243821100012},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p44},
+rating = {0}
+}
+
+@Article{EngsigKarup:2008p34,
+author = {Allan P Engsig-Karup and Jan S Hesthaven and Harry B Bingham and T Warburton}, 
+journal = {Coast Eng},
+title = {DG-FEM solution for nonlinear wave-structure interaction using Boussinesq-type equations},
+abstract = {We present a high-order nodal Discontinuous Galerkin Finite Element Method (DG-FEM) solution based on a set of highly accurate Boussinesq-type equations for solving general water-wave problems in complex geometries. A nodal DG-FEM is used for the spatial discretization to solve the Boussinesq equations in complex and curvilinear geometries which amends the application range of previous numerical models that have been based on structured Cartesian grids. The Boussinesq method provides the basis for the accurate description of fully nonlinear and dispersive water waves in both shallow and deep waters within the breaking limit. To demonstrate the current applicability of the model both linear and mildly nonlinear test cases are considered in two horizontal dimensions where the water waves interact with bottom-mounted fully reflecting structures. It is established that, by simple symmetry considerations combined with a mirror principle, it is possible to impose weak slip boundary conditions for both structured and general curvilinear wall boundaries while maintaining the accuracy of the scheme. As is standard for current high-order Boussinesq-type models, arbitrary waves can be generated and absorbed in the interior of the computational domain using a flexible relaxation technique applied on the free surface variables. (c) 2007 Elsevier B.V. All rights reserved.},
+affiliation = {Tech Univ Denmark, DK-2800 Lyngby, Denmark},
+number = {3},
+pages = {197--208},
+volume = {55},
+year = {2008},
+month = {Jan},
+language = {English},
+keywords = {Unstructured And Curvilinear Grids, Finite-Element-Method, Dispersive Water-Waves, High-Order Boussinesq-Type Equations, Wave-Structure Interaction, Derivation, Model, Nonlinear And Dispersive Water Waves, Discontinuous Galerkin Finite Element Method, Grid Adaption, Propagation, Shallow}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1016/j.coastaleng.2007.09.005},
+pmid = {000253255700001},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p34},
+rating = {0}
+}
+
+@Article{Fan:2002p67,
+author = {GX Fan and QH Liu and JS Hesthaven}, 
+journal = {Ieee T Geosci Remote},
+title = {Multidomain pseudospectral time-domain simulations of scattering by objects buried in lossy media},
+abstract = {A multidomain pseudospectral time-domain (PSTD) method with a newly developed well-posed PML is introduced as an accurate and flexible tool for the modeling of electromagnetic scattering by 2-D objects buried in an inhomogeneous lossy medium. Compared with the previous single-domain Fourier PSTD method, this approach allows for an accurate treatment of curved geometries with subdomains, curvilinear mapping, and high-order Chebyshev polynomials. The effectiveness of the algorithm is confirmed by an excellent agreement between the numerical results and analytical solutions for perfectly conducting as well as permeable dielectric cylinders. The algorithm has been applied to model various ground-penetrating radar (GPR) applications involving curved objects in a lossy half space with an undulating surface. This multidomain PSTD algorithm is potentially a very useful tool for simulating antennas near complex objects and inhomogeneous media.},
+affiliation = {Duke Univ, Dept Elect {\&} Comp Engn, Durham, NC 27514 USA},
+number = {6},
+pages = {1366--1373},
+volume = {40},
+year = {2002},
+month = {Jan},
+language = {English},
+keywords = {Rough Surface, Perfectly Matched Layer, Computation, Dependent Pstd Algorithm, Maxwells Equations, 3-D, Ground-Penetrating Radar (Gpr), Finite-Difference Time-Domain (Fdtd) Method, Perfectly Matched Layer (Pml), Pseudospectral Time-Domain (Pstd) Method, Domain Decomposition, Dispersive Media}, 
+date-added = {2008-12-23 11:55:44 -0500},
+date-modified = {2008-12-23 11:55:44 -0500},
+doi = {10.1109/TGRS.2002.800272},
+pmid = {000177114500017},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p67},
+rating = {0}
+}
+
+@Article{Giraldo:2002p66,
+author = {FX Giraldo and JS Hesthaven and T Warburton}, 
+journal = {J Comput Phys},
+title = {Nodal high-order discontinuous Galerkin methods for the spherical shallow water equations},
+abstract = {We present a high-order discontinuous Galerkin method for the solution of the shallow water equations on the sphere. To overcome well-known problems with polar singularities, we consider the shallow water equations in Cartesian coordinates, augmented with a Lagrange multiplier to ensure that fluid particles are constrained to the spherical surface. The global solutions are represented by a collection of curvilinear quadrilaterals from an icosahedral grid. On each of these elements the local solutions are assumed to be well approximated by a high-order nodal Lagrange polynomial, constructed from a tensor-product of the Legendre-Gauss-Lobatto points, which also Supplies a high-order quadrature. The shallow water equations are satisfied in a local discontinuous element fashion with solution continuity being enforced weakly. The numerical experiments, involving a comparison of weak and strong conservation forms and the impact of over-integration and filtering, confirm the expected high-order accuracy and the potential for using such highly parallel formulations in numerical weather prediction. (C) 2002 Elsevier Science (USA).},
+affiliation = {USN, Res Lab, Monterey, CA 93943 USA},
+number = {2},
+pages = {499--525},
+volume = {181},
+year = {2002},
+month = {Jan},
+language = {English},
+keywords = {Geodesic Grids, Spherical Geometry, Spectral Element Method, Systems, Icosahedral Grid, Model, Conservation-Laws, Schemes, Filters, High-Order, Test Set, Discontinuous Galerkin Method, Approximations, Shallow Water Equations}, 
+date-added = {2008-12-23 11:55:44 -0500},
+date-modified = {2008-12-23 11:55:44 -0500},
+doi = {10.1006/jcph.2002.7139},
+pmid = {000178141700007},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p66},
+rating = {0}
+}
+
+@Article{Grooss:2006p43,
+author = {J Grooss and J. S Hesthaven}, 
+journal = {Comput Method Appl M},
+title = {A level set discontinuous Galerkin method for free surface flows},
+abstract = {We present a discontinuous Galerkin method on a fully unstructured grid for the modeling of unsteady incompressible fluid flows with free surfaces. The surface is modeled by embedding and represented by a level set. We discuss the discretization of the flow equations and the level set equation as well a various ways of advancing the equations in time using velocity projection techniques. The efficacy of the method for the representation of the level set and its reinitialization is discussed and several numerical tests confirm the robustness and versatility of the proposed scheme. (c) 2005 Elsevier B.V. All rights reserved.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {25-28},
+pages = {3406--3429},
+volume = {195},
+year = {2006},
+month = {Jan},
+language = {English},
+keywords = {Spectral, Algorithms, Fluid, Interaction, High Order, Incompressible Navier Stokes, Free Surface Flow, Navier-Stokes Equations, Fluid-Structure, Level Set, Surface Tension, Discontinuous Galerkin}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1016/j.cma.2006.06.020},
+pmid = {000237507000012},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p43},
+rating = {0}
+}
+
+@Article{Hesthaven:2003p59,
+author = {J. S. Hesthaven},
+journal = {Advances in Imaging and Electron Physics},
+title = {High-Order Accurate Methods in
+                Time-Domain Computational Electromagnetics. A Review},
+volume = {127},
+year = {2003},
+pages = {59--123} }
+
+@book{Hesthaven2007,
+author = {J.S. Hesthaven, S. Gottlieb, and D. Gottlieb},
+publisher = {Cambridge University Press},
+year = {2007},
+title = {Spectral Methods for Time-Dependent Problems},
+volume = {21} }
+
+@Article{Hesthaven:2006p45,
+author = {J. S Hesthaven and S. M Kaber and L Lurati}, 
+journal = {J Sci Comput},
+title = {Pade-legendre interpolants for Gibbs reconstruction},
+abstract = {We discuss the use of Pade-Legendre interpolants as an approach for the postprocessing of data contaminated by Gibbs oscillations. A fast interpolation based reconstruction is proposed and its excellent performance illustrated on several problems. Almost non-oscillatory behavior is shown without knowledge of the position of discontinuities. Then we consider the performance for computational data obtained from nontrivial tests, revealing some sensitivity to noisy data. A domain decomposition approach is proposed as a partial resolution to this and illustrated with examples.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {2-3},
+pages = {337--359},
+volume = {28},
+year = {2006},
+month = {Jan},
+language = {English},
+keywords = {Legendre Polynomials, Resolution, Spectral Data, Gegenbauer Reconstruction, Pade Interpolants, Edges, Approximations, Gibbs Phenomenon}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1007/s10915-006-9085-9},
+pmid = {000240106000012},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p45},
+rating = {0}
+}
+
+@Article{Hesthaven:2008p32,
+author = {Jan S Hesthaven and Robert M Kirby}, 
+journal = {Math. Comp.},
+title = {Filtering in Legendre spectral methods},
+abstract = {We discuss the impact of modal filtering in Legendre spectral methods, both on accuracy and stability. For the former, we derive sufficient conditions on the filter to recover high order accuracy away from points of discontinuity. Computational results confirm that less strict necessary conditions appear to be adequate. We proceed to discuss a instability mechanism in polynomial spectral methods and prove that filtering suffices to ensure stability. The results are illustrated by computational experiments.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {263},
+pages = {1425--1452},
+volume = {77},
+year = {2008},
+month = {Jan},
+language = {English},
+keywords = {Sobolev Spaces, Stabilization, Spectral Methods, Legendre Polynomials, Resolution, Nonlinear Conservation-Laws, Element Methods, Boundary-Conditions, Filtering, Stability, Viscosity Method}, 
+date-added = {2008-12-23 11:52:28 -0500},
+date-modified = {2008-12-23 11:52:28 -0500},
+pmid = {000257559400010},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p32},
+rating = {0}
+}
+
+@Article{Hesthaven:2002p68,
+author = {JS Hesthaven and T Warburton}, 
+journal = {J Comput Phys},
+title = {Nodal high-order methods on unstructured grids - I. Time-domain solution of Maxwell's equations},
+abstract = {We present a convergent high-order accurate scheme for the solution of linear conservation laws in geometrically complex domains. As our main example we include a detailed development and analysis of a scheme for the time-domain solution of Maxwell's equations in a three-dimensional domain. The fully unstructured spatial discretization is made possible by the use of a high-order nodal basis, employing multivariate Lagrange polynomials defined on the triangles and tetrahedra, while the equations themselves are satisfied in a discontinuous Galerkin form with the boundary conditions being enforced weakly through a penalty term. Accuracy, stability, and convergence of the semidiscrete approximation to Maxwell's equations is established rigorously and bounds on the growth of the global divergence error are provided. Concerns related to efficient implementations are discussed in detail. This sets the stage for the presentation of examples, verifying the theoretical results, and illustrating the versatility, flexibility, and robustness when solving two- and three-dimensional benchmark problems in computational electromagnetics. Pure scattering as well as penetration is discussed and high parallel performance of the scheme is demonstrated. (C) 2002 Elsevier Science (USA).},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {1},
+pages = {186--221},
+volume = {181},
+year = {2002},
+month = {Jan},
+language = {English},
+keywords = {Spectral Methods, Linear Conservation Laws, Finite-Element Methods, High-Order Accuracy, Simulations, Hyperbolic-Equations, Computation, Conservation-Laws, Stable Spectral Methods, Unstructured Grids, Compilation, Stability, Discontinuous Galerkin Method, Maxwell's Equations, Monomial Cubature Rules, Convergence, Electromagnetic Scattering}, 
+date-added = {2008-12-23 11:55:44 -0500},
+date-modified = {2008-12-23 11:55:44 -0500},
+doi = {10.1006/jcph.2002.7118},
+pmid = {000177982800008},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p68},
+rating = {0}
+}
+
+@Article{Hesthaven:2004p49,
+author = {JS Hesthaven and T Warburton}, 
+journal = {Cmes-Comp Model Eng},
+title = {High-order accurate methods for time-domain electromagnetics},
+abstract = {We discuss the formulation, validation, and parallel performance of a high-order accurate method for the time-domain solution of the three-dimensional Maxwell's equations on general unstructured grids. Attention is paid to the development of a general discontinuous element/penalty approximation to Maxwell's equations and a locally divergence free form of this. We further discuss the motivation for using a nodal Lagrangian basis for the accurate and efficient representation of solutions and operators. The performance of the scheme is illustrated by solving benchmark problems as well as large scale scattering applications.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {5},
+pages = {395--407},
+volume = {5},
+year = {2004},
+month = {Jan},
+language = {English},
+keywords = {Scattering, Unstructured Grids, Parallel Computing, Elements, Stable Spectral Methods, High-Order Accurate Methods, Computation, Time-Domain Cem, Maxwells Equations, Maxwell's Equations, Difference Scheme}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+pmid = {000221519100002},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p49},
+rating = {0}
+}
+
+@Article{Warburton:2003p65,
+author = {T Warburton and JS Hesthaven}, 
+journal = {Comput Method Appl M},
+title = {On the constants in hp-finite element trace inverse inequalities},
+abstract = {We derive inverse trace inequalities for hp-finite elements. Utilizing orthogonal polynomials, we show how to derive explicit expressions for the constants when considering triangular and tetrahedral elements. We also discuss how to generalize this technique to the general d-simplex. (C) 2003 Elsevier Science B.V. All rights reserved.},
+affiliation = {Univ New Mexico, Dept Math {\&} Stat, Albuquerque, NM 87131 USA},
+number = {25},
+pages = {2765--2773},
+volume = {192},
+year = {2003},
+month = {Jan},
+language = {English},
+keywords = {Trace Inverse Inequality, Hp-Finite Element, Triangle}, 
+date-added = {2008-12-23 11:55:44 -0500},
+date-modified = {2008-12-23 11:55:44 -0500},
+doi = {10.1016/S0045-7825(03)00294-9},
+pmid = {000183810700005},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p65},
+rating = {0}
+}
+
+@Article{Hesthaven:2004p54,
+author = {JS Hesthaven and T Warburton}, 
+journal = {Philos T Roy Soc A},
+title = {High-order nodal discontinuous Galerkin methods for the Maxwell eigenvalue problem},
+abstract = {The Maxwell eigenvalue problem is known to pose difficulties for standard numerical methods, predominantly due to its large null space. As an alternative to the widespread use of Galerkin finite-element methods based on curl-conforming elements, we propose to use high-order nodal elements in a discontinuous element scheme.We consider both two- and three-dimensional problems and show the former to be without problems in a wide range of cases. Numerical experiments suggest the validity of this for general problems. For the three-dimensional eigenproblem, we encounter difficulties with a naive formulation of the scheme and propose minor modifications, intimately related to the discontinuous nature of the formulation, to overcome these concerns. We conclude by connecting the findings to time domain solution of Maxwell's equations.The discussion, analysis, and numerous computational experiments suggest that using discontinuous element schemes for solving Maxwell's equation in the frequency or time-domain present a high-order accurate, efficient and robust alternative to classical Galerkin finite-element methods.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {1816},
+pages = {493--524},
+volume = {362},
+year = {2004},
+month = {Jan},
+language = {English},
+keywords = {Elliptic Problems, High-Order Accuracy, Modes, Mixed Finite-Elements, Fields, Equations, Spurious Solutions, Approximation, Edge-Elements, Spurious Eigenvalues, Curl-Conforming Elements, Maxwell's Equations, Eigenvalue Problems, Discontinuous Galerkin Methods, Computations, Electromagnetic Scattering}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1098/rsta.2003.1332},
+pmid = {000220407200005},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p54},
+rating = {0}
+}
+
+@Article{Jacobs:2006p39,
+author = {GB Jacobs and JS Hesthaven}, 
+journal = {J Comput Phys},
+title = {High-order nodal discontinuous Galerkin particle-in-cell method on unstructured grids},
+abstract = {We present a high-order particle-in-cell (PIC) algorithm for the simulation of kinetic plasmas dynamics. The core of the algorithm utilizes an unstructured grid discontinuous Galerkin Maxwell field solver combining high-order accuracy with geometric flexibility. We introduce algorithms in the Lagrangian framework that preserve the favorable properties of the field solver in the PIC solver. Fast full-order interpolation and effective search algorithms are used for tracking individual particles on the general grid and smooth particle shape functions are introduced to ensure low noise in the charge and current density. A pre-computed levelset distance function is employed to represent the geometry and facilitates complex particle-boundary interaction. To enforce charge conservation we consider two different techniques, one based on projection and one on hyperbolic cleaning. Both are found to work well, although the latter is found be too expensive when used with explicit time integration. Examples of simple plasma phenomena, e.g., plasma waves, instabilities, and Landau damping are shown to agree well with theoretical predictions and/or results found by other computational methods. We also discuss generic well known problems such as numerical Cherenkov radiation and grid heating before presenting a few two-dimensional tests, showing the potential of the current method to handle fully relativistic plasma dynamics in complex geometries. 2005 Elsevier Inc. All rights reserved.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {1},
+pages = {96--121},
+volume = {214},
+year = {2006},
+month = {Jan},
+language = {English},
+keywords = {Plasma, Plasma Physics, High-Order Methods, Unstructured Grids, Particle-In-Cell, Model, Solvers, Magnetron, Simulation, Maxwell Equations, Radiation, Discontinuous Galerkin Methods}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2009-03-19 16:32:50 -0400},
+doi = {10.1016/j.jcp.2005.09.008},
+pmid = {000236417400006},
+URL = {http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6WHY-4HDX8VW-2&_user=489286&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000022678&_version=1&_urlVersion=0&_userid=489286&md5=59ddae1ad5c151971a37407b11c4895f},
+local-url = {file://localhost/Users/jansh/Documents/Papers/2006/Jacobs/J%20Comput%20Phys%202006%20Jacobs.pdf},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p39},
+rating = {0}
+}
+
+@Article{Kanevsky:2007p33,
+author = {Alex Kanevsky and Mark H Carpenter and David Gottlieb and Jan S Hesthaven}, 
+journal = {J Comput Phys},
+title = {Application of implicit-explicit high order Runge-Kutta methods to discontinuous-Galerkin schemes},
+abstract = {Despite the popularity of high-order explicit Runge-Kutta (ERK) methods for integrating semi-discrete systems of equations, ERK methods suffer from severe stability-based time step restrictions for very stiff problems. We implement a discontinuous Galerkin finite element method (DGFEM) along with recently introduced high-order implicit-explicit Runge-Kutta (IMEX-RK) schemes to overcome geometry-induced stiffness in fluid-flow problems. The IMEX algorithms solve the non-stiff portions of the domain using explicit methods, and isolate and solve the more expensive stiff portions using an L-stable, stiffly-accurate explicit, singly diagonally implicit Runge-Kutta method (ESDIRK). Furthermore, we apply adaptive time-step controllers based on the embedded temporal error predictors. We demonstrate in a number of numerical test problems that IMEX methods in conjunction with efficient preconditioning become more efficient than explicit methods for systems exhibiting high levels of grid-induced stiffness. (c) 2007 Elsevier Inc. All rights reserved.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {2},
+pages = {1753--1781},
+volume = {225},
+year = {2007},
+month = {Jan},
+language = {English},
+keywords = {Navier-Stokes Equations, Partial-Differential-Equations, Flow, Numerical-Solution, Stepsize Selection, Discontinuous Galerkin Finite Element Method (Dgfem), High-Order, Element Method, Control-Theoretic Techniques, Implicit-Explicit (Imex) Method}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1016/j.jcp.2007.02.021},
+pmid = {000255304500029},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p33},
+rating = {0}
+}
+
+@Article{Kanevsky:2006p40,
+author = {Alex Kanevsky and Mark H Carpenter and Jan S Hesthaven}, 
+journal = {J Comput Phys},
+title = {Idempotent filtering in spectral and spectral element methods},
+abstract = {The comparison of numerical results for implicit-explicit and fully explicit Runge-Kutta time integration methods for a nozzle flow problem shows that filtering can significantly degrade the accuracy of the numerical solution for long-time integration problems. We demonstrate analytically and numerically that filtering-in-time errors become additive for parallel to u(N)(x, t + k Delta t) - u(N)(x, t)parallel to << parallel to u(N)(x, t)parallel to when nonidempotent filters are used, and suggest the development and implementation of idempotent filters. (c) 2006 Elsevier Inc. All rights reserved.},
+affiliation = {Brown Univ, Div Appl Math, Providence, RI 02912 USA},
+number = {1},
+pages = {41--58},
+volume = {220},
+year = {2006},
+month = {Jan},
+language = {English},
+keywords = {Implicit-Explicit (Imex) Runge-Kutta, Fourier Method, Resolution, Idempotent, Equations, Modal Filters, Gibbs Phenomenon, Spectral Methods}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1016/j.jcp.2006.05.014},
+pmid = {000243079600004},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p40},
+rating = {0}
+}
+
+@Article{Kilic:2006p46,
+author = {MS Kilic and GB Jacobs and JS Hesthaven and G Haller}, 
+journal = {Physica D},
+title = {Reduced Navier-Stokes equations near a flow boundary},
+abstract = {We derive a hierarchy of PDEs for the leading-order evolution of wall-based quantities, such as the-skin-friction and the wall-pressure gradient, in two-dimensional fluid flows. The resulting Reduced Navier-Stokes (RNS) equations are defined on the boundary of the flow, and hence have reduced spatial dimensionality compared to the Navier-Stokes equations. This spatial reduction speeds up numerical computations and makes the equations attractive candidates for flow-control design. We prove that members of the RNS hierarchy are well-posed if appended with boundary-conditions obtained from wall-based sensors. We also derive the lowest-order RNS equations for three-dimensional flows. For several benchmark problems, our numerical simulations show close finite-time agreement between the solutions of RNS and those of the full Navier-Stokes equations. (c) 2006 Elsevier B.V. All rights reserved.},
+affiliation = {MIT, Dept Mech Engn, Cambridge, MA 02139 USA},
+number = {2},
+pages = {161--185},
+volume = {217},
+year = {2006},
+month = {Jan},
+language = {English},
+keywords = {Reduced-Order Models, Flow Control, Navier-Stokes Equations, Separation, Turbulence}, 
+date-added = {2008-12-23 11:53:10 -0500},
+date-modified = {2008-12-23 11:53:10 -0500},
+doi = {10.1016/j.physd.2006.04.008},
+pmid = {000238278700007},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p46},
+rating = {0}
+}
+
+@article{Salman:2006p138,
+author = {Hayder Salman and Jan S Hesthaven and Tim Warburton and George Haller}, 
+journal = {Theor Comp Fluid Dyn},
+title = {Predicting transport by Lagrangian coherent structures with a high-order method},
+number = {1},
+pages = {39--58},
+volume = {21},
+year = {2006},
+month = {Dec},
+date-added = {2008-12-25 17:35:40 -0500},
+date-modified = {2008-12-25 17:35:40 -0500},
+doi = {10.1007/s00162-006-0031-0},
+pii = {31},
+local-url = {file://localhost/Users/jansh/Documents/Papers/2006/Salman/Theor%20Comp%20Fluid%20Dyn%202006%20Salman.pdf},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p138},
+rating = {0}
+}
+
+@ProceedingsPaper{Nielsen:2002p61,
+author = {SA Nielsen and JS Hesthaven}, 
+journal = {Ultrasonics},
+title = {A multi-domain Chebyshev collocation method for predicting ultrasonic field parameters in complex material geometries},
+abstract = {The use of ultrasound to measure elastic field parameters as well as to detect cracks in solid materials has received much attention, and new important applications have been developed recently, e.g., the use of laser generated ultrasound in non-destructive evaluation (NDE). To model such applications requires a realistic calculation of field parameters in complex geometries with discontinuous, layered materials.In this paper we present an approach for solving the elastic wave equation in complex geometries with discontinuous layered materials. The approach is based on a pseudospectral elastodynamic formulation, giving a direct solution of the time-domain elastodynamic equations. A typical calculation is performed by decomposing the global computational domain into a number of subdomains. Every subdomain is then mapped on a unit square using transfinite blending functions and spatial derivatives are calculated efficiently by a Chebyshev collocation scheme. This enables that the elastodynamic equations can be solved within spectral accuracy, and furthermore, complex interfaces can be approximated smoothly, hence avoiding staircasing. A global solution is constructed from the local solutions by means of characteristic variables. Finally, the global solution is advanced in time using a fourth order Runge-Kutta scheme. Examples of field prediction in discontinuous solids with complex geometries are given and related to ultrasonic NDE. (C) 2002 Elsevier Science B.V. All rights reserved.},
+affiliation = {Riso Natl Lab, Dept Opt {\&} Fluid Dynam, OFD 128, DK-4000 Roskilde, Denmark},
+number = {1-8},
+pages = {177--180},
+volume = {40},
+year = {2002},
+month = {Jan},
+language = {English},
+keywords = {Finite-Difference, Pseudospectral, Elastic Scattering, Complex Geometries, Elastic-Wave-Equation, Multi-Domain}, 
+date-added = {2008-12-23 11:55:44 -0500},
+date-modified = {2008-12-23 11:55:44 -0500},
+pmid = {000176648000030},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p61},
+rating = {0}
+}
+
+@article{Hesthaven2009CiCP,
+author = {J. S. Hesthaven and S. Lau, and H. Pfieffer},
+title = {IMEX Evolution of Scalar Fields on Curved Backgrounds}, 
+journal = {Comm. Comput. Phys.},
+year = {2009} }
+
+
+@article{Field2009,
+author = {S.E. Field and  J.S. Hesthaven, and S.R. Lau}, 
+year = {2009}, 
+title = {Discontinuous Galerkin method for computing gravitational waveforms for extreme mass ratio binaries}, 
+journal  = {Classical and Quantum Gravity} }
+
+@article{Flaherty94, 
+author = {R. Biswas and K.D. Devine and J. Flaherty}, 
+title = {Parallel, adaptive finite element methods for conservation laws}, 
+journal = {Appl. Numer. Math.},
+volume = {14},
+year = {1994}, 
+pages = {255--283} 
+}
+
+@article{CockburnGremaud96,
+author = {B. Cockburn and P.A. Gremaud}, 
+title = {Error estimates for finite element methods for nonlinear conservation laws},
+journal = {SIAM J. Numer. Anal.},
+volume = {33},
+year = {1996},
+pages = {522-554}
+}
+
+@article{HoustonPerugia06,
+author = {P. Houston and I. Perugia and D. Sch\"{o}tzau},
+title = {An a posteriori error indicator for discontinuous Galerkin discretizations of H(curl)-elliptic 
+partial differential equations},
+journal = {IMA J. Numer. Anal.},
+volume = { 27},
+year = {2007}, 
+pages = {122-150}
+}
+
+@article{HoustonPerugia05,
+author = {P. Houston and I. Perugia and D. Sch\"{o}tzau},
+title = {Energy norm a posteriori error estimation for mixed discontinuous Galerkin 
+approximations of the Maxwell operator},
+journal = {Comput. Methods Appl. Mech. Eng.},
+volume = {194},
+year = {2005}, 
+pages = {499-510}
+}
+
+@article{HoustonSchotzau05,
+author = {P. Houston and D. Sch\"{o}tzau and T. Wihler},
+title = {Energy norm a posteriori error estimation for mixed discontinuous Galerkin approximations of the Stokes problem}, 
+journal = {J. Sci. Comput.},
+volume = { 22},
+year = {2005}, 
+pages = {347-370} }
+
+@article{ HoustonSuli06,
+author = {P. Houston and E. Suli and T.P. Wihler},
+title = { A posteriori error analysis of hp-version discontinuous Galerkin finite element methods for 
+second-order quasilinear elliptic problems}, 
+journal = {IMA J. Numer. Anal.},
+year = {2007}}
+
+
+@article{ HartmannHouston02a,
+author = {R. Hartmann and P. Houston},
+title = {Adaptive discontinuous Galerkin finite element methods for nonlinear hyperbolic conservation laws},  
+journal = {SIAM J. Sci. Comput.},
+volume = {24},
+year = {2002}, 
+pages = {979-1004}
+}
+
+@article{ HartmannHouston02b, 
+author = {R. Hartmann and P. Houston},
+title = {Adaptive discontinuous Galerkin finite element methods for the compressible Euler equations},
+journal = {J. Comput. Phys.},
+volume = {183},
+year = {2002}, 
+pages = {508-532}
+}
+
+@article{ HoustonSenior02,
+author = {P. Houston and B. Senior and E. Suli},
+title = {hp-Discontinuous Galerkin finite element methods for hyperbolic problems: Error analysis and adaptivity}, 
+journal = {Int. J. Numer. Methods Fluids},
+volume = {40},
+year = {2002}, 
+pages = {153-169}
+}
+
+@article{ HoustonSuli02,
+author = {P. Houston and E. Suli},
+title = {hp-Adaptive discontinuous Galerkin finite element methods for first-order hyperbolic problems}, journal = {SIAM J. Sci. Comput.},
+volume = {23},
+year = {2002}, 
+pages = {1226-1252}
+}
+
+@article{ CockburnKanschat01,
+author = {B. Cockburn and  G. Kanschat and I. Perugia and D. Sch\"{o}tzau},
+title = {Superconvergence of the local discontinuous Galerkin method for elliptic problems on Cartesian grids}, 
+journal = {SIAM J. Numer. Anal.},
+volume = {39},
+year = {2001}, 
+pages = {264-285}
+}
+
+@article{ AdjeridBaccouch07,
+author = {S. Adjerid and M. Baccouch},
+title = { The discontinuous {G}alerkin method for two-dimensional hyperbolic problems. {P}art {I}:
+{S}uperconvergence error analysis}, 
+journal = {J. Sci. Comput.},
+volume = {33},
+year = {2007}, 
+pages = {75-113}
+}
+
+@article{ AdjeridDevine02,
+author = {S. Adjerid and K. Devine and J. Flaherty and L. Krivodonova},
+title = { A posteriori error estimation for discontinuous {G}alerkin solutions of hyperbolic problems}, 
+journal = {Comput. Methods Appl. Mech. Eng.},
+volume = {191},
+year = {2002}, 
+pages = {1097-1112}
+}
+
+@article{ AdjeridMassey02,
+author = {S. Adjerid and T.C. Massey}, 
+title = { A posteriori discontinuous finite element error estimation for two-dimensional hyperbolic problems},
+journal = {Comput. Methods Appl. Mech. Eng.},
+volume = { 191},
+year = {2002}, 
+pages = {5877-5897}
+}
+
+@article{ AdjeridMassey06,
+author = {S. Adjerid and T.C. Massey}, 
+title = {Superconvergence of discontinuous finite element solutions for nonlinear scalar hyperbolic problems},
+journal = {Comput. Methods Appl. Mech. Eng.},
+volume = { 195},
+year  = {2006}, 
+pages = {3331-3346}
+}
+
+@article{ FlahertyKrivodonova02,
+author = {J. Flaherty and L. Krivodonova and J.-F. Remacle and M. Shephard}, 
+title = { Aspects of discontinuous {G}alerkin methods for hyperbolic conservation laws}, 
+journal = {Finite Elem. Anal. Design}, 
+volume = { 38},
+year = {2002},
+pages = {889 - 908}
+}
+
+@article{ KrivodonovaFlaherty03,
+author = {L. Krivodonova and J. Flaherty},
+title = { Error estimation for discontinuous Galerkin solutions of multidimensional hyperbolic 
+problems}, 
+journal = {Adv. Comput. Math.},
+volume = { 19},
+year = {2003}, 
+pages = {57-71}
+}
+
+@article{AdjeridWeinhart09,
+author = {S. Adjerid and T. Weinhart},
+title = {Discontinuous {G}alerkin error estimation for linear symmetric hyberbolic systems},
+journal = {Comput. Methods Appl. Mech. Eng.},
+volume = {198},
+year  = {2009}, 
+pages = {3113-3129}
+}
+
+@article{Flaherty97,
+author = {Joseph E. Flaherty and Raymond M. Loy and Mark S. Shephard and
+Boleslaw K. Szymanski and James D. Teresco and Louis H. Ziantz},
+title = {Adaptive local refinement with octree load balancing for the parallel solution of three-dimensional conservation laws}, 
+journal = {Journal of Parallel and Distributed Computing}, 
+volume = {47},
+pages = {139Ð152}, 
+year ={1997}
+}
+
+@techreport{Remacle01,
+author = {Jean-Francois Remacle and Katia Pinchedez and Joseph E. Flaherty and
+Mark S. Shephard},
+title={An efficient local time stepping-discontinuous {G}alerkin scheme for adaptive transient computations}, 
+number = {2001-13},
+institution = {SCOREC, RPI, Troy},
+year = {2001}
+}
+
+@article{Dawson00,
+author = {Clint Dawson and Robert Kirby},
+title = {High resolution schemes for conservation laws with locally varying time steps}, 
+journal = {SIAM Journal on Scientific Computing}, 
+volume = {22},
+pages = {2256Ð2281}, 
+year = {2000}
+}
+
+@article{Piperno06,
+author = {Serge Piperno},
+title = {Symplectic local time-stepping in non-dissipative DGTD methods applied to wave propagation problems}, 
+journal = {ESIAM: Mathematical Modelling and Numerical Analysis},
+volume = {40},
+pages = {815Ð 841}, 
+year = {2006}
+}
+
+@article{Dumbser07,
+author = {Michael Dumbser and Martin Kaser and Eleuterio F. Toro},
+title = {An arbitrary high-order Discontinuous {G}alerkin method for elastic waves on unstructured meshes - {V}. {L}ocal time stepping and p-adaptivity}, 
+journal = {Geophysical Journal International}, 
+volume = {171},
+pages = {695Ð717}, 
+year = {2007}
+}
+
+@article{Diaz07,
+author = {Julien Diaz and Marcus J. Grote},
+ title = {Energy Conserving Explicit Local Time Stepping for Second-Order Wave Equations},
+ journal = {SIAM J. Sci. Comput.},
+ issue_date = {February 2009},
+ volume = {31},
+ number = {3},
+ month = mar,
+ year = {2009},
+ issn = {1064-8275},
+ pages = {1985--2014},
+ numpages = {30},
+ url = {http://dx.doi.org/10.1137/070709414},
+ doi = {10.1137/070709414},
+ acmid = {1654739},
+ publisher = {Society for Industrial and Applied Mathematics},
+ address = {Philadelphia, PA, USA},
+ keywords = {acoustic waves, discontinuous Galerkin methods, electromagnetic waves, energy conservation, explicit methods, finite element methods, mass lumping, second-order hyperbolic problems, time reversible methods, wave equation},
+} 
+}
+
+@article{Gear84,
+author = {C.W.Gear and D.R.Wells},
+title = {Multirate linear multistep methods},
+journal = {BIT Numerical Methods},
+volume = {24},
+pages = {484-502},
+year = {1984}
+}
+
+@article{Constantinescu:2007p291,
+author = {E Constantinescu and A Sandu}, 
+journal = {Computer Science Technical Report TR-07-12},
+title = {Update on multirate timestepping methods for hyperbolic conservation laws},
+pages = {39},
+year = {2007},
+month = {Mar},
+date-added = {2009-02-28 21:18:43 -0500},
+date-modified = {2009-02-28 21:20:19 -0500},
+local-url = {file://localhost/Users/jansh/Documents/Papers/2007/Constantinescu/Computer%20Science%20Technical%20Report%20TR-07-12%202007%20Constantinescu.pdf},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p291},
+rating = {0}
+}
+
+@article{Constantinescu:2007,
+author = {E.M. Constantinescu and A. Sandu},
+title = {Multirate Timestepping Methods for Hyperbolic
+Conservation Laws},
+journal = {J. Sci. Comput.},
+volume = {33},
+pages = {239-278},
+year = {2007}
+}
+
+@article{Constantinescu:2008p281,
+author = {Emil Constantinescu and Adrian Sandu}, 
+journal = {Computer Science Technical Report, Virginia Tech},
+title = {Achieving Very High Order for Implicit Explicit Time-Stepping: Extrapolation Methods},
+pages = {52},
+volume = {TR-8-13},
+year = {2008},
+month = {Jul},
+date-added = {2009-02-20 15:26:08 -0500},
+date-modified = {2009-02-20 15:29:39 -0500},
+local-url = {file://localhost/Users/jansh/Documents/Papers/2008/Constantinescu/Computer%20Science%20Technical%20Report%20Virginia%20Tech%202008%20Constantinescu.pdf},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p281},
+rating = {0}
+}
+
+@article{Sandu:2007p288,
+author = {A Sandu and E M Constantinescu}, 
+journal = {Computer Science Technical Report TR-07-30},
+title = {Multirate explicit Adams methods for time integration of conservation laws},
+pages = {27},
+year = {2007},
+month = {Aug},
+date-added = {2009-02-28 21:14:24 -0500},
+date-modified = {2009-02-28 21:16:42 -0500},
+local-url = {file://localhost/Users/jansh/Documents/Papers/2007/Sandu/Computer%20Science%20Technical%20Report%20TR-07-30%202007%20Sandu.pdf},
+uri = {papers://8ADD888E-F648-488F-AFAB-E6F729DC7C4D/Paper/p288},
+rating = {0}
+}
+
+@article{Sandu:2009,
+author = {A. Sandu and E.M. Constantinescu},
+title = {Multirate explicit {A}dams methods for time integration of conservation laws},
+journal = {J. Sci. Comput.},
+volume = {38},
+pages = {229-249},
+year = {2007}
+}
+
+@article{Krivodonova2010,
+author = {L. Krivodonova},
+title = {An efficient local time-stepping scheme for solution of nonlinear
+conservation laws},
+journal = {J. Comp. Phys.},
+volume = {229},
+pages = {8537-8551},
+year = {2010}
+}
+
+@article{Kopriva2013,
+author = {A.R. Winters and D.A. Kopriva},
+title = {High-Order Local Time Stepping on Moving {DG} Spectral Element Meshes},
+journal = {J. Sci. Comput.},
+year = {2013},
+note = {in press}
+}
+
+@article{Grote2011,
+  author =   "Grote, M.J. and Mitkova, T.",
+  title =    "{High-order explicit local time-stepping methods for damped wave
+               equations}",
+  journal = "arXiv:1109.4480",
+  year =     2011,
+  eprint =   "1109.4480",
+  archivePrefix ="arXiv",
+  primaryClass = "math.NA",
+}
+
+
+@book{Hairer1,
+author = {E. Hairer and S.P. N\o rsett and G. Wanner}, 
+title = {Solving Odinary Differential Equations I. Nonstiff Problems.},
+year = {1987},
+volume = {8},
+publisher = {Springer Verlag, Berlin},
+series = {Springer Series in Computational Mathematics}
+}
+    
+@book{Hairer2,
+author = {E. Hairer and G. Wanner},
+title = {Solving Ordinary Differential Equations II. Stiff and Differential-Algebraic Problems},
+year = {1991},
+volume = {14},
+publisher = {Springer Verlag, Berlin},
+series = {Springer Series in Computational Mathematics}
+}
+   
+
+
+
+%% This BibTeX bibliography file was created using BibDesk.
+%% http://bibdesk.sourceforge.net/
+
+
+%% Created for Yunrong Zhu at 2009-09-16 14:05:24 -0700 
+
+
+%% Saved with string encoding Unicode (UTF-8) 
+
+
+
+@article{Arnold.D;Brezzi.F;Cockburn.B;Marini.L2002,
+	Author = {Douglas N. Arnold and Franco Brezzi and Bernardo Cockburn and L. Donatella Marini},
+	Date-Added = {2009-09-16 14:05:20 -0700},
+	Date-Modified = {2009-09-16 14:05:20 -0700},
+	Journal = {SIAM Journal on Numerical Analysis},
+	Number = {5},
+	Pages = {1749--1779},
+	Rating = {5},
+	Title = {Unified Analysis of Discontinuous {Galerkin} Methods for Elliptic Problems},
+	Volume = {39},
+	Year = {2002}
+}
+
+@article{Cockburn.B;Shu.C1991,
+	Author = {Cockburn, B. and Shu, C.W.},
+	Date-Added = {2009-09-16 14:03:45 -0700},
+	Date-Modified = {2009-09-16 14:03:45 -0700},
+	Journal = {Mathematical Modelling and Numerical Analysis},
+	Pages = {337--361},
+	Title = {{The Runge-Kutta local projection P1-discontinuous Galerkin finite element method for scalar conservation laws}},
+	Volume = {25},
+	Year = {1991}
+}
+
+@article{Cockburn.B;Shu.C1998,
+	Abstract = { In this paper, we study the local discontinuous {Galerkin} (LDG) methods for nonlinear, time-dependent convection-diffusion systems. These methods are an extension of the Runge--Kutta discontinuous {Galerkin} (RKDG) methods for purely hyperbolic systems to convection-diffusion systems and share with those methods their high parallelizability, high-order formal accuracy, and easy handling of complicated geometries for convection-dominated problems. It is proven that for scalar equations, the LDG methods are L2-stable in the nonlinear case. Moreover, in the linear case, it is shown that if polynomials of degree k are used, the methods are kth order accurate for general triangulations; although this order of convergence is suboptimal, it is sharp for the LDG methods. Preliminary numerical examples displaying the performance of the method are shown.},
+	Author = {Bernardo Cockburn and Chi-Wang Shu},
+	Date-Added = {2009-09-16 14:03:45 -0700},
+	Date-Modified = {2009-09-16 14:03:45 -0700},
+	Journal = {SIAM Journal on Numerical Analysis},
+	Number = {6},
+	Pages = {2440--2463},
+	Title = {The local discontinuous {Galerkin} method for time-dependent convection-diffusion systems},
+	Volume = {35},
+	Year = {1998}
+}
+
+@article{Cockburn.B;Shu.C2001,
+	Author = {Bernardo Cockburn and Chi-Wang Shu},
+	Date-Added = {2009-09-16 14:03:45 -0700},
+	Date-Modified = {2009-09-16 14:03:45 -0700},
+	Journal = {Journal of Scientific Computing},
+	Number = {3},
+	Pages = {173--261},
+	Title = {Runge-Kutta Discontinuous {Galerkin} Methods for Convection-Dominated Problems},
+	Volume = {16},
+	Year = {2001}
+}
+
+@book{Repin.S2008,
+	Author = {Repin, Sergey},
+	Date-Added = {2009-09-12 11:04:06 -0700},
+	Date-Modified = {2009-09-12 11:04:06 -0700},
+	Isbn = {978-3-11-019153-0},
+	Mrclass = {35-02 (35A35)},
+	Mrnumber = {MR2458008},
+	Pages = {xii+316},
+	Publisher = {Walter de Gruyter GmbH \& Co. KG, Berlin},
+	Series = {Radon Series on Computational and Applied Mathematics},
+	Title = {A posteriori estimates for partial differential equations},
+	Volume = {4},
+	Year = {2008}}
+
+@article{Lazarov.R;Margenov.S2007,
+	Author = {Lazarov, RD and Margenov, SD},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Journal of Complexity},
+	Number = {4-6},
+	Pages = {498--515},
+	Publisher = {Elsevier},
+	Rating = {5},
+	Title = {{CBS constants for multilevel splitting of graph-Laplacian and application to preconditioning of discontinuous Galerkin systems}},
+	Volume = {23},
+	Year = {2007}
+}
+
+@article{Hartmann.R;Lukacova-Medvidova.M;Prill.F2009,
+	Author = {Hartmann, R. and Luk{\'a}{\v{c}}ov{\'a}-Medvid'ov{\'a}, M. and Prill, F.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Applied Numerical Mathematics},
+	Number = {8},
+	Pages = {1737--1753},
+	Publisher = {Elsevier},
+	Rating = {5},
+	Title = {{Efficient preconditioning for the discontinuous Galerkin finite element method by low-order elements}},
+	Volume = {59},
+	Year = {2009}
+}
+
+@article{Cockburn.B;Gopalakrishnan.J;Lazarov.R2009,
+	Author = {Bernardo Cockburn and Jayadeep Gopalakrishnan and Raytcho Lazarov},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Doi = {10.1137/070706616},
+	Journal = {SIAM Journal on Numerical Analysis},
+	Keywords = {discontinuous Galerkin methods; mixed methods; continuous methods; hybrid methods; elliptic problems},
+	Number = {2},
+	Pages = {1319-1365},
+	Publisher = {SIAM},
+	Rating = {5},
+	Title = {Unified Hybridization of Discontinuous Galerkin, Mixed, and Continuous Galerkin Methods for Second Order Elliptic Problems},
+	Url = {http://link.aip.org/link/?SNA/47/1319/1},
+	Volume = {47},
+	Year = {2009}
+}
+
+@article{Adjerid.S;Devine.K;Flaherty.J;Krivodonova.L2002a,
+	Author = {Adjerid, S. and Devine, K.D. and Flaherty, J.E. and Krivodonova, L.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Computer methods in applied mechanics and engineering},
+	Number = {11-12},
+	Pages = {1097--1112},
+	Publisher = {Elsevier},
+	Rating = {4},
+	Title = {{A posteriori error estimation for discontinuous Galerkin solutions of hyperbolic problems}},
+	Volume = {191},
+	Year = {2002}
+}
+
+@article{Remacle.J;Pinchedez.K;Flaherty.J;Shephard.M2002,
+	Author = {Remacle, J.F. and Pinchedez, K. and Flaherty, J.E. and Shephard, M.S.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Computer Methods in Applied Mechanics and Engineering},
+	Title = {{An efficient local time stepping-discontinuous Galerkin scheme for adaptive transient computations}},
+	Year = {2002}
+}
+
+@article{Palaniappan.J;Haber.R;Jerrard.R2004,
+	Author = {Palaniappan, J. and Haber, R.B. and Jerrard, R.L.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Computer Methods in Applied Mechanics and Engineering},
+	Number = {33-35},
+	Pages = {3607--3631},
+	Publisher = {Elsevier},
+	Title = {{A spacetime discontinuous Galerkin method for scalar conservation laws}},
+	Volume = {193},
+	Year = {2004}
+}
+
+@article{Klaij.C;Van-der-Vegt.J;Van-der-Ven.H2006,
+	Author = {Klaij, CM and Van der Vegt, JJW and Van der Ven, H.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Journal of Computational Physics},
+	Number = {2},
+	Pages = {589--611},
+	Publisher = {Elsevier},
+	Title = {{Space--time discontinuous Galerkin method for the compressible Navier--Stokes equations}},
+	Volume = {217},
+	Year = {2006}
+}
+
+@article{Larson.M;Barth.T1999,
+	Author = {Larson, M.G. and Barth, T.J.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Lecture Notes in Comput. Sci. Engrg},
+	Pages = {363--368},
+	Title = {{A posteriori error estimation for discontinuous Galerkin approximations of hyperbolic systems}},
+	Volume = {11},
+	Year = {1999}
+}
+
+@article{Lovadina.C;Marini.L2009,
+	Author = {C. Lovadina and L.D. Marini},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {J. Sci. Comput.},
+	Pages = {340--359},
+	Title = {A-Posteriori Error Estimates for Discontinuous Galerkin Approximations of Second Order Elliptic Problems},
+	Volume = {40},
+	Year = {2009}
+}
+
+@article{Schotzau.D;Zhu.L2009,
+	Author = {Sch{\"o}tzau, D. and Zhu, L.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Applied Numerical Mathematics},
+	Number = {9},
+	Pages = {2236--2255},
+	Publisher = {Elsevier},
+	Title = {{A robust a-posteriori error estimator for discontinuous Galerkin methods for convection--diffusion equations}},
+	Volume = {59},
+	Year = {2009}
+}
+
+@article{Carstensen.C;Gudi.T;Jensen.M2009,
+	Author = {Carstensen, C. and Gudi, T. and Jensen, M.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Numerische Mathematik},
+	Number = {3},
+	Pages = {363--379},
+	Publisher = {Springer},
+	Title = {{A unifying theory of a posteriori error control for discontinuous Galerkin FEM}},
+	Volume = {112},
+	Year = {2009}
+}
+
+@article{Lazarov.R;Repin.S;Tomar.S2009,
+	Author = {Lazarov, R. and Repin, S. and Tomar, S.K.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Numerical Methods for Partial Differential Equations},
+	Number = {4},
+	Publisher = {Wiley Subscription Services, Inc., A Wiley Company Hoboken},
+	Title = {{Functional a posteriori error estimates for discontinuous Galerkin approximations of elliptic problems}},
+	Volume = {25},
+	Year = {2009}
+}
+
+@article{Brezzi.F;Manzini.G;Marini.D;Pietra.P2000,
+	Author = {Brezzi, F. and Manzini, G. and Marini, D. and Pietra, P. and Russo, A.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {Numerical Methods for Partial Differential Equations},
+	Number = {4},
+	Pages = {365--378},
+	Publisher = {John Wiley \& Sons, Inc. New York},
+	Title = {{Discontinuous Galerkin approximations for elliptic problems}},
+	Volume = {16},
+	Year = {2000}
+}
+
+@article{Cockburn.B1998,
+	Author = {Cockburn, B.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {LECTURE NOTES IN MATHEMATICS-SPRINGER VERLAG-},
+	Pages = {151--268},
+	Publisher = {Springer},
+	Title = {{An introduction to the discontinuous Galerkin method for convection-dominated problems}},
+	Year = {1998}
+}
+
+@article{Kweon.J2001,
+	Author = {Kweon, J.R.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {SIAM Journal on Numerical Analysis},
+	Pages = {699--717},
+	Publisher = {Society for Industrial and Applied Mathematics},
+	Title = {{A discontinuous Galerkin method for convection-dominated compressible viscous Navier-Stokes equations with an inflow boundary condition}},
+	Year = {2001}
+}
+
+@conference{Ungor.A;Sheffer.A2000,
+	Author = {Ungor, A. and Sheffer, A.},
+	Booktitle = {Proc. 9th Int'l. Meshing Roundtable},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Pages = {111--122},
+	Title = {{Tent-Pitcher: A meshing algorithm for space-time discontinuous Galerkin methods}},
+	Year = {2000}
+}
+
+@article{Dobrev.V;Lazarov.R;Vassilevski.P;Zikatanov.L2006,
+	Abstract = {This paper reviews some known and proposes some new preconditioning
+	methods for a number of discontinuous Galerkin (or DG) finite element
+	approximations for elliptic problems of second order. Nested hierarchy
+	of meshes is generally assumed. Our approach utilizes a general two-level
+	scheme, where the finite element space for the DG method is decomposed
+	into a subspace (viewed as an auxiliary or lsquocoarsersquo space),
+	plus a correction which can be handled by a standard smoothing procedure.
+	We consider three different auxiliary subspaces, namely, piecewise
+	linear C0-conforming functions, piecewise linear functions that are
+	continuous at the centroids of the edges/faces (Crouzeix-Raviart
+	finite elements) and piecewise constant functions over the finite
+	elements. To support the theoretical results, we also present numerical
+	experiments for 3-D model problem showing uniform convergence of
+	the constructed methods.},
+	Author = {Dobrev, Veselin A. and Lazarov, Raytcho D. and Vassilevski, Panayot S. and Zikatanov, Ludmil T.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	File = {Dobrev.V\;Lazarov.R\;Vassilevski.P\;Zikatanov.L2006.pdf:Dobrev.V\;Lazarov.R\;Vassilevski.P\;Zikatanov.L2006.pdf:PDF},
+	Journal = {Numerical Linear Algebra with Applications},
+	Number = {9},
+	Owner = {Yunrong Zhu},
+	Pages = {753--770},
+	Timestamp = {2008.07.23},
+	Title = {Two-level preconditioning of discontinuous Galerkin approximations of second-order elliptic equations},
+	Url = {http://dx.doi.org/10.1002/nla.504},
+	Volume = {13},
+	Year = {2006}
+}
+
+@article{Ortner.C;Suli.E2008a,
+	Author = {Ortner, C. and Suli, E.},
+	Date-Added = {2009-09-12 11:02:37 -0700},
+	Date-Modified = {2009-09-12 11:02:37 -0700},
+	Journal = {SIAM Journal on Numerical Analysis},
+	Number = {4},
+	Pages = {1370--1397},
+	Publisher = {[Philadelphia, Pa.]: The Society.},
+	Title = {{Discontinuous Galerkin finite element approximation of nonlinear second-order elliptic and hyperbolic systems}},
+	Volume = {45},
+	Year = {2008}
+}
+
+
+@Misc{mic,
+  title = "{Intel Xeon Phi Many Integrated Cores Technology [MIC]}",
+  url = "http://en.wikipedia.org/wiki/Intel\_MIC",
+}
+
+@techreport{Hyman-1976-Courant-MOL-report,
+        author = "James M. Hyman",
+        title = "The Method of Lines Solution
+                 of Partial Differential Equations",
+        institution = "ERDA Mathematics and Computing Laboratory,
+                       Courant Institute of Mathematical Sciences,
+                       New York University",
+        X-institution = "New York University",
+        department = "ERDA Mathematics and Computing Laboratory,
+                      Courant Institute of Mathematical Sciences",
+        year = 1976, month = "October",
+        snote = "++good; this is the best overall MOL reference I know",
+}
+
+@ARTICLE{fryxell:00,
+   author = {{Fryxell}, B. and {Olson}, K. and {Ricker}, P. and {Timmes}, F.~X. and 
+	{Zingale}, M. and {Lamb}, D.~Q. and {MacNeice}, P. and {Rosner}, R. and 
+	{Truran}, J.~W. and {Tufo}, H.},
+    title = "{FLASH: An Adaptive Mesh Hydrodynamics Code for Modeling Astrophysical Thermonuclear Flashes}",
+  journal = {\apjs},
+ keywords = {Equation of State, Hydrodynamics, Methods: Numerical, Nuclear Reactions, Nucleosynthesis, Abundances, Stars: General},
+     year = 2000,
+    month = nov,
+   volume = 131,
+    pages = {273},
+      doi = {10.1086/317361},
+   adsurl = {http://adsabs.harvard.edu/abs/2000ApJS..131..273F},
+}
+
+@article{Winters2013,
+author = {Winters, A.R. and Kopriva, D.A.},
+title = {High-Order Local Time Stepping on Moving {DG} Spectral
+Element Meshes},
+journal = {J. Sci. Comput.},
+volume = {},
+pages = {},
+year = {May 2013 (online only)}
+}
+
+@article{Krivodonova2007,
+Author = {Krivodonova, Lilia},
+Title = {{Limiters for high-order discontinuous {G}alerkin methods}},
+Journal = {J. Comput. Phys.},
+Year = {{2007}},
+Volume = {{226}},
+Number = {{1}},
+Pages = {{879-896}},
+DOI = {{10.1016/j.jcp.2007.05.011}},
+ISSN = {{0021-9991}},
+Unique-ID = {{ISI:000249936500040}},
+}
+
+@article{Zhu2013,
+Author = {Zhu, Hongqiang and Cheng, Yue and Qiu, Jianxian},
+Title = {{A Comparison of the Performance of Limiters for Runge-Kutta
+   Discontinuous Galerkin Methods}},
+Journal = {Adv. Appl. Math. Mech.},
+Year = {{2013}},
+Volume = {{5}},
+Number = {{3}},
+Pages = {{365-390}},
+DOI = {{10.4208/aamm.2012.m22}},
+ISSN = {{2070-0733}},
+Unique-ID = {{ISI:000322500200006}},
+}
+@ARTICLE{mocz:14,
+   author = {{Mocz}, P. and {Vogelsberger}, M. and {Sijacki}, D. and {Pakmor}, R. and 
+	{Hernquist}, L.},
+    title = "{A discontinuous Galerkin method for solving the fluid and magnetohydrodynamic equations in astrophysical simulations}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1305.5536},
+ primaryClass = "physics.comp-ph",
+ keywords = {MHD, methods: numerical},
+     year = 2014,
+   volume = 437,
+    pages = {397-414},
+      doi = {10.1093/mnras/stt1890},
+   adsurl = {http://adsabs.harvard.edu/abs/2014MNRAS.437..397M},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+@INPROCEEDINGS{zanotti:14,
+   author = {{Zanotti}, O. and {Dumbser}, M. and {Hidalgo}, A. and {Balsara}, D.
+	},
+    title = {An {ADER-WENO} Finite Volume {AMR} code for Astrophysics},
+booktitle = {8th International Conference of Numerical Modeling of Space Plasma Flows (ASTRONUM 2013)},
+     year = 2014,
+   series = {Astronomical Society of the Pacific Conference Series},
+   volume = 488,
+archivePrefix = "arXiv",
+   eprint = {1401.6448},
+ primaryClass = "astro-ph.IM",
+   editor = {{Pogorelov}, N.~V. and {Audit}, E. and {Zank}, G.~P.},
+    month = sep,
+    pages = {285-290},
+   adsurl = {http://adsabs.harvard.edu/abs/2014ASPC..488..285Z},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{endeve:14,
+   author = {{Endeve}, E. and {Hauck}, C.~D. and {Xing}, Y. and {Mezzacappa}, A.
+	},
+    title = {Bound-Preserving Discontinuous {G}alerkin Methods for Conservative Phase Space Advection in Curvilinear Coordinates},
+  journal = {ArXiv:1410.7431},
+archivePrefix = "arXiv",
+   eprint = {1410.7431},
+ primaryClass = "physics.comp-ph",
+ keywords = {Physics - Computational Physics, Astrophysics - Instrumentation and Methods for Astrophysics, General Relativity and Quantum Cosmology},
+     year = 2014,
+    month = oct,
+   adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1410.7431E},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+@article{dubey14,
+title = "A survey of high level frameworks in block-structured adaptive mesh refinement packages ",
+journal = "J. Parallel Distrib. Comput.",
+volume = "74",
+pages = "3217-3227",
+year = "2014",
+issn = "0743-7315",
+doi = "http://dx.doi.org/10.1016/j.jpdc.2014.07.001",
+url = "http://www.sciencedirect.com/science/article/pii/S0743731514001178",
+author = "Anshu Dubey and Ann Almgren and John Bell and Martin Berzins and Steve Brandt and Greg Bryan and Phillip Colella and Daniel Graves and Michael Lijewski and Frank L{\"o}ffler and Brian O'Shea and Erik Schnetter and Brian Van Straalen and Klaus Weide"
+}
+@inproceedings{woodward:13,
+ author = {Woodward, Paul R. and Jayaraj, Jagan and Lin, Pei-Hung and Knox, Michael and Hammond, Simon D. and Greensky, James and Anderson, Sarah E.},
+ title = {Scaling the Multifluid {PPM} Code on {B}lue {W}aters and {I}ntel {MIC}},
+ booktitle = {Proceedings of the 2013 Extreme Scaling Workshop (Xsw 2013)},
+ series = {XSW '13},
+ year = {2013},
+ isbn = {978-1-4799-3691-5},
+ pages = {64--72},
+ numpages = {9},
+ url = {http://dx.doi.org/10.1109/XSW.2013.13},
+ doi = {10.1109/XSW.2013.13},
+ acmid = {2625298},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+ keywords = {high performance computing, petascale computing, multicore processors},
+} 
+
+@manual{uintah,
+ note = {{\texttt{http://uintah.utah.edu}}}
+}
+@manual{charmpp,
+ note = {{\texttt{http://charm.cs.uiuc.edu}}}
+}
+
+@manual{schnetter2014,
+ note = {{\texttt{http://bitbucket.org/eschnett/funhpc.cxx}}}
+}
+
+@article{williamschen:2013,
+  title={Parallel Anisotropic Block-Based Adaptive Mesh Refinement Algorithm For Three-Dimensional Flows},
+  author={Williamschen, MJ and Groth, CPT},
+  journal={American Institute of Aeronautics and Astronautics},
+  pages={2013-2442},
+  year={2013}
+}
+
+@article{zhang:2011,
+  title={Parallel High-Order Anisotropic Block-Based Adaptive Mesh Refinement Finite-Volume Scheme},
+  author={Zhang, Z.J. and Groth, C.P.T.},
+  journal={American Institute of Aeronautics and Astronautics},
+  pages={2011-3695},
+  year={2011}
+}
+
+@article{Schnepp2014353,
+title = "Error-driven dynamical -meshes with the Discontinuous Galerkin Method for three-dimensional wave propagation problems ",
+journal = "Journal of Computational and Applied Mathematics ",
+volume = "270",
+number = "0",
+pages = "353 - 368",
+year = "2014",
+note = "Fourth International Conference on Finite Element Methods in Engineering and Sciences (FEMTEC 2013) ",
+issn = "0377-0427",
+doi = "http://dx.doi.org/10.1016/j.cam.2013.12.038",
+url = "http://www.sciencedirect.com/science/article/pii/S0377042713007115",
+author = "Sascha M. Schnepp",
+keywords = "Discontinuous Galerkin Method",
+keywords = "Dynamical h p -adaptivity",
+keywords = "Error estimation",
+keywords = "Time-domain electromagnetics",
+keywords = "Three-dimensional wave propagation "
+}
+
+@Article{Korus:2012,
+  author =       {Korus, L. and Solin, P.},
+  title =        {An adaptive hphp-DG method with dynamically-changing meshes for non-stationary compressible Euler equations},
+  journal =      {Comput. Fluid Dyn.},
+  year =         {2012},
+  volume =    {2006},
+  pages =     {1-20}
+}
+

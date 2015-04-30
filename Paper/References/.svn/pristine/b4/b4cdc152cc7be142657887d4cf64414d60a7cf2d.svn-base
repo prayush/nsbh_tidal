@@ -1,0 +1,192 @@
+@ARTICLE{Andersson1998,
+    author = {Andersson, N. },
+    title = {A New Class of Unstable Modes of Rotating Relativistic Stars},
+    journal = apj,
+    year = 1998,
+    volume = 502,
+    pages = {708}
+}
+
+@ARTICLE{Friedman1998,
+    author = {Friedman, J. L. and Morsink, S. M.},
+    title = {Axial Instability of Rotating Relativistic Stars},
+    journal = apj,
+    year = 1998,
+    volume = 502,
+    pages = {714}
+}
+
+@ARTICLE{Lindblom1998,
+    author = {Lindblom, L. and Owen, B. J. and Morsink, S. M.},
+    title = {Gravitational Radiation Instability in Hot Young Neutron Stars.},
+    journal = prl,
+    year = 1998,
+    volume = 80,
+    pages = {4843},
+}
+
+@ARTICLE{Andersson1999b,
+    author = {{Andersson}, N.  and {Kokkotas}, K.  and {Schutz}, B. F.},
+    title = {Gravitational Radiation Limit on the Spin of Young Neutron Stars},
+    journal = apj,
+    year = 1999,
+    volume = 510,
+    pages = {846}
+}
+
+@ARTICLE{Owen1998,
+    author = {Owen, B. J. and Lindblom, L. and Cutler, C. and Schutz, B. F. and
+ Vecchio, A. and Andersson, N.},
+    title = {Gravitational waves from hot young rapidly rotating neutron stars
+},
+    journal = prd,
+    year = 1998,
+    volume = 58,
+    pages = {084020},
+}
+
+@ARTICLE{Andersson1999a,
+    author = {Andersson, N.  and Kokkotas, K. D. and Stergioulas, N.
+        },
+    title = {On the Relevance of the R-Mode Instability for Accreting Neutron Stars and White Dwarfs},
+    journal = apj,
+    year = 1999,
+    volume = 516,
+    pages = {307}
+}
+
+@ARTICLE{Bildsten2000,
+    author = {{Bildsten}, L. and Ushomirsky, G.},
+    title = {Viscous Boundary Layer Damping of R-Modes in Neutron Stars},
+    journal = apjlet,
+    year = 2000,
+    volume = 529,
+    pages = {L33}
+}
+
+@ARTICLE{Lindblom2002b,
+        author = {Lindblom, L. and Owen, B. J.},
+    title = {Effect of hyperon bulk viscosity on neutron-star r-modes},
+        journal = prd,
+        volume = 65,
+        pages = {063006},
+        year = 2000
+}
+
+@article{2001PhRvL..86.1152L,
+         author = "L. Lindblom and J. E. Tohline and M. Vallisneri",
+         title = "Non-Linear Evolution of the $r$-Modes in Neutron Stars",
+         journal = prl,
+         volume = 86,
+         year = 2001,
+         pages = {1152}}
+
+@article{lindblomv2,
+         author = "L. Lindblom and J. E. Tohline and M. Vallisneri",
+         title = "Numerical evolutions of nonlinear $r$-modes in neutron stars",
+         journal = prd,
+         volume = 65,
+         year = 2002,
+         pages = {084039}}
+
+@article{Gressman2002,
+         author = "P. Gressman and L.-M. Lin and  W.-M. Suen and N. Stergioulas and J. L. Friedman",
+         title = "Nonlinear r-Modes in Neutron Stars: Instability of an unstable mode",
+         journal = prd,
+         volume = 66,
+         year = 2002,
+         pages = {041303}}
+
+@ARTICLE{Stergioulas2001,
+    author = {Stergioulas, N. and Font, J. A.},
+    title = {Nonlinear $r-$modes in Rapidly Rotating Relativistic Stars.},
+    journal = prl,
+    year = 2001,
+    volume = 86,
+    pages = {1148}
+}
+
+@article{Schenk2002,
+        author = "A. K. Schenk and P. Arras and \'{E}. \'{E}. Flanagan and
+                  S. A. Teukolsky and I. Wasserman",
+        title = "Nonlinear Mode Coupling in Rotating Stars and the $r$-mode
+                 Instability in Neutron Stars",
+        journal = prd,
+        volume = "65",
+        year = 2002,
+        pages = {024001} }
+
+@ARTICLE{Levin1999,
+    author = {Levin, Y. },
+    title = {Runaway Heating by R-Modes of Neutron Stars in Low-Mass {X}-Ray Binaries},
+    journal = apj,
+    year = 1999,
+    volume = 517,
+    pages = {328}
+}
+
+@InProceedings{Wagoner2001,
+  author = "R. V. Wagoner and J. F. Hennawi and J. Liu",
+  title = "Gravitational Radiation Evolution of Accreting Neutron Stars",
+  booktitle = "AIP Conf.~Proc.~586:20th Texas Symposium
+on relativistic astrophysics",
+  editor = "",
+  pages = "781",
+  publisher = "",
+  year = "2001"
+} 
+
+@article{Wagoner2002,
+         author = "R. V. Wagoner",
+         title = "Conditions for Steady Gravitational Radiation from Accreting Neutron Stars",
+         journal = apjlet,
+         volume = 578,
+         year = 2002,
+         pages = {L63}}
+
+@InProceedings{Wagoner2004,
+  author = "R. V. Wagoner",
+  title = "Signatures of gravitational radiation in the spin and temperature evolution of {LMXB} neutron stars",
+  booktitle = "AIP Conf.~Proc.~714: X-ray Timing 2003: Rossi and Beyond",
+  editor = "",
+  pages = "714",
+  publisher = "",
+  year = "2004"
+}
+
+@ARTICLE{Reisenegger2003,
+    author = {Reisenegger, A. and Bona{\v c}i{\'c}, A.},
+    title = {Millisecond pulsars with r-modes as steady gravitational radiators},
+    journal = prl,
+    year = 2003,
+    volume = 91,
+    pages = {201103}
+}
+
+@ARTICLE{Watts2002,
+    author = {Watts, A. L. and Andersson, N.},
+    title = {The spin evolution of nascent neutron stars},
+    journal = mnras,
+    year = 2002,
+    volume = 333,
+    pages = {943}
+}
+
+@ARTICLE{Bildsten1998,
+    author = {{Bildsten}, L.},
+    title = {Gravitational Radiation and Rotation of Accreting Neutron Stars},
+    journal = apjlet,
+    year = 1998,
+    volume = 501,
+    pages = {L89}
+}
+
+@ARTICLE{Andersson2000,
+    author = {Andersson, N. and Jones, D. I. and Kokkotas, K. D. and
+        Stergioulas, N.},
+    title = {R-mode runaway and rapidly rotating neutron stars},
+    journal = apjlet,
+    year = 2000,
+    volume = 534,
+    pages = {L75}
+}

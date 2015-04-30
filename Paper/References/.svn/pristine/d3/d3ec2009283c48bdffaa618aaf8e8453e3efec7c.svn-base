@@ -1,0 +1,10 @@
+NOTE: This References.bib file is shared among many papers.
+Please do not change existing references other than to fix mistakes and
+update information (e.g. when a paper on the archive gets published)
+
+When adding new papers: Use a SENSIBLE bibliography key. DO NOT USE
+ADS identifiers like 2012ApJ...746...48M, use instead human-memorizable
+keys like: Metzger2011 (Christian likes metzger:11).
+
+If a paper is on the arXiv, but not yet published in a journal, put
+"Submittted to Blah Journal, arXiv:XXXX.XXXX", for the journal.

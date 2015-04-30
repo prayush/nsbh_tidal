@@ -1,0 +1,149 @@
+\documentclass[aps,prl,amsmath,floats,floatfix, twocolumn,
+superscriptaddress,nofootinbib,showpacs]{revtex4-1}
+
+\usepackage[colorlinks, pdfborder={0 0 0}, plainpages=false]{hyperref}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{amssymb}
+
+\newcommand{\roughly}{\mathchar"5218\relax} % Different from \sim in spacing
+
+% Macros for text changes
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\dan}[1]{\textcolor{WildStrawberry}{#1}}
+\newcommand{\Mark}[1]{\textcolor{Cerulean}{#1}}
+\newcommand{\larry}[1]{\textcolor{OliveGreen}{#1}}
+\newcommand{\bela}[1]{\textcolor{Blue}{#1}}
+\newcommand{\saul}[1]{\textcolor{Orange}{#1}}
+
+% Macros for text notes and comments
+\newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
+
+
+\newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
+    California Institute of Technology, Pasadena, CA 91125, USA}}
+\newcommand{\Cornell}{\affiliation{Center for Radiophysics and Space
+    Research, Cornell University, Ithaca, New York 14853, USA}}
+\newcommand{\CITA}{\affiliation{Canadian Institute for Theoretical
+    Astrophysics, 60 St.~George Street, University of Toronto,
+    Toronto, ON M5S 3H8, Canada}} %
+\newcommand{\GWPAC}{\affiliation{Gravitational Wave Physics and
+    Astronomy Center, California State University Fullerton,
+    Fullerton, California 92834, USA}} %
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{
+Measuring matter effects in Neutron star - Black hole binaries with Advanced LIGO
+}
+
+\author{People across the Atlantic}
+
+\date{\today}
+
+\begin{abstract}
+Abstract
+\end{abstract}
+
+\pacs{}
+% 04.25.D- Numerical relativity
+% 04.25.dg Numerical studies of black holes and black-hole binaries
+% 04.25.Nx Post-Newtonian approximation; perturbation theory; related approximations 
+% 04.30.-w Gravitational waves (see also 04.80.Nn Gravitational wave detectors and experiments)
+% 04.30.Db Wave generation and sources 
+% 02.70.Hm Spectral methods
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Introduction
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Techniques}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Modeling tidal deformation during inspiral}
+Describe the PN terms used here
+
+\subsection{Modeling tidal disruption near merger}
+Describe the Lackey et al model
+
+\subsection{MCMC methods}
+Describe the emcee-based PE code
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SNR loss from ignoring NS tidal effects}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+See what is the loss in SNR if we recover NSBH signals with a template bank of
+BH-BH waveforms? It is very likely that the answer would be: $<1\%$. But it
+is very interesting to show that for spinning BHs!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Systematic bias in recovered parameters}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Advanced LIGO searches and parameter estimation efforts aimed at binaries 
+containing NS and stellar-mass BHs are poised to use waveform models that do not
+include the effects of the NS tidal deformability. While this is not expected to
+be the dominant source of error at low SNRs, it will likely introduce a
+systematic bias in the physical parameters that we recover from GW observations.
+In this section, we study the impact of the same for binaries where the BH spins
+are aligned to the orbital angular momentum.
+
+\begin{enumerate}
+\item Above what SNR values, below what mass-ratios, above what BH spins, etc, 
+do we begin to care about NS deformability?\newline
+``one interesting plot to make would be the parameter bias (max-Likelihood
+parameters minus true parameters) vs SNR, as functionals of q/sBH/Lambda, when
+using T signals recovered with N templates.''
+\end{enumerate}
+
+
+Could have subsections for aLIGO and ET ?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using templates with tidal effects}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Having shown in the previous section that we begin to care for NS tidal effects
+for signals in the XXX corner of the paraemter space, with SNRs above YY, here
+we investigate the effect of the improvement in the accuracy of the recovered
+parameters when tidal effects are included in the templates.
+
+\begin{enumerate}
+\item What is the reduction in the bias of the maximum likelihood parameters
+when using tidal templates?\newline
+``Plot the ratio of the bias between N templates and T templates (against T
+signals), as a function of SNR.''
+\item What is the reduction in the uncertainty in binary mass and spin, if
+any?\newline
+``show how the the $95\%$ confidence intervals shrink, as a function of SNR, 
+when we go from using N templates to T templates.''
+\end{enumerate}
+
+
+
+Could have subsections for aLIGO and ET ?
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Discussion
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{acknowledgments}
+Acknowledgments
+\end{acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{References/References}
+
+\end{document}
