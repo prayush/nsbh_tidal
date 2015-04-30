@@ -20,3 +20,21 @@ PK: add amplitude and phase modifications in inject.py
 First hardwire Lambda parameter to test
 MP: Then include Lambda as a parameter of the likelihood and prior and update post-processing code.
 
+####################################
+SNR dependence of parameter biases:-
+N = Non-tidal, T = Tidal 
+
+####################################
+**set001**
+Location: /home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set001/ on Sugar
+
+Parameters:
+q = [2, 3], sBH = [-0.5, 0, +0.5], Lambda = [500, 1000, 2000]
+SNR = [20, 30, 40, 50, 60, 70, 80, 90, 100]
+Nwalkers = 100, Nsamples = 6000
+
+Signals/Templates:
+N signals vs N templates
+T signals vs N templates
+T signals vs T templates
+####################################

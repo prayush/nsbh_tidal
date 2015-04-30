@@ -9,9 +9,99 @@ import os, sys
 import commands as cmd
 import numpy as np
 
+
+def tidal_submit_string( idir, exe,\
+                  Lambda, q, m, SNR, chi1, chi2,\
+                  m1max, m2max, Mcstdev, inject_tidal=True,\
+                  LambdaMax=2000, Lambdastdev=100, recover_tidal=True,\
+                  Nwalkers=100, Nsamples=3000, Nburnin=500,\
+                  postprocess_only=False ):
+    #{{{
+    if postprocess_only: print "ONLY POST-Processing!!"
+    print Mcstdev
+    script = '''\
+universe=vanilla
+getenv=True
+initialdir=%s
+\n
+executable=%s
+arguments= --signal_approximant lalsimulation.SEOBNRv2_ROM_DoubleSpin_LM \
+--template_approximant lalsimulation.SEOBNRv2_ROM_DoubleSpin_LM \
+--psd lalsimulation.SimNoisePSDaLIGOZeroDetHighPower \
+--q_signal %f \
+--M_signal %f \
+--snr %f \
+'''
+    if not recover_tidal:
+      script += '''\
+--chi1_signal %f \
+'''
+    script += '''\
+--chi2_signal %f \
+--f_min 15.0 \
+--f_max 4096.0 \
+--deltaF 0.5 \
+--m1_min 1.2 \
+--m1_max %f \
+--m2_min 1.2 \
+--m2_max %f \
+--nwalkers %d  \
+--nsamples %d \
+--burnin %d \
+--chi1_min -0.99 \
+--chi1_max 0.98 \
+--chi2_min -0.99 \
+--chi2_max 0.98 \
+--Mc_stdev_init %f \
+'''
+    #
+    if inject_tidal:
+      script += '''\
+--inject-tidal \
+--Lambda_signal %f \
+'''
+    #
+    if recover_tidal:
+      script += '''\
+--Lambda_max %f \
+--Lambda_stdev_init %f \
+'''
+    #
+    if postprocess_only:
+      script += '''\
+-R . \
+'''
+    #
+    script += '''\
+\n
+log=logs/job.log
+output=logs/job.out
+error=logs/job.err
+notification=Always
+notify_user=prkumar@cita.utoronto.ca
+queue 1
+  '''
+    #
+    if inject_tidal and not recover_tidal:
+      buff = script %( idir, exe, q, m, SNR, chi1, chi2, m1max, m2max,\
+        Nwalkers, Nsamples, Nburnin, Mcstdev, Lambda)
+    elif inject_tidal and recover_tidal:
+      buff = script %( idir, exe, q, m, SNR, chi2, m1max, m2max,\
+        Nwalkers, Nsamples, Nburnin, Mcstdev, Lambda, LambdaMax, Lambdastdev )
+    elif recover_tidal:
+      buff = script %( idir, exe, q, m, SNR, chi2, m1max, m2max,\
+        Nwalkers, Nsamples, Nburnin, Mcstdev, LambdaMax, Lambdastdev)
+    else:
+      buff = script %( idir, exe, q, m, SNR, chi1, chi2, m1max, m2max,\
+        Nwalkers, Nsamples, Nburnin, Mcstdev)
+    return buff
+    #}}}
+
+
 def submit_string( idir, exe,\
                   Lambda, q, m, SNR, chi1, chi2,\
                   m1max, m2max, Mcstdev, inject_tidal=True,\
+                  LambdaMax=2000, Lambdastdev=100, recover_tidal=True,\
                   Nwalkers=100, Nsamples=3000, Nburnin=500,\
                   postprocess_only=False ):
     #{{{
@@ -64,7 +154,8 @@ arguments= --signal_approximant lalsimulation.SEOBNRv2_ROM_DoubleSpin_LM \
 log=logs/job.log
 output=logs/job.out
 error=logs/job.err
-notification=never
+notification=Always
+notify_user=prkumar@cita.utoronto.ca
 queue 1
   '''
     #
@@ -82,53 +173,90 @@ queue 1
 # Set up parameters of signal
 ######################################################
 chi1 = 0.   # small BH
-chi2 = 0.5  # larger BH
+chi2vec = [-0.5, 0, 0.5]  # larger BH
 mNS = 1.35
-q = 3
-qvec = [2,3,4,5]
-Lambdavec = [200, 500, 1000]
-SNRvec = [30, 100]
+qvec = [2, 3]
+Lambdavec = [500, 1000, 2000]
+SNRvec = [20, 30, 40, 50, 60, 70, 80, 90, 100]
+
 inject_tidal = False
 
 ######################################################
-# Set up parameters of signal
+# Set up parameters of templates
 ######################################################
 # Taking an uninformed prior
 m1min = 1.2
-m1max = 30.
+m1max = 15.
 m2min = 1.2 
-m2max = 30
+m2max = 25
+
+LambdaMax = 2000
+Lambdastdev = 100
+
+recover_tidal = False
 
 ######################################################
 # Set up RUN parameters
 ######################################################
-EXE = "/home/prayush/src/nsbh_tidal/emcee_PE/src/emcee_match_aligned.py"
+if recover_tidal:
+  EXE = "/home/prayush/src/nsbh_tidal/emcee_PE/src/emcee_match_tidal.py"
+  subfunc = tidal_submit_string
+else:
+  EXE = "/home/prayush/src/nsbh_tidal/emcee_PE/src/emcee_match_aligned.py"
+  subfunc = submit_string
+
+if inject_tidal: sigstring = 'T'
+else: sigstring = 'N'
+if recover_tidal: tmpstring = 'T'
+else: tmpstring = 'N'
+simstring = sigstring + tmpstring + '_'
+
 PWD = cmd.getoutput('pwd')
 filename = 'run.sub'
-Nwalkers = [100, 150, 200]
-Nsamples = 3000
+Nwalkers = [100]
+Nsamples = [6000]
 Nburnin  = 500
 postprocess_only = False
 
+######################################################
+# Set up RUNs
+######################################################
+f = open(simstring +\
+      '_q%.1f_%.1f__chiBH%.2f_%.2f__Lambda%.1f_%.1f_SNR%.1f_%.1f__NW%d_%d__NS%d_%d_'\
+      % (min(qvec), max(qvec), min(chi2vec), max(chi2vec),\
+         min(Lambdavec), max(Lambdavec), min(SNRvec), max(SNRvec),\
+         min(Nwalkers), max(Nwalkers), min(Nsamples), max(Nsamples))\
+      + '_SEOBNRv2ROM.dag','w')
 
-for Nw in Nwalkers:
-  for Lambda in Lambdavec:
-    for SNR in SNRvec:
-      eta = q / (1. + q)**2
-      m = (1. + q) * mNS
-      Mc = m * eta**0.6
-      path = 'q%.2f_chi%.2f_chi%.2f_Lambda%.1f_SNR%.1f_DS/MBH%.2f_MNS%.2f_NW%d' %\
-                    (q, chi1, chi2, Lambda, SNR, m - mNS, mNS, Nw)
-      if not os.path.exists(path): os.makedirs(path)
-      if not os.path.exists(path+'/logs'): os.makedirs(path+'/logs')
-      #
-      buff = submit_string(PWD+'/'+path, EXE, \
-          Lambda, q, m, SNR, chi1, chi2, m1max, m2max, 0.2 * Mc, \
-          inject_tidal=inject_tidal,\
-          Nwalkers=Nw, Nsamples=Nsamples, Nburnin=Nburnin)
-      #
-      with open(os.path.join(path, filename), 'wb') as temp_file:
-        temp_file.write(buff)
-  #break
+for q in qvec:
+  for chi2 in chi2vec:
+    for Lambda in Lambdavec:
+      for SNR in SNRvec:
+        for Ns in Nsamples:
+          for Nw in Nwalkers:
+            eta = q / (1. + q)**2
+            m = (1. + q) * mNS
+            Mc = m * eta**0.6
+            path = simstring
+            path += 'q%.2f_mNS%.2f_chiBH%.2f_Lambda%.1f_SNR%.1f/NW%d_NS%d' % (q, mNS, chi2, Lambda, SNR, Nw, Ns)
+            if not os.path.exists(path): os.makedirs(path)
+            if not os.path.exists(path+'/logs'): os.makedirs(path+'/logs')
+            #
+            buff = subfunc(PWD+'/'+path, EXE, \
+                    Lambda, q, m, SNR, chi1, chi2,\
+                    m1max, m2max, 0.2 * Mc, inject_tidal=inject_tidal,\
+                    LambdaMax=LambdaMax, Lambdastdev=Lambdastdev,\
+                    recover_tidal=recover_tidal,\
+                    Nwalkers=Nw, Nsamples=Ns, Nburnin=Nburnin,\
+                    postprocess_only=postprocess_only)
+            #
+            with open(os.path.join(path, filename), 'wb') as temp_file:
+              temp_file.write(buff)
+            #
+            JobName = 'q%.2f_mNS%.2f_chiBH%.2f_Lambda%.1f_SNR%.1f_NW%d_NS%d' % (q, mNS, chi2, Lambda, SNR, Nw, Ns)
+            f.write('Job %s %s/%s\n' % (JobName, path, filename))
+            f.write('Retry %s 1\n' % JobName)
+            f.write('PRIORITY %s 1000\n\n' % JobName)
 
+f.close()
 
