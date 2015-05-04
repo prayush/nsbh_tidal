@@ -125,6 +125,11 @@ Mc_stdev_init = options.Mc_stdev_init
 chi1_stdev_init = options.chi1_stdev_init
 chi2_stdev_init = options.chi2_stdev_init
 
+if Mc_stdev_init < 1e-6:
+  print 'Mc_stdev_init < 1e-6!'
+  print 'Setting Mc_stdev_init = 0.0001'
+  Mc_stdev_init = 1e-4
+
 if options.M_signal < options.m1_min + options.m2_min or options.M_signal > options.m1_max + options.m2_max:
   print 'Error: M_signal should be inside the mass prior [m1_min+m2_min, m1_max+m2_max]'
   sys.exit(-1)
@@ -193,7 +198,7 @@ inject_tidal = options.inject_tidal
 recover_tidal = options.recover_tidal
 Lambda_signal = options.Lambda_signal
 
-
+# FIXME: add a general psd from file option
 if options.lalsim_psd == 'ET-D': # not in lalsimulation
   n = int(options.f_max / options.deltaF)
   ET_psd = lal.CreateREAL8FrequencySeries('ET_psd', 0, 1, options.deltaF, 1, n)

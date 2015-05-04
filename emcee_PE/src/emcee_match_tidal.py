@@ -124,6 +124,11 @@ Mc_stdev_init = options.Mc_stdev_init
 Lambda_stdev_init = options.Lambda_stdev_init
 chi2_stdev_init = options.chi2_stdev_init
 
+if Mc_stdev_init < 1e-6:
+  print 'Mc_stdev_init < 1e-6!'
+  print 'Setting Mc_stdev_init = 0.0001'
+  Mc_stdev_init = 1e-4
+
 if options.M_signal < options.m1_min + options.m2_min or options.M_signal > options.m1_max + options.m2_max:
   print 'Error: M_signal should be inside the mass prior [m1_min+m2_min, m1_max+m2_max]'
   sys.exit(-1)
