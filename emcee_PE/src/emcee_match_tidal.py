@@ -493,8 +493,8 @@ if not post_process:
   # Thin samples by auto-correlation time
   etaval_thin  = etaval[::int(sampler.acor[0])]
   Mcval_thin   = Mcval[::int(sampler.acor[1])]
-  chi2val_thin = chi1val[::int(sampler.acor[2])]
-  Lambdaval_thin = chi2val[::int(sampler.acor[3])]
+  chi2val_thin = chi2val[::int(sampler.acor[2])]
+  Lambdaval_thin = Lambdaval[::int(sampler.acor[3])]
 
 m1_true = m1fun(M_true, q_true)
 m2_true = m2fun(M_true, q_true)
