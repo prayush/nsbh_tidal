@@ -168,6 +168,12 @@ queue 1
     return buff
     #}}}
 
+def get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns):
+  #{{{
+  return 'q%.2f_mNS%.2f_chiBH%.2f_Lambda%.1f_SNR%.1f/NW%d_NS%d'\
+              % (q, mNS, chi2, Lambda, SNR, Nw, Ns)
+  #}}}
+
 
 ######################################################
 # Set up parameters of signal
