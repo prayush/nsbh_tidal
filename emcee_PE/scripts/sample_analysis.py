@@ -27,8 +27,8 @@ perc_int_99_7 = [0.13, 99.87] # 3 sigma
 
 # Figure settings
 ppi=72.0
-aspect=0.75
-size=4.0 # was 6
+aspect=(5.**0.5 - 1) * 0.5
+size=4.0 * 2# was 6
 figsize=(size,aspect*size)
 plt.rcParams.update({'legend.fontsize':9, 'axes.labelsize':11,'font.family':'serif','font.size':11,'xtick.labelsize':11,'ytick.labelsize':11,'figure.subplot.bottom':0.2,'figure.figsize':figsize, 'savefig.dpi': 150.0, 'figure.autolayout': True})
 
@@ -117,7 +117,7 @@ def PercentileInterval(s, pc=95.0):
 
 def get_bias(basedir = '/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set001/',\
   simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
-  M_inj = 2*1.35, eta_inj = 2./9., chi2_inj=0.5, SNR_inj = 60):
+  M_inj = 2*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, SNR_inj = 60):
     """
     Load samples for a given physical configuration, by first decoding the location
     of the corresponding run. Compute the 90% confidence interval and the median
@@ -126,16 +126,17 @@ def get_bias(basedir = '/home/prayush/projects/nsbh/TidalParameterEstimation/Par
     test_dir = os.path.join(basedir, simdir)
     m1_inj, m2_inj = pnutils.mchirp_eta_to_mass1_mass2(M_inj * eta_inj**0.6, eta_inj)
     params_inj = {'eta' : eta_inj, 'Mtot' : M_inj, 'Mc' : M_inj * eta_inj**0.6,
-                  'chi2' : chi2_inj, 'm1' : m1_inj, 'm2' : m2_inj}
+                  'chi1' : chi1_inj, 'chi2' : chi2_inj, 
+                  'm1' : m1_inj, 'm2' : m2_inj}
     
     match = {}
     match['samples'] = load_samples(test_dir, SNR_inj)
     
     bias, CI90, width90 = {}, {}, {}
-    for param in ['eta', 'Mc', 'chi2', 'm1', 'm2', 'Mtot']:
+    for param in ['eta', 'Mc', 'chi1', 'chi2', 'm1', 'm2', 'Mtot']:
       S = match['samples'][param]
       param_inj = params_inj[param]
-      if 'chi2' == param: bias[param] = (np.median(S) - param_inj) / 1.
+      if 'chi' in param: bias[param] = (np.median(S) - param_inj) / 1.
       else: bias[param] = (np.median(S) - param_inj) / param_inj
       CI90[param] = [np.percentile(S, 5), np.percentile(S, 95)]
       width90[param] = CI90[param][1] - CI90[param][0]
@@ -143,6 +144,63 @@ def get_bias(basedir = '/home/prayush/projects/nsbh/TidalParameterEstimation/Par
     #print "bias = %f, width90 = %f" % (bias, width90)
     return bias, CI90, width90
 
+######################################################
+# Function to make parameter bias plots
+######################################################
+linestyles = ['-', '--', '-.', '-x', '--o']
+linecolors = ['r', 'g', 'b', 'k', 'm', 'y']
+
+def make_bias_plot(plotparam='Mc', normalize='', xlabel='$\\rho$', ylabel=None, savefig='plots/plot.png'):
+  # parameter bias
+  plt.figure(int(1e7 * np.random.random()))
+  for pltid, q in enumerate(qvec):
+    plt.subplot(1, len(qvec), pltid + 1)
+    for x2idx, chi2 in enumerate(chi2vec):
+      for Lidx, Lambda in enumerate(Lambdavec):
+        if 'Lambda' in normalize: norm = Lambda
+        else: norm = 1.
+        param_bias = {}
+        for SNR in SNRvec:
+          for Ns in Nsamples:
+            for Nw in Nwalkers:
+              simdir = mr.get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
+              chi1val, chi2val = chi1, chi2
+              #
+              # Hack for NS templates
+              if recover_tidal: chi1val, chi2val = chi2, Lambda
+              #
+              bias, _, width90 = get_bias(simdir=simstring+simdir+'/',\
+                      M_inj=q*mNS, eta_inj=q/(1.+q)**2,\
+                      chi1_inj=chi1val, chi2_inj=chi2val)
+              for kk in bias:
+                if kk in param_bias: param_bias[kk].append(bias[kk])
+                else: param_bias[kk] = [bias[kk]]            
+        # Make the plot legend
+        if pltid == 0:
+          if Lidx == 0:
+            # this happens when x2idx's value changes, ie once for each linestyle
+            labelstring = '$\chi_{BH} = %.1f$' % (chi2)
+          else: labelstring=''
+        elif pltid == 1:
+          if x2idx == 0:
+            # this happens when Lidx = 0,1,2, i.e. once for each linecolor
+            labelstring = '$\Lambda = %.0f$' % (Lambda)
+          else: labelstring = ''
+        # Make the acual plot
+        if labelstring == '':
+          plt.plot(SNRvec, np.array(param_bias[plotparam])/norm,\
+                  linecolors[Lidx]+linestyles[x2idx],lw=2)
+        else:
+          plt.plot(SNRvec, np.array(param_bias[plotparam])/norm,\
+                  linecolors[Lidx]+linestyles[x2idx],\
+                  label=labelstring,lw=2)      
+    #
+    plt.legend(loc='best')
+    plt.grid()
+    if xlabel: plt.xlabel(xlabel)
+    if pltid == 0 and ylabel: plt.ylabel(ylabel)
+    plt.title('$q = %.1f$' % q)
+  plt.savefig(savefig)
 
 ######################################################
 # Set up parameters of signal
@@ -167,7 +225,14 @@ LambdaMax = 2000
 Lambdastdev = 100
 
 inject_tidal = True
-recover_tidal= False
+recover_tidal= True
+
+if len(sys.argv) == 3:
+  if int(sys.argv[1]) != 0: inject_tidal = True
+  else: inject_tidal = False
+  #
+  if int(sys.argv[2]) != 0: recover_tidal = True
+  else: recover_tidal = False
 ######################################################
 # Set up RUN parameters
 ######################################################
@@ -184,34 +249,31 @@ Nburnin  = 500
 ######################################################
 # Make parameter bias plots
 ######################################################
-linestyles = ['-', '--', '-.', '-x', '--o']
-linecolors = ['r', 'g', 'b', 'k', 'm', 'y']
 
-param_bias = {}
+# Chirp mass bias
+make_bias_plot(plotparam='Mc', ylabel='$\Delta\mathcal{M}_c / \mathcal{M}_c $',\
+              savefig='plots/'+simstring+'chirpMassBias_vs_SNR_q23.pdf')
 
-plt.figure(int(1e7 * np.random.random()))
-pltid = 1
-for pltid, q in enumerate(qvec):
-  plt.subplot(1, len(qvec), pltid + 1)
-  for x2idx, chi2 in enumerate(chi2vec):
-    for Lidx, Lambda in enumerate(Lambdavec):
-      param_bias = {}
-      for SNR in SNRvec:
-        for Ns in Nsamples:
-          for Nw in Nwalkers:
-            simdir = mr.get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
-            bias, _, width90 = get_bias(simdir=simstring+simdir+'/',\
-                     M_inj=q*mNS, eta_inj=q/(1.+q)**2, chi2_inj=chi2)
-            for kk in bias:
-              if kk in param_bias: param_bias[kk].append(bias[kk])
-              else: param_bias[kk] = [bias[kk]]            
-      # Make the actual plot here
-      plt.plot(SNRvec, param_bias['Mc'], linecolors[Lidx]+linestyles[x2idx],\
-                label='$\Lambda = %.0f$, $\chi_{BH} = %.1f$' % (Lambda,chi2))
-      plt.grid()
-      plt.xlabel('$\\rho$')
-      plt.ylabel('$\Delta M_c/M_c$')
-      plt.title('$q = %.1f$' % q)
+# eta bias
+make_bias_plot(plotparam='eta', ylabel='$\Delta\eta / \eta $',\
+              savefig='plots/'+simstring+'EtaBias_vs_SNR_q23.pdf')
+
+
+# Chi-BH bias
+if recover_tidal: plottag = 'chi1'
+else: plottag = 'chi2'
+make_bias_plot(plotparam=plottag, ylabel='$\Delta \chi_\mathrm{BH}$',\
+              savefig='plots/'+simstring+'BHspinBias_vs_SNR_q23.pdf')
+
+
+# Lambda-NS bias
+if recover_tidal:
+  plottag = 'chi2'
+  make_bias_plot(plotparam=plottag,\
+                normalize='Lambda',\
+                ylabel='$\Delta\Lambda_\mathrm{NS} / \Lambda_\mathrm{NS}$',\
+                savefig='plots/'+simstring+'NSLambdaBias_vs_SNR_q23.pdf')
+
 
 
 
