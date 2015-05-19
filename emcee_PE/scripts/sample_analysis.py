@@ -150,7 +150,8 @@ def get_bias(basedir = '/home/prayush/projects/nsbh/TidalParameterEstimation/Par
 linestyles = ['-', '--', '-.', '-x', '--o']
 linecolors = ['r', 'g', 'b', 'k', 'm', 'y']
 
-def make_bias_plot(plotparam='Mc', normalize='', xlabel='$\\rho$', ylabel=None, savefig='plots/plot.png'):
+def make_bias_plot(plotparam='Mc', plotquantity='bias', normalize='',\
+                    xlabel='$\\rho$', ylabel=None, savefig='plots/plot.png'):
   # parameter bias
   plt.figure(int(1e7 * np.random.random()))
   for pltid, q in enumerate(qvec):
@@ -159,7 +160,7 @@ def make_bias_plot(plotparam='Mc', normalize='', xlabel='$\\rho$', ylabel=None, 
       for Lidx, Lambda in enumerate(Lambdavec):
         if 'Lambda' in normalize: norm = Lambda
         else: norm = 1.
-        param_bias = {}
+        param_bias, param_CIwidth90 = {}, {}
         for SNR in SNRvec:
           for Ns in Nsamples:
             for Nw in Nwalkers:
@@ -174,7 +175,9 @@ def make_bias_plot(plotparam='Mc', normalize='', xlabel='$\\rho$', ylabel=None, 
                       chi1_inj=chi1val, chi2_inj=chi2val)
               for kk in bias:
                 if kk in param_bias: param_bias[kk].append(bias[kk])
-                else: param_bias[kk] = [bias[kk]]            
+                else: param_bias[kk] = [bias[kk]]
+                if kk in param_CIwidth90: param_CIwidth90[kk].append(width90[kk])
+                else: param_CIwidth90[kk] = [width90[kk]]
         # Make the plot legend
         if pltid == 0:
           if Lidx == 0:
@@ -187,11 +190,14 @@ def make_bias_plot(plotparam='Mc', normalize='', xlabel='$\\rho$', ylabel=None, 
             labelstring = '$\Lambda = %.0f$' % (Lambda)
           else: labelstring = ''
         # Make the acual plot
+        if plotquantity == 'bias': 
+          plotvec = np.array(param_bias[plotparam])/norm
+        elif plotquantity == 'width90' or 'width' in plotquantity: 
+          plotvec = np.array(param_CIwidth90[plotparam])/norm
         if labelstring == '':
-          plt.plot(SNRvec, np.array(param_bias[plotparam])/norm,\
-                  linecolors[Lidx]+linestyles[x2idx],lw=2)
+          plt.plot(SNRvec, plotvec, linecolors[Lidx]+linestyles[x2idx],lw=2)
         else:
-          plt.plot(SNRvec, np.array(param_bias[plotparam])/norm,\
+          plt.plot(SNRvec, plotvec,\
                   linecolors[Lidx]+linestyles[x2idx],\
                   label=labelstring,lw=2)      
     #
@@ -227,12 +233,20 @@ Lambdastdev = 100
 inject_tidal = True
 recover_tidal= True
 
-if len(sys.argv) == 3:
+if len(sys.argv) >= 3:
   if int(sys.argv[1]) != 0: inject_tidal = True
   else: inject_tidal = False
   #
   if int(sys.argv[2]) != 0: recover_tidal = True
   else: recover_tidal = False
+
+# plotting flags
+if len(sys.argv) >= 5:
+  if int(sys.argv[3]) != 0: plot_bias = True
+  else: plot_bias = False
+  #
+  if int(sys.argv[4]) != 0: plot_width = True
+  else: plot_width = False
 ######################################################
 # Set up RUN parameters
 ######################################################
@@ -251,28 +265,65 @@ Nburnin  = 500
 ######################################################
 
 # Chirp mass bias
-make_bias_plot(plotparam='Mc', ylabel='$\Delta\mathcal{M}_c / \mathcal{M}_c $',\
+if plot_bias:
+  print "Making chirp mass bias plots"
+  make_bias_plot(plotparam='Mc', ylabel='$\Delta\mathcal{M}_c / \mathcal{M}_c $',\
               savefig='plots/'+simstring+'chirpMassBias_vs_SNR_q23.pdf')
 
+# Chirp mass width
+if plot_width:
+  print "Making chirp mass CI width plots"
+  make_bias_plot(plotparam='Mc', plotquantity='width',\
+              ylabel='$90\%\,\mathrm{confidence}\,\mathrm{interval}\, \mathcal{M}_c $',\
+              savefig='plots/'+simstring+'chirpMassCIWidth90_vs_SNR_q23.pdf')
+
+
 # eta bias
-make_bias_plot(plotparam='eta', ylabel='$\Delta\eta / \eta $',\
+if plot_bias:
+  print "Making eta bias plots"
+  make_bias_plot(plotparam='eta', ylabel='$\Delta\eta / \eta $',\
               savefig='plots/'+simstring+'EtaBias_vs_SNR_q23.pdf')
+
+# eta width
+if plot_width:
+  print "Making eta CI width plots"
+  make_bias_plot(plotparam='eta', plotquantity='width',\
+              ylabel='$90\%\,\mathrm{confidence}\,\mathrm{interval}\, \eta $',\
+              savefig='plots/'+simstring+'EtaCIWidth90_vs_SNR_q23.pdf')
 
 
 # Chi-BH bias
 if recover_tidal: plottag = 'chi1'
 else: plottag = 'chi2'
-make_bias_plot(plotparam=plottag, ylabel='$\Delta \chi_\mathrm{BH}$',\
+if plot_bias:
+  print "Making BH spin bias plots"
+  make_bias_plot(plotparam=plottag, ylabel='$\Delta \chi_\mathrm{BH}$',\
               savefig='plots/'+simstring+'BHspinBias_vs_SNR_q23.pdf')
 
+# Chi-BH width
+if plot_width:
+  print "Making BH spin CI width plots"
+  make_bias_plot(plotparam=plottag, plotquantity='width',\
+              ylabel='$90\%\,\mathrm{confidence}\,\mathrm{interval}\, \chi_\mathrm{BH} $',\
+              savefig='plots/'+simstring+'BHspinCIWidth90_vs_SNR_q23.pdf')
 
-# Lambda-NS bias
+
+# Lambda-NS bias & width
 if recover_tidal:
   plottag = 'chi2'
-  make_bias_plot(plotparam=plottag,\
+  if plot_bias:
+    print "Making NS Lambda bias plots"
+    make_bias_plot(plotparam=plottag,\
                 normalize='Lambda',\
                 ylabel='$\Delta\Lambda_\mathrm{NS} / \Lambda_\mathrm{NS}$',\
                 savefig='plots/'+simstring+'NSLambdaBias_vs_SNR_q23.pdf')
+  
+  if plot_width:
+    print "Making NS Lambda CI Width plots"
+    make_bias_plot(plotparam=plottag, plotquantity='width',\
+        normalize='Lambda',\
+        ylabel='$90\%\,\mathrm{confidence}\,\mathrm{interval}\, \Lambda_\mathrm{NS}$',\
+              savefig='plots/'+simstring+'NSLambdaCIWidth90_vs_SNR_q23.pdf')
 
 
 
