@@ -62,8 +62,54 @@ Abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Introduction
+Current status:
 
+\begin{enumerate}
+\item We choose the following values of different NS-BH binary parameters:
+\begin{enumerate}
+\item $m_\mathrm{NS}=1.35M_\odot$;
+\item $q=m_\mathrm{BH}/\mathrm{NS}=\{2,3\}$;
+\item $\chi_\mathrm{NS}=0$;
+\item $\chi_\mathrm{BH}=\{-0.5, 0, +0.5\}$;
+\item $\Lambda =\{500,1000,2000\}$.
+\end{enumerate}
+
+\item For each system comprised of all unique combinations of the above 
+parameter choices, we carry out two parameter estimation tests: 
+\begin{enumerate}
+\item NS-BH signals injected, recovered with BH-BH waveforms, and
+\item NS-BH signals injected, recovered with NS-BH waveforms.
+\end{enumerate}
+Injections were made at different SNR values: 
+\begin{enumerate}
+\item $\rho = \{20, 30, 40, 50, 60, 70, 80, 90, 100\}$.
+\end{enumerate}
+Choice of emcee parameters:
+\begin{enumerate}
+\item $N_\mathrm{samples}=6000$; 
+\item $N_\mathrm{walkers}=100$; 
+\item $N_\mathrm{burn-in}=500$; 
+\end{enumerate}
+and choice of prior boundaries:
+\begin{enumerate} 
+\item $m_\mathrm{BH}\in [1.2, 25]M_\odot$;
+\item $m_\mathrm{NS}\in [1.2, 15]M_\odot$;
+\item $\Lambda\leq 2000$; 
+\item $\sigma\left(\Lambda\right) = 100$ (for chains where templates are NS-BH waveforms).
+\end{enumerate}
+
+\item Results are shown in
+Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}-~\ref{fig:TT_NSLambdaCIWidth90_vs_SNR_q23}.
+
+\item We deduce from
+\begin{enumerate}
+\item large chirp mass biases, 
+\item lack of convergence of $90\%$ confidence intervals with $\rho$ (except for
+$\Lambda$, noticeably), and
+\item jagged-ness of parameter bias curves against $\rho$
+\end{enumerate}
+that the MCMC chains have not yet converged.
+\end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Techniques}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
