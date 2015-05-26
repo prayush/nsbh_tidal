@@ -378,6 +378,8 @@ if not post_process:
   print "Saving MCMC chain to chain.dat as we go ..."
   f = open("chain.dat", "w")
   f.close()
+  nout = 1000
+  print "Dumping chain and logposterior to .npy files every %d iterations." %nout
   ii=0
   #for result in sampler.sample(p0, iterations=nsamples, storechain=False):
   for result in sampler.sample(p0, iterations=nsamples, storechain=True):
@@ -392,6 +394,11 @@ if not post_process:
         sys.stdout.write("Iteration %d of %d\n" %(ii, nsamples))
         sys.stdout.flush()
       f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
+      # Dump samples in npy format every nout iterations
+      if (k == 0) and (ii % nout == 0):
+        np.save("chain.npy", sampler.chain[:,:ii,:])
+        np.save("loglike.npy", sampler.lnprobability.T[:ii,:]) # it's really log posterior pdf
+        print "** Saved chain.npy and loglike.npy. **"
     f.close()
 
   if pt:
@@ -489,12 +496,12 @@ m1val = m1fun(Mval,qval)
 m2val = m2fun(Mval,qval)
 chieffval = (m1val*0 + m2val*chi2val) / Mval # NS spin = 0
 
-if not post_process:
-  # Thin samples by auto-correlation time
-  etaval_thin  = etaval[::int(sampler.acor[0])]
-  Mcval_thin   = Mcval[::int(sampler.acor[1])]
-  chi2val_thin = chi2val[::int(sampler.acor[2])]
-  Lambdaval_thin = Lambdaval[::int(sampler.acor[3])]
+# if not post_process:
+#   # Thin samples by auto-correlation time
+#   etaval_thin  = etaval[::int(sampler.acor[0])]
+#   Mcval_thin   = Mcval[::int(sampler.acor[1])]
+#   chi2val_thin = chi2val[::int(sampler.acor[2])]
+#   Lambdaval_thin = Lambdaval[::int(sampler.acor[3])]
 
 m1_true = m1fun(M_true, q_true)
 m2_true = m2fun(M_true, q_true)
