@@ -46,3 +46,8 @@ N signals vs N templates
 T signals vs N templates
 T signals vs T templates
 ####################################
+
+
+- TODO: Can triangle plot vertical lines for multiple sigmas?
+* If we had an sGRB trigger, could put a narrow prior on chi1 (potential NS)
+  Either hard cut or Jeffries prior (flat in log)?
