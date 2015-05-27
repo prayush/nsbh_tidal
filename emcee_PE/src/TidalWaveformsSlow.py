@@ -38,16 +38,9 @@ class tidalWavs():
         m2 = M * (1. - SqrtOneMinus4Eta) / 2.
         return m1, m2
     # 
-    def tidalCorrectionAmplitude(self, mf, eta, sBH, tidalLambda, mfA=0.01):
-        try: print len(mf)
-        except: mf = np.array([mf])
-        # Assume input frequencies, if an array, are ordered
-        #if mf <= mfA: return 1
-        mask = mf <= mfA
-        AmpLowF = np.ones(len( np.nonzero(mask)[0] ))
-        mf = mf[np.invert(mask)]
-        #
-        if len(mf) == 0: return AmpLowF
+    def tidalCorrectionAmplitude(self, mf, eta, sBH, tidalLambda,\
+                                mfA=0.01):
+        if mf <= mfA: return 1
         # Impose cutoffs on mass-ratio, and BH spins
         if eta < 6./49.: 
             print eta, 6./49.
@@ -59,7 +52,7 @@ class tidalWavs():
             + tidalLambda * np.exp(self.c0 + self.c1*eta + self.c2*sBH)
         D = 3.
         B = C * (mf - mfA)**D
-        return np.append( AmpLowF, np.exp(-eta * tidalLambda * B))
+        return np.exp(-eta * tidalLambda * B)
     #
     def tidalPNPhase(self, mf, eta, tidalLambda):
         
@@ -93,17 +86,8 @@ class tidalWavs():
     #
     def tidalCorrectionPhase(self, mf, eta, sBH, tidalLambda,\
                              mfP=0.02, inspiral=True):
-        #
-        try: len(mf)
-        except TypeError: mf = np.array([mf])
-        # Assume input frequencies, if an array, are ordered
-        #if mf <= mfP: return self.tidalPNPhase(mf, eta, tidalLambda)
-        mask = mf <= mfP
-        PhsLowF = self.tidalPNPhase(mf[mask], eta, tidalLambda)
-        mf = mf[np.invert(mask)]
-        #
-        if len(mf) == 0: return PhsLowF
         # 
+        if mf <= mfP: return self.tidalPNPhase(mf, eta, tidalLambda)
         if inspiral:
             psiT = self.tidalPNPhase(mfP, eta, tidalLambda)
             DpsiT= (mf - mfP) * self.tidalPNPhaseDeriv(mfP, eta, tidalLambda)         
@@ -115,7 +99,7 @@ class tidalWavs():
         psiFit = (eta * tidalLambda * E)
         # Final phase
         psi = psiT + DpsiT - psiFit
-        return np.append( PhsLowF, psi)
+        return psi
     #
     def getWaveform(self, M, eta, sBH, Lambda, distance=1e6*lal.PC_SI, \
                     f_lower=15., f_final=4096., \
@@ -134,16 +118,11 @@ class tidalWavs():
                 print hc[tid], hp[tid]
             return hp, hc
         # Tidal corrections to be incorporated
-        freqs =  np.array(M * lal.MTSUN_SI * hp.sample_frequencies.data)
+        freqs =  M * lal.MTSUN_SI * hp.sample_frequencies.data
         hpd, hcd = hp.data, hc.data
-        #
-        ampC = self.tidalCorrectionAmplitude(freqs, eta, sBH, Lambda)
-        phsC = self.tidalCorrectionPhase(freqs, eta, sBH, Lambda)
-        Corr = np.cos(phsC) - 1j * np.sin(phsC)
-        #
-        #ampC = np.array([self.tidalCorrectionAmplitude(mf, eta, sBH, Lambda) for mf in freqs])
-        #phsC = np.array([self.tidalCorrectionPhase(mf, eta, sBH, Lambda) for mf in freqs])
-        #Corr = np.array([np.complex(np.cos(phsC[ii]),-1*np.sin(phsC[ii])) for ii in range(len(phsC))])
+        ampC = np.array([self.tidalCorrectionAmplitude(mf, eta, sBH, Lambda) for mf in freqs])
+        phsC = np.array([self.tidalCorrectionPhase(mf, eta, sBH, Lambda) for mf in freqs])
+        Corr = np.array([np.complex(np.cos(phsC[ii]),-1*np.sin(phsC[ii])) for ii in range(len(phsC))])
         Corr = Corr * ampC
         hp = FrequencySeries(hp * Corr, delta_f=delta_f, epoch=hp._epoch, dtype=hp.dtype, copy=True)
         hc = FrequencySeries(hc * Corr, delta_f=delta_f, epoch=hp._epoch, dtype=hp.dtype, copy=True)

@@ -183,9 +183,9 @@ chi2vec = [-0.5, 0, 0.5]  # larger BH
 mNS = 1.35
 qvec = [2, 3]
 Lambdavec = [500, 1000, 2000]
-SNRvec = [20, 30, 40, 50, 60, 70, 80, 90, 100]
+SNRvec = [20, 30, 50, 70, 90, 120]
 
-inject_tidal = False
+inject_tidal = True
 
 ######################################################
 # Set up parameters of templates
@@ -196,10 +196,10 @@ m1max = 15.
 m2min = 1.2 
 m2max = 25
 
-LambdaMax = 2000
+LambdaMax = 4000
 Lambdastdev = 100
 
-recover_tidal = False
+recover_tidal = True
 
 ######################################################
 # Set up RUN parameters
@@ -220,7 +220,7 @@ simstring = sigstring + tmpstring + '_'
 PWD = cmd.getoutput('pwd')
 filename = 'run.sub'
 Nwalkers = [100]
-Nsamples = [6000]
+Nsamples = [150000]
 Nburnin  = 500
 postprocess_only = False
 
@@ -243,6 +243,7 @@ for q in qvec:
             eta = q / (1. + q)**2
             m = (1. + q) * mNS
             Mc = m * eta**0.6
+            Mcstdev = 0.15 * Mc
             path = simstring
             path += 'q%.2f_mNS%.2f_chiBH%.2f_Lambda%.1f_SNR%.1f/NW%d_NS%d' % (q, mNS, chi2, Lambda, SNR, Nw, Ns)
             if not os.path.exists(path): os.makedirs(path)
@@ -250,7 +251,7 @@ for q in qvec:
             #
             buff = subfunc(PWD+'/'+path, EXE, \
                     Lambda, q, m, SNR, chi1, chi2,\
-                    m1max, m2max, 0.2 * Mc, inject_tidal=inject_tidal,\
+                    m1max, m2max, Mcstdev, inject_tidal=inject_tidal,\
                     LambdaMax=LambdaMax, Lambdastdev=Lambdastdev,\
                     recover_tidal=recover_tidal,\
                     Nwalkers=Nw, Nsamples=Ns, Nburnin=Nburnin,\
