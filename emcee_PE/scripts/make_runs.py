@@ -185,7 +185,7 @@ qvec = [2, 3]
 Lambdavec = [500, 1000, 2000]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
-inject_tidal = True
+inject_tidal = False
 
 ######################################################
 # Set up parameters of templates
@@ -199,7 +199,7 @@ m2max = 25
 LambdaMax = 4000
 Lambdastdev = 100
 
-recover_tidal = True
+recover_tidal = False
 
 ######################################################
 # Set up RUN parameters

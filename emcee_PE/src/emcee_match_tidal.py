@@ -379,6 +379,8 @@ if not post_process:
   f = open("chain.dat", "w")
   f.close()
   nout = 1000
+  unique_id = int(1.0e7 * np.random.random())
+  outidx= 0
   print "Dumping chain and logposterior to .npy files every %d iterations." %nout
   ii=0
   #for result in sampler.sample(p0, iterations=nsamples, storechain=False):
@@ -396,8 +398,9 @@ if not post_process:
       f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
       # Dump samples in npy format every nout iterations
       if (k == 0) and (ii % nout == 0):
-        np.save("chain.npy", sampler.chain[:,:ii,:])
-        np.save("loglike.npy", sampler.lnprobability.T[:ii,:]) # it's really log posterior pdf
+        np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,:ii,:])
+        np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[:ii,:]) # it's really log posterior pdf
+        outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
     f.close()
 
