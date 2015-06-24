@@ -39,7 +39,7 @@ class tidalWavs():
         return m1, m2
     # 
     def tidalCorrectionAmplitude(self, mf, eta, sBH, tidalLambda, mfA=0.01):
-        try: pass #print len(mf)
+        try: temp = len(mf)
         except: mf = np.array([mf])
         # Assume input frequencies, if an array, are ordered
         #if mf <= mfA: return 1
@@ -50,7 +50,7 @@ class tidalWavs():
         if len(mf) == 0: return AmpLowF
         # Impose cutoffs on mass-ratio, and BH spins
         if eta < 6./49.: 
-            print eta, 6./49.
+            print "Eta = ", eta, 6./49.
             raise IOError("Eta too small")
         if sBH > 0.75: raise IOError("BH spin too large")
         if sBH < -0.75: raise IOError("BH spin too small")
