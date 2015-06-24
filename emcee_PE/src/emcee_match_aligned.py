@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 
-#
-# MCMC python code using emcee to compute 4D credible regions
-#
-# The idea is to use a match-based (zero-noise) likelihood 
-# Lambda(s, theta) = exp(+(rho*match(s,h(theta)))^2/2)
-# where rho is the desired snr.
-#
-# MP 11/2014 - 04/2015
+# -*- coding: utf-8 -*-
+""" MCMC python code using emcee to compute 4D credible regions
+This version uses parameters [eta, Mc, chi1, chi2] for SEOBNRv2 ROM templates.
 
+The idea is to use a match-based (zero-noise) likelihood 
+L(s, theta) = exp(+(rho*match(s,h(theta)))^2/2)
+where rho is the desired snr.
+"""
+
+__author__ = "Michael Puerrer"
+__copyright__ = "Copyright 2015"
+__email__ = "Michael.Puerrer@ligo.org"
 
 import lal, lalsimulation
 import numpy as np
@@ -95,6 +98,8 @@ parser.add_option("--no-parallel-tempering", dest="pt", action="store_false",
                   help="Don't use parallel tempering ensemble sampler.", metavar="parallel_tempering")
 parser.add_option("-t", "--number-of-threads", dest="nThreads", type="int",
                   help="Number of threads for ensemble sampler.", metavar="number_of_threads")
+parser.add_option("-U", "--resume", dest="resume", type="string",
+                  help="Restart run from chain.npy and loglike.npy from specified directory. Make sure the commandline parameters agree with the produced samples!", metavar="resume")
 
 # Additional options for tidal corection waveforms
 parser.add_option("", "--inject-tidal", dest="inject_tidal", action="store_true",
@@ -112,10 +117,26 @@ parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0,
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
   chi1_min=-1, chi1_max=0.99, chi2_min=-1, chi2_max=0.99,
   eta_stdev_init=0.15, Mc_stdev_init=5, chi1_stdev_init=0.4, chi2_stdev_init=0.4, post_process='',
-  nThreads=1, pt=False,
+  nThreads=1, pt=False, resume='',
   inject_tidal=False, recover_tidal=False, Lambda_signal=500)
 
 (options, args) = parser.parse_args()
+
+post_process_directory = options.post_process
+if post_process_directory != '':
+  post_process = True
+else:
+  post_process = False
+
+resume_directory = options.resume
+if resume_directory != '':
+  resume = True
+else:
+  resume = False
+
+if resume and post_process:
+  print 'Resume and post_process options are exclusive! Aborting.'
+  sys.exit(-1)
 
 pt = options.pt
 nThreads = options.nThreads # LAL calls fail with more than 1 thread. Why?
@@ -190,6 +211,9 @@ m2_min, m2_max = options.m2_min, options.m2_max
 chi1_min, chi1_max = options.chi1_min, options.chi1_max
 chi2_min, chi2_max = options.chi2_min, options.chi2_max
 eta_min = options.eta_min
+eta_max = 0.25
+Mc_min = (m1_min+m2_min)*eta_min**(3.0/5.0)
+Mc_max = (m1_max+m2_max)*eta_max**(3.0/5.0)
 
 signal_approximant=eval(options.signal_approximant)
 template_approximant=eval(options.template_approximant)
@@ -365,10 +389,90 @@ def lnprobMatch(theta, s):
     return -np.inf
   return lp + lnlikeMatch(theta, s)
 
+# MismatchThreshold[nu_, P_, SNR_] := Quantile[ChiSquareDistribution[nu], P]/(2 SNR^2)
+# (*
+#   nu   : dimensionality of parameter space
+#   P   : percentile for confidence region
+#   SNR : desired SNR
+# *)
+CR_threshold_Baird_SNRs = [5, 8, 10, 15, 20, 25, 30, 35, 40, 50, 80, 100]
+CR_90pc_threshold_Baird_et_al_n4 = [0.155, 0.06, 0.0388, 0.01728, 0.00972, 0.00622, 0.004321, 0.003175, 0.002431, 0.001555, 0.0006, 0.0003889]
+CR_99pc_threshold_Baird_et_al_n4 = [0.265534, 0.103724, 0.0663835, 0.0295038, 0.0165959, 0.0106214, 0.00737595, 0.00541906, 0.00414897, 0.00265534, 0.00103724, 0.000663835]
+CR_99p9pc_threshold_Baird_et_al_n4 = [0.369337, 0.144272, 0.0923341, 0.0410374, 0.0230835, 0.0147735, 0.0102593, 0.00753748, 0.00577088, 0.00369337, 0.00144272, 0.000923341]
+CR_90pc_threshold_Baird_et_al_n4_fun = ip.InterpolatedUnivariateSpline(CR_threshold_Baird_SNRs, CR_90pc_threshold_Baird_et_al_n4)
+CR_99pc_threshold_Baird_et_al_n4_fun = ip.InterpolatedUnivariateSpline(CR_threshold_Baird_SNRs, CR_99pc_threshold_Baird_et_al_n4)
+CR_99p9pc_threshold_Baird_et_al_n4_fun = ip.InterpolatedUnivariateSpline(CR_threshold_Baird_SNRs, CR_99p9pc_threshold_Baird_et_al_n4)
+CR_90pc_threshold = CR_90pc_threshold_Baird_et_al_n4_fun(SNR).item()
+CR_99pc_threshold = CR_99pc_threshold_Baird_et_al_n4_fun(SNR).item()
+CR_99p9pc_threshold = CR_99p9pc_threshold_Baird_et_al_n4_fun(SNR).item()
+print "Baird et al 90% threshold", CR_90pc_threshold # For this SNR
+print "Baird et al 99% threshold", CR_99pc_threshold
+print "Baird et al 99.9% threshold", CR_99p9pc_threshold
 
 if not post_process:
-  p0 = emcee.utils.sample_ball(np.array([eta_true, Mc_true, chi1_true, chi2_true]), np.array([eta_stdev_init, Mc_stdev_init, chi1_stdev_init, chi2_stdev_init]), nwalkers)
-  # may lead to warnings: ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  if not resume:
+    # Setup initial walker positions
+    # We could simply call sample_ball like so, but this will very likely include points outside of the prior range
+    # p0 = emcee.utils.sample_ball(np.array([eta_true, Mc_true, chi1_true, chi2_true]), np.array([eta_stdev_init, Mc_stdev_init, chi1_stdev_init, chi2_stdev_init]), nwalkers)
+    # may lead to warnings: ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  
+    # Instead we setup walkers with sane positions drawn from a multivariate normal distribution cut at the prior boundaries
+    print 'Setting up sane initial walker positions'
+    p0 = []
+    while len(p0) < nwalkers:
+        p = emcee.utils.sample_ball(np.array([eta_true, Mc_true, chi1_true, chi2_true]), np.array([eta_stdev_init, Mc_stdev_init, chi1_stdev_init, chi2_stdev_init]), 1)[0]
+        if np.isfinite(lnprobMatch(p, hps)):
+            p0.append(p)
+    p0 = np.array(p0)
+    print 'Done setting up initial walker positions'
+
+    # plot intitial distribution of walkers
+    pl.clf()
+    fig, axs = pl.subplots(2, 2, sharex=False, sharey=False, figsize=(12,8))
+    axs[0,0].hist(p0.T[0], 20)
+    axs[0,0].set_xlabel(r'$\eta$')
+    axs[0,0].axvline(x=eta_min, c='r', ls='--')
+    axs[0,0].axvline(x=eta_max, c='r', ls='--')
+    axs[0,1].hist(p0.T[1], 20)
+    axs[0,1].set_xlabel(r'$M_c$')
+    axs[0,1].axvline(x=Mc_min, c='r', ls='--')
+    axs[0,1].axvline(x=Mc_max, c='r', ls='--')
+    axs[1,0].hist(p0.T[2], 20)
+    axs[1,0].set_xlabel(r'$\chi_1$')
+    axs[1,0].axvline(x=options.chi1_min, c='r', ls='--')
+    axs[1,0].axvline(x=options.chi1_max, c='r', ls='--')
+    axs[1,1].hist(p0.T[3], 20)
+    axs[1,1].set_xlabel(r'$\chi_2$')
+    axs[1,1].axvline(x=options.chi2_min, c='r', ls='--')
+    axs[1,1].axvline(x=options.chi2_min, c='r', ls='--') 
+    fig.suptitle('Starting positions for walkers', fontsize=18);
+    fig.savefig('initial_walker_positions.png')
+    pl.close(fig)
+  else:
+    print "Running in resume mode."
+    print "Loading data from directory", resume_directory
+    # NOTE: with the addition of a random number in the file names the user needs to rename the desired files to 'chain.npy' and 'loglike.npy'. Otherwise the code doesn't know which files to pick.
+    chain = np.load(os.path.join(resume_directory, "chain.npy"))
+    loglike = np.load(os.path.join(resume_directory, "loglike.npy"))
+    
+    # move the original samples and log-likelihood to a backup file
+    print 'Moving ', os.path.join(resume_directory, "chain.npy"), 'to', os.path.join(resume_directory, "chain0.npy")
+    os.rename(os.path.join(resume_directory, "chain.npy"), os.path.join(resume_directory, "chain0.npy"))
+    os.rename(os.path.join(resume_directory, "loglike.npy"), os.path.join(resume_directory, "loglike0.npy"))
+    
+    # p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
+    
+    # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
+    k = min(50, len(loglike[:,0]))
+    print "Using good samples from last %d iterations" %(k)
+    match_cut = 1 - CR_99p9pc_threshold
+    loglike_ok = loglike[-k:] # use samples from last k iterations
+    matches_ok = np.sqrt(2*loglike_ok)/SNR
+    sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
+    chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
+    idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
+    p0 = np.array(map(lambda i: chain_ok[:,i], idx))
+  
 
   #sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, threads=4, args=[hps])
   if pt:

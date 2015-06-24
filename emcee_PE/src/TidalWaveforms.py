@@ -39,7 +39,7 @@ class tidalWavs():
         return m1, m2
     # 
     def tidalCorrectionAmplitude(self, mf, eta, sBH, tidalLambda, mfA=0.01):
-        try: print len(mf)
+        try: pass #print len(mf)
         except: mf = np.array([mf])
         # Assume input frequencies, if an array, are ordered
         #if mf <= mfA: return 1
