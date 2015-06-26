@@ -508,6 +508,7 @@ if not post_process:
       if (k == 0) and (ii % nout == 0):
         np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,:ii,:])
         np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[:ii,:]) # it's really log posterior pdf
+        outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
     f.close()
 
