@@ -169,6 +169,56 @@ def Mchirpfun(M, eta):
 def Mfun(Mc, eta):
   return Mc*eta**(-3.0/5.0)
 
+# Function to remove duplicate entries from a list
+def f7(seq):
+    seen = set()
+    seen_add = seen.add
+    return [ x for x in seq if not (x in seen or seen_add(x))]
+
+def read_run_part_names(dataDir, SNR, burnin=500, useMaxNRun=True, \
+                      chain_number=-1, verbose=True):
+    #{{{
+    import glob
+    # Figure out the random integer associated with each run
+    all_files = glob.glob(dataDir + "/chain*-*.npy")
+    chain_nums= [int(f.split('/')[-1].split('-')[0].strip('chain')) for f in all_files]
+    chain_nums = f7(chain_nums)
+    # Get all continuation files for each
+    part_files = {}
+    for chnum in chain_nums:
+      tmp = glob.glob(dataDir + ("/chain%d-?.npy" % chnum))
+      tmp.sort()
+      part_files[chnum] = tmp
+      tmp = glob.glob(dataDir + ("/chain%d-??.npy" % chnum))
+      tmp.sort()
+      part_files[chnum].extend( tmp )
+      tmp = glob.glob(dataDir + ("/chain%d-???.npy" % chnum))
+      tmp.sort()
+      part_files[chnum].extend( tmp )
+    # Which run to use?
+    if useMaxNRun:
+      last_len, last_chnum = -1, -1
+      for chnum in part_files:
+        if len(part_files[chnum]) > last_len:
+          last_len = len(part_files[chnum])
+          last_chnum = chnum
+    else: 
+      last_chnum, last_len = chain_number, len(part_files[chain_number])
+    if verbose: 
+      print >>sys.stdout, "run %d, %d subfiles" % (last_chnum, last_len)
+    # If no runs are found
+    if last_len <= 0 or last_chnum <= 0:
+      return [], []
+    # Now open each continuation file for the chosen run and gather samples
+    print part_files[last_chnum]
+    part_files_loglike = [fnam.replace('chain','loglike') for fnam in part_files[last_chnum]]    
+    #chain = combine_pickles( part_files[last_chnum] )
+    #loglike = combine_pickles( part_files_loglike )
+    chain = np.load(part_files[last_chnum][last_len-1])
+    loglike = np.load(part_files_loglike[last_len-1])
+    #
+    return chain, loglike
+    #}}}
 
 # Parameter settings
 nsamples = options.nsamples
@@ -546,8 +596,9 @@ if not post_process:
 else:
   print "Only running post-processing computation from ", post_process_directory
   print "Loading data ..."
-  chain = np.load(os.path.join(post_process_directory, "chain.npy"))
-  loglike = np.load(os.path.join(post_process_directory, "loglike.npy"))
+  chain, loglike = read_run_part_names(post_process_directory, SNR, burnin=burnin)
+  #chain = np.load(os.path.join(post_process_directory, "chain.npy"))
+  #loglike = np.load(os.path.join(post_process_directory, "loglike.npy"))
 
 
 # Start post-processing samples
