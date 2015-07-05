@@ -75,18 +75,19 @@ Current status:
 \end{enumerate}
 
 \item For each system comprised of all unique combinations of the above 
-parameter choices, we carry out two parameter estimation tests: 
+parameter choices, we carry out three parameter estimation tests: 
 \begin{enumerate}
-\item NS-BH signals injected, recovered with BH-BH waveforms, and
+\item BH-BH signals injected, recovered with BH-BH waveforms (control),
+\item NS-BH signals injected, recovered with BH-BH waveforms, (current approach) and
 \item NS-BH signals injected, recovered with NS-BH waveforms.
 \end{enumerate}
 Injections were made at different SNR values: 
 \begin{enumerate}
-\item $\rho = \{20, 30, 40, 50, 60, 70, 80, 90, 100\}$.
+\item $\rho = \{20, 30, 50, 70, 90, 120\}$.
 \end{enumerate}
 Choice of emcee parameters:
 \begin{enumerate}
-\item $N_\mathrm{samples}=6000$; 
+\item $N_\mathrm{samples}=150,000$; 
 \item $N_\mathrm{walkers}=100$; 
 \item $N_\mathrm{burn-in}=500$; 
 \end{enumerate}
@@ -94,21 +95,13 @@ and choice of prior boundaries:
 \begin{enumerate} 
 \item $m_\mathrm{BH}\in [1.2, 25]M_\odot$;
 \item $m_\mathrm{NS}\in [1.2, 15]M_\odot$;
-\item $\Lambda\leq 2000$; 
+\item $\Lambda\leq 4000$; 
 \item $\sigma\left(\Lambda\right) = 100$ (for chains where templates are NS-BH waveforms).
 \end{enumerate}
 
 \item Results are shown in
 Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}-~\ref{fig:TT_NSLambdaCIWidth90_vs_SNR_q23}.
 
-\item We deduce from
-\begin{enumerate}
-\item large chirp mass biases, 
-\item lack of convergence of $90\%$ confidence intervals with $\rho$ (except for
-$\Lambda$, noticeably), and
-\item jagged-ness of parameter bias curves against $\rho$
-\end{enumerate}
-that the MCMC chains have not yet converged.
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Techniques}
@@ -123,117 +116,135 @@ Describe the Lackey et al model
 Describe the emcee-based PE code
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{SNR loss from ignoring NS tidal effects}
+\section{How are detection searches affected by not including NS matter effects}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 See what is the loss in SNR if we recover NSBH signals with a template bank of
 BH-BH waveforms? It is very likely that the answer would be: $<1\%$. But it
 is very interesting to show that for spinning BHs!
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Systematic bias in recovered parameters}
+\section{How is PE affected by not including NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure*}[h]
+\begin{figure*}
 \centering 
-\textbf{BH-BH Injection; BH-BH Templates}
-\includegraphics[width=2\columnwidth]{plots/NN_chirpMassBias_vs_SNR_q23.pdf}\\ 
+% \textbf{BH-BH Injection; BH-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassBias_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=2\columnwidth]{plots/TN_chirpMassBias_vs_SNR_q23.pdf}\\ 
+\includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassBias_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=2\columnwidth]{plots/TT_chirpMassBias_vs_SNR_q23.pdf}%\quad
-\caption{These figures show the (fractional) difference between the median value of
-recovered posterior distribution for binary chirp mass and the actual injected chirp mass,
+\includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassBias_vs_SNR_q23.pdf}%\quad
+\caption{These figures show the (fractional) difference between the chirp mass 
+value corresponding to the median of its posterior probability distribution,
+and the actual injected chirp mass,
 as a function of the signal-to-noise-ratio (SNR) of the injected signal.
-The top and bottom panels show results for parameter estimation performed using
-waveform templates without and with NS matter effects included, respectively.
+% In the top row, NS matter effects on the inspiral and merger waveform
+% are neithed included in templates nor in the injected signal. 
+In the top row, NS matter effects (inspiral and merger) are included in the
+injections but not in templates. This corresponds to the current 
+plan for aLIGO parameter estimation studies. The bottom row shows the effect
+of additionally including NS matter effects in the templates.
+% 
 In each row, the left and right panel correspond to 
 $q=m_\mathrm{BH}/m_\mathrm{NS}=\{2,3\}$, respectively. 
-In each panel, the color of the curves correspond to the value of NS deformability 
-parameter, and line style correspond to the dimensionless spin on the BH 
-($\chi_\mathrm{BH}\equiv \dfrac{a}{m_\mathrm{BH}^2}$).
+In each panel, the color of each curve corresponds to the value of NS 
+deformability parameter $(\Lambda=\{500,1000,2000\})$, 
+and line-style corresponds to the value of
+the dimensionless spin on the BH ($\chi_\mathrm{BH}=\{-0.5,0,+0.5\}$).
 }
 \label{fig:TNT_chirpMassBias_vs_SNR_q23}
 \end{figure*}
 % 
-\begin{figure*}[h]
-	\centering 
-	\textbf{BH-BH Injection; BH-BH Templates}
-	\includegraphics[width=1.85\columnwidth]{plots/NN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
-	\textbf{NS-BH Injection; BH-BH Templates}
-	\includegraphics[width=1.85\columnwidth]{plots/TN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
-	\textbf{NS-BH Injection; NS-BH Templates}
-	\includegraphics[width=1.85\columnwidth]{plots/TT_chirpMassCIWidth90_vs_SNR_q23.pdf}%\quad
-	\caption{These figures show the narrowing of the $90\%$ confidence 
-		interval (recovered) for chirp mass, as a function of the 
-		signal-to-noise-ratio (SNR). Note that the confidence interval
-                width is normalized by the true parameter value.
-                The binary parameters, i.e. black hole spin,
-                mass-ratio, NS tidal deformability, are all depicted in the 
-                same way as in Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}.
-	}
-	\label{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}
+\begin{figure*}
+\centering 
+% \textbf{BH-BH Injection; BH-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
+\textbf{NS-BH Injection; BH-BH Templates}
+\includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
+\textbf{NS-BH Injection; NS-BH Templates}
+\includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassCIWidth90_vs_SNR_q23.pdf}%\quad
+\caption{These figures are similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}
+with the difference that here we show the width of the $90\%$ confidence 
+interval (recovered) for chirp mass, as a function of the injected SNR. 
+Note that the confidence interval's width is normalized by the injected
+parameter value.
+}
+\label{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 
-\begin{figure*}[h]
+\newpage
+\newpage
+
+\begin{figure*}[!t]
 \centering    
-\textbf{BH-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/NN_EtaBias_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TN_EtaBias_vs_SNR_q23.pdf}\\ 
+\includegraphics[width=1.7\columnwidth]{plots/TN_EtaBias_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TT_EtaBias_vs_SNR_q23.pdf}%\quad
-\caption{This figure is similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
+\includegraphics[width=1.7\columnwidth]{plots/TT_EtaBias_vs_SNR_q23.pdf}\\%\quad
+\textbf{BH-BH Injection; BH-BH Templates}
+\includegraphics[width=1.7\columnwidth]{plots/NN_EtaBias_vs_SNR_q23.pdf} 
+\caption{This figure (top two rows) is similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
 with the difference that we consider the systematic bias in the dimensionless
-mass-ratio $\eta$ here.}
+mass-ratio $\eta$ here. In the bottom row we show control runs where both
+signal and template waveforms lack matter effects.}
 \label{fig:TNT_EtaBias_vs_SNR_q23}
 \end{figure*}
 % 
-\begin{figure*}[h]
+\begin{figure*}
 \centering    
-\textbf{BH-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/NN_EtaCIWidth90_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TN_EtaCIWidth90_vs_SNR_q23.pdf}\\ 
+\includegraphics[width=1.7\columnwidth]{plots/TN_EtaCIWidth90_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TT_EtaCIWidth90_vs_SNR_q23.pdf}%\quad
-\caption{This figure is similar to Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
+\includegraphics[width=1.7\columnwidth]{plots/TT_EtaCIWidth90_vs_SNR_q23.pdf}\\%\quad
+\textbf{BH-BH Injection; BH-BH Templates}
+\includegraphics[width=1.7\columnwidth]{plots/NN_EtaCIWidth90_vs_SNR_q23.pdf} 
+\caption{This figure (top two rows) is similar to Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
   with the difference that we consider the confidence intervals in the recovery
-  of the dimensionless mass-ratio $\eta$ here.}
+  of the dimensionless mass-ratio $\eta$ here. The bottom row here is similar to 
+  Fig.~\ref{fig:TNT_EtaBias_vs_SNR_q23} with the difference that width of the $90\%$
+  confidence interval is shown here.}
 \label{fig:TNT_EtaCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 
-\begin{figure*}[h]
+\begin{figure*}
 \centering    
-\textbf{BH-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/NN_BHspinBias_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TN_BHspinBias_vs_SNR_q23.pdf}\\ 
+\includegraphics[width=1.7\columnwidth]{plots/TN_BHspinBias_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TT_BHspinBias_vs_SNR_q23.pdf}%\quad
-\caption{This figure is similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
+\includegraphics[width=1.7\columnwidth]{plots/TT_BHspinBias_vs_SNR_q23.pdf}\\%\quad
+\textbf{BH-BH Injection; BH-BH Templates}
+\includegraphics[width=1.7\columnwidth]{plots/NN_BHspinBias_vs_SNR_q23.pdf}
+\caption{The top two rows in this figure are
+similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
 with the differences that we consider the systematic bias in the dimensionless
 spin on the BH here, and that the differences shown are absolute and not
-fractions of the injected spin.}
+fractions of the injected spin. In the bottom row, we show a control run where
+both injected and template waveforms correspond to binary black holes.}
 \label{fig:TNT_BHspinBias_vs_SNR_q23}
 \end{figure*}
 % 
-\begin{figure*}[h]
+\begin{figure*}
 \centering    
 \textbf{BH-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/NN_BHspinCIWidth90_vs_SNR_q23.pdf}\\ 
+\includegraphics[width=1.7\columnwidth]{plots/NN_BHspinCIWidth90_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TN_BHspinCIWidth90_vs_SNR_q23.pdf}\\ 
+\includegraphics[width=1.7\columnwidth]{plots/TN_BHspinCIWidth90_vs_SNR_q23.pdf}\\ 
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.85\columnwidth]{plots/TT_BHspinCIWidth90_vs_SNR_q23.pdf}
-\caption{This figure is similar to Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
-		with the difference that we consider the confidence intervals in the recovery
-		of the dimensionless spin on the BH $\chi_\mathrm{BH}$ here.}
-	\label{fig:TNT_BHspinCIWidth90_vs_SNR_q23}
+\includegraphics[width=1.7\columnwidth]{plots/TT_BHspinCIWidth90_vs_SNR_q23.pdf}
+\caption{The top two rows in the figure are similar to
+Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
+with the difference that we consider the confidence intervals in the recovery
+of the dimensionless spin on the BH $\chi_\mathrm{BH}$ here.
+As in Fig.~\ref{fig:TNT_BHspinBias_vs_SNR_q23}, we show here the absolute 
+width of the confidence interval without normalizing with the injected spin.
+The bottom row show a control run where matter effects are ignored both 
+in the injected signal and the template waveforms.}
+\label{fig:TNT_BHspinCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 
 \begin{figure*}
 \centering
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=2\columnwidth]{plots/TT_NSLambdaBias_vs_SNR_q23.pdf}
+\includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaBias_vs_SNR_q23.pdf}
 \caption{This figure is similar to the bottom row of
 Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}, with the difference that  we
 consider the NS tidal parameter $\Lambda$ here.}
@@ -243,7 +254,7 @@ consider the NS tidal parameter $\Lambda$ here.}
 \begin{figure*}
 \centering
 \textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=2\columnwidth]{plots/TT_NSLambdaCIWidth90_vs_SNR_q23.pdf}
+\includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaCIWidth90_vs_SNR_q23.pdf}
 \caption{This figure is similar to the bottom row of
 Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}, with the difference that  
 we consider the NS tidal parameter $\Lambda$ here.}
@@ -253,7 +264,8 @@ we consider the NS tidal parameter $\Lambda$ here.}
 % 
 Advanced LIGO searches and parameter estimation efforts aimed at binaries 
 containing NS and stellar-mass BHs are poised to use waveform models that do not
-include the effects of the NS tidal deformability. While this is not expected to
+include the effects of the NS tidal deformability~\cite{Canton:2014ena}.
+While this is not expected to
 be the dominant source of error at low SNRs, it will likely introduce a
 systematic bias in the physical parameters that we recover from GW observations.
 In this section, we study the impact of the same for binaries where the BH spins
@@ -271,7 +283,7 @@ using T signals recovered with N templates.''
 Could have subsections for aLIGO and ET ?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Using templates with tidal effects}
+\section{What do we gain by using templates that include NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Having shown in the previous section that we begin to care for NS tidal effects
 for signals in the XXX corner of the paraemter space, with SNRs above YY, here
@@ -285,13 +297,12 @@ when using tidal templates?\newline
 signals), as a function of SNR.''
 \item What is the reduction in the uncertainty in binary mass and spin, if
 any?\newline
-``show how the the $95\%$ confidence intervals shrink, as a function of SNR, 
+``show how the the $90\%$ confidence intervals shrink, as a function of SNR, 
 when we go from using N templates to T templates.''
 \end{enumerate}
 
 
-
-Could have subsections for aLIGO and ET ?
+\red{Could have subsections for aLIGO and ET ?}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
