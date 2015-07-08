@@ -27,9 +27,11 @@ import triangle
 from optparse import OptionParser
 from scipy.stats import norm
 import scipy.interpolate as ip
+import random
 
 from match import *
 from injection import *
+from utils import *
 
 parser = OptionParser()
 parser.add_option("-n", "--nsamples", dest="nsamples", type="int",
@@ -100,6 +102,10 @@ parser.add_option("-t", "--number-of-threads", dest="nThreads", type="int",
                   help="Number of threads for ensemble sampler.", metavar="number_of_threads")
 parser.add_option("-U", "--resume", dest="resume", type="string",
                   help="Restart run from chain.npy and loglike.npy from specified directory. Make sure the commandline parameters agree with the produced samples!", metavar="resume")
+parser.add_option("--auto-resume", dest="auto_resume", \
+                  action="store_false", \
+            help="Restart the chain that has collected maximum steps",\
+            metavar="auto_resume")
 
 # Additional options for tidal corection waveforms
 parser.add_option("", "--inject-tidal", dest="inject_tidal", action="store_true",
@@ -117,7 +123,7 @@ parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0,
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
   chi1_min=-1, chi1_max=0.99, chi2_min=-1, chi2_max=0.99,
   eta_stdev_init=0.15, Mc_stdev_init=5, chi1_stdev_init=0.4, chi2_stdev_init=0.4, post_process='',
-  nThreads=1, pt=False, resume='',
+  nThreads=1, pt=False, resume='', auto_resume=True, # Hard set auto-resume
   inject_tidal=False, recover_tidal=False, Lambda_signal=500)
 
 (options, args) = parser.parse_args()
@@ -133,6 +139,7 @@ if resume_directory != '':
   resume = True
 else:
   resume = False
+auto_resume = options.auto_resume 
 
 if resume and post_process:
   print 'Resume and post_process options are exclusive! Aborting.'
@@ -154,71 +161,6 @@ if Mc_stdev_init < 1e-6:
 if options.M_signal < options.m1_min + options.m2_min or options.M_signal > options.m1_max + options.m2_max:
   print 'Error: M_signal should be inside the mass prior [m1_min+m2_min, m1_max+m2_max]'
   sys.exit(-1)
-
-# Parameter transformation functions
-def etafun(q):
-  return q/(1.0 + q)**2
-def qfun(eta):
-  return (1.0 + np.sqrt(1.0 - 4.0*eta) - 2.0*eta) / (2.0*eta)
-def m1fun(M,q):
-  return M*1.0/(1.0+q)
-def m2fun(M,q):
-  return M*q/(1.0+q)
-def Mchirpfun(M, eta):
-  return M*eta**(3.0/5.0)
-def Mfun(Mc, eta):
-  return Mc*eta**(-3.0/5.0)
-
-# Function to remove duplicate entries from a list
-def f7(seq):
-    seen = set()
-    seen_add = seen.add
-    return [ x for x in seq if not (x in seen or seen_add(x))]
-
-def read_run_part_names(dataDir, SNR, burnin=500, useMaxNRun=True, \
-                      chain_number=-1, verbose=True):
-    #{{{
-    import glob
-    # Figure out the random integer associated with each run
-    all_files = glob.glob(dataDir + "/chain*-*.npy")
-    chain_nums= [int(f.split('/')[-1].split('-')[0].strip('chain')) for f in all_files]
-    chain_nums = f7(chain_nums)
-    # Get all continuation files for each
-    part_files = {}
-    for chnum in chain_nums:
-      tmp = glob.glob(dataDir + ("/chain%d-?.npy" % chnum))
-      tmp.sort()
-      part_files[chnum] = tmp
-      tmp = glob.glob(dataDir + ("/chain%d-??.npy" % chnum))
-      tmp.sort()
-      part_files[chnum].extend( tmp )
-      tmp = glob.glob(dataDir + ("/chain%d-???.npy" % chnum))
-      tmp.sort()
-      part_files[chnum].extend( tmp )
-    # Which run to use?
-    if useMaxNRun:
-      last_len, last_chnum = -1, -1
-      for chnum in part_files:
-        if len(part_files[chnum]) > last_len:
-          last_len = len(part_files[chnum])
-          last_chnum = chnum
-    else: 
-      last_chnum, last_len = chain_number, len(part_files[chain_number])
-    if verbose: 
-      print >>sys.stdout, "run %d, %d subfiles" % (last_chnum, last_len)
-    # If no runs are found
-    if last_len <= 0 or last_chnum <= 0:
-      return [], []
-    # Now open each continuation file for the chosen run and gather samples
-    print part_files[last_chnum]
-    part_files_loglike = [fnam.replace('chain','loglike') for fnam in part_files[last_chnum]]    
-    #chain = combine_pickles( part_files[last_chnum] )
-    #loglike = combine_pickles( part_files_loglike )
-    chain = np.load(part_files[last_chnum][last_len-1])
-    loglike = np.load(part_files_loglike[last_len-1])
-    #
-    return chain, loglike
-    #}}}
 
 # Parameter settings
 nsamples = options.nsamples
@@ -460,7 +402,7 @@ print "Baird et al 99% threshold", CR_99pc_threshold
 print "Baird et al 99.9% threshold", CR_99p9pc_threshold
 
 if not post_process:
-  if not resume:
+  if not resume and not auto_resume:
     # Setup initial walker positions
     # We could simply call sample_ball like so, but this will very likely include points outside of the prior range
     # p0 = emcee.utils.sample_ball(np.array([eta_true, Mc_true, chi1_true, chi2_true]), np.array([eta_stdev_init, Mc_stdev_init, chi1_stdev_init, chi2_stdev_init]), nwalkers)
@@ -498,7 +440,7 @@ if not post_process:
     fig.suptitle('Starting positions for walkers', fontsize=18);
     fig.savefig('initial_walker_positions.png')
     pl.close(fig)
-  else:
+  elif resume:
     print "Running in resume mode."
     print "Loading data from directory", resume_directory
     # NOTE: with the addition of a random number in the file names the user needs to rename the desired files to 'chain.npy' and 'loglike.npy'. Otherwise the code doesn't know which files to pick.
@@ -522,7 +464,43 @@ if not post_process:
     chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
     idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
     p0 = np.array(map(lambda i: chain_ok[:,i], idx))
-  
+  elif auto_resume:
+    print "Running in auto-resume mode."
+    print "Loading data from directory ", resume_directory
+    dataDir = '.'
+    chain, loglike, chainid, partid = read_run_part_names(\
+                    dataDir, SNR, burnin=burnin, return_ids=True, verbose=True )
+    print "Will write future data to %d-%d.npy" % (chainid, partid)
+    print "shape of chain, loglike = ", np.shape(chain), np.shape(loglike)
+    # move the original samples and log-likelihood to a backup file
+    #print 'Moving ', os.path.join(resume_directory, "chain.npy"), 'to', os.path.join(resume_directory, "chain0.npy")
+    #os.rename(os.path.join(resume_directory, "chain.npy"), os.path.join(resume_directory, "chain0.npy"))
+    #os.rename(os.path.join(resume_directory, "loglike.npy"), os.path.join(resume_directory, "loglike0.npy"))
+    #
+    ## p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
+    #
+    # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
+    k = min(50, len(loglike[:,0]))
+    print "Using good samples from last %d iterations" %(k)
+    match_cut = 1 - CR_99p9pc_threshold
+    loglike_ok = loglike[-k:] # use samples from last k iterations
+    print "len(loglike_ok) = ", np.shape(loglike_ok)
+    matches_ok = np.sqrt(2*loglike_ok)/SNR
+    print "len(matches_ok) = ", len(matches_ok)
+    sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
+    print "k = ", k, "\n shape and No of True elements in sel = ", np.shape(sel), np.count_nonzero(sel)
+    print "shape of map(lambda i: chain[:,-k:,i].T[sel], range(ndim)) = ", np.shape(map(lambda i: chain[:,-k:,i].T[sel], range(ndim)))
+    print "shape of chain[:,-k:,i] = ", np.shape(chain[:,-k:,0])
+    print "shape of chain[:,-k:,i].T = ", np.shape(chain[:,-k:,0].T)
+    print "shape of chain[:,-k:,i].T[sel] = ", np.shape(chain[:,-k:,0].T[sel])
+    chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
+    print "shape of chain_ok = ", np.shape(chain_ok), " len(chain_ok[0]) = ", len(chain_ok[0])
+    idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
+    print "shape of idx = ", np.shape(idx)
+    p0 = np.array(map(lambda i: chain_ok[:,i], idx))
+    print "shape of p0 = ", np.shape(p0)
+  else: raise RuntimeError("This cannot be!")
+    
 
   #sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, threads=4, args=[hps])
   if pt:
@@ -537,8 +515,11 @@ if not post_process:
   f = open("chain.dat", "w")
   f.close()
   nout = 1000
-  unique_id = int(1.0e7 * np.random.random())
-  outidx= 0
+  
+  if auto_resume: unique_id, outidx = chainid, partid
+  else: 
+    unique_id = int(1.0e7 * np.random.random())
+    outidx= 0
   print "Dumping chain and logposterior to .npy files every %d iterations." %nout
   ii=0
   #for result in sampler.sample(p0, iterations=nsamples, storechain=False):
@@ -556,8 +537,8 @@ if not post_process:
       f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
       # Dump samples in npy format every nout iterations
       if (k == 0) and (ii % nout == 0):
-        np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,:ii,:])
-        np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[:ii,:]) # it's really log posterior pdf
+        np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,ii-nout:ii,:])
+        np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[ii-nout:ii,:]) # it's really log posterior pdf
         outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
     f.close()
