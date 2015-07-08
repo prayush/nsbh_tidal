@@ -568,6 +568,9 @@ if not post_process:
   # a_int = np.max([emcee.autocorr.integrated_time(sampler.chain[i]) for i in range(len(sampler.chain))], 0)
   # print('A reasonable burn-in should be around {:d} steps'.format(int(10*a_exp)))
   try:
+    tmpf = open('autocorr.dat','a')
+    tmpf.write('After burn-in, each chain produces one independent sample per {:g} steps\n'.format(a_exp))
+    tmpf.close()
     print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
   except:
     pass
