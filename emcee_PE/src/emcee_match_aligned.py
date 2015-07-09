@@ -234,6 +234,7 @@ else:
 
 # we just use hp here; need to change only if we want to inject precessing approximants
 
+
 # Generate injection
 if options.signal_from_datafile != None:
   print "Reading injection from file", options.signal_from_datafile
@@ -285,6 +286,26 @@ else:
     print 'Failed to generate FD injection for lalsimulation approximant %s.' %(options.signal_approximant)
     raise
 
+def ComputeMatch(theta, s):
+  # signal s
+  [ eta, Mc, chi1, chi2 ] = theta
+  q = qfun(eta)
+  M = Mfun(Mc, eta)
+  m1 = M*1.0/(1.0+q)
+  m2 = M*q/(1.0+q)
+  m1_SI = m1*lal.MSUN_SI
+  m2_SI = m2*lal.MSUN_SI
+  # print m1, m2, chi1, chi2, tc, phic
+  # generate wf
+  [hp, hc] = lalsimulation.SimInspiralChooseFDWaveform(phi0, deltaF,\
+                      m1_SI, m2_SI,\
+                      s1x, s1y, chi1, s2x, s2y, chi2,\
+                      f_min, f_max, f_ref,\
+                      distance, inclination,\
+                      0, 0, None, None, ampOrder, phOrder,\
+                      template_approximant)
+  psdfun = lalsim_psd
+  return match_FS(s, hp, psdfun, zpf=2)
 
 print [eta_true, Mc_true, chi1_true, chi2_true]
 print 'match (s, h^*)', ComputeMatch([eta_true, Mc_true, chi1_true, chi2_true], hps)
@@ -313,6 +334,74 @@ if recover_tidal:
 
 # Define the probability function as likelihood * prior.
 ndim = 4
+def lnprior(theta):
+  [ eta, Mc, chi1, chi2 ] = theta
+  if eta > 0.25 or eta < eta_min:
+    return -np.inf
+  q = qfun(eta)
+  M = Mfun(Mc, eta)
+  m1 = M*1.0/(1.0+q)
+  m2 = M*q/(1.0+q)
+  if m1 < m1_min or m1 > m1_max:
+    return -np.inf
+  if m2 < m2_min or m2 > m2_max:
+    return -np.inf
+  if M > options.Mtot_max:
+    return -np.inf
+  if chi1 < chi1_min or chi1 > chi1_max:
+    return -np.inf
+  if chi2 < chi2_min or chi2 > chi2_max:
+    return -np.inf
+
+  # Additional priors to avoid calling tidal model outside of region of validity
+  if recover_tidal and eta < 6./49.:
+    return -np.inf
+  if recover_tidal and (chi2 > 0.75 or chi2 < -0.75):
+    return -np.inf
+  return 0.0
+
+################################################################################
+# Waveforms' analyses functions
+################################################################################
+
+def lnlikeMatch(theta, s):
+  # signal s
+  [ eta, Mc, chi1, chi2 ] = theta
+  if eta > 0.25 or eta < eta_min:
+    return -np.inf
+  q = qfun(eta)
+  M = Mfun(Mc, eta)
+  m1 = M*1.0/(1.0+q)
+  m2 = M*q/(1.0+q)
+  m1_SI = m1*lal.MSUN_SI
+  m2_SI = m2*lal.MSUN_SI
+  # print M, q, chi1, chi2
+  # generate wf
+
+  if recover_tidal:
+    # LAL FD waveform with tidal corrections
+    # FIXME: For the moment we set Lambda_template = Lambda_signal
+    [hp, hc] = tw.getWaveform( M, eta, chi2, Lambda=Lambda_signal, delta_f=deltaF, f_lower=f_min, f_final=f_max )
+    hp = convert_FrequencySeries_to_lalREAL16FrequencySeries( hp ) # converts from pycbc.types.frequencyseries.FrequencySeries to COMPLEX16FrequencySeries
+    assert hp.deltaF == deltaF
+  else:
+    # standard LAL FD waveform
+    [hp, hc] = lalsimulation.SimInspiralChooseFDWaveform(phi0, deltaF, m1_SI, m2_SI, s1x, s1y, chi1, s2x, s2y, chi2, f_min, f_max, f_ref, distance, inclination, 0, 0, None, None, ampOrder, phOrder, template_approximant)
+
+  psdfun = lalsim_psd
+  ma = match_FS(s, hp, psdfun, zpf=2)
+  if np.isnan(ma):
+    print theta, ma
+    print hp.data.data
+  rho = SNR # use global variable for now
+  return 0.5*(rho*ma)**2
+
+def lnprobMatch(theta, s):
+  lp = lnprior(theta)
+  if not np.isfinite(lp):
+    return -np.inf
+  return lp + lnlikeMatch(theta, s)
+
 
 # MismatchThreshold[nu_, P_, SNR_] := Quantile[ChiSquareDistribution[nu], P]/(2 SNR^2)
 # (*
