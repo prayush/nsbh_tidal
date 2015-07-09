@@ -179,6 +179,10 @@ result files and combines them
     import glob
     # Figure out the random integer associated with each run
     all_files = glob.glob(dataDir + "/chain*-*.npy")
+    if len(all_files) == 0:
+      if verbose: print "No npy file found."
+      if return_ids: return [], [], -1, -1
+      else: return [], []
     chain_nums= [int(f.split('/')[-1].split('-')[0].strip('chain')) for f in all_files]
     chain_nums = f7(chain_nums)
     # Get all continuation files for each
@@ -207,7 +211,8 @@ result files and combines them
       print >>sys.stdout, "out of ", chain_nums
     # If no runs are found
     if last_len <= 0 or last_chnum <= 0:
-      return [], []
+      if return_ids: return [], [], -1, -1
+      else: return [], []
     # Now open each continuation file for the chosen run and gather samples
     #print part_files[last_chnum]
     part_files_loglike = [fnam.replace('chain','loglike') for fnam in part_files[last_chnum]]    

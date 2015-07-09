@@ -402,6 +402,49 @@ print "Baird et al 99% threshold", CR_99pc_threshold
 print "Baird et al 99.9% threshold", CR_99p9pc_threshold
 
 if not post_process:
+  # Check if auto resuming is enabled first. If it is, try to find samples.
+  # If samples cannot be found, ensure that normal run starts from scratch.
+  # 
+  if auto_resume:
+    print "Running in auto-resume mode."
+    print "Loading data from directory ", resume_directory
+    dataDir = '.'
+    chain, loglike, chainid, partid = read_run_part_names(\
+            dataDir, SNR, burnin=burnin, return_ids=True, verbose=True )
+    if chainid < 0 and partid < 0:
+      if True: print "Failed to auto resume."
+      auto_resume = False
+    else:
+      print "Will write future data to %d-%d.npy" % (chainid, partid)
+      print "shape of chain, loglike = ", np.shape(chain), np.shape(loglike)
+      # move the original samples and log-likelihood to a backup file
+      #print 'Moving ', os.path.join(resume_directory, "chain.npy"), 'to', os.path.join(resume_directory, "chain0.npy")
+      #os.rename(os.path.join(resume_directory, "chain.npy"), os.path.join(resume_directory, "chain0.npy"))
+      #os.rename(os.path.join(resume_directory, "loglike.npy"), os.path.join(resume_directory, "loglike0.npy"))
+      #
+      ## p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
+      #
+      # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
+      k = min(50, len(loglike[:,0]))
+      print "Using good samples from last %d iterations" %(k)
+      match_cut = 1 - CR_99p9pc_threshold
+      loglike_ok = loglike[-k:] # use samples from last k iterations
+      print "len(loglike_ok) = ", np.shape(loglike_ok)
+      matches_ok = np.sqrt(2*loglike_ok)/SNR
+      print "len(matches_ok) = ", len(matches_ok)
+      sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
+      print "k = ", k, "\n shape and No of True elements in sel = ", np.shape(sel), np.count_nonzero(sel)
+      print "shape of map(lambda i: chain[:,-k:,i].T[sel], range(ndim)) = ", np.shape(map(lambda i: chain[:,-k:,i].T[sel], range(ndim)))
+      print "shape of chain[:,-k:,i] = ", np.shape(chain[:,-k:,0])
+      print "shape of chain[:,-k:,i].T = ", np.shape(chain[:,-k:,0].T)
+      print "shape of chain[:,-k:,i].T[sel] = ", np.shape(chain[:,-k:,0].T[sel])
+      chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
+      print "shape of chain_ok = ", np.shape(chain_ok), " len(chain_ok[0]) = ", len(chain_ok[0])
+      idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
+      print "shape of idx = ", np.shape(idx)
+      p0 = np.array(map(lambda i: chain_ok[:,i], idx))
+      print "shape of p0 = ", np.shape(p0)
+  
   if not resume and not auto_resume:
     # Setup initial walker positions
     # We could simply call sample_ball like so, but this will very likely include points outside of the prior range
@@ -440,7 +483,7 @@ if not post_process:
     fig.suptitle('Starting positions for walkers', fontsize=18);
     fig.savefig('initial_walker_positions.png')
     pl.close(fig)
-  elif resume:
+  elif resume and not auto_resume:
     print "Running in resume mode."
     print "Loading data from directory", resume_directory
     # NOTE: with the addition of a random number in the file names the user needs to rename the desired files to 'chain.npy' and 'loglike.npy'. Otherwise the code doesn't know which files to pick.
@@ -464,41 +507,6 @@ if not post_process:
     chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
     idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
     p0 = np.array(map(lambda i: chain_ok[:,i], idx))
-  elif auto_resume:
-    print "Running in auto-resume mode."
-    print "Loading data from directory ", resume_directory
-    dataDir = '.'
-    chain, loglike, chainid, partid = read_run_part_names(\
-                    dataDir, SNR, burnin=burnin, return_ids=True, verbose=True )
-    print "Will write future data to %d-%d.npy" % (chainid, partid)
-    print "shape of chain, loglike = ", np.shape(chain), np.shape(loglike)
-    # move the original samples and log-likelihood to a backup file
-    #print 'Moving ', os.path.join(resume_directory, "chain.npy"), 'to', os.path.join(resume_directory, "chain0.npy")
-    #os.rename(os.path.join(resume_directory, "chain.npy"), os.path.join(resume_directory, "chain0.npy"))
-    #os.rename(os.path.join(resume_directory, "loglike.npy"), os.path.join(resume_directory, "loglike0.npy"))
-    #
-    ## p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
-    #
-    # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
-    k = min(50, len(loglike[:,0]))
-    print "Using good samples from last %d iterations" %(k)
-    match_cut = 1 - CR_99p9pc_threshold
-    loglike_ok = loglike[-k:] # use samples from last k iterations
-    print "len(loglike_ok) = ", np.shape(loglike_ok)
-    matches_ok = np.sqrt(2*loglike_ok)/SNR
-    print "len(matches_ok) = ", len(matches_ok)
-    sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
-    print "k = ", k, "\n shape and No of True elements in sel = ", np.shape(sel), np.count_nonzero(sel)
-    print "shape of map(lambda i: chain[:,-k:,i].T[sel], range(ndim)) = ", np.shape(map(lambda i: chain[:,-k:,i].T[sel], range(ndim)))
-    print "shape of chain[:,-k:,i] = ", np.shape(chain[:,-k:,0])
-    print "shape of chain[:,-k:,i].T = ", np.shape(chain[:,-k:,0].T)
-    print "shape of chain[:,-k:,i].T[sel] = ", np.shape(chain[:,-k:,0].T[sel])
-    chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
-    print "shape of chain_ok = ", np.shape(chain_ok), " len(chain_ok[0]) = ", len(chain_ok[0])
-    idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
-    print "shape of idx = ", np.shape(idx)
-    p0 = np.array(map(lambda i: chain_ok[:,i], idx))
-    print "shape of p0 = ", np.shape(p0)
   else: raise RuntimeError("This cannot be!")
     
 
