@@ -28,6 +28,7 @@ from optparse import OptionParser
 from scipy.stats import norm
 import scipy.interpolate as ip
 
+from utils import *
 from match import *
 from injection import *
 
@@ -153,71 +154,6 @@ if options.M_signal < options.m1_min + options.m2_min or options.M_signal > opti
   print 'Error: M_signal should be inside the mass prior [m1_min+m2_min, m1_max+m2_max]'
   sys.exit(-1)
 
-# Parameter transformation functions
-def etafun(q):
-  return q/(1.0 + q)**2
-def qfun(eta):
-  return (1.0 + np.sqrt(1.0 - 4.0*eta) - 2.0*eta) / (2.0*eta)
-def m1fun(M,q):
-  return M*1.0/(1.0+q)
-def m2fun(M,q):
-  return M*q/(1.0+q)
-def Mchirpfun(M, eta):
-  return M*eta**(3.0/5.0)
-def Mfun(Mc, eta):
-  return Mc*eta**(-3.0/5.0)
-
-# Function to remove duplicate entries from a list
-def f7(seq):
-    seen = set()
-    seen_add = seen.add
-    return [ x for x in seq if not (x in seen or seen_add(x))]
-
-def read_run_part_names(dataDir, SNR, burnin=500, useMaxNRun=True, \
-                      chain_number=-1, verbose=True):
-    #{{{
-    import glob
-    # Figure out the random integer associated with each run
-    all_files = glob.glob(dataDir + "/chain*-*.npy")
-    chain_nums= [int(f.split('/')[-1].split('-')[0].strip('chain')) for f in all_files]
-    chain_nums = f7(chain_nums)
-    # Get all continuation files for each
-    part_files = {}
-    for chnum in chain_nums:
-      tmp = glob.glob(dataDir + ("/chain%d-?.npy" % chnum))
-      tmp.sort()
-      part_files[chnum] = tmp
-      tmp = glob.glob(dataDir + ("/chain%d-??.npy" % chnum))
-      tmp.sort()
-      part_files[chnum].extend( tmp )
-      tmp = glob.glob(dataDir + ("/chain%d-???.npy" % chnum))
-      tmp.sort()
-      part_files[chnum].extend( tmp )
-    # Which run to use?
-    if useMaxNRun:
-      last_len, last_chnum = -1, -1
-      for chnum in part_files:
-        if len(part_files[chnum]) > last_len:
-          last_len = len(part_files[chnum])
-          last_chnum = chnum
-    else: 
-      last_chnum, last_len = chain_number, len(part_files[chain_number])
-    if verbose: 
-      print >>sys.stdout, "run %d, %d subfiles" % (last_chnum, last_len)
-    # If no runs are found
-    if last_len <= 0 or last_chnum <= 0:
-      return [], []
-    # Now open each continuation file for the chosen run and gather samples
-    print part_files[last_chnum]
-    part_files_loglike = [fnam.replace('chain','loglike') for fnam in part_files[last_chnum]]    
-    #chain = combine_pickles( part_files[last_chnum] )
-    #loglike = combine_pickles( part_files_loglike )
-    chain = np.load(part_files[last_chnum][last_len-1])
-    loglike = np.load(part_files_loglike[last_len-1])
-    #
-    return chain, loglike
-    #}}}
-
 # Parameter settings
 nsamples = options.nsamples
 nwalkers = options.nwalkers
@@ -271,7 +207,7 @@ template_approximant=eval(options.template_approximant)
 inject_tidal = options.inject_tidal
 Lambda_signal = options.Lambda_signal
 
-
+# FIXME: add a general psd from file option
 if options.lalsim_psd == 'ET-D': # not in lalsimulation
   n = int(options.f_max / options.deltaF)
   ET_psd = lal.CreateREAL8FrequencySeries('ET_psd', 0, 1, options.deltaF, 1, n)
@@ -317,39 +253,35 @@ else:
       # FD approximant : call wrapper around ChooseFDWaveform()
       if inject_tidal:
         print 'Injecting FD approximant with tidal modifications based on ChooseFDWaveform()'
-        [hps, hcs] = InjectTidalWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
-        Lambda=Lambda_signal, f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)
+        [hps, hcs] = InjectTidalWaveform_ChooseFD(m1, m2,\
+                        S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, \
+                        Lambda=Lambda_signal, \
+                        f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF,\
+                        approximant=signal_approximant,\
+                        make_plots=True)
       else:
         print 'Injecting FD approximant via ChooseFDWaveform()'
         Lambda_signal = 0
         print 'Setting Lambda = 0'
-        [hps, hcs] = InjectWaveform_ChooseFD(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
-        f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)
+        [hps, hcs] = InjectWaveform_ChooseFD(m1, m2,\
+                        S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z,\
+                        f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF,\
+                        approximant=signal_approximant,\
+                        make_plots=True)
     else: 
       # TD approximant : InjectWaveform will call SimInspiralTD()
       print 'Injecting TD approximant via SimInspiralTD()'
       Lambda_signal = 0
       print 'Setting Lambda = 0'
-      [hps, hcs] = InjectWaveform(m1, m2, S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z, 
-    f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF, approximant=signal_approximant, make_plots=True)    
+      [hps, hcs] = InjectWaveform(m1, m2,\
+                        S1x=s1x, S1y=s1y, S1z=s1z, S2x=s2x, S2y=s2y, S2z=s2z,\
+                        f_min=f_min, f_max=f_max, f_ref=f_ref, deltaF=deltaF,\
+                        approximant=signal_approximant,\
+                        make_plots=True)    
   except RuntimeError:
     print 'Failed to generate FD injection for lalsimulation approximant %s.' %(options.signal_approximant)
     raise
 
-def ComputeMatch(theta, s):
-  # signal s
-  [ eta, Mc, chi1, chi2 ] = theta
-  q = qfun(eta)
-  M = Mfun(Mc, eta)
-  m1 = M*1.0/(1.0+q)
-  m2 = M*q/(1.0+q)
-  m1_SI = m1*lal.MSUN_SI
-  m2_SI = m2*lal.MSUN_SI
-  # print m1, m2, chi1, chi2, tc, phic
-  # generate wf
-  [hp, hc] = lalsimulation.SimInspiralChooseFDWaveform(phi0, deltaF, m1_SI, m2_SI, s1x, s1y, chi1, s2x, s2y, chi2, f_min, f_max, f_ref, distance, inclination, 0, 0, None, None, ampOrder, phOrder, template_approximant)
-  psdfun = lalsim_psd
-  return match_FS(s, hp, psdfun, zpf=2)
 
 print [eta_true, Mc_true, chi1_true, chi2_true]
 print 'match (s, h^*)', ComputeMatch([eta_true, Mc_true, chi1_true, chi2_true], hps)
@@ -377,63 +309,7 @@ tw = tidalWavs(approx=options.template_approximant.split('.')[1], verbose=False)
 
 # Define the probability function as likelihood * prior.
 ndim = 4
-def lnprior(theta):
-  [ eta, Mc, chi2, Lambda ] = theta
-  if eta > 0.25 or eta < eta_min:
-    return -np.inf
-  q = qfun(eta)
-  M = Mfun(Mc, eta)
-  m1 = M*1.0/(1.0+q)
-  m2 = M*q/(1.0+q)
-  if m1 < m1_min or m1 > m1_max:
-    return -np.inf
-  if m2 < m2_min or m2 > m2_max:
-    return -np.inf
-  if M > options.Mtot_max:
-    return -np.inf
-  if chi2 < chi2_min or chi2 > chi2_max:
-    return -np.inf
-  
-  # Additional priors to avoid calling tidal model outside of region of validity
-  if eta < 6./49.:
-    return -np.inf
-  if chi2 > 0.75 or chi2 < -0.75:
-    return -np.inf
-  if Lambda < 0 or Lambda > Lambda_max:
-    return -np.inf
-  return 0.0
 
-def lnlikeMatch(theta, s):
-  # signal s
-  [ eta, Mc, chi2, Lambda ] = theta
-  if eta > 0.25 or eta < eta_min:
-    return -np.inf
-  q = qfun(eta)
-  M = Mfun(Mc, eta)
-  m1 = M*1.0/(1.0+q)
-  m2 = M*q/(1.0+q)
-  m1_SI = m1*lal.MSUN_SI
-  m2_SI = m2*lal.MSUN_SI
-  # print M, q, chi1, chi2
-  # generate wf
-  
-  # LAL FD waveform with tidal corrections
-  [hp, hc] = tw.getWaveform( M, eta, chi2, Lambda=Lambda, delta_f=deltaF, f_lower=f_min, f_final=f_max )
-  hp = convert_FrequencySeries_to_lalREAL16FrequencySeries( hp ) # converts from pycbc.types.frequencyseries.FrequencySeries to COMPLEX16FrequencySeries
-    
-  psdfun = lalsim_psd
-  ma = match_FS(s, hp, psdfun, zpf=2)
-  if np.isnan(ma):
-    print theta, ma
-    print hp.data.data
-  rho = SNR # use global variable for now
-  return 0.5*(rho*ma)**2
-
-def lnprobMatch(theta, s):
-  lp = lnprior(theta)
-  if not np.isfinite(lp):
-    return -np.inf
-  return lp + lnlikeMatch(theta, s)
 
 # MismatchThreshold[nu_, P_, SNR_] := Quantile[ChiSquareDistribution[nu], P]/(2 SNR^2)
 # (*
@@ -457,7 +333,50 @@ print "Baird et al 99.9% threshold", CR_99p9pc_threshold
 
 
 if not post_process:
-  if not resume:
+  # Check if auto resuming is enabled first. If it is, try to find samples.
+  # If samples cannot be found, ensure that normal run starts from scratch.
+  # 
+  if auto_resume:
+    print "Running in auto-resume mode."
+    print "Loading data from directory ", resume_directory
+    dataDir = '.'
+    chain, loglike, chainid, partid = read_run_part_names(\
+            dataDir, SNR, burnin=burnin, return_ids=True, verbose=True )
+    if chainid < 0 and partid < 0:
+      if True: print "Failed to auto resume."
+      auto_resume = False
+    else:
+      print "Will write future data to %d-%d.npy" % (chainid, partid)
+      print "shape of chain, loglike = ", np.shape(chain), np.shape(loglike)
+      # move the original samples and log-likelihood to a backup file
+      #print 'Moving ', os.path.join(resume_directory, "chain.npy"), 'to', os.path.join(resume_directory, "chain0.npy")
+      #os.rename(os.path.join(resume_directory, "chain.npy"), os.path.join(resume_directory, "chain0.npy"))
+      #os.rename(os.path.join(resume_directory, "loglike.npy"), os.path.join(resume_directory, "loglike0.npy"))
+      #
+      ## p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
+      #
+      # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
+      k = min(50, len(loglike[:,0]))
+      print "Using good samples from last %d iterations" %(k)
+      match_cut = 1 - CR_99p9pc_threshold
+      loglike_ok = loglike[-k:] # use samples from last k iterations
+      print "len(loglike_ok) = ", np.shape(loglike_ok)
+      matches_ok = np.sqrt(2*loglike_ok)/SNR
+      print "len(matches_ok) = ", len(matches_ok)
+      sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
+      print "k = ", k, "\n shape and No of True elements in sel = ", np.shape(sel), np.count_nonzero(sel)
+      print "shape of map(lambda i: chain[:,-k:,i].T[sel], range(ndim)) = ", np.shape(map(lambda i: chain[:,-k:,i].T[sel], range(ndim)))
+      print "shape of chain[:,-k:,i] = ", np.shape(chain[:,-k:,0])
+      print "shape of chain[:,-k:,i].T = ", np.shape(chain[:,-k:,0].T)
+      print "shape of chain[:,-k:,i].T[sel] = ", np.shape(chain[:,-k:,0].T[sel])
+      chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
+      print "shape of chain_ok = ", np.shape(chain_ok), " len(chain_ok[0]) = ", len(chain_ok[0])
+      idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
+      print "shape of idx = ", np.shape(idx)
+      p0 = np.array(map(lambda i: chain_ok[:,i], idx))
+      print "shape of p0 = ", np.shape(p0)
+  
+  if not resume and not auto_resume:
     # Setup initial walker positions
     # We could simply call sample_ball like so, but this will very likely include points outside of the prior range
     # p0 = emcee.utils.sample_ball(np.array([eta_true, Mc_true, chi2_true, Lambda_true]), np.array([eta_stdev_init, Mc_stdev_init, chi2_stdev_init, Lambda_stdev_init]), nwalkers)
@@ -495,7 +414,7 @@ if not post_process:
     fig.suptitle('Starting positions for walkers', fontsize=18);
     fig.savefig('initial_walker_positions.png')
     pl.close(fig)
-  else:
+  elif resume and not auto_resume:
     print "Running in resume mode."
     print "Loading data from directory", resume_directory
     # NOTE: with the addition of a random number in the file names the user needs to rename the desired files to 'chain.npy' and 'loglike.npy'. Otherwise the code doesn't know which files to pick.
@@ -519,6 +438,8 @@ if not post_process:
     chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
     idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
     p0 = np.array(map(lambda i: chain_ok[:,i], idx))
+  else: raise RuntimeError("This cannot be!")
+
 
   #sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, threads=4, args=[hps])
   if pt:
@@ -535,8 +456,11 @@ if not post_process:
   f = open("chain.dat", "w")
   f.close()
   nout = 1000
-  unique_id = int(1.0e7 * np.random.random())
-  outidx= 0
+  
+  if auto_resume: unique_id, outidx = chainid, partid
+  else: 
+    unique_id = int(1.0e7 * np.random.random())
+    outidx= 0
   print "Dumping chain and logposterior to .npy files every %d iterations." %nout
   ii=0
   #for result in sampler.sample(p0, iterations=nsamples, storechain=False):
@@ -554,8 +478,8 @@ if not post_process:
       f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
       # Dump samples in npy format every nout iterations
       if (k == 0) and (ii % nout == 0):
-        np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,:ii,:])
-        np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[:ii,:]) # it's really log posterior pdf
+        np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,ii-nout:ii,:])
+        np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[ii-nout:ii,:]) # it's really log posterior pdf
         outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
     f.close()
