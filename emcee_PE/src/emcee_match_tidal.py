@@ -120,7 +120,7 @@ parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0,
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
   chi1_min=-1, chi1_max=0.99, chi2_min=-1, chi2_max=0.99,
   eta_stdev_init=0.15, Mc_stdev_init=5, chi2_stdev_init=0.4, post_process='',
-  nThreads=1, pt=False, resume='',
+  nThreads=1, pt=False, resume='', auto_resume=True, # Hard set auto-resume
   inject_tidal=False, Lambda_signal=500, Lambda_max=2500, Lambda_stdev_init=100)
 
 (options, args) = parser.parse_args()
