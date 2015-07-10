@@ -27,6 +27,8 @@ import triangle
 from optparse import OptionParser
 from scipy.stats import norm
 import scipy.interpolate as ip
+import match
+import random
 
 from utils import *
 from match import *
@@ -521,7 +523,7 @@ if not post_process:
     chain_ok = np.array(map(lambda i: chain[:,-k:,i].T[sel], range(ndim))) # extract all 'good' samples
     idx = random.sample(xrange(len(chain_ok[0])), nwalkers) # get exactly nwalkers samples
     p0 = np.array(map(lambda i: chain_ok[:,i], idx))
-  else: raise RuntimeError("This cannot be!")
+  elif not auto_resume: raise RuntimeError("This cannot be!")
 
 
   #sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, threads=4, args=[hps])
@@ -544,6 +546,7 @@ if not post_process:
   else: 
     unique_id = int(1.0e7 * np.random.random())
     outidx= 0
+  print " >> will write to output file %d-%d" % (unique_id, outidx)
   print "Dumping chain and logposterior to .npy files every %d iterations." %nout
   ii=0
   #for result in sampler.sample(p0, iterations=nsamples, storechain=False):
