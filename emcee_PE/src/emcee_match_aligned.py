@@ -88,8 +88,8 @@ parser.add_option("-X", "--Mc_stdev_init", dest="Mc_stdev_init", type="float",
                   help="Standard deviation for initial walker configurations in chirp mass Mc.", metavar="Mc_stdev_init")
 parser.add_option("-Y", "--chi1_stdev_init", dest="chi1_stdev_init", type="float",
                   help="Standard deviation for initial walker configurations in chi1.", metavar="chi1_stdev_init")
-parser.add_option("--chi2_only", dest="chi2_sonly", action="store_true",
-                  help="[DEFUNCT] Flag to be set to indicate that only chi2 - larger objects spin - is to be sampled", 
+parser.add_option("--chi2_only", dest="chi2_only", action="store_true",
+                  help="Flag to be set to indicate that only chi2 - larger objects spin - is to be sampled", 
                   metavar="chi2_only")
 parser.add_option("-Z", "--chi2_stdev_init", dest="chi2_stdev_init", type="float",
                   help="Standard deviation for initial walker configurations in chi2.", metavar="chi2_stdev_init")
@@ -124,6 +124,7 @@ parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0,
   signal_approximant='lalsimulation.SEOBNRv2_ROM_DoubleSpin', 
   template_approximant='lalsimulation.SEOBNRv2_ROM_DoubleSpin',
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
+  chi2_only=False,
   chi1_min=-1, chi1_max=0.99, chi2_min=-1, chi2_max=0.99,
   eta_stdev_init=0.15, Mc_stdev_init=5, chi1_stdev_init=0.4, chi2_stdev_init=0.4, post_process='',
   nThreads=1, pt=False, resume='', auto_resume=True, # Hard set auto-resume
@@ -370,6 +371,7 @@ def lnprior(theta):
 def lnlikeMatch(theta, s):
   # signal s
   [ eta, Mc, chi1, chi2 ] = theta
+  if options.chi2_only: chi1 = 0
   if eta > 0.25 or eta < eta_min:
     return -np.inf
   q = qfun(eta)

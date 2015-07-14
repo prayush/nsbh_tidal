@@ -262,7 +262,7 @@ for q in qvec:
                     m1max, m2max, Mcstdev, inject_tidal=inject_tidal,\
                     LambdaMax=LambdaMax, Lambdastdev=Lambdastdev,\
                     recover_tidal=recover_tidal,\
-                    chi1min=chi1min, chi1max=chi1max, chi2min=chi2min, chi2max=chi2max,\ 
+                    chi1min=chi1min, chi1max=chi1max, chi2min=chi2min, chi2max=chi2max,\
                     Nwalkers=Nw, Nsamples=Ns, Nburnin=Nburnin,\
                     postprocess_only=postprocess_only)
             #
