@@ -88,6 +88,9 @@ parser.add_option("-X", "--Mc_stdev_init", dest="Mc_stdev_init", type="float",
                   help="Standard deviation for initial walker configurations in chirp mass Mc.", metavar="Mc_stdev_init")
 parser.add_option("-Y", "--chi1_stdev_init", dest="chi1_stdev_init", type="float",
                   help="Standard deviation for initial walker configurations in chi1.", metavar="chi1_stdev_init")
+parser.add_option("--chi2_only", dest="chi2_sonly", action="store_true",
+                  help="[DEFUNCT] Flag to be set to indicate that only chi2 - larger objects spin - is to be sampled", 
+                  metavar="chi2_only")
 parser.add_option("-Z", "--chi2_stdev_init", dest="chi2_stdev_init", type="float",
                   help="Standard deviation for initial walker configurations in chi2.", metavar="chi2_stdev_init")
 parser.add_option("-R", "--post-process", dest="post_process", type="string",

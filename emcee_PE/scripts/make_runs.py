@@ -13,6 +13,7 @@ import numpy as np
 def tidal_submit_string( idir, exe,\
                   Lambda, q, m, SNR, chi1, chi2,\
                   m1max, m2max, Mcstdev, inject_tidal=True,\
+                  chi1max=0.98, chi1min=-0.99, chi2max=0.98, chi2min=-0.99,\
                   LambdaMax=2000, Lambdastdev=100, recover_tidal=True,\
                   Nwalkers=100, Nsamples=3000, Nburnin=500,\
                   postprocess_only=False ):
@@ -48,10 +49,10 @@ arguments= --signal_approximant lalsimulation.SEOBNRv2_ROM_DoubleSpin_LM \
 --nwalkers %d  \
 --nsamples %d \
 --burnin %d \
---chi1_min -0.99 \
---chi1_max 0.98 \
---chi2_min -0.99 \
---chi2_max 0.98 \
+--chi1_min %f \
+--chi1_max %f \
+--chi2_min %f \
+--chi2_max %f \
 --Mc_stdev_init %f \
 '''
     #
@@ -84,16 +85,16 @@ queue 1
     #
     if inject_tidal and not recover_tidal:
       buff = script %( idir, exe, q, m, SNR, chi1, chi2, m1max, m2max,\
-        Nwalkers, Nsamples, Nburnin, Mcstdev, Lambda)
+        Nwalkers, Nsamples, Nburnin, chi1min, chi1max, chi2min, chi2max, Mcstdev, Lambda)
     elif inject_tidal and recover_tidal:
       buff = script %( idir, exe, q, m, SNR, chi2, m1max, m2max,\
-        Nwalkers, Nsamples, Nburnin, Mcstdev, Lambda, LambdaMax, Lambdastdev )
+        Nwalkers, Nsamples, Nburnin, chi1min, chi1max, chi2min, chi2max, Mcstdev, Lambda, LambdaMax, Lambdastdev )
     elif recover_tidal:
       buff = script %( idir, exe, q, m, SNR, chi2, m1max, m2max,\
-        Nwalkers, Nsamples, Nburnin, Mcstdev, LambdaMax, Lambdastdev)
+        Nwalkers, Nsamples, Nburnin, chi1min, chi1max, chi2min, chi2max, Mcstdev, LambdaMax, Lambdastdev)
     else:
       buff = script %( idir, exe, q, m, SNR, chi1, chi2, m1max, m2max,\
-        Nwalkers, Nsamples, Nburnin, Mcstdev)
+        Nwalkers, Nsamples, Nburnin, chi1min, chi1max, chi2min, chi2max, Mcstdev)
     return buff
     #}}}
 
@@ -101,6 +102,7 @@ queue 1
 def submit_string( idir, exe,\
                   Lambda, q, m, SNR, chi1, chi2,\
                   m1max, m2max, Mcstdev, inject_tidal=True,\
+                  chi1max=0.98, chi1min=-0.99, chi2max=0.98, chi2min=-0.99,\
                   LambdaMax=2000, Lambdastdev=100, recover_tidal=True,\
                   Nwalkers=100, Nsamples=3000, Nburnin=500,\
                   postprocess_only=False ):
@@ -131,10 +133,10 @@ arguments= --signal_approximant lalsimulation.SEOBNRv2_ROM_DoubleSpin_LM \
 --nwalkers %d  \
 --nsamples %d \
 --burnin %d \
---chi1_min -0.99 \
---chi1_max 0.98 \
---chi2_min -0.99 \
---chi2_max 0.98 \
+--chi1_min %f \
+--chi1_max %f \
+--chi2_min %f \
+--chi2_max %f \
 --Mc_stdev_init %f \
 '''
     #
@@ -161,10 +163,10 @@ queue 1
     #
     if inject_tidal:
       buff = script %( idir, exe, q, m, SNR, chi1, chi2, m1max, m2max,\
-        Nwalkers, Nsamples, Nburnin, Mcstdev, Lambda)
+        Nwalkers, Nsamples, Nburnin, chi1min, chi1max, chi2min, chi2max, Mcstdev, Lambda)
     else:
       buff = script %( idir, exe, q, m, SNR, chi1, chi2, m1max, m2max,\
-        Nwalkers, Nsamples, Nburnin, Mcstdev)
+        Nwalkers, Nsamples, Nburnin, chi1min, chi1max, chi2min, chi2max, Mcstdev)
     return buff
     #}}}
 
@@ -196,6 +198,11 @@ m1min = 1.2
 m1max = 15.
 m2min = 1.2 
 m2max = 25
+
+chi1min = -0.99
+chi1max = 0.98
+chi2min = -0.99
+chi2max = 0.98
 
 LambdaMax = 4000
 Lambdastdev = 100
@@ -255,6 +262,7 @@ for q in qvec:
                     m1max, m2max, Mcstdev, inject_tidal=inject_tidal,\
                     LambdaMax=LambdaMax, Lambdastdev=Lambdastdev,\
                     recover_tidal=recover_tidal,\
+                    chi1min=chi1min, chi1max=chi1max, chi2min=chi2min, chi2max=chi2max,\ 
                     Nwalkers=Nw, Nsamples=Ns, Nburnin=Nburnin,\
                     postprocess_only=postprocess_only)
             #
