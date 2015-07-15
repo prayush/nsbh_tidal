@@ -14,6 +14,7 @@ def tidal_submit_string( idir, exe,\
                   Lambda, q, m, SNR, chi1, chi2,\
                   m1max, m2max, Mcstdev, inject_tidal=True,\
                   chi1max=0.98, chi1min=-0.99, chi2max=0.98, chi2min=-0.99,\
+                  chi2only=False,\
                   LambdaMax=2000, Lambdastdev=100, recover_tidal=True,\
                   Nwalkers=100, Nsamples=3000, Nburnin=500,\
                   postprocess_only=False ):
@@ -103,6 +104,7 @@ def submit_string( idir, exe,\
                   Lambda, q, m, SNR, chi1, chi2,\
                   m1max, m2max, Mcstdev, inject_tidal=True,\
                   chi1max=0.98, chi1min=-0.99, chi2max=0.98, chi2min=-0.99,\
+                  chi2only=False,\
                   LambdaMax=2000, Lambdastdev=100, recover_tidal=True,\
                   Nwalkers=100, Nsamples=3000, Nburnin=500,\
                   postprocess_only=False ):
@@ -140,6 +142,10 @@ arguments= --signal_approximant lalsimulation.SEOBNRv2_ROM_DoubleSpin_LM \
 --Mc_stdev_init %f \
 '''
     #
+    if chi2only:
+        script += '''\
+--chi2_only \
+'''
     if inject_tidal:
         script += '''\
 --inject-tidal \
@@ -203,6 +209,7 @@ chi1min = -0.99
 chi1max = 0.98
 chi2min = -0.99
 chi2max = 0.98
+chi2only = True
 
 LambdaMax = 4000
 Lambdastdev = 100
@@ -263,6 +270,7 @@ for q in qvec:
                     LambdaMax=LambdaMax, Lambdastdev=Lambdastdev,\
                     recover_tidal=recover_tidal,\
                     chi1min=chi1min, chi1max=chi1max, chi2min=chi2min, chi2max=chi2max,\
+                    chi2only=chi2only,\
                     Nwalkers=Nw, Nsamples=Ns, Nburnin=Nburnin,\
                     postprocess_only=postprocess_only)
             #
