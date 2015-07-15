@@ -187,13 +187,13 @@ def get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns):
 # Set up parameters of signal
 ######################################################
 chi1 = 0.   # small BH
-chi2vec = [-0.5, 0, 0.5]  # larger BH
+chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
 mNS = 1.35
-qvec = [4, 5]
-Lambdavec = [500, 1000, 2000]
+qvec = [2, 3, 4]
+Lambdavec = [500, 800, 1000]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
-inject_tidal = False
+inject_tidal = True
 
 if not inject_tidal: Lambdavec = [0]
 ######################################################
