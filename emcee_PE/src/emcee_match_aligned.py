@@ -577,6 +577,14 @@ if not post_process:
         np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[ii-nout:ii,:]) # it's really log posterior pdf
         outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
+      # Dump correlation length every nout iterations
+      a_exp = max(sampler.acor[0]) # we could take the max over all temperatures, but there may be nan's
+      try:
+        tmpf = open('autocorr.dat','a')
+        tmpf.write('After burn-in, each chain produces one independent sample per {:g} steps\n'.format(a_exp))
+        tmpf.close()
+        print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
+      except: pass
     f.close()
 
   if pt:

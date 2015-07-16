@@ -193,7 +193,7 @@ qvec = [2, 3, 4]
 Lambdavec = [500, 800, 1000]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
-inject_tidal = True
+inject_tidal = False
 
 if not inject_tidal: Lambdavec = [0]
 ######################################################
