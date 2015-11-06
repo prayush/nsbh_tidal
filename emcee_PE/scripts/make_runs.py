@@ -193,7 +193,7 @@ qvec = [2, 3, 4]
 Lambdavec = [500, 800, 1000]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
-inject_tidal = False
+inject_tidal = True
 
 if not inject_tidal: Lambdavec = [0]
 ######################################################
@@ -214,7 +214,7 @@ chi2only = True
 LambdaMax = 4000
 Lambdastdev = 100
 
-recover_tidal = False
+recover_tidal = True
 
 ######################################################
 # Set up RUN parameters

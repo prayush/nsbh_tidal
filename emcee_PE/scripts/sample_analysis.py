@@ -51,7 +51,7 @@ plt.rcParams.update({\
 # value for different parameters
 ######################################################
 def get_bias(\
-  basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set003/',\
+  basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN/',\
   simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
   M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, SNR_inj = 60):
     """
@@ -114,6 +114,7 @@ def make_bias_plot(plotparam='Mc', plotquantity='bias', normalize='',\
           for Ns in Nsamples:
             for Nw in Nwalkers:
               simdir = mr.get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
+              print "\n\n Trying to read in %s" % simdir
               chi1val, chi2val = chi1, chi2
               #
               # Hack for NS templates
@@ -170,11 +171,10 @@ def make_bias_plot(plotparam='Mc', plotquantity='bias', normalize='',\
 # Set up parameters of signal
 ######################################################
 chi1 = 0.   # small BH
-chi2vec = [-0.5, 0, 0.5]  # larger BH
+chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
 mNS = 1.35
-qvec = [2, 3]
-Lambdavec = [500, 1000, 2000]
-#SNRvec = [20, 30, 40, 50, 60, 70, 80, 90, 100]
+qvec = [2, 3, 4]
+Lambdavec = [500, 800, 1000]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
 
@@ -225,13 +225,13 @@ Nburnin  = 500
 ######################################################
 #############################
 ##### Chirp mass bias
-#if plot_bias:
-  #print "Making chirp mass bias plots"
-  #xmin, xmax = min(SNRvec), max(SNRvec)
-  #ymin, ymax = -0.0002, 0.00035
-  #make_bias_plot(plotparam='Mc', ylabel='$\Delta\mathcal{M}_c / \mathcal{M}_c $',\
-              #savefig='plots/'+simstring+'chirpMassBias_vs_SNR_q23.pdf',\
-              #xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+if plot_bias:
+  print "Making chirp mass bias plots"
+  xmin, xmax = min(SNRvec), max(SNRvec)
+  ymin, ymax = -0.0002, 0.00035
+  make_bias_plot(plotparam='Mc', ylabel='$\Delta\mathcal{M}_c / \mathcal{M}_c $',\
+              savefig='plots/'+simstring+'chirpMassBias_vs_SNR_q23.pdf',\
+              xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
 
 # Chirp mass width
 if plot_width:
@@ -245,35 +245,35 @@ if plot_width:
 
 #############################
 ##### eta bias
-#if plot_bias:
-  #print "Making eta bias plots"
-  #xmin, xmax = min(SNRvec), max(SNRvec)
-  #ymin, ymax = -0.1, 0.06
-  #make_bias_plot(plotparam='eta', ylabel='$\Delta\eta / \eta $',\
-              #savefig='plots/'+simstring+'EtaBias_vs_SNR_q23.pdf',\
-              #xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+if plot_bias:
+  print "Making eta bias plots"
+  xmin, xmax = min(SNRvec), max(SNRvec)
+  ymin, ymax = -0.1, 0.06
+  make_bias_plot(plotparam='eta', ylabel='$\Delta\eta / \eta $',\
+              savefig='plots/'+simstring+'EtaBias_vs_SNR_q23.pdf',\
+              xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
 
-## eta width
-#if plot_width:
-  #print "Making eta CI width plots"
-  #xmin, xmax = min(SNRvec), max(SNRvec)
-  #ymin, ymax = 0.02, 0.36
-  #make_bias_plot(plotparam='eta', plotquantity='width',\
-              #ylabel='$\left(\Delta\eta\\right)_{90\%} / \eta $',\
-              #savefig='plots/'+simstring+'EtaCIWidth90_vs_SNR_q23.pdf',\
-              #xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+# eta width
+if plot_width:
+  print "Making eta CI width plots"
+  xmin, xmax = min(SNRvec), max(SNRvec)
+  ymin, ymax = 0.02, 0.36
+  make_bias_plot(plotparam='eta', plotquantity='width',\
+              ylabel='$\left(\Delta\eta\\right)_{90\%} / \eta $',\
+              savefig='plots/'+simstring+'EtaCIWidth90_vs_SNR_q23.pdf',\
+              xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
 
 #############################
 ##### Chi-BH bias
 if recover_tidal: plottag = 'chi1'
 else: plottag = 'chi2'
-#if plot_bias:
-  #print "Making BH spin bias plots"
-  #xmin, xmax = min(SNRvec), max(SNRvec)
-  #ymin, ymax = -0.3, 0.15
-  #make_bias_plot(plotparam=plottag, ylabel='$\Delta \chi_\mathrm{BH}$',\
-              #savefig='plots/'+simstring+'BHspinBias_vs_SNR_q23.pdf',\
-              #xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+if plot_bias:
+  print "Making BH spin bias plots"
+  xmin, xmax = min(SNRvec), max(SNRvec)
+  ymin, ymax = -0.3, 0.15
+  make_bias_plot(plotparam=plottag, ylabel='$\Delta \chi_\mathrm{BH}$',\
+              savefig='plots/'+simstring+'BHspinBias_vs_SNR_q23.pdf',\
+              xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
 
 # Chi-BH width
 if plot_width:
@@ -288,27 +288,27 @@ if plot_width:
 
 #############################
 # Lambda-NS bias & width
-#if recover_tidal:
-  #plottag = 'chi2'
-  #if plot_bias:
-    #print "Making NS Lambda bias plots"
-    #xmin, xmax = min(SNRvec), max(SNRvec)
-    #ymin, ymax = -0.2, 2.5
-    #make_bias_plot(plotparam=plottag,\
-              #normalize='Lambda',\
-              #ylabel='$\Delta\Lambda_\mathrm{NS} / \Lambda_\mathrm{NS}$',\
-              #savefig='plots/'+simstring+'NSLambdaBias_vs_SNR_q23.pdf',\
-              #xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+if recover_tidal:
+  plottag = 'chi2'
+  if plot_bias:
+    print "Making NS Lambda bias plots"
+    xmin, xmax = min(SNRvec), max(SNRvec)
+    ymin, ymax = -0.2, 2.5
+    make_bias_plot(plotparam=plottag,\
+              normalize='Lambda',\
+              ylabel='$\Delta\Lambda_\mathrm{NS} / \Lambda_\mathrm{NS}$',\
+              savefig='plots/'+simstring+'NSLambdaBias_vs_SNR_q23.pdf',\
+              xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
   
-  #if plot_width:
-    #print "Making NS Lambda CI Width plots"
-    #xmin, xmax = min(SNRvec), max(SNRvec)
-    #ymin, ymax = 0, 7
-    #make_bias_plot(plotparam=plottag, plotquantity='width',\
-        #normalize='Lambda',\
-        #ylabel='$\left(\Delta\Lambda_\mathrm{NS}\\right)_{90\%} / \Lambda_\mathrm{NS}$',\
-              #savefig='plots/'+simstring+'NSLambdaCIWidth90_vs_SNR_q23.pdf',\
-              #xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+  if plot_width:
+    print "Making NS Lambda CI Width plots"
+    xmin, xmax = min(SNRvec), max(SNRvec)
+    ymin, ymax = 0, 7
+    make_bias_plot(plotparam=plottag, plotquantity='width',\
+        normalize='Lambda',\
+        ylabel='$\left(\Delta\Lambda_\mathrm{NS}\\right)_{90\%} / \Lambda_\mathrm{NS}$',\
+              savefig='plots/'+simstring+'NSLambdaCIWidth90_vs_SNR_q23.pdf',\
+              xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
 
 
 
