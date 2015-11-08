@@ -344,9 +344,10 @@ def load_samples_join(dataDir, SNR, burnin=500, useMaxNRun=True, \
     #{{{
     import glob
     chain, loglike = read_run_part_names(dataDir, SNR, burnin=burnin, \
-                                        useMaxNRun=useMaxNRun, \
-                                        chain_number=chain_number, \
-                                        verbose=verbose )
+            useMaxNRun=useMaxNRun, chain_number=chain_number, verbose=verbose )
+    
+    print "datadir = ", dataDir, " SNR = ", SNR
+    #print chain, loglike
     if np.shape(chain)[0] != np.shape(loglike)[1] or np.shape(chain)[1] != np.shape(loglike)[0]:
       raise RuntimeError("Chain and loglikelihood file not the same length")
     if len(chain) == 0 or len(loglike) == 0:
