@@ -6,6 +6,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \usepackage{xspace}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{amssymb}
+\usepackage[dvipsnames]{xcolor}
 
 \newcommand{\roughly}{\mathchar"5218\relax} % Different from \sim in spacing
 
@@ -16,6 +17,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\larry}[1]{\textcolor{OliveGreen}{#1}}
 \newcommand{\bela}[1]{\textcolor{Blue}{#1}}
 \newcommand{\saul}[1]{\textcolor{Orange}{#1}}
+\newcommand{\prayush}{\textcolor{red!40!black}}
 
 % Macros for text notes and comments
 \newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
@@ -33,6 +35,8 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
     Fullerton, California 92834, USA}} %
 
 
+    
+\newcommand{\NS}{\mathrm{NS}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -62,20 +66,87 @@ Abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Current status:
+
+The Advanced LIGO (aLIGO) observatories began their first observing run ``O1'' in 
+September, 2015. With both detectors a factor of $3-4$ more sensitive than
+their first-generation counterparts, we have access to $\approx 50$ times more 
+spacial volume of the universe at every instant. Within a 
+$3$ month observing run, these detectors would have access to as
+many binary mergers as initial-LIGO detectors did in $\sim 6$ years of 
+coincident operation. Through gradual updates, both of these instruments will
+reach their design sensitivity by $2019$, at which point they will like detect
+around $70$ binary mergers a year~\cite{Abadie:2010cf}.
+
+Coalescing binaries containing a neutron star (NS) and a black hole (BH) are
+one of the most important sources of gravitational waves (GW) with the aLIGO
+and Virgo instruments, which expect to detect $\mathcal{O}(10)$
+of such systems every 
+year~\cite{Abadie:2010cf}. Conventional astronomical methods have, to date, made 
+observations of NSs with masses between $XX-YY M_\odot$ and spin
+$|\vec{\chi}\lesssim 0.05$. On the other hand, indirect observations of BHs 
+have placed the masses of stellar-collapse BHs between $5-35M_\odot$, with 
+spin angular momenta ranging from low to nearly extremal values (i.e., nearly
+as fast as possible - see,
+e.g.~\cite{McClintockEtAl:2006,Miller:2009cw,Gou:2014una} for examples of 
+nearly extremal estimates of BH spins, and see
+Refs.~\cite{McClintock:2013vwa,Reynolds:2013qqa} for recent reviews of
+astrophysical BH spin measurements). \prayush{[Do we want to emphasize on BH
+spins here?]}. 
+
+
+One question that aLIGO is likely to probe is `what is the nature of
+matter at nuclear densities', i.e. what is the equation of state (EoS) of 
+neutron stars. The EoS determines the compactness of NSs, which
+determines how early in the coalescence will the NS be tidally disrupted
+by the gravitational field of the BH, resulting in the formation
+of an accretion disk and/or ejection of unbound matter. This makes NSBH
+mergers are one of the prime targets of the program for joint detection of
+GW and electromagnetic signals. 
+% 
+The difficulty in discerning the matter effects in an NSBH merger GW signal
+lies in distinguishing it reliably from a BHBH merger signal. The earlier the
+NS disrupts, the more orbits there are over which the effect of NS disruption
+is visible. Where exactly does disruption happen is governed both by the 
+mass-ratio of the binary, as well as the spin on the BH. Larger BHs (with
+$q=m_\mathrm{BH}/m_\mathrm{NS}\gtrsim 7$), as well as BHs with large retrograde
+spins ($\chi_\mathrm{BH} \lesssim 0$), tend to swallow the NS whole due to a
+rapid merger (i.e. without it disrupting before the inner-most stable circular
+orbit (ISCO) is reached). On the other hand, binaries with mass-ratios 
+$q=2-5$ with large pro-grade $\chi_\mathrm{BH}$ can disrupt much before 
+merger, leaving their imprint in the GW signal emitted close to $1.7-2$~kHz.
+% 
+
+The goal of this paper is to probe the distinguishability of BHBH and NSBH
+mergers, focusing at the effects of the BH mass, BH spin, and NS tidal 
+deformability. We also investigate the accuracy with which aLIGO can measure
+the tidal deformability parameter $\Lambda_\NS\sim(R/M)^5_\NS$. For both of 
+these studies, we will use the zero-detuning high-power noise curve for the
+aLIGO detectors. \prayush{In addition, we also study the effect of tuning aLIGO
+over a narrow frequency range aimed at NSBH mergers.}
+We use the models published in Ref.~\cite{Lackey:2013axa,Pannarale:2015jka} to
+simulate NSBH merger waveforms.
+
+
+
+\vspace{2cm}
+
+\textit{\prayush{Current status:}}
+
+Below we explain the outline the different calculations performed in this 
+paper:
 
 \begin{enumerate}
-\item We choose the following values of different NS-BH binary parameters:
+\item We choose the following values of different NSBH binary parameters:
 \begin{enumerate}
 \item $m_\mathrm{NS}=1.35M_\odot$;
 \item $q=m_\mathrm{BH}/\mathrm{NS}=\{2,3\}$;
 \item $\chi_\mathrm{NS}=0$;
 \item $\chi_\mathrm{BH}=\{-0.5, 0, +0.5\}$;
-\item $\Lambda =\{500,1000,2000\}$.
+\item $\Lambda =\{500,1000,2000\}$ ($\Lambda=0\implies \mathrm{BHBH}$).
 \end{enumerate}
 
-\item For each system comprised of all unique combinations of the above 
-parameter choices, we carry out three parameter estimation tests: 
+\item For each system, corresponding to one of all possible unique combinations
+of the above parameter choices, we carry out three parameter estimation tests: 
 \begin{enumerate}
 \item BH-BH signals injected, recovered with BH-BH waveforms (control),
 \item NS-BH signals injected, recovered with BH-BH waveforms, (current approach) and
@@ -276,7 +347,12 @@ are aligned to the orbital angular momentum.
 do we begin to care about NS deformability?\newline
 ``one interesting plot to make would be the parameter bias (max-Likelihood
 parameters minus true parameters) vs SNR, as functionals of q/sBH/Lambda, when
-using T signals recovered with N templates.''
+using T signals recovered with N templates.''\newline
+`` another interesting plot to make would be the fitting-factors recovered with
+a discrete (search oriented) template bank of BBH waveforms, for NSBH signals of
+loudness, deformability, spins, mass-ratios, etc. Which parameter plays the 
+dominant role in paramter regions where the bank does not suffice to recover
+the desired threshold of optimal SNR?''
 \end{enumerate}
 
 

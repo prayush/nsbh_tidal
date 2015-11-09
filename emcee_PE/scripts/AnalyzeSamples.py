@@ -11,6 +11,7 @@ from matplotlib import mlab, cm, use
 #use('Agg')
 import matplotlib.pyplot as plt
 plt.rcParams.update({'text.usetex' : True})
+from mpl_toolkits.axes_grid1 import ImageGrid
 
 from pydoc import help
 from scipy.stats.stats import pearsonr
@@ -52,12 +53,13 @@ aspect=(5.**0.5 - 1) * 0.5
 size=4.0 * 2# was 6
 figsize=(size,aspect*size)
 plt.rcParams.update({\
-'legend.fontsize':9, \
+'legend.fontsize':11, \
+'text.fontsize':11,\
 'axes.labelsize':11,\
 'font.family':'serif',\
 'font.size':11,\
-'xtick.labelsize':9,\
-'ytick.labelsize':9,\
+'xtick.labelsize':11,\
+'ytick.labelsize':11,\
 'figure.subplot.bottom':0.2,\
 'figure.figsize':figsize, \
 'savefig.dpi': 500.0, \
@@ -72,29 +74,102 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
                 levelspacing=0.25, vmin=None, vmax=None,\
                 xmin=None, xmax=None, ymin=None, ymax=None,\
                 colorbartype='simple', figname='plot.png'):
+  """
+  Function to plot arbitrary numbers of contour plots in a single figure
+  """
   if colorbartype != 'simple':
     raise IOError("Colorbar type %s not supported" % colorbartype)
-  colwidth = 2.8*1.5
+  colwidth = 1.7
   if np.shape(X)[:2] != np.shape(Y)[:2] or np.shape(X)[:2] != np.shape(Z2d)[:2]:
     raise IOError("X, Y and Z arrays have different number of sets to plot")
   
   nrow, ncol, _ = np.shape(X)
   if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
-  pltid = 1
-  allaxes = []
-  fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=(2.*gmean*colwidth*ncol, colwidth*nrow))
+  pltid = 0
   
+  fig = plt.figure(int(1e7 * np.random.random()), \
+              figsize=((2.*gmean*ncol+0.3)*colwidth, colwidth*nrow))
+  fig.clf()
+  grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
+            share_all=True,\
+            cbar_mode="single", cbar_location="right",\
+            cbar_pad=0.1, cbar_size="5%", \
+            aspect=True,\
+            add_all=True)
   for idx in range(nrow):
     for jdx in range(ncol):
       try: xx, yy, zz = X[idx][jdx], Y[idx][jdx], Z2d[idx][jdx]
       except: 
         print "Array shapes = ", np.shape(xx), np.shape(yy), np.shape(zz)
         raise RuntimeError
-      if vverbose: print "Adding subplot %d of %f" % (pltid, nrow*ncol)
-      ax = fig.add_subplot(nrow, ncol, pltid)
+      if vverbose: print "Adding subplot %d of %d" % (pltid+1, nrow*ncol)
+      #ax = fig.add_subplot(nrow, ncol, pltid, autoscale_on=True)
+      #ax = axes[idx][jdx]
+      ax = grid[pltid]
+      ax.set_aspect(1./4/gmean)
       pltid += 1
-      allaxes.append( ax )
+      
+      norm = cm.colors.Normalize(vmax=zz.max(), vmin=zz.min())
+      cmap = cm.rainbow
+      levels = np.arange(zz.min(), zz.max(), levelspacing)
+      CS = ax.contourf( xx, yy, zz,\
+              levels=levels, \
+              cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
+              alpha=0.9, vmin=vmin, vmax=vmax)
+      ax.grid()
+      ax.set_xlim([xmin, xmax])
+      ax.set_ylim([ymin, ymax])
+      if idx == (nrow-1): ax.set_xlabel(xlabel)
+      if jdx == 0: ax.set_ylabel(ylabel)
+      #if np.shape(titles) == (nrow, ncol): ax.set_title(titles[idx][jdx])
+      if np.shape(titles) == (nrow, ncol):
+        ax.text(.5, .9, titles[idx][jdx], horizontalalignment='center', transform=ax.transAxes)
+      #if idx == 0 and jdx==(ncol/2) and title != '':
+      #  ax.set_title(titles[idx][jdx]+'\n '+title)  
+      if idx == 0 and jdx==(ncol/2) and title != '':
+        ax.text(.5, .9, titles[idx][jdx]+'\n '+title, horizontalalignment='center', transform=ax.transAxes)
+  #
+  #fig.subplots_adjust(right=0.8)
+  cb = ax.cax.colorbar(CS, format='%.1f')
+  cb.set_label_text(clabel)
+  ax.cax.toggle_label(True)
+  fig.savefig(figname)
+  return  
+
+
+# Plotting functions
+def make_contour_array_old(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
+                title='', titles=[], \
+                levelspacing=0.25, vmin=None, vmax=None,\
+                xmin=None, xmax=None, ymin=None, ymax=None,\
+                colorbartype='simple', figname='plot.png'):
+  print "DONT USE THIS FUNCTION, ITS DEPRECATED!!!"
+  return
+  if colorbartype != 'simple':
+    raise IOError("Colorbar type %s not supported" % colorbartype)
+  colwidth = 2.
+  if np.shape(X)[:2] != np.shape(Y)[:2] or np.shape(X)[:2] != np.shape(Z2d)[:2]:
+    raise IOError("X, Y and Z arrays have different number of sets to plot")
+  
+  nrow, ncol, _ = np.shape(X)
+  if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
+  pltid = 1
+  frac = (2.*gmean*ncol+0.3)
+  frac = ncol
+  fig = plt.figure(int(1e7 * np.random.random()), \
+              figsize=(frac*colwidth, colwidth*nrow))
+  fig, axes = plt.subplots(nrows=nrow, ncols=ncol, sharex=True, sharey=True,\
+                    figsize=((2.*gmean*ncol+0.3)*colwidth, colwidth*nrow))
+  for idx in range(nrow):
+    for jdx in range(ncol):
+      try: xx, yy, zz = X[idx][jdx], Y[idx][jdx], Z2d[idx][jdx]
+      except: 
+        print "Array shapes = ", np.shape(xx), np.shape(yy), np.shape(zz)
+        raise RuntimeError
+      if vverbose: print "Adding subplot %d of %d" % (pltid, nrow*ncol)
+      #ax = fig.add_subplot(nrow, ncol, pltid, autoscale_on=True)
+      ax = axes[idx][jdx]
+      pltid += 1
       
       norm = cm.colors.Normalize(vmax=zz.max(), vmin=zz.min())
       cmap = cm.rainbow
@@ -109,13 +184,16 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
       if idx == (nrow-1): ax.set_xlabel(xlabel)
       if jdx == 0: ax.set_ylabel(ylabel)
       if np.shape(titles) == (nrow, ncol): ax.set_title(titles[idx][jdx])
-      if idx == 0 and jdx==(ncol/2): ax.set_title(title)      
+      if idx == 0 and jdx==(ncol/2) and title != '':
+        ax.set_title(titles[idx][jdx]+'\n '+title)      
   #
+  fig.subplots_adjust(right=0.8)
   if colorbartype=='simple':
     ax2 = fig.add_axes([0.92, 0.1, 0.01, 0.7])
     cb = fig.colorbar(CS, cax=ax2, orientation=u'vertical', format='%.1f')
     cb.set_label(clabel)
     cb.set_clim(vmin=vmin, vmax=vmax)
+    fig.subplots_adjust(right=0.8)
   else:
     # The following code is copied and might not work
     ax2 = fig.add_axes([0.92, 0.1, 0.01, 0.7])
@@ -141,8 +219,11 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
     cb.set_label(clabel, verticalalignment='top', horizontalalignment='center')#,labelpad=-0.3,y=1.1,x=-0.5)  
     #if max(C) < cmax and min(C) > cmin: cb.set_clim([cmin,cmax])
 
+  #fig.tight_layout(rect=(0,0,0.93,1))
+
   fig.savefig(figname)
   return
+
 
 
 def make_contour(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', title='',\
@@ -508,7 +589,7 @@ PLUS, the first 2 columns in each row of the dataset are:
     converted to LogLikelihood as LogL = 1/2 SNR^2 MATCH^2
 '''
 
-plot_SNRcrit = True
+plot_SNRcrit = False
 plot_LambdaBias = True
 
 ######################################################
@@ -614,18 +695,18 @@ if plot_LambdaBias:
     ttmp = []
     for snr in plotSNRvec:
       Xtmp.append(np.array(chi2vec))
-      Ytmp.append(np.array(qvec))
+      Ytmp.append(mNS * np.array(qvec))
       Ztmp.append(lambdaBiases[Lambda][snr][plotCI] * 100)
-      ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \rho=%.1f$' % (Lambda, snr))
+      ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
     Xarray.append(Xtmp)
     Yarray.append(Ytmp)
     Zarray.append(Ztmp)
     titles.append(ttmp)
   
   make_contour_array(Xarray, Yarray, Zarray, \
-    xlabel='Black-hole spin', ylabel='Binary mass-ratio', \
-    xmin=-0.5, xmax=0.75, ymin=2, ymax=4, titles=titles, \
-    clabel='$\%$ bias in $\Lambda_\mathrm{NS}$', levelspacing=0.02, \
+    xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
+    xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+    clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
     figname=os.path.join(plotdir,'TT_LambdaBiases_Lambda_SNR.png'))
 
 
