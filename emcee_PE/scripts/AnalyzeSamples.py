@@ -20,6 +20,11 @@ from scipy import stats
 from scipy.interpolate import UnivariateSpline
 from scipy.optimize import minimize_scalar
 
+sys.path.append( os.path.dirname(os.path.realpath(__file__)) + '/../src/' )
+sys.path.append( os.path.dirname(os.path.realpath(__file__)) )
+sys.path.append( '/home/prayush/src/UseNRinDA/scripts/' )
+sys.path.append( '/home/prayush/src/UseNRinDA/plotting' )
+
 from utils import *
 import pycbc.pnutils as pnutils
 from PlotOverlapsNR import make_contour_plot_multrow
@@ -28,7 +33,7 @@ import h5py
 
 # Constants
 verbose  = True
-vverbose = True
+vverbose = False
 
 quantiles_68 = [0.16, 0.5, 0.84] # 1-sigma
 quantiles_95 = [0.0228, 0.5, 0.9772] # 2-sigma ~ 95.4%
@@ -88,12 +93,12 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   pltid = 0
   
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((2.*gmean*ncol+0.3)*colwidth, colwidth*nrow))
+              figsize=((2.*gmean*ncol+0.3)*colwidth, 1.1*colwidth*nrow))
   fig.clf()
   grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
             share_all=True,\
             cbar_mode="single", cbar_location="right",\
-            cbar_pad=0.1, cbar_size="5%", \
+            cbar_pad=0.1, cbar_size="4%", \
             aspect=True,\
             add_all=True)
   for idx in range(nrow):
@@ -668,46 +673,60 @@ The bias shown is a fraction of the injected Lambda, and different figures are
 made for different LAmbda values
 """
 
-lambdaBiases = {}
+lambdaBiases, lambdaCIwidths = {}, {}
 for Lambda in Lambdavec:
-  lambdaBiases[Lambda] = {}
+  lambdaBiases[Lambda], lambdaCIwidths[Lambda] = {}, {}
   for snr in SNRvec:
-    lambdaBiases[Lambda][snr] = {}
+    lambdaBiases[Lambda][snr], lambdaCIwidths[Lambda][snr] = {}, {}
     for CI in range( len(CILevels) ):
       lambdaBiases[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+      lambdaCIwidths[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
       for i, q in enumerate(qvec):
         for j, chiBH in enumerate(chi2vec):
-          if verbose:
+          if vverbose:
             print "getting bias in Lambda for q=%f, chiBh=%f, Lambda=%f at SNR = %f" %\
                   (q, chiBH, Lambda, snr)
           lambdaBiases[Lambda][snr][CI][i,j] = get_results(data,\
                   q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
                   p='Lambda', qnt='fbias', CI=CI)
+          lambdaCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
+                  q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                  p='Lambda', qnt='CIfwidth', CI=CI)
+
 
 if plot_LambdaBias:
   plotSNRvec = [30, 50, 90]
   plotCI = 0
-  Xarray, Yarray, Zarray = [], [], []
+  Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
   titles = []
   
   for Lambda in Lambdavec:
-    Xtmp, Ytmp, Ztmp = [], [], []
+    Xtmp, Ytmp, Ztmp1, Ztmp2 = [], [], [], []
     ttmp = []
     for snr in plotSNRvec:
       Xtmp.append(np.array(chi2vec))
       Ytmp.append(mNS * np.array(qvec))
-      Ztmp.append(lambdaBiases[Lambda][snr][plotCI] * 100)
+      Ztmp1.append(lambdaBiases[Lambda][snr][plotCI] * 100)
+      Ztmp2.append(lambdaCIwidths[Lambda][snr][plotCI] * 100)
       ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
     Xarray.append(Xtmp)
     Yarray.append(Ytmp)
-    Zarray.append(Ztmp)
+    Zarray1.append(Ztmp1)
+    Zarray2.append(Ztmp2)
     titles.append(ttmp)
   
-  make_contour_array(Xarray, Yarray, Zarray, \
+  make_contour_array(Xarray, Yarray, Zarray2, \
+    xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
+    xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+    clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
+    figname=os.path.join(plotdir,'TT_LambdaCIWidths_Lambda_SNR.png'))
+  
+  make_contour_array(Xarray, Yarray, Zarray1, \
     xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
     xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
     clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
     figname=os.path.join(plotdir,'TT_LambdaBiases_Lambda_SNR.png'))
+
 
 
 
