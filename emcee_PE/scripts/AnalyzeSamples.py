@@ -697,35 +697,36 @@ for Lambda in Lambdavec:
 if plot_LambdaBias:
   plotSNRvec = [30, 50, 90]
   plotCI = 0
-  Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
-  titles = []
+  for plotCI in [0,1,2,3]:
+    Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
+    titles = []
+    
+    for Lambda in Lambdavec:
+      Xtmp, Ytmp, Ztmp1, Ztmp2 = [], [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp1.append(lambdaBiases[Lambda][snr][plotCI] * 100)
+        Ztmp2.append(lambdaCIwidths[Lambda][snr][plotCI] * 100)
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray1.append(Ztmp1)
+      Zarray2.append(Ztmp2)
+      titles.append(ttmp)
+      
+    make_contour_array(Xarray, Yarray, Zarray2, \
+      xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
+      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
+      figname=os.path.join(plotdir,'TT_LambdaCIWidths%.1f_Lambda_SNR.png' % CILevels[plotCI]))
   
-  for Lambda in Lambdavec:
-    Xtmp, Ytmp, Ztmp1, Ztmp2 = [], [], [], []
-    ttmp = []
-    for snr in plotSNRvec:
-      Xtmp.append(np.array(chi2vec))
-      Ytmp.append(mNS * np.array(qvec))
-      Ztmp1.append(lambdaBiases[Lambda][snr][plotCI] * 100)
-      Ztmp2.append(lambdaCIwidths[Lambda][snr][plotCI] * 100)
-      ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
-    Xarray.append(Xtmp)
-    Yarray.append(Ytmp)
-    Zarray1.append(Ztmp1)
-    Zarray2.append(Ztmp2)
-    titles.append(ttmp)
-  
-  make_contour_array(Xarray, Yarray, Zarray2, \
-    xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
-    xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
-    clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
-    figname=os.path.join(plotdir,'TT_LambdaCIWidths_Lambda_SNR.png'))
-  
-  make_contour_array(Xarray, Yarray, Zarray1, \
-    xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
-    xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
-    clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
-    figname=os.path.join(plotdir,'TT_LambdaBiases_Lambda_SNR.png'))
+    make_contour_array(Xarray, Yarray, Zarray1, \
+      xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
+      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
+      figname=os.path.join(plotdir,'TT_LambdaBiases_CI%.1f_Lambda_SNR.png' % CILevels[plotCI]))
 
 
 
