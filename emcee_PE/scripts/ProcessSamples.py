@@ -51,40 +51,6 @@ plt.rcParams.update({\
 # Function to get the bias in the recovered median 
 # value for different parameters
 ######################################################
-def get_bias(\
-  basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN/',\
-  simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
-  M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, SNR_inj = 60):
-    """
-    Load samples for a given physical configuration, 
-    1. decode the location of the corresponding run. 
-    2. Compute the 90% confidence interval
-    3. Compute the median value of different parameters fromt the posterior.
-    """
-    #{{{
-    test_dir = os.path.join(basedir, simdir)
-    m1_inj, m2_inj = pnutils.mchirp_eta_to_mass1_mass2(M_inj * eta_inj**0.6, eta_inj)
-    params_inj = {'eta' : eta_inj, 'Mtot' : M_inj, 'Mc' : M_inj * eta_inj**0.6,
-                  'chi1' : chi1_inj, 'chi2' : chi2_inj, 
-                  'm1' : m1_inj, 'm2' : m2_inj}
-    
-    match = {}
-    match['samples'] = load_samples_join(test_dir, SNR_inj)
-    
-    bias, CI90, width90 = {}, {}, {}
-    for param in ['eta', 'Mc', 'chi1', 'chi2', 'm1', 'm2', 'Mtot']:
-      S = match['samples'][param]
-      if S == None: return None, [None, None], None
-      param_inj = params_inj[param]
-      if 'chi' in param: bias[param] = (np.median(S) - param_inj) / 1.
-      else: bias[param] = (np.median(S) - param_inj) / param_inj
-      CI90[param] = [np.percentile(S, 5), np.percentile(S, 95)]
-      if 'chi' in param: width90[param] = CI90[param][1] - CI90[param][0]
-      else: width90[param] = (CI90[param][1] - CI90[param][0]) / param_inj    
-    #print "bias = %f, width90 = %f" % (bias, width90)
-    return bias, CI90, width90
-    #}}}
-
 def calculate_bias(\
   basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN/',\
   simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\

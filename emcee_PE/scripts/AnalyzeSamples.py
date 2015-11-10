@@ -371,6 +371,39 @@ def make_bias_plot(plotparam='Mc', plotquantity='bias', normalize='',\
 # value for different parameters
 ######################################################
 
+def get_bias(\
+  basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN/',\
+  simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
+  M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, SNR_inj = 60):
+    """
+    Load samples for a given physical configuration, 
+    1. decode the location of the corresponding run. 
+    2. Compute the 90% confidence interval
+    3. Compute the median value of different parameters fromt the posterior.
+    """
+    #{{{
+    test_dir = os.path.join(basedir, simdir)
+    m1_inj, m2_inj = pnutils.mchirp_eta_to_mass1_mass2(M_inj * eta_inj**0.6, eta_inj)
+    params_inj = {'eta' : eta_inj, 'Mtot' : M_inj, 'Mc' : M_inj * eta_inj**0.6,
+                  'chi1' : chi1_inj, 'chi2' : chi2_inj, 
+                  'm1' : m1_inj, 'm2' : m2_inj}
+    
+    match = {}
+    match['samples'] = load_samples_join(test_dir, SNR_inj)
+    
+    bias, CI90, width90 = {}, {}, {}
+    for param in ['eta', 'Mc', 'chi1', 'chi2', 'm1', 'm2', 'Mtot']:
+      S = match['samples'][param]
+      if S == None: return None, [None, None], None
+      param_inj = params_inj[param]
+      if 'chi' in param: bias[param] = (np.median(S) - param_inj) / 1.
+      else: bias[param] = (np.median(S) - param_inj) / param_inj
+      CI90[param] = [np.percentile(S, 5), np.percentile(S, 95)]
+      if 'chi' in param: width90[param] = CI90[param][1] - CI90[param][0]
+      else: width90[param] = (CI90[param][1] - CI90[param][0]) / param_inj    
+    #print "bias = %f, width90 = %f" % (bias, width90)
+    return bias, CI90, width90
+    #}}}
 
 # Function to get the exact parameter bias/whatever given the injection
 # parameters as input
@@ -457,6 +490,43 @@ def get_results_vs_snr(data, q=None, chiBH=None, NSLmbd=None,\
   return np.array(SNRvec), np.array(param_values)
   #}}}
 
+
+# Function to get statistical properties of recovered parameters as functions 
+# of the injected SNR
+def get_results_vs_Lambda(data, q=None, chiBH=None, SNR=None,\
+              p='Mc', qnt='CIfwidth', CI=0,\
+              Lambdavec=[500, 800, 1000]):
+  #{{{
+  """
+  This function returns the requested quantity for the requested parameter
+  as a function of the Lambda from the list of input Lambdas.
+  
+  Confidence interval is indexed as {0 : 90, 1 : 68%, 2 : 95%, 3 : 99.7%}
+  Parameter requested in **p** has to be one of :
+  * 'm1'
+  * 'm2'
+  * 'Mc'
+  * 'Mtot'
+  * 'eta'
+  * 'chiBH'
+  * 'Lambda'
+
+  Quantity requested in **qnt** has to be one of :
+  * 'median-val': X(median)
+  * 'fbias'     : (X(median) - X(injection)) / X(injection)
+  * 'CIlower'   : X[10%] or 100-x%
+  * 'CIhigher'  : X[90%] or x%
+  * 'CIfwidth'  : (X[90%] - X[10%]) / X(injection)
+  """
+  param_values = np.array([])
+  for Lambda in Lambdavec:
+    param_values = np.append( param_values, \
+        get_results(data, q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=SNR,\
+                    p=p, qnt=qnt, CI=CI) )
+  return np.array(Lambdavec), np.array(param_values)
+  #}}}
+
+
 # Function to find out when a given statistical property of a recovered 
 # parameter attains a target value
 def get_snr_where_quantity_val_reached(data, q=None, chiBH=None, NSLmbd=None,\
@@ -498,6 +568,44 @@ def get_snr_where_quantity_val_reached(data, q=None, chiBH=None, NSLmbd=None,\
   return result['x'], result['fun']
   #}}}
 
+def get_Lambda_where_quantity_val_reached(data, q=None, chiBH=None, SNR=None,\
+        p='Lambda', qnt='CIfwidth', CI=0, target_val=1., \
+        Lambdavec=[500,800,1000]):
+  #{{{
+  """
+  This function :
+  - Calculates the requested quantitiy as a function of injected NS Lambda
+  - Calculates the Lambda threshold where this quantity attains the required value
+  - Returns this Lambda
+  
+  Confidence interval is indexed as {0 : 90, 1 : 68%, 2 : 95%, 3 : 99.7%}
+  Parameter requested in **p** has to be one of :
+  * 'm1'
+  * 'm2'
+  * 'Mc'
+  * 'Mtot'
+  * 'eta'
+  * 'chiBH'
+  * 'Lambda'
+
+  Quantity requested in **qnt** has to be one of :
+  * 'median-val': X(median)
+  * 'fbias'     : (X(median) - X(injection)) / X(injection)
+  * 'CIlower'   : X[10%] or 100-x%
+  * 'CIhigher'  : X[90%] or x%
+  * 'CIfwidth'  : (X[90%] - X[10%]) / X(injection)
+  
+  Desired level of the value is given in **target_value**
+  """
+  Lambda, values = get_results_vs_Lambda(data, q=q, chiBH=chiBH, SNR=SNR,\
+                      p=p, qnt=qnt, CI=CI, Lambdavec=Lambdavec)
+  valuesI = UnivariateSpline(Lambda, values, k=np.min([3, len(values)-1]))
+  
+  def fun(Lambda): return np.abs( valuesI(Lambda) - target_val )
+  result = minimize_scalar(fun, bounds=[Lambda.min(), Lambda.max()], method='Bounded')
+  
+  return result['x'], result['fun']
+  #}}}
 
 ######################################################
 ######################################################
@@ -594,8 +702,9 @@ PLUS, the first 2 columns in each row of the dataset are:
     converted to LogLikelihood as LogL = 1/2 SNR^2 MATCH^2
 '''
 
-plot_SNRcrit = False
+plot_SNRcrit = True
 plot_LambdaBias = True
+plot_LambdaCrit = True
 
 ######################################################
 ######################################################
@@ -645,7 +754,7 @@ if plot_SNRcrit:
         clabel='SNR below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
         title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
           (Lambda, CILevels[CI]),\
-        levelspacing=2, \
+        levelspacing=1, \
         vmin=snrThresh.min(), vmax=snrThresh.max(), \
         figname=os.path.join(plotdir, simstring+\
       'SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda%.1f_CI%.1f.png' %\
@@ -656,7 +765,7 @@ if plot_SNRcrit:
         clabel='SNR below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
         title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
           (Lambda, CILevels[CI]),\
-        levelspacing=2, \
+        levelspacing=1, \
         vmin=snrThresh.min(), vmax=snrThresh.max(), \
         figname=os.path.join(plotdir, simstring+\
       'SNRThresholdForLambdaMeasurement_BHspin_BHmass_Lambda%.1f_CI%.1f.png' %\
@@ -730,9 +839,75 @@ if plot_LambdaBias:
 
 
 
+print \
+"""
+Assuming that larger the NS Lambda, the more easy it is to measure the NS's 
+disruption's effect on the gravitational-waves emitted.
 
+Plotting the critical value of Lambda, for different SNR levels, above which
+the fractional error in LAmbda is < 100%.
+"""
 
+error_threshold = 1.
+lambdaThresholds = {}
 
+for snr in SNRvec:
+  lambdaThresholds[snr] = {}
+  for CI in range( len(CILevels) ):
+    lambdaThresholds[snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+    for i, q in enumerate(qvec):
+      for j, chiBH in enumerate(chi2vec):
+        if verbose:
+          print "getting Lambda thresholds for q=%f, chiBh=%f, SNR=%f" % \
+                      (q, chiBH, snr)
+        lambdaThresholds[snr][CI][i,j], fn = \
+            get_Lambda_where_quantity_val_reached(data, q=q, chiBH=chiBH,\
+                SNR=snr, p='Lambda', qnt='CIfwidth', CI=CI,\
+                target_val=error_threshold, Lambdavec=Lambdavec)
+        if fn > 1.e-2:
+            print "\n\n warning DLambda only bound to %f %%" % (100*(fn+1))
+            print "\t for q=%f, chiBh=%f, SNR=%f" % (q, chiBH, snr)
+            #lambdaThresholds[snr][CI][i,j] = np.max(Lambdavec)
+  
+
+if plot_LambdaCrit:
+  for snr in SNRvec:
+    for CI in range( len(CILevels) ):
+      if verbose:
+        print "Plotting for SNR injected = %f, at Confidence level = %f" %\
+                (snr, CILevels[CI])
+        
+      lambdaThresh = lambdaThresholds[snr][CI]
+      try:
+        make_contour(chi2vec, qvec, lambdaThresh,\
+          xlabel='Black-hole spin', ylabel='Binary mass-ratio',\
+          clabel='$\Lambda_\mathrm{NS}$ below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
+          title='$\\rho^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
+              (snr, CILevels[CI]),\
+          levelspacing=3, \
+          #vmin=snrThresh.min(), vmax=snrThresh.max(), \
+          figname=os.path.join(plotdir, simstring+\
+          'LambdaThresholdForLambdaMeasurement_BHspin_MassRatio_SNR%.1f_CI%.1f.png' %\
+              (snr, CILevels[CI])))
+      except ValueError: 
+        if verbose: print "Could not make contours for SNR=%f, CI=%d" % (snr, CI)
+        pass
+      #
+      try:
+        make_contour(chi2vec, np.array(qvec) * mNS, lambdaThresh,\
+          xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$',\
+          clabel='$\Lambda_\mathrm{NS}$ below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
+          title='$\\rho^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
+              (snr, CILevels[CI]),\
+          levelspacing=3, \
+          #vmin=snrThresh.min(), vmax=snrThresh.max(), \
+          figname=os.path.join(plotdir, simstring+\
+          'LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR%.1f_CI%.1f.png' %\
+              (snr, CILevels[CI])))
+      except ValueError: 
+        if verbose: print "Could not make contours for SNR=%f, CI=%d" % (snr, CI)
+        pass
+      
 
 
 
