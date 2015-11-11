@@ -33,7 +33,8 @@ import h5py
 
 # Constants
 verbose  = True
-vverbose = False
+vverbose = True
+debug    = False
 
 quantiles_68 = [0.16, 0.5, 0.84] # 1-sigma
 quantiles_95 = [0.0228, 0.5, 0.9772] # 2-sigma ~ 95.4%
@@ -67,7 +68,7 @@ plt.rcParams.update({\
 'ytick.labelsize':11,\
 'figure.subplot.bottom':0.2,\
 'figure.figsize':figsize, \
-'savefig.dpi': 500.0, \
+'savefig.dpi': 300.0, \
 'figure.autolayout': True})
 
 # hist(PercentileInterval(s1[0], pc=99.0), 100);
@@ -76,7 +77,7 @@ plt.rcParams.update({\
 # Plotting functions
 def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
                 title='', titles=[], \
-                levelspacing=0.25, vmin=None, vmax=None,\
+                levelspacing=0.25, vmin=None, vmax=None, cmap=cm.rainbow,\
                 xmin=None, xmax=None, ymin=None, ymax=None,\
                 colorbartype='simple', figname='plot.png'):
   """
@@ -88,17 +89,30 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   if np.shape(X)[:2] != np.shape(Y)[:2] or np.shape(X)[:2] != np.shape(Z2d)[:2]:
     raise IOError("X, Y and Z arrays have different number of sets to plot")
   
+  plt.rcParams.update({\
+    'legend.fontsize':16, \
+    'text.fontsize':16,\
+    'axes.labelsize':16,\
+    'font.family':'serif',\
+    'font.size':16,\
+    'xtick.labelsize':16,\
+    'ytick.labelsize':16,\
+    'figure.subplot.bottom':0.2,\
+    'figure.figsize':figsize, \
+    'savefig.dpi': 300.0, \
+    'figure.autolayout': True})
+
   nrow, ncol, _ = np.shape(X)
   if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
   pltid = 0
   
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((2.*gmean*ncol+0.3)*colwidth, 1.1*colwidth*nrow))
+              figsize=((2.1*gmean*ncol+0.3)*colwidth, 1.2*colwidth*nrow))
   fig.clf()
   grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
             share_all=True,\
             cbar_mode="single", cbar_location="right",\
-            cbar_pad=0.1, cbar_size="4%", \
+            cbar_pad=0.05, cbar_size="2%", \
             aspect=True,\
             add_all=True)
   for idx in range(nrow):
@@ -108,14 +122,14 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
         print "Array shapes = ", np.shape(xx), np.shape(yy), np.shape(zz)
         raise RuntimeError
       if vverbose: print "Adding subplot %d of %d" % (pltid+1, nrow*ncol)
-      #ax = fig.add_subplot(nrow, ncol, pltid, autoscale_on=True)
-      #ax = axes[idx][jdx]
+      if debug:
+        print "Plotting ", xx, " and ", yy, " versus ", zz
       ax = grid[pltid]
       ax.set_aspect(1./4/gmean)
       pltid += 1
       
       norm = cm.colors.Normalize(vmax=zz.max(), vmin=zz.min())
-      cmap = cm.rainbow
+      #cmap = cm.rainbow
       levels = np.arange(zz.min(), zz.max(), levelspacing)
       CS = ax.contourf( xx, yy, zz,\
               levels=levels, \
@@ -232,26 +246,30 @@ def make_contour_array_old(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
 
 
 def make_contour(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', title='',\
-                levelspacing=0.25, vmin=None, vmax=None,\
-                figname='plot.png'):
+                levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r,\
+                xmin=None, xmax=None, ymin=None, ymax=None,\
+                cbfmt='%.1f', figname='plot.png'):
   colwidth = 2.8
-  plt.figure(int(1e7 * np.random.random()), figsize=(2.*gmean*colwidth, colwidth))
+  plt.figure(int(1e7 * np.random.random()), figsize=(1.*gmean*colwidth, colwidth))
   norm = cm.colors.Normalize(vmax=Z2d.max(), vmin=Z2d.min())
-  cmap = cm.rainbow
+  #cmap = cm.rainbow
   levels = np.arange(Z2d.min(), Z2d.max(), levelspacing)
   plt.contourf( X, Y, Z2d,\
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
               alpha=0.9, vmin=vmin, vmax=vmax)
   plt.grid()
+  plt.xlim([xmin,xmax])
+  plt.ylim([ymin,ymax])
   plt.xlabel(xlabel)
   plt.ylabel(ylabel)
   plt.title(title)
-  cb = plt.colorbar(format='%.1f')
+  cb = plt.colorbar(format=cbfmt)
   cb.set_label(clabel)
   cb.set_clim(vmin=vmin, vmax=vmax)
   plt.savefig(figname)
   return
+
 
 def make_scatter(X, Y, Z, xlabel='', ylabel='', clabel='', vmin=-1, vmax=None,\
                   figname='plot.png'):
@@ -702,8 +720,8 @@ PLUS, the first 2 columns in each row of the dataset are:
     converted to LogLikelihood as LogL = 1/2 SNR^2 MATCH^2
 '''
 
-plot_SNRcrit = True
-plot_LambdaBias = True
+plot_SNRcrit    = False
+plot_LambdaBias = False
 plot_LambdaCrit = True
 
 ######################################################
@@ -751,25 +769,25 @@ if plot_SNRcrit:
       snrThresh = snrThresholds[Lambda][CI]
       make_contour(chi2vec, qvec, snrThresh,\
         xlabel='Black-hole spin', ylabel='Binary mass-ratio',\
-        clabel='SNR below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
-        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
-          (Lambda, CILevels[CI]),\
-        levelspacing=1, \
-        vmin=snrThresh.min(), vmax=snrThresh.max(), \
+        clabel='SNR below which $\delta\Lambda^{%.1f \%%}_\mathrm{NS}\sim 100\%%$' % CILevels[CI],\
+        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$' %\
+          (Lambda),\
+        levelspacing=.5, cbfmt='%.0f', cmap=cm.autumn,\
+        vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75,\
         figname=os.path.join(plotdir, simstring+\
-      'SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda%.1f_CI%.1f.png' %\
-          (Lambda, CILevels[CI])))
+      ('SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda%.1f_CI%.1f' %\
+          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
       #
       make_contour(chi2vec, np.array(qvec) * mNS, snrThresh,\
         xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$',\
-        clabel='SNR below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
-        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
-          (Lambda, CILevels[CI]),\
-        levelspacing=1, \
-        vmin=snrThresh.min(), vmax=snrThresh.max(), \
+        clabel='SNR below which $\delta\Lambda^{%.1f \%%}_\mathrm{NS}\sim 100\%%$' % CILevels[CI],\
+        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$' %\
+          (Lambda),\
+        levelspacing=.5, cbfmt='%.0f', cmap=cm.autumn,\
+        vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75, \
         figname=os.path.join(plotdir, simstring+\
-      'SNRThresholdForLambdaMeasurement_BHspin_BHmass_Lambda%.1f_CI%.1f.png' %\
-          (Lambda, CILevels[CI])))
+      ('SNRThresholdForLambdaMeasurement_BHspin_BHmass_Lambda%.1f_CI%.1f' %\
+          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
 
 
 
@@ -826,16 +844,16 @@ if plot_LambdaBias:
       titles.append(ttmp)
       
     make_contour_array(Xarray, Yarray, Zarray2, \
-      xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Spectral_r,\
       xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
       clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
-      figname=os.path.join(plotdir,'TT_LambdaCIWidths%.1f_Lambda_SNR.png' % CILevels[plotCI]))
+      figname=os.path.join(plotdir,simstring+('LambdaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
   
     make_contour_array(Xarray, Yarray, Zarray1, \
-      xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
+      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow,\
       clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
-      figname=os.path.join(plotdir,'TT_LambdaBiases_CI%.1f_Lambda_SNR.png' % CILevels[plotCI]))
+      figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
 
 
 
@@ -882,13 +900,13 @@ if plot_LambdaCrit:
         make_contour(chi2vec, qvec, lambdaThresh,\
           xlabel='Black-hole spin', ylabel='Binary mass-ratio',\
           clabel='$\Lambda_\mathrm{NS}$ below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
-          title='$\\rho^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
-              (snr, CILevels[CI]),\
-          levelspacing=3, \
+          title='$\\rho^\mathrm{Injected}=%.1f$' %\
+              (snr),\
+          levelspacing=3, cbfmt='%.0f', cmap=cm.autumn_r,\
           #vmin=snrThresh.min(), vmax=snrThresh.max(), \
           figname=os.path.join(plotdir, simstring+\
-          'LambdaThresholdForLambdaMeasurement_BHspin_MassRatio_SNR%.1f_CI%.1f.png' %\
-              (snr, CILevels[CI])))
+          ('LambdaThresholdForLambdaMeasurement_BHspin_MassRatio_SNR%.1f_CI%.1f' %\
+              (snr, CILevels[CI])).replace('.','_')+'.png'))
       except ValueError: 
         if verbose: print "Could not make contours for SNR=%f, CI=%d" % (snr, CI)
         pass
@@ -897,13 +915,13 @@ if plot_LambdaCrit:
         make_contour(chi2vec, np.array(qvec) * mNS, lambdaThresh,\
           xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$',\
           clabel='$\Lambda_\mathrm{NS}$ below which $\delta\Lambda_\mathrm{NS}\sim 100\%$',\
-          title='$\\rho^\mathrm{Injected}=%.1f$, at %.1f%% confidence' %\
-              (snr, CILevels[CI]),\
-          levelspacing=3, \
+          title='$\\rho^\mathrm{Injected}=%.1f$' %\
+              (snr),\
+          levelspacing=3, cbfmt='%.0f', cmap=cm.autumn_r,\
           #vmin=snrThresh.min(), vmax=snrThresh.max(), \
           figname=os.path.join(plotdir, simstring+\
-          'LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR%.1f_CI%.1f.png' %\
-              (snr, CILevels[CI])))
+          ('LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR%.1f_CI%.1f' %\
+              (snr, CILevels[CI])).replace('.','_')+'.png'))
       except ValueError: 
         if verbose: print "Could not make contours for SNR=%f, CI=%d" % (snr, CI)
         pass

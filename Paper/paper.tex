@@ -21,7 +21,10 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 
 % Macros for text notes and comments
 \newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
-
+\newcommand{\lambdans}{\Lambda_\mathrm{NS}}
+\newcommand{\chibh}{\chi_\mathrm{BH}}
+\newcommand{\mbh}{m_\mathrm{BH}}
+\newcommand{\mns}{m_\mathrm{NS}}
 
 \newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
     California Institute of Technology, Pasadena, CA 91125, USA}}
@@ -312,26 +315,6 @@ in the injected signal and the template waveforms.}
 \label{fig:TNT_BHspinCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 
-\begin{figure*}
-\centering
-\textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaBias_vs_SNR_q23.pdf}
-\caption{This figure is similar to the bottom row of
-Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}, with the difference that  we
-consider the NS tidal parameter $\Lambda$ here.}
-\label{fig:TT_NSLambdaBias_vs_SNR_q23}
-\end{figure*}
-% 
-\begin{figure*}
-\centering
-\textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaCIWidth90_vs_SNR_q23.pdf}
-\caption{This figure is similar to the bottom row of
-Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}, with the difference that  
-we consider the NS tidal parameter $\Lambda$ here.}
-\label{fig:TT_NSLambdaCIWidth90_vs_SNR_q23}
-\end{figure*}
-% 
 % 
 Advanced LIGO searches and parameter estimation efforts aimed at binaries 
 containing NS and stellar-mass BHs are poised to use waveform models that do not
@@ -356,17 +339,82 @@ the desired threshold of optimal SNR?''
 \end{enumerate}
 
 
-Could have subsections for aLIGO and ET ?
+\prayush{Could have subsections for different frequency-optimized aLIGO noise curves ?}
+
+\hspace{5mm}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{What do we gain by using templates that include NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 
+% \begin{figure*}
+% \centering
+% \textbf{NS-BH Injection; NS-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaBias_vs_SNR_q23.pdf}
+% \caption{This figure is similar to the bottom row of
+% Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}, with the difference that  we
+% consider the NS tidal parameter $\Lambda$ here.}
+% \label{fig:TT_NSLambdaBias_vs_SNR_q23}
+% \end{figure*}
+% % 
+% \begin{figure*}
+% \centering
+% \textbf{NS-BH Injection; NS-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaCIWidth90_vs_SNR_q23.pdf}
+% \caption{This figure is similar to the bottom row of
+% Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}, with the difference that  
+% we consider the NS tidal parameter $\Lambda$ here.}
+% \label{fig:TT_NSLambdaCIWidth90_vs_SNR_q23}
+% \end{figure*}
+% % 
+% \begin{figure*}
+% \centering    
+% \includegraphics[width=2\columnwidth]{plots-TT/TT_LambdaBiases_CI90_0_Lambda_SNR.png}
+% \caption{This figure shows.}
+% \label{fig:TT_LambdaBiases_CI90_0_Lambda_SNR}
+% \end{figure*}
+% 
+\begin{figure*}
+\centering    
+\includegraphics[width=2.1\columnwidth]{plots-TT/TT_LambdaCIWidths68_3_Lambda_SNR.png}\\
+\includegraphics[width=2.1\columnwidth]{plots-TT/TT_LambdaCIWidths90_0_Lambda_SNR.png}
+\caption{This figure shows.}
+\label{fig:TT_LambdaCIWidths90_0_Lambda_SNR}
+\end{figure*}
+% 
+\begin{figure*}
+\centering    
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI68_3.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda800_0_CI68_3.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda1000_0_CI68_3.png}\\
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI90_0.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda800_0_CI90_0.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda1000_0_CI90_0.png}
+\caption{This figure shows.}
+\label{fig:TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_CI90_0}
+\end{figure*}
+% 
+\begin{figure*}
+\centering    
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR30_0_CI68_3.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR50_0_CI68_3.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR90_0_CI68_3.png}\\
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR50_0_CI90_0.png}
+\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR90_0_CI90_0.png}
+\caption{This figure shows.}
+\label{fig:TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass}
+\end{figure*}
+
 Having shown in the previous section that we begin to care for NS tidal effects
 for signals in the XXX corner of the paraemter space, with SNRs above YY, here
 we investigate the effect of the improvement in the accuracy of the recovered
 parameters when tidal effects are included in the templates.
 
 \begin{enumerate}
+\item Where in the parameter space can we actually make a statement about 
+$\Lambda_\mathrm{NS}$ ?
 \item What is the reduction in the bias of the maximum likelihood parameters
 when using tidal templates?\newline
 ``Plot the ratio of the bias between N templates and T templates (against T
@@ -378,7 +426,50 @@ when we go from using N templates to T templates.''
 \end{enumerate}
 
 
-\red{Could have subsections for aLIGO and ET ?}
+\subsection{Constraining the tidal deformability of the neutron star}\label{s2:measuring_lambda}
+
+With the enhanced sensitivity of aLIGO, we are likely to be able to measure or
+constrain deviations in the observed GW signals, especially close to binary
+merger, from their expected form under the point-particle approximation.
+The tidal disruption of the NS close to merger, and outside of the 
+inner-most circular orbit, will drastically change the morphology of the emitted
+GW signal, the measurement of which will allow us to constrain the equation 
+of state (EoS) of nuclear matter.
+The earlier in the orbit the NS disrupts, the sharper is the drop in the emitted
+GW signal for frequencies above the disruption frequency. In this section we
+study the ability of aLIGO to constrain the 
+$\lambdans\sim \left(R/M\right)_\mathrm{NS}^5$ parameter, which
+the combination that parametrizes the deviation in the emitted GW signal.
+Past studies~\cite{}
+have studied a limited sample of systems with distinguishability criterion that
+are typically applicable in the very high signal-to-noise ratio cases. 
+In what follows, we will use stochastic parameter estimation algorithms to show
+aLIGO's capability of extracting EoS information out from GW signals with 
+more realistic (likely) SNRs.
+
+As before we focus on binaries with mass-ratios $q=\{[2,3,4,5\}$, with the NS mass
+fixed at $1.35M_\odot$. We allow BH spin to take the values 
+$\chibh=\{-0.5,0,+0.5,+0.75\}$, and $\lambdans=\{500, 800, 1000\}$. For each of these
+parameter combinations, we inject a tidal-corrected waveform using the 
+Lackey et al~\cite{} model , and use MCMC with ensemble sampling to construct the 
+posterior probability distribution for different binary parameters with (a) BHBH
+templates, and (b) NSBH templates. We will discuss the results of (b) here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
