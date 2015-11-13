@@ -199,14 +199,55 @@ is very interesting to show that for spinning BHs!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{How is PE affected by not including NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{figure*}
+% \centering 
+% % \textbf{BH-BH Injection; BH-BH Templates}
+% % \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassBias_vs_SNR_q23.pdf}\\ 
+% \textbf{NS-BH Injection; BH-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassBias_vs_SNR_q23.pdf}\\ 
+% \textbf{NS-BH Injection; NS-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassBias_vs_SNR_q23.pdf}%\quad
+% \caption{These figures show the (fractional) difference between the chirp mass 
+% value corresponding to the median of its posterior probability distribution,
+% and the actual injected chirp mass,
+% as a function of the signal-to-noise-ratio (SNR) of the injected signal.
+% % In the top row, NS matter effects on the inspiral and merger waveform
+% % are neithed included in templates nor in the injected signal. 
+% In the top row, NS matter effects (inspiral and merger) are included in the
+% injections but not in templates. This corresponds to the current 
+% plan for aLIGO parameter estimation studies. The bottom row shows the effect
+% of additionally including NS matter effects in the templates.
+% % 
+% In each row, the left and right panel correspond to 
+% $q=m_\mathrm{BH}/m_\mathrm{NS}=\{2,3\}$, respectively. 
+% In each panel, the color of each curve corresponds to the value of NS 
+% deformability parameter $(\Lambda=\{500,1000,2000\})$, 
+% and line-style corresponds to the value of
+% the dimensionless spin on the BH ($\chi_\mathrm{BH}=\{-0.5,0,+0.5\}$).
+% }
+% \label{fig:TNT_chirpMassBias_vs_SNR_q23}
+% \end{figure*}
+% % 
+% \begin{figure*}
+% \centering 
+% % \textbf{BH-BH Injection; BH-BH Templates}
+% % \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
+% \textbf{NS-BH Injection; BH-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
+% \textbf{NS-BH Injection; NS-BH Templates}
+% \includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassCIWidth90_vs_SNR_q23.pdf}%\quad
+% \caption{These figures are similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}
+% with the difference that here we show the width of the $90\%$ confidence 
+% interval (recovered) for chirp mass, as a function of the injected SNR. 
+% Note that the confidence interval's width is normalized by the injected
+% parameter value.
+% }
+% \label{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}
+% \end{figure*}
+% % 
 \begin{figure*}
 \centering 
-% \textbf{BH-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassBias_vs_SNR_q23.pdf}\\ 
-\textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassBias_vs_SNR_q23.pdf}\\ 
-\textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassBias_vs_SNR_q23.pdf}%\quad
+\includegraphics[trim={{0.2\columnwidth} 0 0 0},width=2.1\columnwidth]{plots-TN/TN_MchirpBiases_Lambda_SNR.pdf}\\ 
 \caption{These figures show the (fractional) difference between the chirp mass 
 value corresponding to the median of its posterior probability distribution,
 and the actual injected chirp mass,
@@ -229,13 +270,8 @@ the dimensionless spin on the BH ($\chi_\mathrm{BH}=\{-0.5,0,+0.5\}$).
 \end{figure*}
 % 
 \begin{figure*}
-\centering 
-% \textbf{BH-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
-\textbf{NS-BH Injection; BH-BH Templates}
-\includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
-\textbf{NS-BH Injection; NS-BH Templates}
-\includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassCIWidth90_vs_SNR_q23.pdf}%\quad
+\centering
+\includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_MchirpCIWidths90_0_Lambda_SNR.pdf}
 \caption{These figures are similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}
 with the difference that here we show the width of the $90\%$ confidence 
 interval (recovered) for chirp mass, as a function of the injected SNR. 

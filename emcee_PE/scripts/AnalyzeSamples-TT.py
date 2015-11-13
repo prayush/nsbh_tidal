@@ -76,10 +76,10 @@ plt.rcParams.update({\
 
 # Plotting functions
 def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
-        title='', titles=[], \
-        levelspacing=0.25, vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f',\
-        xmin=None, xmax=None, ymin=None, ymax=None,\
-        colorbartype='simple', figname='plot.png'):
+                title='', titles=[], \
+                levelspacing=0.25, vmin=None, vmax=None, cmap=cm.rainbow,\
+                xmin=None, xmax=None, ymin=None, ymax=None,\
+                colorbartype='simple', figname='plot.png'):
   """
   Function to plot arbitrary numbers of contour plots in a single figure
   """
@@ -107,7 +107,7 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   pltid = 0
   
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
+              figsize=((2.1*gmean*ncol+0.3)*colwidth, 1.2*colwidth*nrow))
   fig.clf()
   grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
             share_all=True,\
@@ -115,22 +115,6 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
             cbar_pad=0.05, cbar_size="2%", \
             aspect=True,\
             add_all=True)
-  # Find the maximum Z-value of all subplots
-  #VMIN, VMAX = np.inf, -np.inf
-  #for idx in range(nrow):
-  #  for jdx in range(ncol):
-  #    VMIN = min(VMIN, Z2d[idx][jdx].min())
-  #    VMAX = max(VMAX, Z2d[idx][jdx].max())
-  VMINmax, VMAXmin = np.array([]), np.array([])
-  for idx in range(nrow):
-    for jdx in range(ncol):
-      VMINmax = np.append( VMINmax, Z2d[idx][jdx].min() )
-      VMAXmin = np.append( VMAXmin, Z2d[idx][jdx].max() )
-  VMIN, VMAX = VMINmax.min(), VMAXmin.max()
-  print "VMIN = %e, VMAX = %e" % (VMIN, VMAX)
-  if VMIN > VMAX: raise IOError("Cant fit all data on a single colorbar")
-  
-  # Now make contour plots
   for idx in range(nrow):
     for jdx in range(ncol):
       try: xx, yy, zz = X[idx][jdx], Y[idx][jdx], Z2d[idx][jdx]
@@ -144,14 +128,13 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
       ax.set_aspect(1./4/gmean)
       pltid += 1
       
-      norm = cm.colors.Normalize(vmax=VMAX, vmin=VMIN)#zz.min())
+      norm = cm.colors.Normalize(vmax=zz.max(), vmin=zz.min())
       #cmap = cm.rainbow
-      #levels = np.arange(zz.min(), zz.max(), levelspacing)
-      levels = np.arange(VMIN, VMAX, levelspacing)
+      levels = np.arange(zz.min(), zz.max(), levelspacing)
       CS = ax.contourf( xx, yy, zz,\
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
-              alpha=0.9, vmin=VMIN, vmax=VMAX)
+              alpha=0.9, vmin=vmin, vmax=vmax)
       ax.grid()
       ax.set_xlim([xmin, xmax])
       ax.set_ylim([ymin, ymax])
@@ -165,11 +148,10 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
       if idx == 0 and jdx==(ncol/2) and title != '':
         ax.text(.5, .9, titles[idx][jdx]+'\n '+title, horizontalalignment='center', transform=ax.transAxes)
   #
-  cb = ax.cax.colorbar(CS, format=cfmt)
+  #fig.subplots_adjust(right=0.8)
+  cb = ax.cax.colorbar(CS, format='%.1f')
   cb.set_label_text(clabel)
   ax.cax.toggle_label(True)
-  fig.subplots_adjust(right=0.8)
-  #fig.tight_layout(rect=(0, 0, 0.82, 1))
   fig.savefig(figname)
   return  
 
@@ -671,16 +653,13 @@ if len(sys.argv) >= 5:
 ######################################################
 # Set up parameters of signal
 ######################################################
-chi1 = 0.                           # small BH
-chi2vec = np.array([-0.5, 0, 0.5, 0.74999])  # larger BH
+chi1 = 0.   # small BH
+chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
 mNS = 1.35
-qvec = np.array([2, 3, 4])
-etavec = qvec / (1. + qvec)**2
-mtotalvec = mNS + mNS * qvec
-mchirpvec = mtotalvec * etavec**0.6
-Lambdavec = np.array([0])#[500, 800, 1000])
-SNRvec = np.array([20, 30, 50, 70, 90, 120])
-if inject_tidal: Lambdavec = np.array([0, 500, 800, 1000])
+qvec = [2, 3, 4]
+Lambdavec = [0]#[500, 800, 1000]
+SNRvec = [20, 30, 50, 70, 90, 120]
+if inject_tidal: Lambdavec = [500, 800, 1000]
 
 ######################################################
 # Set up parameters of templates
@@ -710,14 +689,7 @@ Nburnin  = 500
 ######################################################
 # Read in parameter biases and other data
 ######################################################
-#datafile = simstring + 'ParameterBiasesAndConfidenceIntervals.h5'
-if not recover_tidal:
-  datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN','TN_ParameterBiasesAndConfidenceIntervals.h5')
-  datafileNN = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/NN','NN_ParameterBiasesAndConfidenceIntervals.h5')
-  dataNN = h5py.File(datafileNN, 'r')
-else:
-  datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TT','TT_ParameterBiasesAndConfidenceIntervals.h5')
-
+datafile = 'TT_ParameterBiasesAndConfidenceIntervals.h5'
 data = h5py.File(datafile, 'r')
 
 print \
@@ -748,15 +720,9 @@ PLUS, the first 2 columns in each row of the dataset are:
     converted to LogLikelihood as LogL = 1/2 SNR^2 MATCH^2
 '''
 
-plot_MchirpBias = True
-plot_EtaBias    = False
-plot_QBias      = False
-plot_sBHBias    = False
-plot_mBHBias    = False
-plot_LambdaBias = False
-
 plot_SNRcrit    = False
-plot_LambdaCrit = False
+plot_LambdaBias = False
+plot_LambdaCrit = True
 
 ######################################################
 ######################################################
@@ -768,104 +734,6 @@ print "MAKING PLOTS NOW.."
 ######################################################
 print " MAKING Plots with/for CHIRP MASS "
 ######################################################
-
-if plot_MchirpBias:
-  print \
-"""
-Plotting the fractional bias in chirp-mass recovery at different SNR levels, as 
-a function of the BH mass and spin. In addition also plotting the width of the
-confidence interval for chirp-mass, i.e the statistical uncertainty around the
-maximum likelihood value.
-
-The bias shown is a fraction of the injected Lambda, and different figures are
-made for different LAmbda values
-"""
-  mchirpBiases, mchirpCIwidths = {}, {}
-  for Lambda in Lambdavec:
-    mchirpBiases[Lambda], mchirpCIwidths[Lambda] = {}, {}
-    for snr in SNRvec:
-      mchirpBiases[Lambda][snr], mchirpCIwidths[Lambda][snr] = {}, {}
-      for CI in range( len(CILevels) ):
-        mchirpBiases[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
-        mchirpCIwidths[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
-        for i, q in enumerate(qvec):
-          for j, chiBH in enumerate(chi2vec):
-            if vverbose:
-              print "getting bias in mchirp for q=%f, chiBh=%f, Lambda=%f at SNR = %f" %\
-                    (q, chiBH, Lambda, snr)
-            try:
-              mchirpBiases[Lambda][snr][CI][i,j] = get_results(data,\
-                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='Mc', qnt='fbias', CI=CI)
-            except KeyError:
-              mchirpBiases[Lambda][snr][CI][i,j] = get_results(dataNN,\
-                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='Mc', qnt='fbias', CI=CI)
-            try:
-              mchirpCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
-                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='Mc', qnt='CIfwidth', CI=CI)
-            except KeyError:
-              mchirpCIwidths[Lambda][snr][CI][i,j] = get_results(dataNN,\
-                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='Mc', qnt='CIfwidth', CI=CI)
-  #
-  plotSNRvec = np.array([30, 50, 90])
-  for plotCI in [0,1,2,3]:
-    # First we want to plot the width of confidence intervals in the posterior
-    #    including the Lambda=0, i.e. BHBH inj case
-    if vverbose: print "Making CHIRP MASS plots for CI = %f" % CILevels[plotCI]
-    Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
-    titles = []
-    
-    for Lambda in Lambdavec:
-      Xtmp, Ytmp, Ztmp1, Ztmp2 = [], [], [], []
-      ttmp = []
-      for snr in plotSNRvec:
-        Xtmp.append(np.array(chi2vec))
-        Ytmp.append(mNS * np.array(qvec))
-        Ztmp1.append(mchirpBiases[Lambda][snr][plotCI] * 100)
-        Ztmp2.append(mchirpCIwidths[Lambda][snr][plotCI] * 100)
-        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
-      Xarray.append(Xtmp)
-      Yarray.append(Ytmp)
-      Zarray1.append(Ztmp1)
-      Zarray2.append(Ztmp2)
-      titles.append(ttmp)
-      
-    make_contour_array(Xarray, Yarray, Zarray2, \
-      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
-      clabel="$(\Delta\mathcal{M}_c)^{%.1f \%%}/\mathcal{M}_c^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
-      levelspacing=0.002*1.5, cfmt='%.2f',\
-      figname=os.path.join(plotdir,simstring+('MchirpCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
-  
-    Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
-    titles = []
-    
-    # Now we want to plot the systematic bias of the median value from posterior
-    #  without including the Lambda=0 case, as templates should exactly match it
-    for Lambda in Lambdavec[Lambdavec != 0]:
-      Xtmp, Ytmp, Ztmp1, Ztmp2 = [], [], [], []
-      ttmp = []
-      for snr in plotSNRvec:
-        Xtmp.append(np.array(chi2vec))
-        Ytmp.append(mNS * np.array(qvec))
-        Ztmp1.append(mchirpBiases[Lambda][snr][plotCI] * 100)
-        Ztmp2.append(mchirpCIwidths[Lambda][snr][plotCI] * 100)
-        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
-      Xarray.append(Xtmp)
-      Yarray.append(Ytmp)
-      Zarray1.append(Ztmp1)
-      Zarray2.append(Ztmp2)
-      titles.append(ttmp)
-
-    make_contour_array(Xarray, Yarray, Zarray1, \
-      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow,\
-      clabel='$100\\times (\mathcal{M}_c^\mathrm{Median}-\mathcal{M}_c^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
-      levelspacing=1.e-3,  cfmt='%.3f',\
-      figname=os.path.join(plotdir,simstring+('MchirpBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
 
 
 ######################################################
@@ -882,6 +750,65 @@ print " MAKING Plots with/for BLACK-HOLE SPIN "
 ######################################################
 print " MAKING Plots with/for NS LAMBDA "
 ######################################################
+
+if plot_SNRcrit and recover_tidal:
+  print \
+"""
+Plotting the SNR threshold below which our measurement error on the NS Lambda
+parameter are 100%, i.e. the SRN below which we cannot make statements about
+the tidal deformability of the Neutron Star
+"""
+  #
+  error_threshold = 1
+  snrThresholds = {}
+  #
+  for Lambda in Lambdavec:
+    snrThresholds[Lambda] = {}
+    for CI in range( len(CILevels) ):
+      snrThresholds[Lambda][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+      for i, q in enumerate(qvec):
+        for j, chiBH in enumerate(chi2vec):
+          if vverbose:
+            print "getting SNR thresholds for q=%f, chiBh=%f, Lambda=%f" % \
+                        (q, chiBH, Lambda)
+          snrThresholds[Lambda][CI][i,j], fn =get_snr_where_quantity_val_reached(\
+              data, q=q, chiBH=chiBH, NSLmbd=Lambda, \
+              p='Lambda', qnt='CIfwidth', CI=CI, target_val=error_threshold,\
+              SNRvec=SNRvec)
+          if fn > 1.e-2:
+            print "\n\n warning : Lambda only bound to %f %%" % (100*(fn+1))
+            print "\t for q=%f, chiBh=%f, Lambda=%f" % (q, chiBH, Lambda)
+            snrThresholds[Lambda][CI][i,j] = np.max(SNRvec)
+  #
+  for Lambda in Lambdavec:
+    for CI in range( len(CILevels) ):
+      if verbose:
+        print "Plotting for Lambda injected = %f, at Confidence level = %f" % \
+                (Lambda, CILevels[CI])
+      
+      snrThresh = snrThresholds[Lambda][CI]
+      make_contour(chi2vec, qvec, snrThresh,\
+        xlabel='Black-hole spin', ylabel='Binary mass-ratio',\
+        clabel='SNR below which $\delta\Lambda^{%.1f \%%}_\mathrm{NS}\sim 100\%%$' % CILevels[CI],\
+        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$' %\
+          (Lambda),\
+        levelspacing=.5, cbfmt='%.0f', cmap=cm.autumn,\
+        vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75,\
+        figname=os.path.join(plotdir, simstring+\
+      ('SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda%.1f_CI%.1f' %\
+          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
+      #
+      make_contour(chi2vec, np.array(qvec) * mNS, snrThresh,\
+        xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$',\
+        clabel='SNR below which $\delta\Lambda^{%.1f \%%}_\mathrm{NS}\sim 100\%%$' % CILevels[CI],\
+        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$' %\
+          (Lambda),\
+        levelspacing=.5, cbfmt='%.0f', cmap=cm.autumn,\
+        vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75, \
+        figname=os.path.join(plotdir, simstring+\
+      ('SNRThresholdForLambdaMeasurement_BHspin_BHmass_Lambda%.1f_CI%.1f' %\
+          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
+
 
 if plot_LambdaBias and recover_tidal:
   print \
@@ -944,65 +871,6 @@ made for different LAmbda values
       xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow,\
       clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
       figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
-
-
-if plot_SNRcrit and recover_tidal:
-  print \
-"""
-Plotting the SNR threshold below which our measurement error on the NS Lambda
-parameter are 100%, i.e. the SRN below which we cannot make statements about
-the tidal deformability of the Neutron Star
-"""
-  #
-  error_threshold = 1
-  snrThresholds = {}
-  #
-  for Lambda in Lambdavec:
-    snrThresholds[Lambda] = {}
-    for CI in range( len(CILevels) ):
-      snrThresholds[Lambda][CI] = np.zeros( (len(qvec), len(chi2vec)) )
-      for i, q in enumerate(qvec):
-        for j, chiBH in enumerate(chi2vec):
-          if vverbose:
-            print "getting SNR thresholds for q=%f, chiBh=%f, Lambda=%f" % \
-                        (q, chiBH, Lambda)
-          snrThresholds[Lambda][CI][i,j], fn =get_snr_where_quantity_val_reached(\
-              data, q=q, chiBH=chiBH, NSLmbd=Lambda, \
-              p='Lambda', qnt='CIfwidth', CI=CI, target_val=error_threshold,\
-              SNRvec=SNRvec)
-          if fn > 1.e-2:
-            print "\n\n warning : Lambda only bound to %f %%" % (100*(fn+1))
-            print "\t for q=%f, chiBh=%f, Lambda=%f" % (q, chiBH, Lambda)
-            snrThresholds[Lambda][CI][i,j] = np.max(SNRvec)
-  #
-  for Lambda in Lambdavec:
-    for CI in range( len(CILevels) ):
-      if verbose:
-        print "Plotting for Lambda injected = %f, at Confidence level = %f" % \
-                (Lambda, CILevels[CI])
-      
-      snrThresh = snrThresholds[Lambda][CI]
-      make_contour(chi2vec, qvec, snrThresh,\
-        xlabel='Black-hole spin', ylabel='Binary mass-ratio',\
-        clabel='SNR below which $\delta\Lambda^{%.1f \%%}_\mathrm{NS}\sim 100\%%$' % CILevels[CI],\
-        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$' %\
-          (Lambda),\
-        levelspacing=.5, cbfmt='%.0f', cmap=cm.autumn,\
-        vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75,\
-        figname=os.path.join(plotdir, simstring+\
-      ('SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda%.1f_CI%.1f' %\
-          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
-      #
-      make_contour(chi2vec, np.array(qvec) * mNS, snrThresh,\
-        xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$',\
-        clabel='SNR below which $\delta\Lambda^{%.1f \%%}_\mathrm{NS}\sim 100\%%$' % CILevels[CI],\
-        title='$\Lambda_\mathrm{NS}^\mathrm{Injected}=%.1f$' %\
-          (Lambda),\
-        levelspacing=.5, cbfmt='%.0f', cmap=cm.autumn,\
-        vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75, \
-        figname=os.path.join(plotdir, simstring+\
-      ('SNRThresholdForLambdaMeasurement_BHspin_BHmass_Lambda%.1f_CI%.1f' %\
-          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
 
 
 if plot_LambdaCrit and recover_tidal:
