@@ -33,7 +33,7 @@ import h5py
 
 # Constants
 verbose  = True
-vverbose = True
+vverbose = False
 debug    = False
 
 quantiles_68 = [0.16, 0.5, 0.84] # 1-sigma
@@ -751,10 +751,11 @@ PLUS, the first 2 columns in each row of the dataset are:
 plot_MchirpBias = False
 plot_EtaBias    = False
 plot_QBias      = False
-plot_sBHBias    = True
+plot_sBHBias    = False
 plot_mBHBias    = False
 plot_LambdaBias = False
 
+# Plots showing Lambda recovery
 plot_SNRcrit    = False
 plot_LambdaCrit = False
 
@@ -967,6 +968,103 @@ made for different LAmbda values
       levelspacing=0.4,  cfmt='%.1f',\
       figname=os.path.join(plotdir,simstring+('EtaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
 
+if plot_QBias:
+  print \
+"""
+Plotting the fractional bias in MASS-RATIO recovery at different SNR levels, as 
+a function of the BH mass and spin. In addition also plotting the width of the
+confidence interval for chirp-mass, i.e the statistical uncertainty around the
+maximum likelihood value.
+
+The bias shown is a fraction of the injected Lambda, and different figures are
+made for different LAmbda values
+"""
+  etaBiases, etaCIwidths = {}, {}
+  for Lambda in Lambdavec:
+    etaBiases[Lambda], etaCIwidths[Lambda] = {}, {}
+    for snr in SNRvec:
+      etaBiases[Lambda][snr], etaCIwidths[Lambda][snr] = {}, {}
+      for CI in range( len(CILevels) ):
+        etaBiases[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+        etaCIwidths[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+        for i, q in enumerate(qvec):
+          for j, chiBH in enumerate(chi2vec):
+            if vverbose:
+              print "getting bias in eta for q=%f, chiBh=%f, Lambda=%f at SNR = %f" %\
+                    (q, chiBH, Lambda, snr)
+            try:
+              etaBiases[Lambda][snr][CI][i,j] = get_results(data,\
+                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                    p='eta', qnt='fbias', CI=CI)
+            except KeyError:
+              etaBiases[Lambda][snr][CI][i,j] = get_results(dataNN,\
+                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                    p='eta', qnt='fbias', CI=CI)
+            try:
+              etaCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
+                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                    p='eta', qnt='CIfwidth', CI=CI)
+            except KeyError:
+              etaCIwidths[Lambda][snr][CI][i,j] = get_results(dataNN,\
+                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                    p='eta', qnt='CIfwidth', CI=CI)
+  #
+  plotSNRvec = np.array([30, 50, 90])
+  for plotCI in [0,1,2,3]:
+    # First we want to plot the width of confidence intervals in the posterior
+    #    including the Lambda=0, i.e. BHBH inj case
+    if vverbose: print "Making ETA plots for CI = %f" % CILevels[plotCI]
+    
+    # MAKE ETA CONFIDENCE INTERVAL PLOTS
+    Xarray, Yarray, Zarray2 = [], [], []
+    titles = []
+    
+    for Lambda in Lambdavec:
+      Xtmp, Ytmp, Ztmp2 = [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp2.append(etaCIwidths[Lambda][snr][plotCI] * 100)
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray2.append(Ztmp2)
+      titles.append(ttmp)
+      
+    make_contour_array(Xarray, Yarray, Zarray2, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
+      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      clabel="$(\Delta\eta)^{%.1f \%%}/\eta^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
+      levelspacing=0.5, cfmt='%.0f',\
+      figname=os.path.join(plotdir,simstring+('EtaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
+    
+    # MAKE ETA BIAS PLOTS
+    Xarray, Yarray, Zarray = [], [], []
+    titles = []
+    
+    # Now we want to plot the systematic bias of the median value from posterior
+    #  without including the Lambda=0 case, as templates should exactly match it
+    for Lambda in Lambdavec[Lambdavec != 0]:
+      Xtmp, Ytmp, Ztmp = [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp.append(etaBiases[Lambda][snr][plotCI] * 100)
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray.append(Ztmp)
+      titles.append(ttmp)
+
+    make_contour_array(Xarray, Yarray, Zarray, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
+      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow_r,\
+      clabel='$100\\times (\eta^\mathrm{Median}-\eta^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
+      levelspacing=0.4,  cfmt='%.1f',\
+      figname=os.path.join(plotdir,simstring+('EtaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
+
 
 ######################################################
 print " MAKING Plots with/for BLACK-HOLE SPIN "
@@ -1067,8 +1165,6 @@ made for different LAmbda values
       clabel='$\chi_\mathrm{BH}^\mathrm{Median}-\chi_\mathrm{BH}^\mathrm{Injected}$', \
       levelspacing=0.005,  cfmt='%.2f',\
       figname=os.path.join(plotdir,simstring+('ChiBHBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
-
-
 
 
 ######################################################

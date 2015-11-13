@@ -355,7 +355,7 @@ def load_samples_join(dataDir, SNR, burnin=500, useMaxNRun=True, \
         print "Empty lists gotten for chain and loglike for %s" % dataDir
       return {'eta' : None, 'Mc' : None, 'chieff' : None, 'chiPN' : None,
               'chi1' : None, 'chi2' : None, 'Mtot' : None,
-              'm1' : None, 'm2' : None, 'match' : None}
+              'm1' : None, 'm2' : None, 'q' : None, 'match' : None}
       #raise RuntimeError("Empty lists gotten for chain and loglike")
     #
     # Here onwards code remains the same as for load_samples
@@ -387,7 +387,7 @@ def load_samples_join(dataDir, SNR, burnin=500, useMaxNRun=True, \
     
     return {'eta' : etaval, 'Mc' : Mcval, 'chieff' : chieffval, 'chiPN' : chiPNval, 
             'chi1' : chi1val, 'chi2' : chi2val, 'Mtot' : Mval, 
-            'm1' : m1val, 'm2' : m2val, 'match' : matchval}
+            'm1' : m1val, 'm2' : m2val, 'q' : qval, 'match' : matchval}
     #}}}
 
 

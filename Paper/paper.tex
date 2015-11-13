@@ -25,6 +25,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\chibh}{\chi_\mathrm{BH}}
 \newcommand{\mbh}{m_\mathrm{BH}}
 \newcommand{\mns}{m_\mathrm{NS}}
+\newcommand{\mchirp}{\mathcal{M}_c}
 
 \newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
     California Institute of Technology, Pasadena, CA 91125, USA}}
@@ -53,7 +54,14 @@ Measuring matter effects in Neutron star - Black hole binaries with Advanced LIG
 \date{\today}
 
 \begin{abstract}
-Abstract
+We attempt to answer the following questions: 
+\begin{enumerate}
+ \item Will ignoring the effect of NS deformability during inspiral and NS disruption during merger (in an NSBH binary) change the efficiency of our searches?
+ \item Will not modeling NS disruption during NSBH mergers change the systematic and 
+ statistical biases in the recovery of binary parameters?
+ \item If we use templates which models NS disruption, what information can we recover about
+ the $\Lambda_\mathrm{BH}\sim (R/M)^5_\mathrm{NS}$ parameter?
+\end{enumerate}
 \end{abstract}
 
 \pacs{}
@@ -316,23 +324,12 @@ is very interesting to show that for spinning BHs!
 \begin{figure*}
 \centering 
 \includegraphics[trim={{0.2\columnwidth} 0 0 0},width=2.1\columnwidth]{plots-TN/TN_MchirpBiases_Lambda_SNR.pdf}
-\caption{These figures show the (fractional) difference between the chirp mass 
-value corresponding to the median of its posterior probability distribution,
-and the actual injected chirp mass,
-as a function of the signal-to-noise-ratio (SNR) of the injected signal.
-% In the top row, NS matter effects on the inspiral and merger waveform
-% are neithed included in templates nor in the injected signal. 
-In the top row, NS matter effects (inspiral and merger) are included in the
-injections but not in templates. This corresponds to the current 
-plan for aLIGO parameter estimation studies. The bottom row shows the effect
-of additionally including NS matter effects in the templates.
-% 
-In each row, the left and right panel correspond to 
-$q=m_\mathrm{BH}/m_\mathrm{NS}=\{2,3\}$, respectively. 
-In each panel, the color of each curve corresponds to the value of NS 
-deformability parameter $(\Lambda=\{500,1000,2000\})$, 
-and line-style corresponds to the value of
-the dimensionless spin on the BH ($\chi_\mathrm{BH}=\{-0.5,0,+0.5\}$).
+\caption{Systematic fractional biases in recovered chirp-mass $\mchirp$, as a
+fraction of the injected (true) value, for NSBH binaries, shown here as a 
+function of the mass and spin of the BH (each panel), $\lambdans$ (across 
+rows), and injection's SNR $\rho$ (across columns). Tidal effects during
+inspiral and the effects of NS disruption close to merger are modelled in the
+signal, but \textit{not} in the templates. 
 }
 \label{fig:TNT_chirpMassBias_vs_SNR_q23}
 \end{figure*}
@@ -340,11 +337,12 @@ the dimensionless spin on the BH ($\chi_\mathrm{BH}=\{-0.5,0,+0.5\}$).
 \begin{figure*}
 \centering
 \includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_MchirpCIWidths90_0_Lambda_SNR.pdf}
-\caption{These figures are similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}
-with the difference that here we show the width of the $90\%$ confidence 
-interval (recovered) for chirp mass, as a function of the injected SNR. 
-Note that the confidence interval's width is normalized by the injected
-parameter value.
+\caption{$90\%$ confidence intervals for the recovered chirp-mass $\mchirp$, as a
+fraction of the injected (true) value, for NSBH binaries, shown here as a 
+function of the mass and spin of the BH (each panel), $\lambdans$ (across 
+rows), and injection's SNR $\rho$ (across columns). Tidal effects during
+inspiral and the effects of NS disruption close to merger are modelled in the
+signal, but \textit{not} in the templates. 
 }
 \label{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}
 \end{figure*}
@@ -355,48 +353,50 @@ parameter value.
 \begin{figure*}[!t]
 \centering    
 \includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_EtaBiases_Lambda_SNR.pdf}
-\caption{This figure (top two rows) is similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
-with the difference that we consider the systematic bias in the dimensionless
-mass-ratio $\eta$ here. In the bottom row we show control runs where both
-signal and template waveforms lack matter effects.}
+\caption{Systematic fractional biases in the recovered dimensionless mass-ratio
+$\eta = m_1 m_2 / (m_1+m_2)^2$, as a
+fraction of the injected (true) value, for NSBH binaries, shown here as a 
+function of the mass and spin of the BH (each panel), $\lambdans$ (across 
+rows), and injection's SNR $\rho$ (across columns). Tidal effects during
+inspiral and the effects of NS disruption close to merger are modelled in the
+signal, but \textit{not} in the templates. }
 \label{fig:TNT_EtaBias_vs_SNR_q23}
 \end{figure*}
 % 
 \begin{figure*}
 \centering    
 \includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_EtaCIWidths68_3_Lambda_SNR.pdf}
-\caption{This figure is similar to
-Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
-  with the difference that we consider the confidence intervals in the recovery
-  of the dimensionless mass-ratio $\eta$ here. The bottom row here is similar to 
-  Fig.~\ref{fig:TNT_EtaBias_vs_SNR_q23} with the difference that width of the $90\%$
-  confidence interval is shown here.}
+\caption{$90\%$ confidence intervals for the recovered dimensionless mass-ratio
+$\eta = m_1 m_2 / (m_1+m_2)^2$, as a
+fraction of the injected (true) value, for NSBH binaries, shown here as a 
+function of the mass and spin of the BH (each panel), $\lambdans$ (across 
+rows), and injection's SNR $\rho$ (across columns). Tidal effects during
+inspiral and the effects of NS disruption close to merger are modelled in the
+signal, but \textit{not} in the templates. }
 \label{fig:TNT_EtaCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 
 \begin{figure*}
 \centering
 \includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_ChiBHBiases_CI90_0_Lambda_SNR.pdf}
-\caption{The top two rows in this figure are
-similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
-with the differences that we consider the systematic bias in the dimensionless
-spin on the BH here, and that the differences shown are absolute and not
-fractions of the injected spin. In the bottom row, we show a control run where
-both injected and template waveforms correspond to binary black holes.}
+\caption{Systematic fractional biases in the recovered value of the BH spin $\chibh$,
+as a fraction of the injected (true) value, for NSBH binaries, shown here as a
+function of the mass and spin of the BH (each panel), $\lambdans$ (across 
+rows), and injection's SNR $\rho$ (across columns). Tidal effects during
+inspiral and the effects of NS disruption close to merger are modelled in the
+signal, but \textit{not} in the templates. }
 \label{fig:TNT_BHspinBias_vs_SNR_q23}
 \end{figure*}
 % 
 \begin{figure*}
 \centering    
 \includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_ChiBHCIWidths90_0_Lambda_SNR.pdf}
-\caption{The top two rows in the figure are similar to
-Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
-with the difference that we consider the confidence intervals in the recovery
-of the dimensionless spin on the BH $\chi_\mathrm{BH}$ here.
-As in Fig.~\ref{fig:TNT_BHspinBias_vs_SNR_q23}, we show here the absolute 
-width of the confidence interval without normalizing with the injected spin.
-The bottom row show a control run where matter effects are ignored both 
-in the injected signal and the template waveforms.}
+\caption{$90\%$ confidence intervals for the recovered value of the BH spin $\chibh$,
+as a fraction of the injected (true) value, for NSBH binaries, shown here as a 
+function of the mass and spin of the BH (each panel), $\lambdans$ (across 
+rows), and injection's SNR $\rho$ (across columns). Tidal effects during
+inspiral and the effects of NS disruption close to merger are modelled in the
+signal, but \textit{not} in the templates.}
 \label{fig:TNT_BHspinCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 

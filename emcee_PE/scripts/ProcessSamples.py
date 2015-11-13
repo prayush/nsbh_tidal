@@ -51,7 +51,7 @@ plt.rcParams.update({\
 # Function to get the bias in the recovered median 
 # value for different parameters
 ######################################################
-def calculate_bias(\
+def calculate_bias_withoutQ(\
   basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN/',\
   simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
   M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, Lambda_inj=0, SNR_inj = 60,\
@@ -133,6 +133,88 @@ def calculate_bias(\
     return summary_data
     #}}}
 
+def calculate_bias(\
+  basedir='/home/prayush/projects/nsbh/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN/',\
+  simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
+  M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, Lambda_inj=0, SNR_inj = 60,\
+  biastype='fractional', recover_tidal=False, \
+  confidence_levels=[90.0, 68.26895, 95.44997, 99.73002]):
+    """
+    Load samples for a given physical configuration, 
+    1. decode the location of the corresponding run. 
+    2. Compute 68%, 90%,.. confidence interval for different sampled parameters
+    3. Compute the median value of different parameters fromt the posterior.
+    
+    We plan to store 5 quantities for each parameter k:
+    k+0: Median recovered parameter value from posterior samples
+    k+1: Bias = (X(median) - X(inj))/X(inj)
+    k+2: Confidence level lower bound = X(confidence_level_low)
+    k+3: Confidence level upper bound = X(confidence_level_up)
+    k+4: Confidence interval = (X(confidence_level_up) - X(confidence_level_low))/X(inj)
+    
+    PLUS
+    0 : Confidence interval probability
+    1 : max LogLikelihood value
+    
+    """
+    #{{{
+    test_dir = os.path.join(basedir, simdir)
+    m1_inj, m2_inj = pnutils.mchirp_eta_to_mass1_mass2(M_inj * eta_inj**0.6, eta_inj)
+    params_inj = {'eta' : eta_inj, 'Mtot' : M_inj, 'Mc' : M_inj * eta_inj**0.6,
+                  'chi1' : chi1_inj, 'chi2' : chi2_inj, 'Lambda' : Lambda_inj,
+                  'm1' : m1_inj, 'm2' : m2_inj, 
+                  'q' : max(m1_inj,m2_inj)/min(m1_inj,m2_inj)}
+    
+    match = {}
+    match['samples'] = load_samples_join(test_dir, SNR_inj)
+    
+    if recover_tidal:
+      match['samples']['Lambda'] = match['samples']['chi2']
+      match['samples']['chi2']   = match['samples']['chi1']
+      parameters = ['m1', 'm2', 'Mc', 'Mtot', 'eta', 'q', 'chi2', 'Lambda']
+    else:
+      parameters = ['m1', 'm2', 'Mc', 'Mtot', 'eta', 'q', 'chi2']
+    
+    num_of_data_fields = 5
+    summary_data = np.zeros(( len(confidence_levels), len(parameters)*num_of_data_fields + 1 + 1 ))
+    
+    # Populate first column of summary data : confidence level probabilities
+    for idx in range(len(confidence_levels)):
+      summary_data[idx,0] = confidence_levels[idx] / 100.
+      summary_data[idx,1] = np.max( match['samples']['match'] ) 
+    
+    idx = 2
+    for param in parameters:
+      # get the posterior samples
+      S = match['samples'][param]
+      if S == None:
+        raise RuntimeError("Could not find samples for parameter %s" % param)
+      #
+      param_inj = params_inj[param]
+      for jdx, confidence_level in enumerate(confidence_levels):
+        llimit = (100. - confidence_level) / 2.
+        ulimit = 100. - llimit
+        
+        # Fractional bias
+        summary_data[jdx, idx] = np.median(S)
+        summary_data[jdx, idx+1] = np.median(S) - param_inj
+                
+        # Confidence interval limits
+        summary_data[jdx, idx+2] = np.percentile(S, llimit)
+        summary_data[jdx, idx+3] = np.percentile(S, ulimit)
+        
+        # Confidence interval width as a fraction of parameter value
+        summary_data[jdx, idx+4] = summary_data[jdx, idx+3] - summary_data[jdx, idx+2]
+        
+        # Normalize        
+        if 'chi' not in param and 'fractional' in biastype and param_inj != 0:
+          summary_data[jdx, idx+1] /= param_inj
+          summary_data[jdx, idx+4] /= param_inj            
+      #  
+      idx += num_of_data_fields
+    #
+    return summary_data
+    #}}}
 
 
 def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,\
