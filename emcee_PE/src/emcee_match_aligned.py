@@ -105,10 +105,10 @@ parser.add_option("-t", "--number-of-threads", dest="nThreads", type="int",
                   help="Number of threads for ensemble sampler.", metavar="number_of_threads")
 parser.add_option("-U", "--resume", dest="resume", type="string",
                   help="Restart run from chain.npy and loglike.npy from specified directory. Make sure the commandline parameters agree with the produced samples!", metavar="resume")
-parser.add_option("--auto-resume", dest="auto_resume", \
-                  action="store_false", \
+parser.add_option("--auto-resume", dest="auto_resume", action="store_false", \
             help="Restart the chain that has collected maximum steps",\
             metavar="auto_resume")
+parser.add_option("--verbose", action="store_true", default=False)
 
 # Additional options for tidal corection waveforms
 parser.add_option("", "--inject-tidal", dest="inject_tidal", action="store_true",
@@ -578,12 +578,13 @@ if not post_process:
         outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
       # Dump correlation length every nout iterations
-      a_exp = max(sampler.acor[0]) # we could take the max over all temperatures, but there may be nan's
+      a_exp = np.nanmax(sampler.acor[0]) # we could take the max over all temperatures, but there may be nan's
       try:
         tmpf = open('autocorr.dat','a')
         tmpf.write('After burn-in, each chain produces one independent sample per {:g} steps\n'.format(a_exp))
         tmpf.close()
-        print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
+        if options.verbose:
+          print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
       except: pass
     f.close()
 
@@ -598,7 +599,8 @@ if not post_process:
     tmpf = open('autocorr.dat','a')
     tmpf.write('After burn-in, each chain produces one independent sample per {:g} steps\n'.format(a_exp))
     tmpf.close()
-    print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
+    if options.verbose:
+      print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
   except:
     pass
   # print [emcee.autocorr.integrated_time(sampler.chain[i], window=50) for i in range(len(sampler.chain))]
