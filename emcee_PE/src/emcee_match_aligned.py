@@ -23,7 +23,7 @@ from matplotlib import rc
 rc('text', usetex=True)
 import matplotlib.pyplot as pl
 from matplotlib.ticker import MaxNLocator
-import triangle
+import triangle, corner
 from optparse import OptionParser
 from scipy.stats import norm
 import scipy.interpolate as ip
@@ -706,17 +706,17 @@ quantiles=quantiles_95
 samples_combined = np.array([qval, Mval, chi1val, chi2val]).T
 print np.shape(samples_combined)
 print samples_combined
-fig = triangle.corner(samples_combined, labels=["$q$", "$M$", "$\chi_1$", "$\chi_2$"], truths=[q_true, M_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined, labels=["$q$", "$M$", "$\chi_1$", "$\chi_2$"], truths=[q_true, M_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_q_M_chi1_chi2.png")
 pl.close(fig)
 
 samples_combined2 = np.array([etaval, Mcval, chi1val, chi2val]).T
-fig = triangle.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_1$", "$\chi_2$"], truths=[eta_true, Mc_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_1$", "$\chi_2$"], truths=[eta_true, Mc_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_eta_Mc_chi1_chi2.png")
 pl.close(fig)
 
 samples_combined3 = np.array([m1val, m2val, chi1val, chi2val]).T
-fig = triangle.corner(samples_combined3, labels=["$m_1$", "$m_2$", "$\chi_1$", "$\chi_2$"], truths=[m1_true, m2_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined3, labels=["$m_1$", "$m_2$", "$\chi_1$", "$\chi_2$"], truths=[m1_true, m2_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_m1_m2_chi1_chi2.png")
 pl.close(fig)
 

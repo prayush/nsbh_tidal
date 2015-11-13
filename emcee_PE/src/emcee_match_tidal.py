@@ -23,7 +23,7 @@ from matplotlib import rc
 rc('text', usetex=True)
 import matplotlib.pyplot as pl
 from matplotlib.ticker import MaxNLocator
-import triangle
+import triangle, corner
 from optparse import OptionParser
 from scipy.stats import norm
 import scipy.interpolate as ip
@@ -687,17 +687,17 @@ quantiles=quantiles_95
 samples_combined = np.array([qval, Mval, chi2val, Lambdaval]).T
 print np.shape(samples_combined)
 print samples_combined
-fig = triangle.corner(samples_combined, labels=["$q$", "$M$", "$\chi_2$", "$\Lambda$"], truths=[q_true, M_true, chi2_true, Lambda_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined, labels=["$q$", "$M$", "$\chi_2$", "$\Lambda$"], truths=[q_true, M_true, chi2_true, Lambda_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_q_M_chi2_Lambda.png")
 pl.close(fig)
 
 samples_combined2 = np.array([etaval, Mcval, chi2val, Lambdaval]).T
-fig = triangle.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_2$", "$\Lambda$"], truths=[eta_true, Mc_true, chi2_true, Lambda_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_2$", "$\Lambda$"], truths=[eta_true, Mc_true, chi2_true, Lambda_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_eta_Mc_chi2_Lambda.png")
 pl.close(fig)
 
 samples_combined3 = np.array([m1val, m2val, chi2val, Lambdaval]).T
-fig = triangle.corner(samples_combined3, labels=["$m_1$", "$m_2$", "$\chi_2$", "$\Lambda$"], truths=[m1_true, m2_true, chi2_true, Lambda_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined3, labels=["$m_1$", "$m_2$", "$\chi_2$", "$\Lambda$"], truths=[m1_true, m2_true, chi2_true, Lambda_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_m1_m2_chi2_Lambda.png")
 pl.close(fig)
 
