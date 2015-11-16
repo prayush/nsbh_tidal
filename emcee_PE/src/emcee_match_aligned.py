@@ -454,7 +454,7 @@ if not post_process:
       # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
       k = min(50, len(loglike[:,0]))
       print "Using good samples from last %d iterations" %(k)
-      match_cut = 1 - CR_99pc_threshold
+      match_cut = 1 - CR_99p9pc_threshold
       loglike_ok = loglike[-k:] # use samples from last k iterations
       print "len(loglike_ok) = ", np.shape(loglike_ok)
       matches_ok = np.sqrt(2*loglike_ok)/SNR
