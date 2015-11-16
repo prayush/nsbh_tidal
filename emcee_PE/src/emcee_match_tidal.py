@@ -449,6 +449,11 @@ if not post_process:
       matches_ok = np.sqrt(2*loglike_ok)/SNR
       print "len(matches_ok) = ", len(matches_ok)
       sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
+      # CHECKME: Arbitrary condition to enable resume 
+      while np.count_nonzero(sel) < nwalkers:
+        match_cut -= 0.001
+        print " trying match cut = ", match_cut
+        sel = np.isfinite(loglike_ok) & (matches_ok > match_cut)
       print "k = ", k, "\n shape and No of True elements in sel = ", np.shape(sel), np.count_nonzero(sel)
       print "shape of map(lambda i: chain[:,-k:,i].T[sel], range(ndim)) = ", np.shape(map(lambda i: chain[:,-k:,i].T[sel], range(ndim)))
       print "shape of chain[:,-k:,i] = ", np.shape(chain[:,-k:,0])
