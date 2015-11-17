@@ -200,9 +200,40 @@ Describe the emcee-based PE code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{How are detection searches affected by not including NS matter effects}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-See what is the loss in SNR if we recover NSBH signals with a template bank of
-BH-BH waveforms? It is very likely that the answer would be: $<1\%$. But it
-is very interesting to show that for spinning BHs!
+
+Near future detection searches with aLIGO are poised to search for NSBH
+signals using BHBH templates. In this section, we examine the effect of ignoring
+the effects of tidal deformation and disruption of the NS during inspiral and 
+merger phases of search templates. We construct a template bank $\mathcal{B}$ 
+restricted to the NSBH parameter space with $\mbh\in[2.5M_\odot, 20.5M_\odot]$, 
+$\chibh\in[-0.5, +0.75]$, $\mns\in[1M_\odot,3M_\odot]$ and $\chi_\mathrm{NS}=0$,
+using a PN-based geometric lattice placement method~\cite{Harry:2013tca}. 
+
+
+Before investigating its SNR recovery against tidal NSBH signals, we test the 
+effectualness of this bank to point-particle NSBH signals,
+in order to make sure that the placement method does not leave any region of
+the binary parameter-space under-covered. We simulate $50,000$ signals with 
+component-mass and BH spin values
+sampled uniformly over their allowed ranges, and filter each of them against
+the entire bank. For both signals and templates, we use the frequency-domain 
+reduced-order model (ROM) of the SEOBNRv2 approximant~\cite{Purrer:2014} 
+implemented within the LIGO algorithms Library~\cite{lal}. We record the 
+fitting-factors~\cite{FittingFactorApostolatos} recovered by the bank for all
+signals, which measures the fraction of optimal SNR that the bank is able
+to recover. Fig.~\ref{} shows these FFs as a function of the injected
+BH mass and BH spin, and Fig.~\ref{} provides a histogram of the recovered FF 
+values. From these figures, we conclude that our bank is effectual as intended.
+
+
+Next, tn order to establish the effect of NS matter effects on the SNR recovery of 
+detection searches, we perform a similar calculation as above, with the
+difference that the signals are now modelled using the model of tidal 
+corrections to IMR amplitude and phasing published in 
+Ref.~\cite{Lackey:2013axa}, applied to SEOBNRv2 as the underlying BHBH model.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{How is PE affected by not including NS matter effects?}
