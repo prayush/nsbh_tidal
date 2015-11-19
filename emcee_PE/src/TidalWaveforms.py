@@ -765,8 +765,8 @@ class tidalWavsFP(PNcoeffs):
       
       Please go through Sec.IV of P1 for all details.
       """
-      if mtotal is None and eta is None and sBH is None and Lambda is None:
-        Lambda = self.lambdaNS
+      if mtotal is None and eta is None and sBH is None:
+        #Lambda = self.lambdaNS
         mtotal = self.mtotal
         eta = self.eta
         sBH = self.spinBH
