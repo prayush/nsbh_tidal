@@ -344,6 +344,13 @@ class tidalWavsFP(PNcoeffs):
       P2 : arXiv:1311.5931
       P3 : arXiv:0512160
       """
+      print """\
+      (WARNING) --
+      This code has no knowledge of NS EoS yet. It assigns arbitrary values to
+      the baryonic matter in the NS, as well as its radius.
+      """
+      
+      
       PNcoeffs.__init__(self, mass1=massBH, mass2=massNS, spin1z=spinBH, \
                         spin2z=0, verbose=verbose)
       
@@ -554,6 +561,7 @@ class tidalWavsFP(PNcoeffs):
       if hasattr(self, 'fRD') and hasattr(self, 'QRD'):
         return self.fRD, self.QRD
       
+      total_mass = self.mtotal 
       mf = self.massBH_final()
       af = self.spinBH_final()
       
@@ -563,7 +571,7 @@ class tidalWavsFP(PNcoeffs):
       j = np.abs(af) # WHAT IS THIS ?
       
       self.mfRD = f1 + f2 * (1. - j)**f3
-      self.fRD  = self.mfRD / (mf * lal.MTSUN_SI)
+      self.fRD  = self.mfRD / (total_mass * lal.MTSUN_SI)
       self.QRD  = q1 + q2 * (1. - j)**q3
       
       return self.fRD, self.QRD
@@ -730,7 +738,8 @@ class tidalWavsFP(PNcoeffs):
       self.coeffs['TidalModel'] = coeffs
       return coeffs
     #
-    def getWaveformAmplitude(self, mtotal=None, eta=None, sBH=None, Lambda=None,\
+    def getWaveformAmplitude(self, mtotal=None, eta=None, sBH=None, 
+                    massNS_b=0.95, radiusNS=4,\
                     distance=1e6,\
                     f_lower=15., f_final=4096., \
                     delta_t=1./8192., delta_f=1./256, tidal=True):
@@ -754,11 +763,17 @@ class tidalWavsFP(PNcoeffs):
       
       Please go through Sec.IV of P1 for all details.
       """
-      if mtotal is None: mtotal = self.mtotal
-      if eta is None: eta = self.eta
-      if sBH is None: sBH = self.spinBH
-      if Lambda is None: Lambda = self.lambdaNS
-      
+      if mtotal is None and eta is None and sBH is None and Lambda is None:
+        Lambda = self.lambdaNS
+        mtotal = self.mtotal
+        eta = self.eta
+        sBH = self.spinBH
+        m1, m2 = pnutils.mtotal_eta_to_mass1_mass2(mtotal, eta)
+      else:
+        m1, m2 = pnutils.mtotal_eta_to_mass1_mass2(mtotal, eta)
+        self.__init__(massBH=m1, massNS=m2, spinBH=sBH, massNS_B=massNS_b*m2,\
+          radiusNS=radiusNS)
+       
       m1, m2 = pnutils.mtotal_eta_to_mass1_mass2(mtotal, eta)
       
       # Calculate gamma1 and delta1
@@ -793,7 +808,8 @@ class tidalWavsFP(PNcoeffs):
       AM = 0
       if coeffs['c2'] != 0:
         AM = 1.25 * gamma1 * coeffs['c2'] * frequencies**(5./6.) 
-        AM *= windowing_function(frequencies, coeffs['f2'], coeffs['d2'], sgn=-1)
+        AM *= windowing_function(frequencies * mtotal * lal.MTSUN_SI,\
+                                      coeffs['f2'], coeffs['d2'], sgn=-1)
       
       # Calculate ARD
       ARD = 0
@@ -801,7 +817,8 @@ class tidalWavsFP(PNcoeffs):
         ARD = coeffs['e_tide'] * delta1 * \
                 lorentzian(frequencies, fRD, coeffs['delta2p'] * fRD/QRD) * \
                 frequencies**(-7./6.)
-        ARD *= windowing_function(frequencies, coeffs['f3'], coeffs['d3'])
+        ARD *= windowing_function(frequencies * mtotal * lal.MTSUN_SI,\
+                                      coeffs['f3'], coeffs['d3'])
       
       # Combine
       APhen = FrequencySeries(APN + amp0*(AM + ARD),\
