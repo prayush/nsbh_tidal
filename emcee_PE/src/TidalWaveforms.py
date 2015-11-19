@@ -303,8 +303,10 @@ class PNcoeffs():
     logv = np.log(v)
     
     # Get the amplitude 
+    for kk in xdc.keys(): xdc[kk] = np.float128(xdc[kk])
     xdot = 0 + 0j
     xdot += 1. + xdc['a2']*v2 + xdc['a3']*v3 + xdc['a4']*v4
+    #print type(logv.data), type(v5), type(xdc['a6'])
     xdot += xdc['a5']*v5 + (xdc['a6'] + xdc['a6log']*2.*logv)*v6
     xdot += xdc['a7'] * v7
     xdot *= (xdc['aN'] * v10)
@@ -789,6 +791,7 @@ class tidalWavsFP(PNcoeffs):
       
       # Calculate RD freq and Quality factor
       fRD, QRD = self.get_ringdown_quality_frequency()
+      mfRD = self.mfRD
       
       # Calculate frequency of the onset of mass-shedding
       fTide = self.freqTide()
@@ -799,32 +802,39 @@ class tidalWavsFP(PNcoeffs):
       # Get frequency range
       N = int(np.round( 1./delta_t/delta_f ))
       frequencies = np.arange(N/2 + 1) * delta_f
+      mfrequencies = frequencies * mtotal * lal.MTSUN_SI
       
       # Calculate APN
-      APN, amp0 = self.GetWaveformAmplitudeFD(frequencies, mtotal, distance)
-      APN *= windowing_function(frequencies, coeffs['f1'], coeffs['d1'], sgn=-1)
+      APN, amp0 = self.GetWaveformAmplitudeFD(frequencies, mtotal, distance) # only this uses Hz
+      APN *= windowing_function(mfrequencies, coeffs['f1'] * mtotal * lal.MTSUN_SI, coeffs['d1'], sgn=-1)
       
       # Calculate AM
       AM = 0
       if coeffs['c2'] != 0:
-        AM = 1.25 * gamma1 * coeffs['c2'] * frequencies**(5./6.) 
-        AM *= windowing_function(frequencies * mtotal * lal.MTSUN_SI,\
-                                      coeffs['f2'], coeffs['d2'], sgn=-1)
+        AM = 1.25 * gamma1 * coeffs['c2'] * mfrequencies**(5./6.) 
+        AM *= windowing_function(mfrequencies, coeffs['f2'] * mtotal * lal.MTSUN_SI, coeffs['d2'], sgn=-1)
+        AM *= amp0
       
       # Calculate ARD
       ARD = 0
       if coeffs['c3'] != 0:
         ARD = coeffs['e_tide'] * delta1 * \
-                lorentzian(frequencies, fRD, coeffs['delta2p'] * fRD/QRD) * \
-                frequencies**(-7./6.)
-        ARD *= windowing_function(frequencies * mtotal * lal.MTSUN_SI,\
-                                      coeffs['f3'], coeffs['d3'])
+                lorentzian(mfrequencies, mfRD, coeffs['delta2p'] * mfRD/QRD) * mfrequencies**(-7./6.)
+        ARD *= windowing_function(mfrequencies, coeffs['f3'] * mtotal * lal.MTSUN_SI, coeffs['d3'])
+        ARD *= amp0
       
       # Combine
-      APhen = FrequencySeries(APN + amp0*(AM + ARD),\
+      APhen = FrequencySeries(APN + AM + ARD,\
+                        delta_f=delta_f, epoch=-f_final, copy=True)
+      APN = FrequencySeries(APN,\
+                        delta_f=delta_f, epoch=-f_final, copy=True)
+      APM = FrequencySeries(AM,\
+                        delta_f=delta_f, epoch=-f_final, copy=True)
+      if coeffs['c3'] != 0:
+        ARD = FrequencySeries(amp0*ARD,\
                         delta_f=delta_f, epoch=-f_final, copy=True)
       
-      return APhen
+      return APhen, APN, APM, ARD
 
 
 
