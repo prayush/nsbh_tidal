@@ -4,7 +4,6 @@ import os
 import sys
 #import matplotlib.pyplot as plt
 import numpy as np
-from scipy.optimize import minimize_scalar
 from scipy.optimize import fsolve
 
 import lal
@@ -369,6 +368,7 @@ class tidalWavsFP(PNcoeffs):
       self.radiusNS = radiusNS
       self.massNS_B = massNS_B
       self.Lambda   = (radiusNS / massNS)**5
+      # FIXME: cast massNS to km
 
 
       self.mtotal = self.massNS + self.massBH
@@ -433,6 +433,7 @@ class tidalWavsFP(PNcoeffs):
       # Here we call zeta_tide x to respect the syntax of fsolve
       def root_fun(x):
           mu = self.massBH / self.radiusNS
+          # FIXME: cast massBH to km
           lhs = self.massNS * x**3 / self.massBH
           rhsnum = 3.*( x**2 - 2.*mu*x + mu**2 * self.spinBH**2)
           rhsden = x**2 - 3.*mu*x +\
@@ -443,6 +444,7 @@ class tidalWavsFP(PNcoeffs):
       zeta_tide = result[0]
       self.rTide = \
         zeta_tide * self.radiusNS * (1. - 2.*self.massNS / self.radiusNS)
+      # FIXME: cast massNS to km
       # Return the mass-shedding radius
       return self.rTide
     #
@@ -476,6 +478,7 @@ class tidalWavsFP(PNcoeffs):
       self.massBH_Torus = \
                   (self.massNS_B / self.radiusNS) * (0.296*rTide \
                    - 0.171*rIscoI*self.massBH)
+      # FIXME: cast massNS_B and massBH to km
       #Set the massBHTorus to zero if the result of the equation above is < 0
       if self.massBH_Torus < 0: self.massBH_Torus = 0.
       return self.massBH_Torus
@@ -514,23 +517,25 @@ class tidalWavsFP(PNcoeffs):
     def get_final_blackhole_mass_spin(self):
       """
       Calculates and returns the mass and spin of the post-merger BH.
-      This uses Eq.1-6 of P2.
+      This uses Eq.1-8 of P2.
       """
       if not hasattr(self, 'spinBH_f'):
-        # Set up the solver to solve Eq.4 of P2
-        def root_fun(af):
+        # Set up the solver to solve Eq.8 of P2
+        # Here we call a_f x to respect the syntax of fsolve
+        def root_fun(x):
           feta = self.fetafunc(self.eta)
           Mbtorus = self.massBHTorus()
           ei = self.efunc( self.rISCOi(), self.spinBH )
-          ef = self.efunc( self.rISCO(spin=af), af )
+          ef = self.efunc( self.rISCO(spin=x), x )
           rhsnum = self.spinBH * self.massBH**2 + \
-                  self.lzfunc( self.rISCO(spin=af), af ) * self.massBH * \
+                  self.lzfunc( self.rISCO(spin=x), x ) * self.massBH * \
                   ((1. - feta) * self.massNS + feta*self.massNS_B - Mbtorus)
           rhsden = (self.mtotal*(1. - (1.-ei)*self.eta) - ef * Mbtorus)**2
-          return (af - (rhsnum / rhsden))
+          return (x - (rhsnum / rhsden))
         #
-        result = scalar(root_fun, method='Bounded', bounds=(-1,1))
-        self.spinBH_f = result.x
+        # TODO: check that this never fails
+        result = fsolve(root_fun, 0., full_output=1)[0]
+        self.spinBH_f = result[0]
       #
       if not hasattr(self, 'massBH_f'):
         rIscoF = self.rISCOf()
