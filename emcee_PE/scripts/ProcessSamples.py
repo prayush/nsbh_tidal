@@ -220,13 +220,13 @@ def calculate_bias(\
 def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,\
             Nsamples=[150000], Nwalkers=[100], outfile='output.h5', mNS = 1.35,\
             recover_tidal=True):
-  #{{{
   ''' 
   This function loops over all parameters for which ranges are given as input,
   reads the posterior samples for each injection combination, and computes 
   biases in different parameters' recovery for each injected parameter 
   combination.  
   '''
+  #{{{
   fout = h5py.File(outfile, 'w')
   
   for qidx, q in enumerate(qvec):
