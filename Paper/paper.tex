@@ -23,6 +23,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
 \newcommand{\lambdans}{\Lambda_\mathrm{NS}}
 \newcommand{\chibh}{\chi_\mathrm{BH}}
+\newcommand{\chins}{\chi_\mathrm{NS}}
 \newcommand{\mbh}{m_\mathrm{BH}}
 \newcommand{\mns}{m_\mathrm{NS}}
 \newcommand{\mchirp}{\mathcal{M}_c}
@@ -56,10 +57,15 @@ Measuring matter effects in Neutron star - Black hole binaries with Advanced LIG
 \begin{abstract}
 We attempt to answer the following questions: 
 \begin{enumerate}
- \item Will ignoring the effect of NS deformability during inspiral and NS disruption during merger (in an NSBH binary) change the efficiency of our searches?
- \item Will not modeling NS disruption during NSBH mergers change the systematic and 
- statistical biases in the recovery of binary parameters?
- \item If we use templates which models NS disruption, what information can we recover about
+ \item Will ignoring the effect of NS deformability during inspiral and NS 
+ disruption during merger (in an NSBH binary) change the efficiency of our 
+ searches?
+ \item What systematic biases are introduced by neglecting the NS tidal
+ disruption close to merger? 
+ \item At what SNR do the systematic biases dominate over the statistical 
+ errors in the recovery of binary parameters?
+ \item By using templates which models NS deformation (over inspiral) and 
+ NS disruption (close to merger), what information can we recover about
  the $\Lambda_\mathrm{BH}\sim (R/M)^5_\mathrm{NS}$ parameter?
 \end{enumerate}
 \end{abstract}
@@ -78,42 +84,60 @@ We attempt to answer the following questions:
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The Advanced LIGO (aLIGO) observatories began their first observing run ``O1'' in 
-September, 2015. With both detectors a factor of $3-4$ more sensitive than
-their first-generation counterparts, we have access to $\approx 50$ times more 
-spacial volume of the universe at every instant. Within a 
-$3$ month observing run, these detectors would have access to as
-many binary mergers as initial-LIGO detectors did in $\sim 6$ years of 
-coincident operation. Through gradual updates, both of these instruments will
-reach their design sensitivity by $2019$, at which point they will like detect
-around $70$ binary mergers a year~\cite{Abadie:2010cf}.
+The Advanced LIGO (aLIGO) observatories began their first observing run ``O1''
+mid-September 2015, operating at a factor of $3-4$ higher gravitational-wave (GW) 
+strain sensitivity than their first-generation counterparts~\cite{Shoemaker2009}.
+Coalescing binaries of
+compact objects, i.e. Black Holes (BH) and/or Neutron Stars (NS), are the most
+likely targets for GW detection with these ground-based instruments. Over a
+$3$-month O1, these detectors would have access to as
+many binary mergers as initial-LIGO detectors did over approximately $6$ years
+of coincident operation. Both of these instruments will be further upgraded in
+phases to reach their design sensitivity by $2018-19$, at which point we expect to
+observe $\sim 70$ binary mergers a year~\cite{Abadie:2010cf}.
 
-Coalescing binaries containing a neutron star (NS) and a black hole (BH) are
-one of the most important sources of gravitational waves (GW) with the aLIGO
-and Virgo instruments, which expect to detect $\mathcal{O}(10)$
-of such systems every 
-year~\cite{Abadie:2010cf}. Conventional astronomical methods have, to date, made 
-observations of NSs with masses between $XX-YY M_\odot$ and spin
-$|\vec{\chi}\lesssim 0.05$. On the other hand, indirect observations of BHs 
-have placed the masses of stellar-collapse BHs between $5-35M_\odot$, with 
-spin angular momenta ranging from low to nearly extremal values (i.e., nearly
-as fast as possible - see,
+NS-BH binaries are one of the most important sources of gravitational waves (GW)
+with these ground-based instruments, and we expect to detect $\mathcal{O}(10)$
+of such systems every year~\cite{Abadie:2010cf}. 
+%
+One question that aLIGO will likely probe is `what is the nature of
+matter at nuclear densities', i.e. what is the equation of state (EoS) of 
+neutron stars. The EoS determines the compactness of NSs, which determines
+their deformation over the course of inspiral (albeit weakly, at $5$PN order in 
+phasing~\prayush{CITE PN TIDAL RESULTS}), as well as how early in the coalescence
+process will the NS be disrupted by the tidal field of the BH. Once disrupted,
+the NS forms an accretion disk around the BH. Most of this matter disk spirals 
+into the BH within a few milliseconds, with a small fraction becoming unbounded
+and gets ejected~\prayush{CITE BHNS NR}. It is believed that an accompaning
+short (lasting less than $2$ seconds) Gamma-ray Burst (sGRB) might be present
+under certain physical conditions~\prayush{CITE NSBH-GRB},
+making these systems one of the prime targets for joint electromagnetic-GW
+astronomy searches~\prayush{CITE EM-GW}.
+In such a situtation, the emitted GW signal
+is heavily damped post-disruption, and the quasi-normal modes of the resulting
+BH are not excited. Such a GW signal is qualitatively very different from a
+BH-BH merger, and one of the main goals of this work is to determine the 
+signal strength at which this difference will be quantifiabe by aLIGO.
+%
+However, studies have shown that for mass-ratio $\mbh/\mns\gtrsim 5$ the BH
+will need to have fairly large and positively-aligned (with the orbit) spins
+in order for its tidal field to be strong enough to disrupt the NS before the
+innermost stable circular orbit (ISCO) is reached~\cite{Foucart:2013psa}.
+
+
+Conventional astronomical 
+methods have, to date, made observations of NSs with masses between 
+$XX-YY M_\odot$ and spins $|\vec{\chi}_\mathrm{NS}|\lesssim 0.05$. On the other hand, 
+indirect observations of stellar-mass BHs place their masses between 
+$5-35M_\odot$, with their spin angular momenta $|\vec{\chi}_\mathrm{BH}|$ 
+ranging from small to nearly extremal (Kerr) values (see,
 e.g.~\cite{McClintockEtAl:2006,Miller:2009cw,Gou:2014una} for examples of 
 nearly extremal estimates of BH spins, and see
 Refs.~\cite{McClintock:2013vwa,Reynolds:2013qqa} for recent reviews of
-astrophysical BH spin measurements). \prayush{[Do we want to emphasize on BH
-spins here?]}. 
+astrophysical BH spin measurements). 
 
 
-One question that aLIGO is likely to probe is `what is the nature of
-matter at nuclear densities', i.e. what is the equation of state (EoS) of 
-neutron stars. The EoS determines the compactness of NSs, which
-determines how early in the coalescence will the NS be tidally disrupted
-by the gravitational field of the BH, resulting in the formation
-of an accretion disk and/or ejection of unbound matter. This makes NSBH
-mergers are one of the prime targets of the program for joint detection of
-GW and electromagnetic signals. 
-% 
+
 The difficulty in discerning the matter effects in an NSBH merger GW signal
 lies in distinguishing it reliably from a BHBH merger signal. The earlier the
 NS disrupts, the more orbits there are over which the effect of NS disruption
