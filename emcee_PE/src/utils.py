@@ -441,5 +441,11 @@ def load_samples(dataDir, SNR, burnin=500):
             'm1' : m1val, 'm2' : m2val, 'match' : matchval}
     #}}}
 
+def get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns):
+  #{{{
+  return 'q%.2f_mNS%.2f_chiBH%.2f_Lambda%.1f_SNR%.1f/NW%d_NS%d'\
+              % (q, mNS, chi2, Lambda, SNR, Nw, Ns)
+  #}}}
+
 
 

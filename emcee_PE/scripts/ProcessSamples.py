@@ -15,7 +15,6 @@ from scipy.stats.stats import pearsonr
 from scipy.stats import gaussian_kde
 from scipy import stats
 
-import make_runs as mr
 from utils import *
 import pycbc.pnutils as pnutils
 
@@ -243,7 +242,7 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
           dset_l1 = 'SNR%.1f.dat' % SNR
           for Ns in Nsamples:
             for Nw in Nwalkers:
-              simdir = mr.get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
+              simdir = get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
               print "\n\n Trying to read in %s" % simdir
               #
               summ_data = calculate_bias(basedir=cmd.getoutput('pwd -P'),\
@@ -263,7 +262,7 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
 chi1 = 0.   # small BH
 chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
 mNS = 1.35
-qvec = [2, 3, 4]
+qvec = [5]
 Lambdavec = [0]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
@@ -302,7 +301,7 @@ simstring = sigstring + tmpstring + '_'
 if inject_tidal: Lambdavec = [500, 800, 1000]
 
 Nwalkers = [100]
-Nsamples = [150000]
+Nsamples = [2000]
 Nburnin  = 500
 
 #qvec = [2]
@@ -315,4 +314,5 @@ print "Storing data in HDF file for ", qvec, chi2vec, Lambdavec, SNRvec
 print "\n\n\n"
 calculate_store_biases(qvec=qvec, chi2vec=chi2vec, Lambdavec=Lambdavec,\
       SNRvec=SNRvec, recover_tidal=recover_tidal,\
+      Nsamples=Nsamples, Nwalkers=Nwalkers,\
       outfile=simstring+'ParameterBiasesAndConfidenceIntervals.h5')

@@ -563,7 +563,7 @@ if not post_process:
     outidx= 0
   print " >> will write to output file %d-%d" % (unique_id, outidx)
   print "Dumping chain and logposterior to .npy files every %d iterations." %nout
-  ii=0
+  ii=1
   #for result in sampler.sample(p0, iterations=nsamples, storechain=False):
   for result in sampler.sample(p0, iterations=nsamples, storechain=True):
     position = result[0]
