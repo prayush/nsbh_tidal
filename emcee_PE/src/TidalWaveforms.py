@@ -161,7 +161,8 @@ def windowing_function(f, f0, d, sgn=+1):
   """
   Returns waveform windowing_function w_{f0,d}(f), for the input frequencies
   """
-  return 0.5*(1. + sgn*np.tanh(4.*(f - f0)/d))
+  # NOTE: anotehr typo in the paper
+  return 0.25*(1. + sgn*np.tanh(4.*(f - f0)/d))
 
 def lorentzian(f, f0, d): return d**2 / ((f - f0)**2 + d**2 / 4.)
 
@@ -367,9 +368,7 @@ class tidalWavsFP(PNcoeffs):
       # The following two have to be determined from the EoS ..[TODO]
       self.radiusNS = radiusNS
       self.massNS_B = massNS_B
-      self.Lambda   = (radiusNS / massNS)**5
-      # FIXME: cast massNS to km
-
+      self.Lambda   = (radiusNS / (massNS * (lal.MRSUN_SI*0.001)))**5
 
       self.mtotal = self.massNS + self.massBH
       self.eta = self.massNS * self.massBH / self.mtotal**2
@@ -432,8 +431,7 @@ class tidalWavsFP(PNcoeffs):
       # Setup to solve Eq.8 of P1 to get zeta_tide
       # Here we call zeta_tide x to respect the syntax of fsolve
       def root_fun(x):
-          mu = self.massBH / self.radiusNS
-          # FIXME: cast massBH to km
+          mu = self.massBH * (lal.MRSUN_SI*0.001) / self.radiusNS
           lhs = self.massNS * x**3 / self.massBH
           rhsnum = 3.*( x**2 - 2.*mu*x + mu**2 * self.spinBH**2)
           rhsden = x**2 - 3.*mu*x +\
@@ -443,8 +441,7 @@ class tidalWavsFP(PNcoeffs):
       result = fsolve(root_fun, 100., full_output=1)[0]
       zeta_tide = result[0]
       self.rTide = \
-        zeta_tide * self.radiusNS * (1. - 2.*self.massNS / self.radiusNS)
-      # FIXME: cast massNS to km
+        zeta_tide * self.radiusNS * (1. - 2.*self.massNS * (lal.MRSUN_SI*0.001)/ self.radiusNS)
       # Return the mass-shedding radius
       return self.rTide
     #
@@ -462,23 +459,24 @@ class tidalWavsFP(PNcoeffs):
       sgn = +1 # depends on the component pre-merger BH's spin
       if self.spinBH != 0: sgn = self.spinBH / np.abs(self.spinBH)
 
-      self.mfTide = sgn / (np.pi * (af*mf + np.sqrt(rTide**3 / mf)))
-      self.fTide  = self.mfTide / (total_mass * lal.MTSUN_SI)
+      # NOTE: paper formula is incorrect for this: it is all wrt the initial BH!
+      self.mfTide = sgn / (np.pi * (self.spinBH + np.sqrt((rTide / (self.massBH * (lal.MRSUN_SI*0.001)))**3)))
+      self.fTide  = self.mfTide / (self.massBH * lal.MTSUN_SI)
       return self.fTide
     #
     def massBHTorus(self):
       """
       This function returns the mass of the torus formed around the post-merger
-      BH, using Eq.11 of P1
+      BH, using Eq.11 of P1.  The output is in km.
       """
+      #FIXME: it may be better to keep all masses in soldar mass units 
       if hasattr(self, 'massBH_Torus'): return self.massBH_Torus
 
       rIscoI = self.rISCOi()
       rTide  = self.radiusTide()
       self.massBH_Torus = \
-                  (self.massNS_B / self.radiusNS) * (0.296*rTide \
-                   - 0.171*rIscoI*self.massBH)
-      # FIXME: cast massNS_B and massBH to km
+                  (self.massNS_B * (lal.MRSUN_SI*0.001)/ self.radiusNS) * (0.296*rTide \
+                   - 0.171*rIscoI*self.massBH * (lal.MRSUN_SI*0.001))
       #Set the massBHTorus to zero if the result of the equation above is < 0
       if self.massBH_Torus < 0: self.massBH_Torus = 0.
       return self.massBH_Torus
@@ -524,7 +522,8 @@ class tidalWavsFP(PNcoeffs):
         # Here we call a_f x to respect the syntax of fsolve
         def root_fun(x):
           feta = self.fetafunc(self.eta)
-          Mbtorus = self.massBHTorus()
+          # Converting to solar masses
+          Mbtorus = self.massBHTorus() / (lal.MRSUN_SI*0.001)
           ei = self.efunc( self.rISCOi(), self.spinBH )
           ef = self.efunc( self.rISCO(spin=x), x )
           rhsnum = self.spinBH * self.massBH**2 + \
@@ -533,15 +532,18 @@ class tidalWavsFP(PNcoeffs):
           rhsden = (self.mtotal*(1. - (1.-ei)*self.eta) - ef * Mbtorus)**2
           return (x - (rhsnum / rhsden))
         #
-        # TODO: check that this never fails
-        result = fsolve(root_fun, 0., full_output=1)[0]
+        # TODO: make sure that this never fails
+        #result = fsolve(root_fun, 0., full_output=1)[0]
+        # The initial BH spin is the best initial guess for the root-finder
+        result = fsolve(root_fun, self.spinBH, full_output=1)[0]
         self.spinBH_f = result[0]
       #
       if not hasattr(self, 'massBH_f'):
         rIscoF = self.rISCOf()
         ei = self.efunc( self.rISCOi(), self.spinBH )
         ef = self.efunc(        rIscoF, self.spinBH_f )
-        Mbtorus = self.massBHTorus()
+        # Converting to solar masses
+        Mbtorus = self.massBHTorus() / (lal.MRSUN_SI*0.001)
         self.massBH_f = \
           self.mtotal * (1. - (1. - ei)*self.eta) - ef * Mbtorus
       #
@@ -573,7 +575,6 @@ class tidalWavsFP(PNcoeffs):
       if hasattr(self, 'fRD') and hasattr(self, 'QRD'):
         return self.fRD, self.QRD
 
-      total_mass = self.mtotal
       mf = self.massBH_final()
       af = self.spinBH_final()
 
@@ -583,7 +584,7 @@ class tidalWavsFP(PNcoeffs):
       j = np.abs(af) # WHAT IS THIS ?
 
       self.mfRD = f1 + f2 * (1. - j)**f3
-      self.fRD  = self.mfRD / (total_mass * lal.MTSUN_SI)
+      self.fRD  = self.mfRD / (2. * np.pi * mf * lal.MTSUN_SI)
       self.QRD  = q1 + q2 * (1. - j)**q3
 
       return self.fRD, self.QRD
@@ -624,7 +625,7 @@ class tidalWavsFP(PNcoeffs):
       sBH     = self.spinBH
 
       d       = 0.015 # Value from PhenomC model
-      C       = self.massNS / self.radiusNS
+      C       = self.massNS * (lal.MRSUN_SI*0.001) / self.radiusNS
       q       = self.massBH / self.massNS
       fRD     = self.freqRD()
       fTide   = self.freqTide()
@@ -634,7 +635,7 @@ class tidalWavsFP(PNcoeffs):
         print "NON-DISRUPTIVE MERGER"
         e_ins = 1
 
-        fdiffratio = (fTide - fRD) / fRD
+        fdiffratio = (fTide - 0.99*0.98*fRD) / (0.99*0.98*fRD)
         x1, d1 = [-0.0796251, 0.0801192]
         xND = fdiffratio**2 - 0.571505*C - 0.00508451*sBH
         e_tide = 2 * windowing_function(xND, x1, d1, sgn=1)
@@ -644,7 +645,8 @@ class tidalWavsFP(PNcoeffs):
         sigma_tide = 2. * windowing_function(xNDp, x2, d2, sgn=-1)
 
         A, x3, d3 = [1.62496, 0.0188092, 0.338737]
-        delta2p = A * windowing_function(fdiffratio, x3, d3, sgn=-1)
+        # NOTE: Yet another typo in the paper
+        delta2p = A * windowing_function(fdiffratio, x3, d3, sgn=+1)
 
         c1 = c2 = c3 = 1
         f0 = f1 = f2 = f3 = fRD
@@ -659,14 +661,14 @@ class tidalWavsFP(PNcoeffs):
       elif fTide < fRD and mbtorus > 0:
         print "DISRUPTIVE MERGER"
         a1, b1 = [1.29971, -1.61724]
-        xD = (mbtorus / self.massNS_B) + 0.424912*C + 0.363604 * eta**0.5 - 0.0605591*sBH
+        xD = (mbtorus / (self.massNS_B*lal.MRSUN_SI*0.001)) + 0.424912*C + 0.363604 * eta**0.5 - 0.0605591*sBH
         e_ins = a1 + b1 * xD
 
         e_tide = None
         f0 = fTide
 
         a2, b2 = 0.137722, -0.293237
-        xDp = (mbtorus / self.massNS_B) - 0.132754*C + 0.576669 * eta**0.5 - \
+        xDp = (mbtorus / (self.massNS_B*lal.MRSUN_SI*0.001)) - 0.132754*C + 0.576669 * eta**0.5 - \
                 0.0603749*sBH - 0.0601185*sBH*sBH - 0.0729134 * sBH**3
         sigma_tide = a2 + b2 * xDp
         delta2p = None # DUMMY VALUE
@@ -685,10 +687,10 @@ class tidalWavsFP(PNcoeffs):
                   'sigma_tide' : sigma_tide, 'delta2p' : delta2p}
         #
       elif fTide < fRD and mbtorus == 0:
-        print "MILDLY DISRUPTIVE MERGER :CHECKME"
+        print "MILDLY DISRUPTIVE MERGER WITH NO DISK REMNANT"
         a1, b1 = [1.29971, -1.61724]
-        fdiffratio = (fTide - fRD) / fRD
-        xD = (mbtorus / self.massNS_B) + 0.424912*C + 0.363604 * eta**0.5 - 0.0605591*sBH
+        fdiffratio = (fTide - 0.99*0.98*fRD) / (0.99*0.98*fRD)
+        xD = 0.424912*C + 0.363604 * eta**0.5 - 0.0605591*sBH
         e_ins = a1 + b1 * xD
 
         e_tide = None
@@ -698,7 +700,7 @@ class tidalWavsFP(PNcoeffs):
         sigma_tide = 2. * windowing_function(xNDp, x2, d2, sgn=-1) / 2.
 
         a2, b2 = 0.137722, -0.293237
-        xDp = (mbtorus / self.massNS_B) - 0.132754*C + 0.576669 * eta**0.5 - \
+        xDp = - 0.132754*C + 0.576669 * eta**0.5 - \
                 0.0603749*sBH - 0.0601185*sBH*sBH - 0.0729134 * sBH**3
         sigma_tide += (a2 + b2 * xDp)/2.
 
@@ -706,8 +708,8 @@ class tidalWavsFP(PNcoeffs):
 
         c1 = c2 = 1
         c3 = 0
-        f1 = (1. - 1./q) * fRD + e_ins*fTide / q
-        f2 = (1. - 1./q) * fRD + fTide / q
+        f1 = (1. - 1./q) * 0.99*0.98*fRD + e_ins*fTide / q
+        f2 = (1. - 1./q) * 0.99*0.98*fRD + fTide / q
         f3 = d3 = None
         d1 = d2 = d + sigma_tide
 
@@ -720,21 +722,21 @@ class tidalWavsFP(PNcoeffs):
       elif fTide >= fRD and mbtorus > 0:
         print "MILDLY DISRUPTIVE MERGER WITH A TORUS"
         a1, b1 = [1.29971, -1.61724]
-        xD = (mbtorus / self.massNS_B) + 0.424912*C + 0.363604 * eta**0.5 - 0.0605591*sBH
+        xD = (mbtorus / (self.massNS_B*lal.MRSUN_SI*0.001) ) + 0.424912*C + 0.363604 * eta**0.5 - 0.0605591*sBH
         e_ins = a1 + b1 * xD
 
-        fdiffratio = (fTide - fRD) / fRD
+        fdiffratio = (fTide - 0.99*0.98*fRD) / (0.99*0.98*fRD)
         x1, d1 = [-0.0796251, 0.0801192]
         xND = fdiffratio**2 - 0.571505*C - 0.00508451*sBH
-        e_tide = 2 * windowing_function(xND, x1, d1, sgn=1)
+        e_tide = 2. * windowing_function(xND, x1, d1, sgn=1)
 
-        fdiffratio = (fTide - fRD) / fRD
         x2, d2 = [-0.206465, 0.226844]
         xNDp = fdiffratio**2 - 0.657424*C - 0.0259977*sBH
         sigma_tide = 2. * windowing_function(xNDp, x2, d2, sgn=-1)
 
         A, x3, d3 = [1.62496, 0.0188092, 0.338737]
-        delta2p = A * windowing_function(fdiffratio, x3, d3, sgn=-1)
+        # NOTE: Yet another typo in the paper
+        delta2p = A * windowing_function(fdiffratio, x3, d3, sgn=1)
 
         c1 = c2 = c3 = 1
         f1 = f2 = e_ins * fRD
@@ -809,8 +811,6 @@ class tidalWavsFP(PNcoeffs):
 
       # Get calibrated tidal parameters, depending on if the NS disrupts
       coeffs = self.get_calibrated_parameters()
-
-      print coeffs
 
       # Get frequency range
       N = int(np.round( 1./delta_t/delta_f ))
