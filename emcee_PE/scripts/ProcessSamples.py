@@ -144,12 +144,14 @@ def calculate_bias(\
     2. Compute 68%, 90%,.. confidence interval for different sampled parameters
     3. Compute the median value of different parameters fromt the posterior.
     
-    We plan to store 5 quantities for each parameter k:
+    We plan to store 7 quantities for each parameter k:
     k+0: Median recovered parameter value from posterior samples
-    k+1: Bias = (X(median) - X(inj))/X(inj)
-    k+2: Confidence level lower bound = X(confidence_level_low)
-    k+3: Confidence level upper bound = X(confidence_level_up)
-    k+4: Confidence interval = (X(confidence_level_up) - X(confidence_level_low))/X(inj)
+    k+1: MaxL   recovered parameter value from posterior samples
+    k+2: Bias = (X(median) - X(inj))/X(inj)
+    k+3: Bias = (X(maxL) - X(inj))/X(inj)
+    k+4: Confidence level lower bound = X(confidence_level_low)
+    k+5: Confidence level upper bound = X(confidence_level_up)
+    k+6: Confidence interval = (X(confidence_level_up) - X(confidence_level_low))/X(inj)
     
     PLUS
     0 : Confidence interval probability
@@ -174,14 +176,14 @@ def calculate_bias(\
     else:
       parameters = ['m1', 'm2', 'Mc', 'Mtot', 'eta', 'q', 'chi2']
     
-    num_of_data_fields = 5
+    num_of_data_fields = 7
     summary_data = np.zeros(( len(confidence_levels), len(parameters)*num_of_data_fields + 1 + 1 ))
     
     # Populate first column of summary data : confidence level probabilities
     for idx in range(len(confidence_levels)):
       summary_data[idx,0] = confidence_levels[idx] / 100.
       summary_data[idx,1] = np.max( match['samples']['match'] ) 
-    
+   match['samples'][param][np.where(match['samples']['match'] == np.max(match['samples']['match']))[0][0]]
     idx = 2
     for param in parameters:
       # get the posterior samples
@@ -196,19 +198,22 @@ def calculate_bias(\
         
         # Fractional bias
         summary_data[jdx, idx] = np.median(S)
-        summary_data[jdx, idx+1] = np.median(S) - param_inj
+        summary_data[jdx, idx+1] = S[np.where(match['samples']['match'] == np.max(match['samples']['match']))[0][0]]
+        summary_data[jdx, idx+2] = np.median(S) - param_inj
+        summary_data[jdx, idx+3] = summary_data[jdx, idx+1] - param_inj
                 
         # Confidence interval limits
-        summary_data[jdx, idx+2] = np.percentile(S, llimit)
-        summary_data[jdx, idx+3] = np.percentile(S, ulimit)
+        summary_data[jdx, idx+4] = np.percentile(S, llimit)
+        summary_data[jdx, idx+5] = np.percentile(S, ulimit)
         
         # Confidence interval width as a fraction of parameter value
-        summary_data[jdx, idx+4] = summary_data[jdx, idx+3] - summary_data[jdx, idx+2]
+        summary_data[jdx, idx+6] = summary_data[jdx, idx+5] - summary_data[jdx, idx+4]
         
         # Normalize        
         if 'chi' not in param and 'fractional' in biastype and param_inj != 0:
-          summary_data[jdx, idx+1] /= param_inj
-          summary_data[jdx, idx+4] /= param_inj            
+          summary_data[jdx, idx+2] /= param_inj
+          summary_data[jdx, idx+3] /= param_inj
+          summary_data[jdx, idx+6] /= param_inj            
       #  
       idx += num_of_data_fields
     #
@@ -262,7 +267,7 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
 chi1 = 0.   # small BH
 chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
 mNS = 1.35
-qvec = [5]
+qvec = [2, 3, 4, 5]
 Lambdavec = [0]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
@@ -280,7 +285,7 @@ LambdaMax = 4000
 Lambdastdev = 100
 
 inject_tidal = True
-recover_tidal= True
+recover_tidal= False
 
 if len(sys.argv) >= 3:
   if int(sys.argv[1]) != 0: inject_tidal = True
@@ -298,7 +303,8 @@ if recover_tidal: tmpstring = 'T'
 else: tmpstring = 'N'
 simstring = sigstring + tmpstring + '_'
 
-if inject_tidal: Lambdavec = [500, 800, 1000]
+#if inject_tidal: Lambdavec = [500, 800, 1000]
+if inject_tidal: Lambdavec = [1500, 2000]
 
 Nwalkers = [100]
 Nsamples = [2000]
