@@ -668,19 +668,21 @@ if len(sys.argv) >= 5:
   if int(sys.argv[4]) != 0: plot_width = True
   else: plot_width = False
 
+figtype = 'pdf'
+
 ######################################################
 # Set up parameters of signal
 ######################################################
 chi1 = 0.                           # small BH
 chi2vec = np.array([-0.5, 0, 0.5, 0.74999])  # larger BH
 mNS = 1.35
-qvec = np.array([2, 3, 4])
+qvec = np.array([2, 3, 4, 5])
 etavec = qvec / (1. + qvec)**2
 mtotalvec = mNS + mNS * qvec
 mchirpvec = mtotalvec * etavec**0.6
 Lambdavec = np.array([0])#[500, 800, 1000])
 SNRvec = np.array([20, 30, 50, 70, 90, 120])
-if inject_tidal: Lambdavec = np.array([0, 500, 800, 1000])
+if inject_tidal: Lambdavec = np.array([500, 800, 1000, 1500, 2000])
 
 ######################################################
 # Set up parameters of templates
@@ -701,7 +703,8 @@ if inject_tidal: sigstring = 'T'
 else: sigstring = 'N'
 if recover_tidal: tmpstring = 'T'
 else: tmpstring = 'N'
-simstring = sigstring + tmpstring + '_'
+simstring = sigstring + tmpstring
+simstring = sigstring + tmpstring
 
 Nwalkers = [100]
 Nsamples = [150000]
@@ -710,13 +713,19 @@ Nburnin  = 500
 ######################################################
 # Read in parameter biases and other data
 ######################################################
-#datafile = simstring + 'ParameterBiasesAndConfidenceIntervals.h5'
+datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/FinalCombinedPEData/'
+#datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/' + simstring
+datafile = simstring + '_ParameterBiasesAndConfidenceIntervals.h5'
+datafile = os.path.join(datadir, datafile)
+
 if not recover_tidal:
-  datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN','TN_ParameterBiasesAndConfidenceIntervals.h5')
   datafileNN = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/NN','NN_ParameterBiasesAndConfidenceIntervals.h5')
-  dataNN = h5py.File(datafileNN, 'r')
-else:
-  datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TT','TT_ParameterBiasesAndConfidenceIntervals.h5')
+  #dataNN = h5py.File(datafileNN, 'r')
+  #datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN','TN_ParameterBiasesAndConfidenceIntervals.h5')
+#else:
+#  datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TT','TT_ParameterBiasesAndConfidenceIntervals.h5')
+  
+print '''Reading from data file : %s''' % datafile
 
 data = h5py.File(datafile, 'r')
 
@@ -748,7 +757,7 @@ PLUS, the first 2 columns in each row of the dataset are:
     converted to LogLikelihood as LogL = 1/2 SNR^2 MATCH^2
 '''
 
-plot_MchirpBias = False
+plot_MchirpBias = True
 plot_EtaBias    = False
 plot_QBias      = False
 plot_sBHBias    = False
@@ -797,10 +806,12 @@ made for different LAmbda values
               mchirpBiases[Lambda][snr][CI][i,j] = get_results(data,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
                     p='Mc', qnt='fbias', CI=CI)
-            except KeyError:
+            except KeyError as kerr:
+              print kerr
               mchirpBiases[Lambda][snr][CI][i,j] = get_results(dataNN,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
                     p='Mc', qnt='fbias', CI=CI)
+              
             try:
               mchirpCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
@@ -835,10 +846,10 @@ made for different LAmbda values
       
     make_contour_array(Xarray, Yarray, Zarray2, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\mathcal{M}_c)^{%.1f \%%}/\mathcal{M}_c^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
       levelspacing=0.002*1.5, cfmt='%.2f',\
-      figname=os.path.join(plotdir,simstring+('MchirpCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
+      figname=os.path.join(plotdir,simstring+('MchirpCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
   
     Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
     titles = []
@@ -862,10 +873,10 @@ made for different LAmbda values
 
     make_contour_array(Xarray, Yarray, Zarray1, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow,\
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow,\
       clabel='$100\\times (\mathcal{M}_c^\mathrm{Median}-\mathcal{M}_c^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
       levelspacing=1.e-3,  cfmt='%.3f',\
-      figname=os.path.join(plotdir,simstring+('MchirpBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
+      figname=os.path.join(plotdir,simstring+('MchirpBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
 
 
 ######################################################
@@ -937,7 +948,7 @@ made for different LAmbda values
       
     make_contour_array(Xarray, Yarray, Zarray2, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\eta)^{%.1f \%%}/\eta^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
       levelspacing=0.5, cfmt='%.0f',\
       figname=os.path.join(plotdir,simstring+('EtaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
@@ -963,7 +974,7 @@ made for different LAmbda values
 
     make_contour_array(Xarray, Yarray, Zarray, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow_r,\
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow_r,\
       clabel='$100\\times (\eta^\mathrm{Median}-\eta^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
       levelspacing=0.4,  cfmt='%.1f',\
       figname=os.path.join(plotdir,simstring+('EtaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
@@ -1034,7 +1045,7 @@ made for different LAmbda values
       
     make_contour_array(Xarray, Yarray, Zarray2, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\eta)^{%.1f \%%}/\eta^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
       levelspacing=0.5, cfmt='%.0f',\
       figname=os.path.join(plotdir,simstring+('EtaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
@@ -1060,7 +1071,7 @@ made for different LAmbda values
 
     make_contour_array(Xarray, Yarray, Zarray, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow_r,\
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow_r,\
       clabel='$100\\times (\eta^\mathrm{Median}-\eta^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
       levelspacing=0.4,  cfmt='%.1f',\
       figname=os.path.join(plotdir,simstring+('EtaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
@@ -1135,7 +1146,7 @@ made for different LAmbda values
       
     make_contour_array(Xarray, Yarray, Zarray2, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\chi_\mathrm{BH})^{%.1f \%%}$" % CILevels[plotCI], \
       levelspacing=0.01, cfmt='%.2f',\
       figname=os.path.join(plotdir,simstring+('ChiBHCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
@@ -1161,7 +1172,7 @@ made for different LAmbda values
 
     make_contour_array(Xarray, Yarray, Zarray, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow_r,\
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow_r,\
       clabel='$\chi_\mathrm{BH}^\mathrm{Median}-\chi_\mathrm{BH}^\mathrm{Injected}$', \
       levelspacing=0.005,  cfmt='%.2f',\
       figname=os.path.join(plotdir,simstring+('ChiBHBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.pdf'))
@@ -1223,15 +1234,15 @@ made for different LAmbda values
       
     make_contour_array(Xarray, Yarray, Zarray2, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Spectral_r,\
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, \
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
-      figname=os.path.join(plotdir,simstring+('LambdaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
+      figname=os.path.join(plotdir,simstring+('LambdaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
   
     make_contour_array(Xarray, Yarray, Zarray1, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=-0.5, xmax=0.75, ymin=2*mNS, ymax=4*mNS, titles=titles, cmap=cm.rainbow,\
+      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow,\
       clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
-      figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.png'))
+      figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
 
 
 if plot_SNRcrit and recover_tidal:
@@ -1279,7 +1290,7 @@ the tidal deformability of the Neutron Star
         vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75,\
         figname=os.path.join(plotdir, simstring+\
       ('SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda%.1f_CI%.1f' %\
-          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
+          (Lambda, CILevels[CI])).replace('.','_')+'.'+figtype))
       #
       make_contour(chi2vec, np.array(qvec) * mNS, snrThresh,\
         xlabel='Black-hole spin', ylabel='Black-hole mass $(M_\odot)$',\
@@ -1290,7 +1301,7 @@ the tidal deformability of the Neutron Star
         vmin=snrThresh.min(), vmax=snrThresh.max(), xmin=-0.5, xmax=0.75, \
         figname=os.path.join(plotdir, simstring+\
       ('SNRThresholdForLambdaMeasurement_BHspin_BHmass_Lambda%.1f_CI%.1f' %\
-          (Lambda, CILevels[CI])).replace('.','_')+'.png'))
+          (Lambda, CILevels[CI])).replace('.','_')+'.'+figtype))
 
 
 if plot_LambdaCrit and recover_tidal:
@@ -1341,7 +1352,7 @@ the fractional error in LAmbda is < 100%.
           #vmin=snrThresh.min(), vmax=snrThresh.max(), \
           figname=os.path.join(plotdir, simstring+\
           ('LambdaThresholdForLambdaMeasurement_BHspin_MassRatio_SNR%.1f_CI%.1f' %\
-              (snr, CILevels[CI])).replace('.','_')+'.png'))
+              (snr, CILevels[CI])).replace('.','_')+'.'+figtype))
       except ValueError: 
         if verbose: print "Could not make contours for SNR=%f, CI=%d" % (snr, CI)
         pass
@@ -1356,7 +1367,7 @@ the fractional error in LAmbda is < 100%.
           #vmin=snrThresh.min(), vmax=snrThresh.max(), \
           figname=os.path.join(plotdir, simstring+\
           ('LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR%.1f_CI%.1f' %\
-              (snr, CILevels[CI])).replace('.','_')+'.png'))
+              (snr, CILevels[CI])).replace('.','_')+'.'+figtype))
       except ValueError: 
         if verbose: print "Could not make contours for SNR=%f, CI=%d" % (snr, CI)
         pass
