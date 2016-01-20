@@ -211,7 +211,7 @@ chi2min = -0.99
 chi2max = 0.98
 chi2only = True
 
-LambdaMax = 4000
+LambdaMax = 4000*2
 Lambdastdev = 100
 
 recover_tidal = True
