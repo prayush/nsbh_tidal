@@ -1,0 +1,234 @@
+From f4c2d8734897f6ddf7f7348c058fe1561495404c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michael=20P=C3=BCrrer?= <Michael.Puerrer@ligo.org>
+Date: Thu, 21 Jan 2016 17:43:01 +0100
+Subject: [PATCH] Implement Lackey et al 2013 tidal NSBH model built on
+ SEOBNRv2_ROM
+
+---
+ lalsimulation/src/LALSimIMR.h                        |  9 +++++++--
+ lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c | 20 ++++++++++----------
+ lalsimulation/src/LALSimInspiral.c                   | 14 ++++++++++++++
+ lalsimulation/src/LALSimInspiral.h                   |  2 ++
+ lalsimulation/src/LALSimInspiralWaveformCache.c      | 11 +++++++++++
+ lalsimulation/src/Makefile.am                        |  2 ++
+ 6 files changed, 46 insertions(+), 12 deletions(-)
+
+diff --git a/lalsimulation/src/LALSimIMR.h b/lalsimulation/src/LALSimIMR.h
+index cca623d..c8b8449 100644
+--- a/lalsimulation/src/LALSimIMR.h
++++ b/lalsimulation/src/LALSimIMR.h
+@@ -184,8 +184,8 @@ int XLALSimIMRSEOBNRv2ROMDoubleSpinFrequencyOfTime(REAL8 *frequency, REAL8 t, RE
+ 
+ /* in module LALSimIMRSEOBNRv2ROMDoubleSpinHI.c */
+ 
+-int XLALSimIMRSEOBNRv2ROMDoubleSpinHI(struct tagCOMPLEX16FrequencySeries **hptilde, struct tagCOMPLEX16FrequencySeries **hctilde, REAL8 phiRef, REAL8 deltaF, REAL8 fLow, REAL8 fHigh, REAL8 fRef, REAL8 distance, REAL8 inclination, REAL8 m1SI, REAL8 m2SI, REAL8 chi1, REAL8 chi2, UINT4 nk_max);
+-int XLALSimIMRSEOBNRv2ROMDoubleSpinHIFrequencySequence(struct tagCOMPLEX16FrequencySeries **hptilde, struct tagCOMPLEX16FrequencySeries **hctilde, const REAL8Sequence *freqs, REAL8 phiRef, REAL8 fRef, REAL8 distance, REAL8 inclination, REAL8 m1SI, REAL8 m2SI, REAL8 chi1, REAL8 chi2, UINT4 nk_max);
++int XLALSimIMRSEOBNRv2ROMDoubleSpinHI(struct tagCOMPLEX16FrequencySeries **hptilde, struct tagCOMPLEX16FrequencySeries **hctilde, REAL8 phiRef, REAL8 deltaF, REAL8 fLow, REAL8 fHigh, REAL8 fRef, REAL8 distance, REAL8 inclination, REAL8 m1SI, REAL8 m2SI, REAL8 chi1, REAL8 chi2, INT4 nk_max);
++int XLALSimIMRSEOBNRv2ROMDoubleSpinHIFrequencySequence(struct tagCOMPLEX16FrequencySeries **hptilde, struct tagCOMPLEX16FrequencySeries **hctilde, const REAL8Sequence *freqs, REAL8 phiRef, REAL8 fRef, REAL8 distance, REAL8 inclination, REAL8 m1SI, REAL8 m2SI, REAL8 chi1, REAL8 chi2, INT4 nk_max);
+ int XLALSimIMRSEOBNRv2ROMDoubleSpinHITimeOfFrequency(REAL8 *t, REAL8 frequency, REAL8 m1SI, REAL8 m2SI, REAL8 chi1, REAL8 chi2);
+ int XLALSimIMRSEOBNRv2ROMDoubleSpinHIFrequencyOfTime(REAL8 *frequency, REAL8 t, REAL8 m1SI, REAL8 m2SI, REAL8 chi1, REAL8 chi2);
+ 
+@@ -195,6 +195,11 @@ int XLALSimIMRSEOBNRv2ROMDoubleSpinHIFrequencyOfTime(REAL8 *frequency, REAL8 t,
+ REAL8 XLALSimIMRSEOBNRv2ChirpTimeSingleSpin(const REAL8 m1_SI, const REAL8 m2_SI, const REAL8 chi, const REAL8 f_min);
+ 
+ 
++/* in module LALSimIMRLackeyTidal2013.c */
++int XLALSimIMRLackeyTidal2013(struct tagCOMPLEX16FrequencySeries **hptilde, struct tagCOMPLEX16FrequencySeries **hctilde, REAL8 phiRef, REAL8 deltaF, REAL8 fLow, REAL8 fHigh, REAL8 fRef, REAL8 distance, REAL8 inclination, REAL8 mBH_SI, REAL8 mNS_SI, REAL8 chi_BH, REAL8 Lambda);
++int XLALSimIMRLackeyTidal2013FrequencySequence(struct tagCOMPLEX16FrequencySeries **hptilde, struct tagCOMPLEX16FrequencySeries **hctilde, const REAL8Sequence *freqs, REAL8 phiRef, REAL8 fRef, REAL8 distance, REAL8 inclination, REAL8 mBH_SI, REAL8 mNS_SI, REAL8 chi_BH, REAL8 Lambda);
++
++
+ /* in module LALSimIMRPSpinInspiralRD.c */
+ 
+ int XLALSimIMRPhenSpinFinalMassSpin(REAL8 *finalMass, REAL8 *finalSpin, REAL8 m1, REAL8 m2, REAL8 s1s1, REAL8 s2s2, REAL8 s1L, REAL8 s2L, REAL8 s1s2, REAL8 energy);
+diff --git a/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c b/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c
+index 4ffa88d..c92d831 100644
+--- a/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c
++++ b/lalsimulation/src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c
+@@ -1359,7 +1359,7 @@ static int SEOBNRv2ROMDoubleSpinCore(
+ 
+   REAL8 s = 0.5; // Scale polarization amplitude so that strain agrees with FFT of SEOBNRv2
+   double Mtot = Mtot_sec / LAL_MTSUN_SI;
+-  double amp0 = Mtot * Mtot_sec * LAL_MRSUN_SI / (distance); // Correct overall amplitude to undo mass-dependent scaling used in ROM
++  double amp0 = Mtot * Mtot_sec * LAL_MRSUN_SI / distance; // Correct overall amplitude to undo mass-dependent scaling used in ROM
+ 
+   // Evaluate reference phase for setting phiRef correctly
+   double phase_change = gsl_spline_eval(spline_phi, fRef_geom, acc_phi) - 2*phiRef;
+@@ -1431,12 +1431,12 @@ static int SEOBNRv2ROMDoubleSpinCore(
+  *
+  * \brief C code for SEOBNRv2 reduced order model
+  * (double spin high resolution low mass version).
+- * See CQG 31 195010, 2014, arXiv:1402.4146 for details.
+- * Further details in M. Puerrer, https://dcc.ligo.org/P1500175.
++ * See M. Pürrer, CQG 31 195010, 2014, arXiv:1402.4146 for details.
++ * Further details in M. Pürrer, arXiv:1512.02248.
+  *
+  * This is a frequency domain model that approximates the time domain SEOBNRv2 model.
+  *
+- * The binary data HDF5 file (SEOBNRv2ROM_DS_HI_vXYZ.hdf5) and the gsl-binary data files (SEOBNRv2ROM_DS_HI_vXYZ.tar)
++ * The binary data HDF5 file (SEOBNRv2ROM_DS_HI_v1.0.hdf5) and the gsl-binary data files (SEOBNRv2ROM_DS_HI_v1.0.tar)
+  * will be available at on LIGO clusters in /home/cbc/.
+  * Make sure the files are in your LAL_DATA_PATH.
+  *
+@@ -1446,7 +1446,7 @@ static int SEOBNRv2ROMDoubleSpinCore(
+  * @note Parameter ranges:
+  *   * 0.01 <= eta <= 0.25
+  *   * -1 <= chi_i <= 0.99
+- *   * Mtot >= 3 Msun
++ *   * Mtot >= 2 Msun @ 10 Hz.
+  *
+  *  Aligned component spins chi1, chi2.
+  *  Symmetric mass-ratio eta = m1*m2/(m1+m2)^2.
+@@ -1485,7 +1485,7 @@ int XLALSimIMRSEOBNRv2ROMDoubleSpinHIFrequencySequence(
+   REAL8 m2SI,                                   /**< Mass of companion 2 (kg) */
+   REAL8 chi1,                                   /**< Dimensionless aligned component spin 1 */
+   REAL8 chi2,                                   /**< Dimensionless aligned component spin 2 */
+-  UINT4 nk_max)                                 /**< Truncate interpolants at SVD mode nk_max; don't truncate if nk_max == -1 */
++  INT4 nk_max)                                  /**< Truncate interpolants at SVD mode nk_max; don't truncate if nk_max == -1 */
+ {
+   /* Internally we need m1 > m2, so change around if this is not the case */
+   if (m1SI < m2SI) {
+@@ -1518,7 +1518,7 @@ int XLALSimIMRSEOBNRv2ROMDoubleSpinHIFrequencySequence(
+ 
+   // Call the internal core function with deltaF = 0 to indicate that freqs is non-uniformly
+   // spaced and we want the strain only at these frequencies
+-  int retcode = SEOBNRv2ROMDoubleSpinCore(hptilde,hctilde,
++  int retcode = SEOBNRv2ROMDoubleSpinCore(hptilde, hctilde,
+             phiRef, fRef, distance, inclination, Mtot_sec, eta, chi1, chi2, freqs, 0, nk_max);
+ 
+   return(retcode);
+@@ -1545,7 +1545,7 @@ int XLALSimIMRSEOBNRv2ROMDoubleSpinHI(
+   REAL8 m2SI,                                   /**< Mass of companion 2 (kg) */
+   REAL8 chi1,                                   /**< Dimensionless aligned component spin 1 */
+   REAL8 chi2,                                   /**< Dimensionless aligned component spin 2 */
+-  UINT4 nk_max)                                 /**< Truncate interpolants at SVD mode nk_max; don't truncate if nk_max == -1 */
++  INT4 nk_max)                                  /**< Truncate interpolants at SVD mode nk_max; don't truncate if nk_max == -1 */
+ {
+   /* Internally we need m1 > m2, so change around if this is not the case */
+   if (m1SI < m2SI) {
+@@ -1576,13 +1576,13 @@ int XLALSimIMRSEOBNRv2ROMDoubleSpinHI(
+ #endif
+ 
+   // Use fLow, fHigh, deltaF to compute freqs sequence
+-  // Instead of building a full sequency we only transfer the boundaries and let
++  // Instead of building a full sequence we only transfer the boundaries and let
+   // the internal core function do the rest (and properly take care of corner cases).
+   REAL8Sequence *freqs = XLALCreateREAL8Sequence(2);
+   freqs->data[0] = fLow;
+   freqs->data[1] = fHigh;
+ 
+-  int retcode = SEOBNRv2ROMDoubleSpinCore(hptilde,hctilde,
++  int retcode = SEOBNRv2ROMDoubleSpinCore(hptilde, hctilde,
+             phiRef, fRef, distance, inclination, Mtot_sec, eta, chi1, chi2, freqs, deltaF, nk_max);
+ 
+   XLALDestroyREAL8Sequence(freqs);
+diff --git a/lalsimulation/src/LALSimInspiral.c b/lalsimulation/src/LALSimInspiral.c
+index b57096b..981c7d0 100644
+--- a/lalsimulation/src/LALSimInspiral.c
++++ b/lalsimulation/src/LALSimInspiral.c
+@@ -127,6 +127,7 @@ static const char *lalSimulationApproximantNames[] = {
+     INITIALIZE_NAME(SEOBNRv2_ROM_EffectiveSpin),
+     INITIALIZE_NAME(SEOBNRv2_ROM_DoubleSpin),
+     INITIALIZE_NAME(SEOBNRv2_ROM_DoubleSpin_HI),
++    INITIALIZE_NAME(Lackey_Tidal_2013_SEOBNRv2_ROM),
+     INITIALIZE_NAME(HGimri),
+     INITIALIZE_NAME(IMRPhenomA),
+     INITIALIZE_NAME(IMRPhenomB),
+@@ -1252,6 +1253,16 @@ int XLALSimInspiralChooseFDWaveform(
+                     phiRef, deltaF, f_min, f_max, f_ref, r, i, m1, m2, S1z, S2z, -1);
+             break;
+ 
++        case Lackey_Tidal_2013_SEOBNRv2_ROM:
++            /* Waveform-specific sanity checks */
++            if( !XLALSimInspiralWaveformFlagsIsDefault(waveFlags) )
++                ABORT_NONDEFAULT_WAVEFORM_FLAGS(waveFlags);
++            if( !checkTransverseSpinsZero(S1x, S1y, S2x, S2y) )
++                ABORT_NONZERO_TRANSVERSE_SPINS(waveFlags);
++
++            ret = XLALSimIMRLackeyTidal2013(hptilde, hctilde,
++                    phiRef, deltaF, f_min, f_max, f_ref, r, i, m1, m2, S1z, lambda2);
++            break;
+ 
+         case IMRPhenomP:
+             /* Waveform-specific sanity checks */
+@@ -3939,6 +3950,7 @@ int XLALSimInspiralImplementedFDApproximants(
+         case SEOBNRv2_ROM_EffectiveSpin:
+         case SEOBNRv2_ROM_DoubleSpin:
+         case SEOBNRv2_ROM_DoubleSpin_HI:
++        case Lackey_Tidal_2013_SEOBNRv2_ROM:
+         //case TaylorR2F4:
+         case TaylorF2:
+ 	case EccentricFD:
+@@ -4354,6 +4366,7 @@ int XLALSimInspiralGetSpinSupportFromApproximant(Approximant approx){
+     case SEOBNRv2_ROM_EffectiveSpin:
+     case SEOBNRv2_ROM_DoubleSpin:
+     case SEOBNRv2_ROM_DoubleSpin_HI:
++    case Lackey_Tidal_2013_SEOBNRv2_ROM:
+     case TaylorR2F4:
+     case IMRPhenomFB:
+     case FindChirpSP:
+@@ -4434,6 +4447,7 @@ int XLALSimInspiralApproximantAcceptTestGRParams(Approximant approx){
+     case SEOBNRv2_ROM_EffectiveSpin:
+     case SEOBNRv2_ROM_DoubleSpin:
+     case SEOBNRv2_ROM_DoubleSpin_HI:
++    case Lackey_Tidal_2013_SEOBNRv2_ROM:
+     case IMRPhenomA:
+     case IMRPhenomB:
+     case IMRPhenomFA:
+diff --git a/lalsimulation/src/LALSimInspiral.h b/lalsimulation/src/LALSimInspiral.h
+index a3fdac8..6c0e866 100644
+--- a/lalsimulation/src/LALSimInspiral.h
++++ b/lalsimulation/src/LALSimInspiral.h
+@@ -323,6 +323,8 @@ typedef enum {
+                              * @remarks Implemented in lalsimulation (frequency domain). */
+    SEOBNRv2_ROM_DoubleSpin_HI, /**< High resolution low-mass double-spin frequency domain reduced order model of spin-aligned EOBNR model SEOBNRv2
+                                 * @remarks Implemented in lalsimulation (frequency domain). */
++   Lackey_Tidal_2013_SEOBNRv2_ROM, /**< Frequency domain tidal model based on reduced order model of SEOBNRv2
++                                * @remarks Implemented in lalsimulation (frequency domain). */
+    HGimri,		/**< Time domain inspiral-merger-ringdown waveform for quasi-circular intermediate mass-ratio inspirals [Huerta & Gair arXiv:1009.1985]
+                          * @remarks Implemented in lalsimulation (time domain). */
+    IMRPhenomA,		/**< Time domain (non-spinning) inspiral-merger-ringdown waveforms generated from the inverse FFT of IMRPhenomFA.
+diff --git a/lalsimulation/src/LALSimInspiralWaveformCache.c b/lalsimulation/src/LALSimInspiralWaveformCache.c
+index 7fda90f..a3d8d36 100644
+--- a/lalsimulation/src/LALSimInspiralWaveformCache.c
++++ b/lalsimulation/src/LALSimInspiralWaveformCache.c
+@@ -1086,6 +1086,17 @@ int XLALSimInspiralChooseFDWaveformSequence(
+                     phiRef, f_ref, r, i, m1, m2, S1z, S2z, -1);
+             break;
+ 
++        case Lackey_Tidal_2013_SEOBNRv2_ROM:
++            /* Waveform-specific sanity checks */
++            if( !XLALSimInspiralWaveformFlagsIsDefault(waveFlags) )
++                ABORT_NONDEFAULT_WAVEFORM_FLAGS(waveFlags);
++            if( !checkTransverseSpinsZero(S1x, S1y, S2x, S2y) )
++                ABORT_NONZERO_TRANSVERSE_SPINS(waveFlags);
++
++            ret = XLALSimIMRLackeyTidal2013FrequencySequence(hptilde, hctilde, frequencies,
++                    phiRef, f_ref, r, i, m1, m2, S1z, lambda2);
++            break;
++
+         case IMRPhenomP:
+             spin1[0]=S1x; spin1[1]=S1y; spin1[2]=S1z;
+             spin2[0]=S2x; spin2[1]=S2y; spin2[2]=S2z;
+diff --git a/lalsimulation/src/Makefile.am b/lalsimulation/src/Makefile.am
+index 70d600b..0676b7a 100644
+--- a/lalsimulation/src/Makefile.am
++++ b/lalsimulation/src/Makefile.am
+@@ -109,6 +109,7 @@ noinst_HEADERS = \
+ 	LALSimIMRPhenomP.h \
+ 	LALSimIMRSEOBNRROMUtilities.c \
+ 	LALSimIMREOBNRv2HMROMUtilities.c \
++	LALSimIMRLackeyTidal2013.h \
+ 	LALSimBlackHoleRingdownPrec.c \
+ 	LALSimBlackHoleRingdownPrec.h \
+ 	LALSimIMRSpinEOBFactorizedWaveformPrec.c \
+@@ -135,6 +136,7 @@ liblalsimulation_la_SOURCES = \
+ 	LALSimIMRSEOBNRv2ROMDoubleSpinHI.c \
+ 	LALSimIMRSEOBNRv2ChirpTime.c \
+ 	LALSimIMREOBNRv2HMROM.c \
++	LALSimIMRLackeyTidal2013.c \
+ 	LALSimIMRPhenom.c \
+ 	LALSimIMRPhenomC.c \
+ 	LALSimIMRPhenomD.c \
+-- 
+2.5.4 (Apple Git-61)
+
