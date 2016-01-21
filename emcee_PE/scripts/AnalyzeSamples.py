@@ -46,10 +46,13 @@ perc_int_99_7 = [0.13, 99.87] # 3 sigma
 CILevels=[90.0, 68.26895, 95.44997, 99.73002]
 
 ######################################################
+# PLOTTING :
 # Function to make parameter bias plots
 ######################################################
-linestyles = ['-', '-.', '--', ':', '--o']
+linestyles = ['solid', 'dashdot', 'dashed', 'dotted']
 linecolors = ['r', 'olivedrab', 'k', 'b', 'm', 'y']
+linemarkers= ['', 'x', 'o', '^']
+
 gmean = (5**0.5 + 1)/2.
 
 # Figure settings
@@ -75,8 +78,8 @@ plt.rcParams.update({\
 
 # Plotting functions
 def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
-        title='', titles=[], \
-        levelspacing=0.25, vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f',\
+        title='', titles=[], levellines=[100,200], levelspacing=0.25,\
+        vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f',\
         xmin=None, xmax=None, ymin=None, ymax=None,\
         colorbartype='simple', figname='plot.png'):
   """
@@ -126,7 +129,7 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
       VMINmax = np.append( VMINmax, Z2d[idx][jdx].min() )
       VMAXmin = np.append( VMAXmin, Z2d[idx][jdx].max() )
   VMIN, VMAX = VMINmax.min(), VMAXmin.max()
-  print "VMIN = %e, VMAX = %e" % (VMIN, VMAX)
+  if vverbose: print "VMIN = %e, VMAX = %e" % (VMIN, VMAX)
   if VMIN > VMAX: raise IOError("Cant fit all data on a single colorbar")
   
   # Now make contour plots
@@ -151,6 +154,10 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
               alpha=0.9, vmin=VMIN, vmax=VMAX)
+      cset = ax.contour(xx, yy, zz, levels=levellines,\
+                              colors='k', ls='--', linewidths=2, hold="on")
+      for c in cset.collections: c.set_linestyle('dashed')
+      plt.clabel(cset, inline=1, fmt='%.0f', fontsize=12)
       ax.grid()
       ax.set_xlim([xmin, xmax])
       ax.set_ylim([ymin, ymax])
@@ -380,6 +387,95 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
   plt.savefig(figname)
   return
 
+def make_multilines_3(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='',\
+                levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r, logY=True,\
+                pcolors=linecolors, plines=linestyles, pmarkers=linemarkers,\
+                alpha=0.8,\
+                xmin=None, xmax=None, ymin=None, ymax=None,\
+                constant_line=None,\
+                single_legend=True,\
+                cbfmt='%.1f', figname='plot.png'):
+  #
+  colwidth = 4.8  
+  plt.rcParams.update({\
+    'legend.fontsize':12, \
+    'text.fontsize':16,\
+    'axes.labelsize':16,\
+    'font.family':'serif',\
+    'font.size':16,\
+    'xtick.labelsize':16,\
+    'ytick.labelsize':16,\
+    'figure.subplot.bottom':0.2,\
+    'figure.figsize':figsize, \
+    'savefig.dpi': 300.0, \
+    'figure.autolayout': True})
+  
+  ngrp1 = len(XY.keys())
+  ngrp2 = len(XY[XY.keys()[0]].keys())
+  ngrp3 = len(XY[XY.keys()[0]][XY[XY.keys()[0]].keys()[0]].keys())
+  if ngrp1 > len(pcolors) or ngrp2 > len(pmarkers) or ngrp3 > len(plines):
+    raise IOError("More lines to be made than colors/markers given")
+  if vverbose:
+    print "Making plot with %d groups of %d groups of %d lines" %\
+            (ngrp1, ngrp2, ngrps)
+    
+  #fig = plt.figure(int(1e7 * np.random.random()), \
+  #            figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
+  plt.figure(int(1e7 * np.random.random()), figsize=(1.*gmean*colwidth, colwidth))
+  
+  # FIrst make all lines
+  all_lines = []
+  for i, ki in enumerate(XY.keys()):
+    grp1_lines = []
+    for j, kj in enumerate(XY[ki].keys()):
+      grp2_lines = []
+      for k, kk in enumerate(XY[ki][kj].keys()):
+        X, Y = XY[ki][kj][kk]
+        if logY:
+          line, = plt.semilogy(X, Y,\
+                          alpha=alpha,\
+                          c=pcolors[i], ls=plines[j], marker=pmarkers[k],\
+                          lw=.5, markersize=3, label=labels[ki][kj][kk])
+        else:
+          line, = plt.plot(X, Y,\
+                          alpha=alpha,\
+                          c=pcolors[i], ls=plines[j], marker=pmarkers[k],\
+                          lw=.5, markersize=3, label=labels[ki][kj][kk])
+        grp2_lines.append( line )
+      grp1_lines.append( grp2_lines )
+    all_lines.append( grp1_lines )
+  if constant_line is not None and logY:
+    print "Adding constant line with ", [xmin, xmax], constant_line
+    plt.semilogy([xmin, xmax], constant_line, 'k', lw=2)
+  elif constant_line is not None:
+    plt.plot([xmin, xmax], constant_line, 'k', lw=2)
+  #
+  # Now make legends, one to indicate each group's characteristic
+  if single_legend:
+    harray = [all_lines[i][0][0] for i in range(ngrp1)]
+    harray.extend( [all_lines[0][i][0] for i in range(ngrp2)] )
+    harray.extend( [all_lines[0][0][i] for i in range(ngrp3)] )
+    first_legend = plt.legend(handles=harray, loc=1, ncol=2, framealpha=False)
+    ax = plt.gca().add_artist(first_legend)
+  else:
+    harray1 = [all_lines[i][0][0] for i in range(ngrp1)]
+    harray2 = [all_lines[0][i][0] for i in range(ngrp2)]
+    harray3 = [all_lines[0][0][i] for i in range(ngrp3)]
+    first_legend = plt.legend(handles=harray1, loc=4, ncol=1, framealpha=False)
+    ax = plt.gca().add_artist(first_legend)
+    second_legend = plt.legend(handles=harray2, loc=2, ncol=1, framealpha=False, markerfirst=True)
+    ax2 = plt.gca().add_artist(second_legend)
+    third_legend = plt.legend(handles=harray3, loc=3, ncol=1, framealpha=False, markerfirst=False)
+  #
+  plt.grid(alpha=0.5)
+  plt.xlim([xmin,xmax])
+  plt.ylim([ymin,ymax])
+  plt.xlabel(xlabel)
+  plt.ylabel(ylabel)
+  plt.title(title)
+  plt.savefig(figname)
+  return
+
 
 
 def get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns):
@@ -467,6 +563,7 @@ def make_bias_plot(plotparam='Mc', plotquantity='bias', normalize='',\
 
 
 ######################################################
+# DATA PROCESSING :
 # Function to get the bias in the recovered median 
 # value for different parameters
 ######################################################
@@ -798,12 +895,12 @@ def get_parameter_where_quantity_val_reached(data, q=None, chiBH=None, \
 
 ######################################################
 ######################################################
-# BEGIN
+#                     MAIN
 ######################################################
 ######################################################
 
 ######################################################
-# INPUTS
+# USER INPUTS
 ######################################################
 # Injection / Recovery information
 inject_tidal = recover_tidal = False
@@ -819,7 +916,7 @@ if len(sys.argv) >= 5:
 
 
 ######################################################
-# Set up parameters of signal
+# SIGNAL PARAMETERS
 ######################################################
 chi1 = 0.                           # small BH
 chi2vec = np.array([-0.5, 0, 0.5, 0.74999])  # larger BH
@@ -835,7 +932,7 @@ if inject_tidal: Lambdavec = np.array([500, 800, 1000, 1500, 2000])
 #if inject_tidal: Lambdavec = np.array([500, 800, 1000])
 
 ######################################################
-# Set up parameters of templates
+# TEMPLATE PARAMETERS
 ######################################################
 # Taking an uninformed prior
 m1min = 1.2
@@ -847,7 +944,7 @@ LambdaMax = 4000
 Lambdastdev = 100
 
 ######################################################
-# Set up RUN parameters
+# RUN PARAMETERS
 ######################################################
 if inject_tidal: sigstring = 'T'
 else: sigstring = 'N'
@@ -859,11 +956,44 @@ Nwalkers = [100]
 Nsamples = [150000]
 Nburnin  = 500
 
-plotdir = 'plots' + simstring + '/'
-figtype = 'png'
 
 ######################################################
-# Read in parameter biases and other data
+# PLOTTING PARAMETERS
+######################################################
+plotdir = 'plots' + simstring + '/'
+figtype = 'pdf'
+
+# Plots showing Mass/Spin/Lambda recovery biases
+plot_MchirpBias      = False
+plot_MchirpErrorsAll = False
+plot_EtaBias         = False
+plot_QBias           = False
+plot_EtaErrorsAll    = False
+plot_QErrorsAll      = False
+plot_sBHBias         = True
+plot_sBHErrorsAll    = True
+plot_mBHBias         = False
+plot_LambdaBias      = False
+
+# Plots showing Lambda recovery
+plot_SNRcrit    = False
+plot_LambdaCrit = False
+plot_LambdaRecoveryCurves = False
+plot_ChiCriticalCurves    = False
+plot_QCriticalCurves      = False
+
+# Reduced ranges for plots
+plotSNRvec    = np.array([30, 50, 70, 90])
+plotqvec      = qvec
+plotchi2vec   = np.array([0, 0.5, 0.74999])
+plotLambdavec = np.array([800, 1000, 1500])
+
+# Definition of "measurability" for Lambda
+error_threshold = 1.
+error_p         = error_threshold * 100.
+
+######################################################
+# READ DATA
 ######################################################
 datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/FinalCombinedPEData/'
 #datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/' + simstring
@@ -909,33 +1039,6 @@ PLUS, the first 2 columns in each row of the dataset are:
     converted to LogLikelihood as LogL = 1/2 SNR^2 MATCH^2
 '''
 
-######################################################
-# PLOTTING PARAMETERS
-######################################################
-
-# Plots showing Mass/Spin/Lambda recovery biases
-plot_MchirpBias = False
-plot_EtaBias    = False
-plot_QBias      = False
-plot_sBHBias    = False
-plot_mBHBias    = False
-plot_LambdaBias = False
-
-# Plots showing Lambda recovery
-plot_SNRcrit    = False
-plot_LambdaCrit = False
-plot_LambdaRecoveryCurves = True
-plot_EtaCriticalCurves    = True
-
-# Reduced ranges for plots
-plotSNRvec    = np.array([20, 30, 50, 70])
-plotqvec      = qvec
-plotchi2vec   = np.array([0, 0.5, 0.74999])
-plotLambdavec = np.array([500, 1000, 1500])
-
-# Definition of "measurability" for Lambda
-error_threshold = 1.
-error_p         = error_threshold * 100.
 
 ######################################################
 ######################################################
@@ -1008,7 +1111,7 @@ made for different LAmbda values
         ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
       Xarray.append(Xtmp)
       Yarray.append(Ytmp)
-      Zarray1.append(Ztmp1)
+      #Zarray1.append(Ztmp1)
       Zarray2.append(Ztmp2)
       titles.append(ttmp)
       
@@ -1036,7 +1139,7 @@ made for different LAmbda values
       Xarray.append(Xtmp)
       Yarray.append(Ytmp)
       Zarray1.append(Ztmp1)
-      Zarray2.append(Ztmp2)
+      #Zarray2.append(Ztmp2)
       titles.append(ttmp)
 
     make_contour_array(Xarray, Yarray, Zarray1, \
@@ -1045,7 +1148,80 @@ made for different LAmbda values
       clabel='$100\\times (\mathcal{M}_c^\mathrm{Median}-\mathcal{M}_c^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
       levelspacing=1.e-3,  cfmt='%.3f',\
       figname=os.path.join(plotdir,simstring+('MchirpBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+    
+    # Now we want to plot the ratio of the systematic and statistical biases of
+    # the median value form the posterior PDF
+    print "\n\nNow plotting the RATIO of SYSTEMATIC/STATISTICAL ERRORS for CHIRPMASS\n"
+    
+    Xarray, Yarray, Zarray = [], [], []
+    titles = []
+    
+    # Now we want to plot the systematic bias of the median value from posterior
+    #  without including the Lambda=0 case, as templates should exactly match it
+    for Lambda in Lambdavec[Lambdavec != 0]:
+      Xtmp, Ytmp, Ztmp = [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp.append(np.log10(np.abs(mchirpBiases[Lambda][snr][plotCI] / mchirpCIwidths[Lambda][snr][plotCI])))
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray.append(Ztmp)
+      titles.append(ttmp)
 
+    make_contour_array(Xarray, Yarray, Zarray, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
+      xmin=min(chi2vec), xmax=max(chi2vec),\
+      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS,\
+      titles=titles, cmap=cm.rainbow, levellines=[-2, -1, 0, 0.7],\
+      clabel='$\mathrm{Log}_{10}[(\mathcal{M}_c^\mathrm{Median}-\mathcal{M}_c^\mathrm{Injected})/(\Delta\mathcal{M}_c)^{%.1f \%%}]$' % CILevels[plotCI], \
+      levelspacing=1.e-3,  cfmt='%.1f',\
+      figname=os.path.join(plotdir,simstring+('MchirpBiasesOverCIWidths_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+
+if plot_MchirpErrorsAll:
+  print \
+"""
+Making ONE plot that shows every run's R = SYSTEMATIC / STATISTICAL error RATIO
+in CHIRP MASS RECOVERY. the point of hte figure is that it stays below 10% no
+matter what!
+"""
+  mchirpR = {}
+  for CI in range(len(CILevels)):
+    mchirpR[CI] = {}
+    labels = {}
+    for i, Lambda in enumerate(Lambdavec):
+      mchirpR[CI][Lambda] = {}
+      labels[Lambda] = {}
+      for j, chiBH in enumerate(chi2vec):
+        mchirpR[CI][Lambda][chiBH] = {}
+        labels[Lambda][chiBH] = {}
+        for k, q in enumerate(qvec):
+          mchirpRtmp = np.array([])
+          for l, snr in enumerate(SNRvec):
+            mchirpBias = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='Mc', qnt='fbias', CI=CI)
+            mchirpCIwidths = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='Mc', qnt='CIfwidth', CI=CI)
+            mchirpRtmp = np.append(mchirpRtmp, np.abs(mchirpBias/mchirpCIwidths))
+          mchirpR[CI][Lambda][chiBH][q] = [SNRvec, mchirpRtmp]
+          labels[Lambda][chiBH][q] = '$\Lambda=%.0f,\chi_\mathrm{BH}=%.2f,q=%.0f$' % (Lambda, chiBH, q)
+    try:
+      make_multilines_3(mchirpR[CI], labels=labels,\
+        xlabel='SNR',\
+        ylabel='$(\mathcal{M}_c^\mathrm{Median}-\mathcal{M}_c^\mathrm{Injected})/(\Delta\mathcal{M}_c)^{%.1f \%%}$' % CILevels[CI],\
+        title='', single_legend=False,\
+        xmin=min(SNRvec), xmax=max(SNRvec), constant_line=[1,1],\
+        figname=os.path.join(plotdir, simstring+\
+          ('MchirpBiasesOverCIWidthsVsSNR_All_CI%.1f' % (CILevels[CI])).replace('.','_')+\
+          '.'+figtype))
+    except ValueError: 
+      if verbose: print "Could not make line plot_3 for CI=%d" % (CI)
+      pass
+  
 
 ######################################################
 print "\n\n\n MAKING Plots with/for MASS RATIO "
@@ -1053,7 +1229,8 @@ print "\n\n\n MAKING Plots with/for MASS RATIO "
 if plot_EtaBias:
   print \
 """
-Plotting the fractional bias in MASS-RATIO recovery at different SNR levels, as 
+Plotting the fractional bias in SYMMETRIC MASS-RATIO recovery at different SNR 
+levels, as 
 a function of the BH mass and spin. In addition also plotting the width of the
 confidence interval for chirp-mass, i.e the statistical uncertainty around the
 maximum likelihood value.
@@ -1145,10 +1322,87 @@ made for different LAmbda values
       clabel='$100\\times (\eta^\mathrm{Median}-\eta^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
       levelspacing=0.4,  cfmt='%.1f',\
       figname=os.path.join(plotdir,simstring+('EtaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+    
+    
+    # Now we want to plot the ratio of the systematic and statistical biases of
+    # the median value form the posterior PDF
+    print "\n\nNow plotting the RATIO of SYSTEMATIC/STATISTICAL ERRORS for ETA \n"
+    
+    Xarray, Yarray, Zarray = [], [], []
+    titles = []
+    
+    # Now we want to plot the systematic bias of the median value from posterior
+    #  without including the Lambda=0 case, as templates should exactly match it
+    for Lambda in Lambdavec[Lambdavec != 0]:
+      Xtmp, Ytmp, Ztmp = [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp.append(np.log10(np.abs(etaBiases[Lambda][snr][plotCI] / etaCIwidths[Lambda][snr][plotCI])))
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray.append(Ztmp)
+      titles.append(ttmp)
+
+    make_contour_array(Xarray, Yarray, Zarray, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
+      xmin=min(chi2vec), xmax=max(chi2vec),\
+      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS,\
+      titles=titles, cmap=cm.rainbow, levellines=[-2, -1, 0, 0.7],\
+      clabel='$\mathrm{Log}_{10}[(\eta^\mathrm{Median}-\eta^\mathrm{Injected})/(\Delta\eta)^{%.1f \%%}]$' % CILevels[plotCI], \
+      levelspacing=1.e-3,  cfmt='%.1f',\
+      figname=os.path.join(plotdir,simstring+('EtaBiasesOverCIWidths_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+
+if plot_EtaErrorsAll:
+  print \
+"""
+Making ONE plot that shows every run's R = SYSTEMATIC / STATISTICAL error RATIO
+in ETA RECOVERY. the point of hte figure is that it stays below 10% no
+matter what!
+"""
+  etaR = {}
+  for CI in range(len(CILevels)):
+    etaR[CI] = {}
+    labels = {}
+    for i, Lambda in enumerate(Lambdavec):
+      etaR[CI][Lambda] = {}
+      labels[Lambda] = {}
+      for j, chiBH in enumerate(chi2vec):
+        etaR[CI][Lambda][chiBH] = {}
+        labels[Lambda][chiBH] = {}
+        for k, q in enumerate(qvec):
+          etaRtmp = np.array([])
+          for l, snr in enumerate(SNRvec):
+            etaBias = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='eta', qnt='fbias', CI=CI)
+            etaCIwidths = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='eta', qnt='CIfwidth', CI=CI)
+            etaRtmp = np.append(etaRtmp, np.abs(etaBias/etaCIwidths))
+          etaR[CI][Lambda][chiBH][q] = [SNRvec, etaRtmp]
+          labels[Lambda][chiBH][q] = '$\Lambda=%.0f,\chi_\mathrm{BH}=%.2f,q=%.0f$' % (Lambda, chiBH, q)
+    try:
+      make_multilines_3(etaR[CI], labels=labels,\
+        xlabel='SNR',\
+        ylabel='$(\eta^\mathrm{Median}-\eta^\mathrm{Injected})/(\Delta\eta)^{%.1f \%%}$' % CILevels[CI],\
+        title='', single_legend=False,\
+        xmin=min(SNRvec), xmax=max(SNRvec), constant_line=[1,1],\
+        figname=os.path.join(plotdir, simstring+\
+          ('EtaBiasesOverCIWidthsVsSNR_All_CI%.1f' % (CILevels[CI])).replace('.','_')+\
+          '.'+figtype))
+    except ValueError: 
+      if verbose: print "Could not make line plot_3 for CI=%d" % (CI)
+      pass
+  
+
 
 if plot_QBias:
   print \
 """
+  this DOES NOT WORK YET?
 Plotting the fractional bias in MASS-RATIO recovery at different SNR levels, as 
 a function of the BH mass and spin. In addition also plotting the width of the
 confidence interval for chirp-mass, i.e the statistical uncertainty around the
@@ -1157,42 +1411,42 @@ maximum likelihood value.
 The bias shown is a fraction of the injected Lambda, and different figures are
 made for different LAmbda values
 """
-  etaBiases, etaCIwidths = {}, {}
+  qBiases, qCIwidths = {}, {}
   for Lambda in Lambdavec:
-    etaBiases[Lambda], etaCIwidths[Lambda] = {}, {}
+    qBiases[Lambda], qCIwidths[Lambda] = {}, {}
     for snr in SNRvec:
-      etaBiases[Lambda][snr], etaCIwidths[Lambda][snr] = {}, {}
+      qBiases[Lambda][snr], qCIwidths[Lambda][snr] = {}, {}
       for CI in range( len(CILevels) ):
-        etaBiases[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
-        etaCIwidths[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+        qBiases[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
+        qCIwidths[Lambda][snr][CI] = np.zeros( (len(qvec), len(chi2vec)) )
         for i, q in enumerate(qvec):
           for j, chiBH in enumerate(chi2vec):
             if vverbose:
-              print "getting bias in eta for q=%f, chiBh=%f, Lambda=%f at SNR = %f" %\
+              print "getting bias in q for q=%f, chiBh=%f, Lambda=%f at SNR = %f" %\
                     (q, chiBH, Lambda, snr)
             try:
-              etaBiases[Lambda][snr][CI][i,j] = get_results(data,\
+              qBiases[Lambda][snr][CI][i,j] = get_results(data,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='eta', qnt='fbias', CI=CI)
+                    p='q', qnt='fbias', CI=CI)
             except KeyError:
-              etaBiases[Lambda][snr][CI][i,j] = get_results(dataNN,\
+              qBiases[Lambda][snr][CI][i,j] = get_results(dataNN,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='eta', qnt='fbias', CI=CI)
+                    p='q', qnt='fbias', CI=CI)
             try:
-              etaCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
+              qCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='eta', qnt='CIfwidth', CI=CI)
+                    p='q', qnt='CIfwidth', CI=CI)
             except KeyError:
-              etaCIwidths[Lambda][snr][CI][i,j] = get_results(dataNN,\
+              qCIwidths[Lambda][snr][CI][i,j] = get_results(dataNN,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
-                    p='eta', qnt='CIfwidth', CI=CI)
+                    p='q', qnt='CIfwidth', CI=CI)
   #
   for plotCI in [0,1,2,3]:
     # First we want to plot the width of confidence intervals in the posterior
     #    including the Lambda=0, i.e. BHBH inj case
-    if vverbose: print "Making ETA plots for CI = %f" % CILevels[plotCI]
+    if verbose: print "Making Q plots for CI = %f" % CILevels[plotCI]
     
-    # MAKE ETA CONFIDENCE INTERVAL PLOTS
+    # MAKE Q CONFIDENCE INTERVAL PLOTS
     Xarray, Yarray, Zarray2 = [], [], []
     titles = []
     
@@ -1202,7 +1456,7 @@ made for different LAmbda values
       for snr in plotSNRvec:
         Xtmp.append(np.array(chi2vec))
         Ytmp.append(mNS * np.array(qvec))
-        Ztmp2.append(etaCIwidths[Lambda][snr][plotCI] * 100)
+        Ztmp2.append(qCIwidths[Lambda][snr][plotCI] * 100)
         ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
       Xarray.append(Xtmp)
       Yarray.append(Ytmp)
@@ -1212,11 +1466,11 @@ made for different LAmbda values
     make_contour_array(Xarray, Yarray, Zarray2, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
       xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
-      clabel="$(\Delta\eta)^{%.1f \%%}/\eta^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
-      levelspacing=0.5, cfmt='%.0f',\
-      figname=os.path.join(plotdir,simstring+('EtaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+      clabel="$(\Delta q)^{%.1f \%%}/q^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
+      levelspacing=0.5, cfmt='%.1f',\
+      figname=os.path.join(plotdir,simstring+('QCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
     
-    # MAKE ETA BIAS PLOTS
+    # MAKE Q BIAS PLOTS
     Xarray, Yarray, Zarray = [], [], []
     titles = []
     
@@ -1228,7 +1482,7 @@ made for different LAmbda values
       for snr in plotSNRvec:
         Xtmp.append(np.array(chi2vec))
         Ytmp.append(mNS * np.array(qvec))
-        Ztmp.append(etaBiases[Lambda][snr][plotCI] * 100)
+        Ztmp.append(qBiases[Lambda][snr][plotCI] * 100)
         ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
       Xarray.append(Xtmp)
       Yarray.append(Ytmp)
@@ -1238,9 +1492,83 @@ made for different LAmbda values
     make_contour_array(Xarray, Yarray, Zarray, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
       xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow_r,\
-      clabel='$100\\times (\eta^\mathrm{Median}-\eta^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
+      clabel='$100\\times (q^\mathrm{Median}-q^\mathrm{Injected})/q^\mathrm{Injected}$', \
       levelspacing=0.4,  cfmt='%.1f',\
-      figname=os.path.join(plotdir,simstring+('EtaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+      figname=os.path.join(plotdir,simstring+('QBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+
+    
+    # Now we want to plot the ratio of the systematic and statistical biases of
+    # the median value form the posterior PDF
+    print "\n\nNow plotting the RATIO of SYSTEMATIC/STATISTICAL ERRORS for Q \n"
+    
+    Xarray, Yarray, Zarray = [], [], []
+    titles = []
+    
+    # Now we want to plot the systematic bias of the median value from posterior
+    #  without including the Lambda=0 case, as templates should exactly match it
+    for Lambda in Lambdavec[Lambdavec != 0]:
+      Xtmp, Ytmp, Ztmp = [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp.append(np.log10(np.abs(qBiases[Lambda][snr][plotCI] / qCIwidths[Lambda][snr][plotCI])))
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray.append(Ztmp)
+      titles.append(ttmp)
+
+    make_contour_array(Xarray, Yarray, Zarray, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
+      xmin=min(chi2vec), xmax=max(chi2vec),\
+      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS,\
+      titles=titles, cmap=cm.rainbow, levellines=[-2, -1, 0, 0.7],\
+      clabel='$\mathrm{Log}_{10}[(q^\mathrm{Median}-q^\mathrm{Injected})/(\Delta q)^{%.1f \%%}]$' % CILevels[plotCI], \
+      levelspacing=1.e-2,  cfmt='%.1f',\
+      figname=os.path.join(plotdir,simstring+('QBiasesOverCIWidths_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+
+if plot_QErrorsAll:
+  print \
+"""
+Making ONE plot that shows every run's R = SYSTEMATIC / STATISTICAL error RATIO
+in Q RECOVERY. the point of hte figure is that it stays below 10% no
+matter what!
+"""
+  qR = {}
+  for CI in range(len(CILevels)):
+    qR[CI] = {}
+    labels = {}
+    for i, Lambda in enumerate(Lambdavec):
+      qR[CI][Lambda] = {}
+      labels[Lambda] = {}
+      for j, chiBH in enumerate(chi2vec):
+        qR[CI][Lambda][chiBH] = {}
+        labels[Lambda][chiBH] = {}
+        for k, q in enumerate(qvec):
+          qRtmp = np.array([])
+          for l, snr in enumerate(SNRvec):
+            qBias = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='q', qnt='fbias', CI=CI)
+            qCIwidths = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='q', qnt='CIfwidth', CI=CI)
+            qRtmp = np.append(qRtmp, np.abs(qBias/qCIwidths))
+          qR[CI][Lambda][chiBH][q] = [SNRvec, qRtmp]
+          labels[Lambda][chiBH][q] = '$\Lambda=%.0f,\chi_\mathrm{BH}=%.2f,q=%.0f$' % (Lambda, chiBH, q)
+    try:
+      make_multilines_3(qR[CI], labels=labels,\
+        xlabel='SNR',\
+        ylabel='$(q^\mathrm{Median}-q^\mathrm{Injected})/(\Delta q)^{%.1f \%%}$' % CILevels[CI],\
+        title='', single_legend=False,\
+        xmin=min(SNRvec), xmax=max(SNRvec), constant_line=[1,1],\
+        figname=os.path.join(plotdir, simstring+\
+          ('QBiasesOverCIWidthsVsSNR_All_CI%.1f' % (CILevels[CI])).replace('.','_')+\
+          '.'+figtype))
+    except ValueError: 
+      if verbose: print "Could not make line plot_3 for CI=%d" % (CI)
+      pass
 
 
 ######################################################
@@ -1341,6 +1669,79 @@ made for different LAmbda values
       clabel='$\chi_\mathrm{BH}^\mathrm{Median}-\chi_\mathrm{BH}^\mathrm{Injected}$', \
       levelspacing=0.005,  cfmt='%.2f',\
       figname=os.path.join(plotdir,simstring+('ChiBHBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+    
+    # Now we want to plot the ratio of the systematic and statistical biases of
+    # the median value form the posterior PDF
+    print "\n\nNow plotting the RATIO of SYSTEMATIC/STATISTICAL ERRORS for BH SPIN\n"
+    
+    Xarray, Yarray, Zarray = [], [], []
+    titles = []
+    
+    # Now we want to plot the systematic bias of the median value from posterior
+    #  without including the Lambda=0 case, as templates should exactly match it
+    for Lambda in Lambdavec[Lambdavec != 0]:
+      Xtmp, Ytmp, Ztmp = [], [], []
+      ttmp = []
+      for snr in plotSNRvec:
+        Xtmp.append(np.array(chi2vec))
+        Ytmp.append(mNS * np.array(qvec))
+        Ztmp.append(np.log10(np.abs(chiBHBiases[Lambda][snr][plotCI] / chiBHCIwidths[Lambda][snr][plotCI])))
+        ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
+      Xarray.append(Xtmp)
+      Yarray.append(Ytmp)
+      Zarray.append(Ztmp)
+      titles.append(ttmp)
+
+    make_contour_array(Xarray, Yarray, Zarray, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
+      xmin=min(chi2vec), xmax=max(chi2vec),\
+      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS,\
+      titles=titles, cmap=cm.rainbow, levellines=[-2, -1, 0, 0.7],\
+      clabel='$\mathrm{Log}_{10}[(\chi_\mathrm{BH}^\mathrm{Median}-\chi_\mathrm{BH}^\mathrm{Injected})/(\Delta\chi_\mathrm{BH})^{%.1f \%%}]$' % CILevels[plotCI], \
+      levelspacing=1.e-3,  cfmt='%.1f',\
+      figname=os.path.join(plotdir,simstring+('ChiBHBiasesOverCIWidths_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+
+if plot_sBHErrorsAll:
+  print \
+"""
+Making ONE plot that shows every run's R = SYSTEMATIC / STATISTICAL error RATIO
+in BH SPIN RECOVERY. the point of hte figure is that it stays below 10% no
+matter what!
+"""
+  chiBHR = {}
+  for CI in range(len(CILevels)):
+    chiBHR[CI] = {}
+    labels = {}
+    for i, Lambda in enumerate(Lambdavec):
+      chiBHR[CI][Lambda] = {}
+      labels[Lambda] = {}
+      for j, chiBH in enumerate(chi2vec):
+        chiBHR[CI][Lambda][chiBH] = {}
+        labels[Lambda][chiBH] = {}
+        for k, q in enumerate(qvec):
+          chiBHRtmp = np.array([])
+          for l, snr in enumerate(SNRvec):
+            chiBHBias = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='chiBH', qnt='fbias', CI=CI)
+            chiBHCIwidths = get_results(data,\
+                                    q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
+                                    p='chiBH', qnt='CIfwidth', CI=CI)
+            chiBHRtmp = np.append(chiBHRtmp, np.abs(chiBHBias/chiBHCIwidths))
+          chiBHR[CI][Lambda][chiBH][q] = [SNRvec, chiBHRtmp]
+          labels[Lambda][chiBH][q] = '$\Lambda=%.0f,\chi_\mathrm{BH}=%.2f,q=%.0f$' % (Lambda, chiBH, q)
+    try:
+      make_multilines_3(chiBHR[CI], labels=labels,\
+        xlabel='SNR',\
+        ylabel='$(\chi_\mathrm{BH}^\mathrm{Median}-\chi_\mathrm{BH}^\mathrm{Injected})/(\Delta\chi_\mathrm{BH})^{%.1f \%%}$' % CILevels[CI],\
+        title='', single_legend=False,\
+        xmin=min(SNRvec), xmax=max(SNRvec), constant_line=[1,1],\
+        figname=os.path.join(plotdir, simstring+\
+          ('ChiBHBiasesOverCIWidthsVsSNR_All_CI%.1f' % (CILevels[CI])).replace('.','_')+\
+          '.'+figtype))
+    except ValueError: 
+      if verbose: print "Could not make line plot_3 for CI=%d" % (CI)
+      pass
 
 
 ######################################################
@@ -1397,14 +1798,18 @@ made for different LAmbda values
       titles.append(ttmp)
       
     make_contour_array(Xarray, Yarray, Zarray2, \
-      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Spectral_r,\
-      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
+      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$',\
+      cmap=cm.Spectral_r, levellines=[100, 150, 200],\
+      xmin=min(chi2vec), xmax=max(chi2vec),\
+      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
       figname=os.path.join(plotdir,simstring+('LambdaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
   
     make_contour_array(Xarray, Yarray, Zarray1, \
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow,\
+      xmin=min(chi2vec), xmax=max(chi2vec),\
+      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS,\
+      titles=titles, cmap=cm.rainbow, levellines=[100, 150, 200],\
       clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
       figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
 
@@ -1617,20 +2022,56 @@ different combinations of BH spins and mass-ratio.
       except ValueError: 
         if verbose: print "Could not make Line plots for LAMBDA=%f, CI=%d" % (Lambda, CI)
         pass
+  #
+  print """\
+Second making plots showing Lambda recovery error as a function of LAMBDA, for
+different combinations of BH spins and mass-ratio.
+  """
+  #
+  lambdaErrors = {}
+  #
+  for i, snr in enumerate(SNRvec):
+    lambdaErrors[snr] = {}
+    for CI in range( len(CILevels) ):
+      lambdaErrors[snr][CI] = {}
+      labels = {}
+      for j, q in enumerate(plotqvec):
+        lambdaErrors[snr][CI][q] = {}
+        labels[q] = {}
+        for k, chiBH in enumerate(plotchi2vec):
+          x, values = get_results_vs_parameter(data, q=q, chiBH=chiBH, SNR=snr,\
+                              xp='Lambda', xvec=Lambdavec,\
+                              p='Lambda', qnt='CIfwidth', CI=CI)
+          lambdaErrors[snr][CI][q][chiBH] = [x, 100*values]
+          labels[q][chiBH] = '$q=%.0f, \chi_\mathrm{BH}=%.2f$' % (q, chiBH)
+
+      try:
+        make_multilines(lambdaErrors[snr][CI], labels=labels,\
+          xlabel='$\Lambda$',\
+          ylabel='$100\\times\delta\Lambda^{%.1f \%%}_\mathrm{NS}/\Lambda_\mathrm{NS}$' % CILevels[CI],\
+          title='$\\rho=%.0f$' % snr,\
+          ymax=700.,\
+          single_legend=False,\
+          figname=os.path.join(plotdir, simstring+\
+          ('LambdaErrorVsLambdaForSNR%.0fLambdaMeasurement_BHspin_BHmass_CI%.1f' %\
+              (snr, CILevels[CI])).replace('.','_')+'.'+figtype))
+      except ValueError: 
+        if verbose: print "Could not make Line plots for SNR=%f, CI=%d" % (snr, CI)
+        pass
 
 
-if plot_EtaCriticalCurves and recover_tidal:
+if plot_ChiCriticalCurves and recover_tidal:
   print """\
 
 Now plotting the same as above but as a function of Lambda, and in groups of 
 BH spin & SNR
   """
-  EtaCritical = {}
+  ChiCritical = {}
   
   for CI in range( len(CILevels) ):
-    EtaCritical[CI] = {}
+    ChiCritical[CI] = {}
     for i, Lambda in enumerate(plotLambdavec):
-      EtaCritical[CI][Lambda] = {}
+      ChiCritical[CI][Lambda] = {}
       labels[Lambda] = {}
       for j, snr in enumerate(plotSNRvec):
         chicritical = np.array([])
@@ -1643,21 +2084,60 @@ BH spin & SNR
                                   CI=CI, target_val=error_threshold)
           chicritical = np.append(chicritical, chicrit)
         #
-        EtaCritical[CI][Lambda][snr] = [qvec, chicritical]
+        ChiCritical[CI][Lambda][snr] = [qvec, chicritical]
         labels[Lambda][snr] = '$\Lambda=%.0f, \\rho=%.0f$' % (Lambda, snr)
     #
     try:
-      make_multilines(EtaCritical[CI], labels=labels,\
+      make_multilines(ChiCritical[CI], labels=labels,\
           xlabel='$q=m_1/m_2$',\
           ylabel='$\chi_\mathrm{BH}^\mathrm{crit} : 100\\times\delta\Lambda^{%.1f \%%}_\mathrm{NS}/\Lambda_\mathrm{NS} < %.0f\%%$' % (CILevels[CI], error_threshold*100),\
           title='', ymin=0,\
           figname=os.path.join(plotdir, simstring+\
-            ('EtaCriticalVsQForLambdaMeasurement_CI%.1f' % CILevels[CI]).replace('.','_')+'.'+figtype))
+            ('ChiCriticalVsQForLambdaMeasurement_CI%.1f' % CILevels[CI]).replace('.','_')+'.'+figtype))
     except ValueError as val:
       print "Error :  \n", val 
       if verbose: print "Could not make Multiline plots for SNR=%f, CI=%d" % (snr, CI)
       pass
 
+
+if plot_QCriticalCurves and recover_tidal:
+  print """\
+
+Now plotting the same as above but as a function of Lambda, and in groups of 
+BH spin & SNR
+  """
+  QCritical = {}
+  
+  for CI in range( len(CILevels) ):
+    QCritical[CI] = {}
+    for i, Lambda in enumerate(plotLambdavec):
+      QCritical[CI][Lambda] = {}
+      labels[Lambda] = {}
+      for j, snr in enumerate(plotSNRvec):
+        qcritical = np.array([])
+        for k, chiBH in enumerate(plotchi2vec):
+          # FIXME
+          qcrit, fn = get_parameter_where_quantity_val_reached(\
+                                  data, chiBH=chiBH, NSLmbd=Lambda, SNR=snr,\
+                                  xp='q', xvec=qvec, \
+                                  p='Lambda', qnt='CIfwidth', \
+                                  CI=CI, target_val=error_threshold)
+          qcritical = np.append(qcritical, qcrit)
+        #
+        QCritical[CI][Lambda][snr] = [plotchi2vec, qcritical]
+        labels[Lambda][snr] = '$\Lambda=%.0f, \\rho=%.0f$' % (Lambda, snr)
+    #
+    try:
+      make_multilines(QCritical[CI], labels=labels,\
+          xlabel='$\chi_\mathrm{BH}$',\
+          ylabel='$q^\mathrm{crit} : 100\\times\delta\Lambda^{%.1f \%%}_\mathrm{NS}/\Lambda_\mathrm{NS} < %.0f\%%$' % (CILevels[CI], error_threshold*100),\
+          title='',single_legend=False,\
+          figname=os.path.join(plotdir, simstring+\
+            ('QCriticalVsQForLambdaMeasurement_CI%.1f' % CILevels[CI]).replace('.','_')+'.'+figtype))
+    except ValueError as val:
+      print "Error :  \n", val 
+      if verbose: print "Could not make Multiline plots for SNR=%f, CI=%d" % (snr, CI)
+      pass
 
 
 
