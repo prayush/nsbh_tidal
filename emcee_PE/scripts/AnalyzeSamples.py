@@ -44,13 +44,15 @@ perc_int_95 = [2.28, 97.72]
 perc_int_99_7 = [0.13, 99.87] # 3 sigma
 
 CILevels=[90.0, 68.26895, 95.44997, 99.73002]
+ErrThresh=[100, 200]
 
 ######################################################
 # PLOTTING :
 # Function to make parameter bias plots
 ######################################################
-linestyles = ['solid', 'dashdot', 'dashed', 'dotted']
-linecolors = ['r', 'olivedrab', 'k', 'b', 'm', 'y']
+linestyles = ['solid', 'dashed', 'dashdot', 'dashed', 'dotted']
+#linecolors = ['crimson', 'olivedrab', 'k', 'b', 'm', 'y']
+linecolors = ['crimson', 'darkorange', 'olivedrab', 'royalblue', 'purple', 'k']
 linemarkers= ['', 'x', 'o', '^']
 
 gmean = (5**0.5 + 1)/2.
@@ -85,6 +87,15 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   """
   Function to plot arbitrary numbers of contour plots in a single figure
   """
+  print """\
+
+Remember that the returned set of contours are indexed by integer pairs that
+set coordinates for [row, col]:-
+
+row corresponds to the higher level group in the input Z array, 
+col corresponds to the lower level group
+
+  """
   if colorbartype != 'simple':
     raise IOError("Colorbar type %s not supported" % colorbartype)
   colwidth = 1.7
@@ -109,7 +120,7 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   pltid = 0
   
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
+              figsize=((1.5*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
   fig.clf()
   grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
             share_all=True,\
@@ -133,7 +144,9 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   if VMIN > VMAX: raise IOError("Cant fit all data on a single colorbar")
   
   # Now make contour plots
+  contours_all = {}
   for idx in range(nrow):
+    contours_all[idx] = {}
     for jdx in range(ncol):
       try: xx, yy, zz = X[idx][jdx], Y[idx][jdx], Z2d[idx][jdx]
       except: 
@@ -154,10 +167,16 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
               alpha=0.9, vmin=VMIN, vmax=VMAX)
-      cset = ax.contour(xx, yy, zz, levels=levellines,\
-                              colors='k', ls='--', linewidths=2, hold="on")
-      for c in cset.collections: c.set_linestyle('dashed')
-      plt.clabel(cset, inline=1, fmt='%.0f', fontsize=12)
+      contours_tmp = {}
+      for lev in levellines:
+        cset = ax.contour(xx, yy, zz, levels=[lev], colors='k', ls='--', linewidths=2, hold="on")
+        for c in cset.collections: c.set_linestyle('dashed')
+        plt.clabel(cset, inline=1, fmt='%.0f', fontsize=12)
+        contours_tmp[lev] = cset.collections[0].get_paths()
+      if vverbose:
+        print "for %s" % titles[idx][jdx], contours_tmp
+        print "ymin, ymax = ", ymin, ymax
+      #
       ax.grid()
       ax.set_xlim([xmin, xmax])
       ax.set_ylim([ymin, ymax])
@@ -170,6 +189,8 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
       #  ax.set_title(titles[idx][jdx]+'\n '+title)  
       if idx == 0 and jdx==(ncol/2) and title != '':
         ax.text(.5, .9, titles[idx][jdx]+'\n '+title, horizontalalignment='center', transform=ax.transAxes)
+      #
+      contours_all[idx][jdx] = contours_tmp
   #
   cb = ax.cax.colorbar(CS, format=cfmt)
   cb.set_label_text(clabel)
@@ -177,7 +198,7 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
   fig.subplots_adjust(right=0.8)
   #fig.tight_layout(rect=(0, 0, 0.82, 1))
   fig.savefig(figname)
-  return  
+  return contours_all
 
 
 # Plotting functions
@@ -326,9 +347,10 @@ def make_hexbin(X, Y, Z, xlabel='', ylabel='', clabel='', vmin=-1, vmax=None,\
 
 def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='',\
                 levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r,\
-                pcolors=linecolors, pmarkers=linestyles,\
+                pcolors=linecolors, pmarkers=linestyles, lw=1.5,\
                 xmin=None, xmax=None, ymin=None, ymax=None,\
-                single_legend=True,\
+                markerfirst=[True, False], sort_keys=False,\
+                single_legend=True, leg_loc=[1,2],\
                 cbfmt='%.1f', figname='plot.png'):
   #
   colwidth = 4.8  
@@ -353,15 +375,19 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
     
   #fig = plt.figure(int(1e7 * np.random.random()), \
   #            figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
-  plt.figure(int(1e7 * np.random.random()), figsize=(1.*gmean*colwidth, colwidth))
+  plt.figure(int(1e7 * np.random.random()), figsize=(1.2*gmean*colwidth, colwidth))
   
   # FIrst make all lines
   all_lines = []
-  for i, ki in enumerate(XY.keys()):
+  xykeys = XY.keys()
+  if sort_keys: xykeys.sort()
+  for i, ki in enumerate(xykeys):
     grp_lines = []
-    for j, kj in enumerate(XY[ki].keys()):
+    xykkeys = XY[ki].keys()
+    if sort_keys: xykkeys.sort()
+    for j, kj in enumerate(xykkeys):
       X, Y = XY[ki][kj]
-      line, = plt.plot(X, Y, c=pcolors[i], ls=pmarkers[j], lw=1.5, markersize=7, label=labels[ki][kj])
+      line, = plt.plot(X, Y, c=pcolors[i], ls=pmarkers[j], lw=lw, markersize=7, label=labels[ki][kj])
       grp_lines.append( line )
     all_lines.append( grp_lines )
   #
@@ -369,14 +395,14 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
   if single_legend:
     harray = [all_lines[i][0] for i in range(ngrp1)]
     harray.extend( [all_lines[0][i] for i in range(ngrp2)] )
-    first_legend = plt.legend(handles=harray, loc=1, ncol=2, framealpha=False)
+    first_legend = plt.legend(handles=harray, loc=1, ncol=2, framealpha=False, markerfirst=markerfirst[0])
     ax = plt.gca().add_artist(first_legend)
   else:
     harray1 = [all_lines[i][0] for i in range(ngrp1)]
     harray2 = [all_lines[0][i] for i in range(ngrp2)]
-    first_legend = plt.legend(handles=harray1, loc=1, ncol=1, framealpha=False)
+    first_legend  = plt.legend(handles=harray1, loc=leg_loc[0], ncol=1, framealpha=False, markerfirst=markerfirst[0])
     ax = plt.gca().add_artist(first_legend)
-    second_legend = plt.legend(handles=harray2, loc=2, ncol=1, framealpha=False, markerfirst=False)
+    second_legend = plt.legend(handles=harray2, loc=leg_loc[1], ncol=1, framealpha=False, markerfirst=markerfirst[1])
   #
   plt.grid(alpha=0.5)
   plt.xlim([xmin,xmax])
@@ -970,20 +996,22 @@ plot_EtaBias         = False
 plot_QBias           = False
 plot_EtaErrorsAll    = False
 plot_QErrorsAll      = False
-plot_sBHBias         = True
-plot_sBHErrorsAll    = True
+plot_sBHBias         = False
+plot_sBHErrorsAll    = False
 plot_mBHBias         = False
-plot_LambdaBias      = False
+
+plot_LambdaBias           = True
+plot_LambdaErrorContours  = True
 
 # Plots showing Lambda recovery
-plot_SNRcrit    = False
-plot_LambdaCrit = False
+plot_SNRcrit              = False
+plot_LambdaCrit           = False
 plot_LambdaRecoveryCurves = False
 plot_ChiCriticalCurves    = False
 plot_QCriticalCurves      = False
 
 # Reduced ranges for plots
-plotSNRvec    = np.array([30, 50, 70, 90])
+plotSNRvec    = np.array([20, 30, 50, 70, 90])
 plotqvec      = qvec
 plotchi2vec   = np.array([0, 0.5, 0.74999])
 plotLambdavec = np.array([800, 1000, 1500])
@@ -1119,7 +1147,7 @@ made for different LAmbda values
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', cmap=cm.Reds_r,\
       xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
       clabel="$(\Delta\mathcal{M}_c)^{%.1f \%%}/\mathcal{M}_c^\mathrm{Injected}\\times 100$" % CILevels[plotCI], \
-      levelspacing=0.002*1.5, cfmt='%.2f',\
+      levelspacing=0.002*1.5, cfmt='%.1f',\
       figname=os.path.join(plotdir,simstring+('MchirpCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
   
     Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
@@ -1146,7 +1174,7 @@ made for different LAmbda values
       xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
       xmin=min(chi2vec), xmax=max(chi2vec), ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, cmap=cm.rainbow,\
       clabel='$100\\times (\mathcal{M}_c^\mathrm{Median}-\mathcal{M}_c^\mathrm{Injected})/\mathcal{M}_c^\mathrm{Injected}$', \
-      levelspacing=1.e-3,  cfmt='%.3f',\
+      levelspacing=1.e-3,  cfmt='%.1f',\
       figname=os.path.join(plotdir,simstring+('MchirpBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
     
     # Now we want to plot the ratio of the systematic and statistical biases of
@@ -1748,6 +1776,8 @@ matter what!
 print "\n\n\n MAKING Plots with/for NS LAMBDA "
 ######################################################
 
+LEVELLINES = [100, 200]
+
 if plot_LambdaBias and recover_tidal:
   print \
 """
@@ -1757,6 +1787,9 @@ function of the BH mass and spin.
 The bias shown is a fraction of the injected Lambda, and different figures are
 made for different LAmbda values
 """
+  ####
+  #### OBTAIN DATA FIRST
+  ####
   lambdaBiases, lambdaCIwidths = {}, {}
   for Lambda in Lambdavec:
     lambdaBiases[Lambda], lambdaCIwidths[Lambda] = {}, {}
@@ -1776,18 +1809,23 @@ made for different LAmbda values
             lambdaCIwidths[Lambda][snr][CI][i,j] = get_results(data,\
                     q=q, chiBH=chiBH, NSLmbd=Lambda, SNR=snr, \
                     p='Lambda', qnt='CIfwidth', CI=CI)
-  #
+  ####
+  #### START PLOTTING
+  ####
   plotCI = 0
+  all_contours_list = {}
   for plotCI in [0,1,2,3]:
     Xarray, Yarray, Zarray1, Zarray2 = [], [], [], []
     titles = []
-    
+    ###
+    ### ARRANGE DATA FOR PLOTTING
+    ###
     for Lambda in Lambdavec:
       Xtmp, Ytmp, Ztmp1, Ztmp2 = [], [], [], []
       ttmp = []
       for snr in plotSNRvec:
         Xtmp.append(np.array(chi2vec))
-        Ytmp.append(mNS * np.array(qvec))
+        Ytmp.append(mNS*qvec)
         Ztmp1.append(lambdaBiases[Lambda][snr][plotCI] * 100)
         Ztmp2.append(lambdaCIwidths[Lambda][snr][plotCI] * 100)
         ttmp.append('$\Lambda_\mathrm{NS}=%.1f, \\rho=%.1f$' % (Lambda, snr))
@@ -1796,22 +1834,118 @@ made for different LAmbda values
       Zarray1.append(Ztmp1)
       Zarray2.append(Ztmp2)
       titles.append(ttmp)
-      
-    make_contour_array(Xarray, Yarray, Zarray2, \
-      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$',\
-      cmap=cm.Spectral_r, levellines=[100, 150, 200],\
-      xmin=min(chi2vec), xmax=max(chi2vec),\
-      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS, titles=titles, \
-      clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
-      figname=os.path.join(plotdir,simstring+('LambdaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+    ###
+    ### MAKE BIAS / CONFIDENCE INTERVAL PLOTS
+    ###  
+    print "Making CIwidth contours at plotCI = ", plotCI
+    try:
+      C2=make_contour_array(Xarray, Yarray, Zarray2, \
+        xlabel='Black-hole spin', ylabel='$M_\mathrm{BH} (M_\odot)$',\
+        cmap=cm.Spectral_r, levellines=LEVELLINES,\
+        xmin=min(chi2vec), xmax=max(chi2vec),\
+        ymin=min(mNS*qvec), ymax=max(mNS*qvec), titles=titles, \
+        clabel="$(\Delta\Lambda_\mathrm{NS})^{%.1f \%%}/\Lambda_\mathrm{NS}^\mathrm{Injected}\\times 100$" % CILevels[plotCI], levelspacing=0.5, \
+        figname=os.path.join(plotdir,simstring+('LambdaCIWidths%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+    except OSError as ex:
+      print ex
+      pass
+    #
+    print "Making Bias contours at plotCI = ", plotCI
+    try:
+      C1=make_contour_array(Xarray, Yarray, Zarray1, \
+        xlabel='Black-hole spin', ylabel='$M_\mathrm{BH} (M_\odot)$', \
+        xmin=min(chi2vec), xmax=max(chi2vec),\
+        ymin=min(mNS*qvec), ymax=max(mNS*qvec),\
+        titles=titles, cmap=cm.rainbow, levellines=LEVELLINES,\
+        clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
+        figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+    except OSError as ex:
+      print ex
+      pass
+    ###
+    ### PLOT CONTOURS OF CONFIDENCE INTERVALS
+    ###
+    all_contours_bias, all_contours_ci = {}, {}
+    for i, Lambda in enumerate(Lambdavec):
+      all_contours_bias[Lambda], all_contours_ci[Lambda] = {}, {}
+      for j, snr in enumerate(plotSNRvec):
+        all_contours_bias[Lambda][snr] = C1[i][j]
+        all_contours_ci[Lambda][snr]   = C2[i][j]
+    #
+    all_contours_list[plotCI] = [all_contours_bias, all_contours_ci]
+  #
   
-    make_contour_array(Xarray, Yarray, Zarray1, \
-      xlabel='Black-hole spin', ylabel='$M_\mathrm{BH}(M_\odot)$', \
-      xmin=min(chi2vec), xmax=max(chi2vec),\
-      ymin=min(qvec)*mNS, ymax=max(qvec)*mNS,\
-      titles=titles, cmap=cm.rainbow, levellines=[100, 150, 200],\
-      clabel='$100\\times (\Lambda_\mathrm{NS}^\mathrm{Median}-\Lambda_\mathrm{NS}^\mathrm{Injected})/\Lambda_\mathrm{NS}^\mathrm{Injected}$', levelspacing=0.5, \
-      figname=os.path.join(plotdir,simstring+('LambdaBiases_CI%.1f_Lambda_SNR' % CILevels[plotCI]).replace('.','_')+'.'+figtype))
+###
+### COLLECT CONTOURS
+###
+figtype='png'
+if plot_LambdaBias and plot_LambdaErrorContours:
+  if True:
+    ## 
+    print """\
+
+Now plotting error curves for Lambda measurement on the MCHIRP - CHI PLANE,
+for different Lambdas, and error levels
+
+A separate figure is made for each SNR
+
+First we choose :
+- confidence level, 90%, 1sigma
+- uncertainty threshold, e.g. 100%, 150%, 200%
+
+    """
+    #
+    for plotCI in range(len(CILevels)):
+      for i, snr in enumerate(plotSNRvec):
+        contour_data, labels = {}, {}
+        for j, Lambda in enumerate(Lambdavec):
+          contour_data[Lambda], labels[Lambda] = {}, {}
+          for k, errth in enumerate(ErrThresh):
+            # next 3 lines combine data from disjoint contour segments that 
+            # matplotlib returns
+            tmp_cnts = all_contours_list[plotCI][1][Lambda][snr][errth]
+            x, y = np.array([]), np.array([])
+            for l in range(len(tmp_cnts)):
+              tmp_data = tmp_cnts[l].vertices
+              if np.shape(tmp_data)[0] != 0:
+                x = np.append( x, tmp_cnts[l].vertices[:,0] )
+                y = np.append( y, tmp_cnts[l].vertices[:,1] )
+            contour_data[Lambda][errth] = [x, y]
+            if verbose:
+              print "\nCI = %d, snr = %.0f, Lambda = %.0f, eps = %.0f : " % (plotCI, snr, Lambda, errth)
+            if debug: print contour_data
+            labels[Lambda][errth] = '$\Lambda_\mathrm{NS}=%.1f, \epsilon=%.1f\%%$' % (Lambda, errth)
+          #continue
+          # 
+          # Remove all empty arrays..?
+          if np.all( [np.shape(np.array(contour_data[Lambda][err]))[0]==0 for err in ErrThresh] ):
+            print "contour_data[%.0f] = " % Lambda, contour_data[Lambda]
+            print "POPPING for %.0f" % Lambda
+            contour_data.pop(Lambda)
+          if Lambda in contour_data.keys():
+            for err in ErrThresh:
+              print "  POPPING FOR %.0f" % err
+              if np.shape(np.array(contour_data[Lambda][err]))[0]==0:
+                contour_data[Lambda].pop(err)
+          #
+        #
+        #
+        print "\nCI = %d, snr = %.0f, Lambda = %.0f, eps = %.0f : " % (plotCI, snr, Lambda, errth)
+        try:
+          make_multilines(contour_data, labels=labels,\
+            xlabel='$\chi_\mathrm{BH}$',\
+            ylabel='$M_\mathrm{BH} (M_\odot)$',\
+            title='$\\rho = %.1f$' % snr,\
+            single_legend=False, leg_loc=[2,3], lw=3,\
+            sort_keys=True, markerfirst=[False, False],\
+            xmin=min(chi2vec), xmax=max(chi2vec),\
+            ymin=mNS*min(qvec), ymax=mNS*max(qvec),\
+            figname=os.path.join(plotdir, simstring+\
+              ('LambdaErrorCurves_BHspin_BHmass_SNR%.0f_CI%.1f' %\
+                (snr, CILevels[plotCI])).replace('.','_')+'.'+figtype))
+        except OSError as oerr:
+          print oserr
+          raise OSError
 
 
 
