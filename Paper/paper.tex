@@ -57,9 +57,6 @@ Measuring matter effects in Neutron star - Black hole binaries with Advanced LIG
 \begin{abstract}
 We attempt to answer the following questions: 
 \begin{enumerate}
- \item Will ignoring the effect of NS deformability during inspiral and NS 
- disruption during merger (in an NSBH binary) change the efficiency of our 
- searches?
  \item What systematic biases are introduced by neglecting the NS tidal
  disruption close to merger? 
  \item At what SNR do the systematic biases dominate over the statistical 
@@ -105,10 +102,11 @@ matter at nuclear densities', i.e. what is the equation of state (EoS) of
 neutron stars. The EoS determines the compactness of NSs, which determines
 their deformation over the course of inspiral (albeit weakly, at $5$PN order in 
 phasing~\prayush{CITE PN TIDAL RESULTS}), as well as how early in the coalescence
-process will the NS be disrupted by the tidal field of the BH. Once disrupted,
+process will the NS be disrupted by the tidal field of the BH~\prayush{[CITE]}.
+Once disrupted,
 the NS forms an accretion disk around the BH. Most of this matter disk spirals 
 into the BH within a few milliseconds, with a small fraction becoming unbounded
-and gets ejected~\prayush{CITE BHNS NR}. It is believed that an accompaning
+and gets ejected~\prayush{CITE BHNS NR}. It is believed that an accompanying
 short (lasting less than $2$ seconds) Gamma-ray Burst (sGRB) might be present
 under certain physical conditions~\prayush{CITE NSBH-GRB},
 making these systems one of the prime targets for joint electromagnetic-GW
@@ -125,16 +123,22 @@ in order for its tidal field to be strong enough to disrupt the NS before the
 innermost stable circular orbit (ISCO) is reached~\cite{Foucart:2013psa}.
 
 
-Conventional astronomical 
-methods have, to date, made observations of NSs with masses between 
-$XX-YY M_\odot$ and spins $|\vec{\chi}_\mathrm{NS}|\lesssim 0.05$. On the other hand, 
-indirect observations of stellar-mass BHs place their masses between 
-$5-35M_\odot$, with their spin angular momenta $|\vec{\chi}_\mathrm{BH}|$ 
-ranging from small to nearly extremal (Kerr) values (see,
-e.g.~\cite{McClintockEtAl:2006,Miller:2009cw,Gou:2014una} for examples of 
-nearly extremal estimates of BH spins, and see
-Refs.~\cite{McClintock:2013vwa,Reynolds:2013qqa} for recent reviews of
-astrophysical BH spin measurements). 
+Conventional astronomical methods have, to date, made observations of ~2500
+NSs with masses between $1.25-2.1 M_\odot$~\cite{Lyne:2004cj,
+Demorest:2010bx,2013Sci...340..448A,atnfcatalog,mcgillmagnetarcatalog,
+stellarcollapsemass}, although
+tightly clustered within $1.35\pm0.5M_\odot$~\cite{stellarcollapsemass}.
+%
+Observations of over 2500 NSs have shown that the spin of NSs
+$|\vec{\chi}_\mathrm{NS}|$ have magnitudes that are $<1\%$~\cite{Miller:2014aaa}.
+%
+On the other hand, indirect observations of stellar-mass BHs place their
+masses between $5-35M_\odot$, with their spin angular momenta 
+$|\vec{\chi}_\mathrm{BH}|$ ranging from small to nearly extremal (Kerr) values
+(see, e.g., Refs.~\cite{McClintockEtAl:2006,Miller:2009cw,Gou:2014una} for 
+examples of nearly extremal estimates of BH spins, Refs.~\cite{McClintock:2013vwa,
+Reynolds:2013qqa} for recent reviews of astrophysical BH spin measurements,
+and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
 
 
 
@@ -152,9 +156,9 @@ merger, leaving their imprint in the GW signal emitted close to $1.7-2$~kHz.
 % 
 
 The goal of this paper is to probe the distinguishability of BHBH and NSBH
-mergers, focusing at the effects of the BH mass, BH spin, and NS tidal 
-deformability. We also investigate the accuracy with which aLIGO can measure
-the tidal deformability parameter $\Lambda_\NS\sim(R/M)^5_\NS$. For both of 
+mergers, focusing at the effects of the BH mass, BH spin, and the tidal 
+deformability parameter $\Lambda_\NS\sim(R/M)^5_\NS$. We also investigate the
+accuracy with which aLIGO can measure $\Lambda_\NS$ itself. For both of 
 these studies, we will use the zero-detuning high-power noise curve for the
 aLIGO detectors. \prayush{In addition, we also study the effect of tuning aLIGO
 over a narrow frequency range aimed at NSBH mergers.}
@@ -221,94 +225,45 @@ Describe the Lackey et al model
 \subsection{MCMC methods}
 Describe the emcee-based PE code
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{How are detection searches affected by not including NS matter effects}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Near future detection searches with aLIGO are poised to search for NSBH
-signals using BHBH templates. In this section, we examine the effect of ignoring
-the effects of tidal deformation and disruption of the NS during inspiral and 
-merger phases of search templates. We construct a template bank $\mathcal{B}$ 
-restricted to the NSBH parameter space with $\mbh\in[2.5M_\odot, 20.5M_\odot]$, 
-$\chibh\in[-0.5, +0.75]$, $\mns\in[1M_\odot,3M_\odot]$ and $\chi_\mathrm{NS}=0$,
-using a PN-based geometric lattice placement method~\cite{Harry:2013tca}. 
-
-
-Before investigating its SNR recovery against tidal NSBH signals, we test the 
-effectualness of this bank to point-particle NSBH signals,
-in order to make sure that the placement method does not leave any region of
-the binary parameter-space under-covered. We simulate $50,000$ signals with 
-component-mass and BH spin values
-sampled uniformly over their allowed ranges, and filter each of them against
-the entire bank. For both signals and templates, we use the frequency-domain 
-reduced-order model (ROM) of the SEOBNRv2 approximant~\cite{Purrer:2014} 
-implemented within the LIGO algorithms Library~\cite{lal}. We record the 
-fitting-factors~\cite{FittingFactorApostolatos} recovered by the bank for all
-signals, which measures the fraction of optimal SNR that the bank is able
-to recover. Fig.~\ref{} shows these FFs as a function of the injected
-BH mass and BH spin, and Fig.~\ref{} provides a histogram of the recovered FF 
-values. From these figures, we conclude that our bank is effectual as intended.
-
-
-Next, tn order to establish the effect of NS matter effects on the SNR recovery of 
-detection searches, we perform a similar calculation as above, with the
-difference that the signals are now modelled using the model of tidal 
-corrections to IMR amplitude and phasing published in 
-Ref.~\cite{Lackey:2013axa}, applied to SEOBNRv2 as the underlying BHBH model.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{How are detection searches affected by not including NS matter effects}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%Near future detection searches with aLIGO are poised to search for NSBH
+%signals using BHBH templates. In this section, we examine the effect of ignoring
+%the effects of tidal deformation and disruption of the NS during inspiral and 
+%merger phases of search templates. We construct a template bank $\mathcal{B}$ 
+%restricted to the NSBH parameter space with $\mbh\in[2.5M_\odot, 20.5M_\odot]$, 
+%$\chibh\in[-0.5, +0.75]$, $\mns\in[1M_\odot,3M_\odot]$ and $\chi_\mathrm{NS}=0$,
+%using a PN-based geometric lattice placement method~\cite{Harry:2013tca}. 
+%
+%
+%Before investigating its SNR recovery against tidal NSBH signals, we test the 
+%effectualness of this bank to point-particle NSBH signals,
+%in order to make sure that the placement method does not leave any region of
+%the binary parameter-space under-covered. We simulate $50,000$ signals with 
+%component-mass and BH spin values
+%sampled uniformly over their allowed ranges, and filter each of them against
+%the entire bank. For both signals and templates, we use the frequency-domain 
+%reduced-order model (ROM) of the SEOBNRv2 approximant~\cite{Purrer:2014} 
+%implemented within the LIGO algorithms Library~\cite{lal}. We record the 
+%fitting-factors~\cite{FittingFactorApostolatos} recovered by the bank for all
+%signals, which measures the fraction of optimal SNR that the bank is able
+%to recover. Fig.~\ref{} shows these FFs as a function of the injected
+%BH mass and BH spin, and Fig.~\ref{} provides a histogram of the recovered FF 
+%values. From these figures, we conclude that our bank is effectual as intended.
+%
+%
+%Next, tn order to establish the effect of NS matter effects on the SNR recovery of 
+%detection searches, we perform a similar calculation as above, with the
+%difference that the signals are now modelled using the model of tidal 
+%corrections to IMR amplitude and phasing published in 
+%Ref.~\cite{Lackey:2013axa}, applied to SEOBNRv2 as the underlying BHBH model.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{What do we gain by using templates that include NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % 
-% \begin{figure*}
-% \centering
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaBias_vs_SNR_q23.pdf}
-% \caption{This figure is similar to the bottom row of
-% Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}, with the difference that  we
-% consider the NS tidal parameter $\Lambda$ here.}
-% \label{fig:TT_NSLambdaBias_vs_SNR_q23}
-% \end{figure*}
-% % 
-% \begin{figure*}
-% \centering
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_NSLambdaCIWidth90_vs_SNR_q23.pdf}
-% \caption{This figure is similar to the bottom row of
-% Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}, with the difference that  
-% we consider the NS tidal parameter $\Lambda$ here.}
-% \label{fig:TT_NSLambdaCIWidth90_vs_SNR_q23}
-% \end{figure*}
-% % 
-% \begin{figure*}
-% \centering    
-% \includegraphics[width=2\columnwidth]{plots-TT/TT_LambdaBiases_CI90_0_Lambda_SNR.png}
-% \caption{This figure shows.}
-% \label{fig:TT_LambdaBiases_CI90_0_Lambda_SNR}
-% \end{figure*}
-
-\begin{figure*}
-\centering    
-\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI68_3.png}
-\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda800_0_CI68_3.png}
-\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda1000_0_CI68_3.png}\\
-\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI90_0.png}
-\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda800_0_CI90_0.png}
-\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda1000_0_CI90_0.png}
-\caption{This figure shows.}
-\label{fig:TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_CI90_0}
-\end{figure*}
-
-% 
-\begin{figure*}
-\centering    
-\includegraphics[width=2.1\columnwidth]{plots-TT/TTLambdaCIWidths68_3_Lambda_SNR.png}\\
-\includegraphics[width=2.1\columnwidth]{plots-TT/TTLambdaCIWidths90_0_Lambda_SNR.png}
-\caption{This figure shows.}
-\label{fig:TT_LambdaCIWidths90_0_Lambda_SNR}
-\end{figure*}
-% 
 %\begin{figure*}
 %\centering    
 %\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI68_3.png}
@@ -320,6 +275,103 @@ Ref.~\cite{Lackey:2013axa}, applied to SEOBNRv2 as the underlying BHBH model.
 %\caption{This figure shows.}
 %\label{fig:TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_CI90_0}
 %\end{figure*}
+% 
+\begin{figure*}
+\centering    
+\includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
+%\includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
+\caption{This figure shows the statistical uncertainty in the measurement of
+$\lambdans$, as a percentage of the injected signal's $\lambdans$. In each panel, 
+the same is shown as a function of the BH mass and spin, keeping the 
+$\lambdans$ and injection's SNR $\rho$ fixed (given in the panel). Each row contains
+panels with the same value of $\lambdans$, while each column contains panels 
+with the same value of $\rho$. Two contours are drawn in each panel demarkating
+that the statistical measurement uncertainty for $\lambda$ is equal to (or twice
+of) its injected $\lambdans$ value, i.e. where we can place a factor of $1-2$ 
+bound on $\lambdans$.
+% 
+We note that, as expected, the measurement accuracy for $\lambdans$ improves with (i) increasing
+SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and 
+(iv) increasing $\lambdans$, i.e. the tidal deformability of the neutron star.
+}
+\label{fig:TT_LambdaCIWidths90_0_Lambda_SNR}
+\end{figure*}
+% 
+\begin{figure*}
+\centering    
+\includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0.pdf}
+\includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0.pdf}
+\includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR50_CI90_0.pdf}\\
+% \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR70_CI90_0.pdf}
+% \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR90_CI90_0.pdf}
+% \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR120_CI90_0.pdf}
+\caption{We demarkate here the regions of BH mass and spin plane where we can 
+constrain the $\lambdans$ of its companion NS within a factor of $1-2$ of its true value.
+Panels correspond to the injected SNR, with signal strength increasing
+from left to right and top to bottom. Within each panel, $\lambdans$ measurement uncertainty
+contours are shown as functions of BH mass and spin, with different colors corresponding to the
+injected $\lambdans$. We note that this information is, in principle, contained in 
+Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
+the effect of NS's deformability itself on its measurement. As from Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, we note that the measurability of NS matter
+effects improves with all factors that enhances the signature of the NS's disruption on
+the \textit{detectable} portion of the emitted GW signal (implying, within a frequency band
+set by the detectors).
+}
+\label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
+\end{figure*}
+%
+\begin{figure*}
+\centering    
+\includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
+\includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_m1_m2_chi2_Lambda.pdf}
+\caption{These figure shows the $1-$ and $2-$dimensional 
+\textit{a posteriori} probability distributions 
+for different physical parameters describing a BHNS system including NS matter 
+effects, as measured by a Bayesian Markov-chain Monte Carlo using tidal templates.
+The true parameters of the injected signal are: 
+$\mathcal{M}=1.6406M_\odot, \eta=0.2222, \chibh=\chi_2=0.75$ and $\lambdans=1500$,
+with the injected SNR $\rho=20$. We show this case as typical of those with the largest
+tidal signatures imprinted on the emitted GWs (due to the system being comparable
+mass-ratio with a large-aligned spin on the BH and a fairly deformable NS), yet 
+with low SNR.
+% 
+We note a few things:
+(i) chirp mass is well constrained, with a nearly-Gaussian probability distribution;
+while (ii) the same for the other $3$ less constrained parameters rails against
+prior boundaries. The specific boudary conditions that we run into are (a) for $\eta$,
+we are limited by the requirement that $m_\mathrm{NS}\geq 1.2M_\odot$ 
+of our templates; (b) for BH spin, we are limited by the $\chibh\leq+0.75$ requirement
+that results from a template model limitation~\cite{Lackey:2013axa}; and (c) for 
+$\lambdans$, we
+restrict it to $[0, 4000]$ for the same reason as (b). These prior boundaries
+limit the exploration of the entire likelihood surfaces. While (a) is astrophysically
+justified, given that we have not observed NSs with masses below 
+$1.25M_\odot$, (b) and (c) will be removed in future studies as more evolved template
+models become available. See, also, Fig.~\ref{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}.
+% 
+Finally, we note that the left panel corresponds to the actual sampling parameters,
+while the right panel to derived ones.
+}
+\label{fig:TT_pdf_q2_chi75_L1500_SNR20}
+\end{figure*}
+%
+\begin{figure*}
+\centering    
+% \includegraphics[width=.66\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
+\includegraphics[width=\columnwidth]{plots/TT_logLike_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
+\includegraphics[width=\columnwidth]{plots/TT_logProb_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
+\caption{These figures show the effect of limitation (a) (described in the caption
+of Fig.~\ref{fig:TT_pdf_q2_chi75_L1500_SNR20}) on the likelihood surface portion
+that is actually accessible to our Bayesian inferencing algorithm. On the left we show the
+entire likelihood surface in the $\mbh-\mns$ plane, while on the left is the 
+portion not forbidden by the requirement $\mns\geq 1.2M_\odot$. Similarly, our
+priors on BH spin and NS deformability further curtail the portion of sampled
+parameter space, albeit to much less impact than this mass cut.}
+\label{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}
+\end{figure*}
+
+
+%
 %% 
 %\begin{figure*}
 %\centering    
@@ -388,197 +440,59 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{How is PE affected by not including NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{figure*}
-% \centering 
-% % \textbf{BH-BH Injection; BH-BH Templates}
-% % \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassBias_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassBias_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassBias_vs_SNR_q23.pdf}%\quad
-% \caption{These figures show the (fractional) difference between the chirp mass 
-% value corresponding to the median of its posterior probability distribution,
-% and the actual injected chirp mass,
-% as a function of the signal-to-noise-ratio (SNR) of the injected signal.
-% % In the top row, NS matter effects on the inspiral and merger waveform
-% % are neithed included in templates nor in the injected signal. 
-% In the top row, NS matter effects (inspiral and merger) are included in the
-% injections but not in templates. This corresponds to the current 
-% plan for aLIGO parameter estimation studies. The bottom row shows the effect
-% of additionally including NS matter effects in the templates.
-% % 
-% In each row, the left and right panel correspond to 
-% $q=m_\mathrm{BH}/m_\mathrm{NS}=\{2,3\}$, respectively. 
-% In each panel, the color of each curve corresponds to the value of NS 
-% deformability parameter $(\Lambda=\{500,1000,2000\})$, 
-% and line-style corresponds to the value of
-% the dimensionless spin on the BH ($\chi_\mathrm{BH}=\{-0.5,0,+0.5\}$).
-% }
-% \label{fig:TNT_chirpMassBias_vs_SNR_q23}
-% \end{figure*}
-% % 
-% \begin{figure*}
-% \centering 
-% % \textbf{BH-BH Injection; BH-BH Templates}
-% % \includegraphics[width=1.7\columnwidth]{plots/NN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TN_chirpMassCIWidth90_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_chirpMassCIWidth90_vs_SNR_q23.pdf}%\quad
-% \caption{These figures are similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}
-% with the difference that here we show the width of the $90\%$ confidence 
-% interval (recovered) for chirp mass, as a function of the injected SNR. 
-% Note that the confidence interval's width is normalized by the injected
-% parameter value.
-% }
-% \label{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}
-% \end{figure*}
-% % 
-% 
-% \begin{figure*}[!t]
-% \centering    
-% \textbf{NS-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TN_EtaBias_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_EtaBias_vs_SNR_q23.pdf}\\%\quad
-% \textbf{BH-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/NN_EtaBias_vs_SNR_q23.pdf} 
-% \caption{This figure (top two rows) is similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
-% with the difference that we consider the systematic bias in the dimensionless
-% mass-ratio $\eta$ here. In the bottom row we show control runs where both
-% signal and template waveforms lack matter effects.}
-% \label{fig:TNT_EtaBias_vs_SNR_q23}
-% \end{figure*}
-% % 
-% \begin{figure*}
-% \centering    
-% \textbf{NS-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TN_EtaCIWidth90_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_EtaCIWidth90_vs_SNR_q23.pdf}\\%\quad
-% \textbf{BH-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/NN_EtaCIWidth90_vs_SNR_q23.pdf} 
-% \caption{This figure (top two rows) is similar to Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
-%   with the difference that we consider the confidence intervals in the recovery
-%   of the dimensionless mass-ratio $\eta$ here. The bottom row here is similar to 
-%   Fig.~\ref{fig:TNT_EtaBias_vs_SNR_q23} with the difference that width of the $90\%$
-%   confidence interval is shown here.}
-% \label{fig:TNT_EtaCIWidth90_vs_SNR_q23}
-% \end{figure*}
-% \begin{figure*}
-% \centering    
-% \textbf{NS-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TN_BHspinBias_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_BHspinBias_vs_SNR_q23.pdf}\\%\quad
-% \textbf{BH-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/NN_BHspinBias_vs_SNR_q23.pdf}
-% \caption{The top two rows in this figure are
-% similar to Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23},
-% with the differences that we consider the systematic bias in the dimensionless
-% spin on the BH here, and that the differences shown are absolute and not
-% fractions of the injected spin. In the bottom row, we show a control run where
-% both injected and template waveforms correspond to binary black holes.}
-% \label{fig:TNT_BHspinBias_vs_SNR_q23}
-% \end{figure*}
-% % 
-% \begin{figure*}
-% \centering    
-% \textbf{BH-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/NN_BHspinCIWidth90_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; BH-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TN_BHspinCIWidth90_vs_SNR_q23.pdf}\\ 
-% \textbf{NS-BH Injection; NS-BH Templates}
-% \includegraphics[width=1.7\columnwidth]{plots/TT_BHspinCIWidth90_vs_SNR_q23.pdf}
-% \caption{The top two rows in the figure are similar to
-% Fig.~\ref{fig:TNT_chirpMassCIWidth90_vs_SNR_q23},
-% with the difference that we consider the confidence intervals in the recovery
-% of the dimensionless spin on the BH $\chi_\mathrm{BH}$ here.
-% As in Fig.~\ref{fig:TNT_BHspinBias_vs_SNR_q23}, we show here the absolute 
-% width of the confidence interval without normalizing with the injected spin.
-% The bottom row show a control run where matter effects are ignored both 
-% in the injected signal and the template waveforms.}
-% \label{fig:TNT_BHspinCIWidth90_vs_SNR_q23}
-% \end{figure*}
 
 % #################
 \begin{figure*}
 \centering 
-\includegraphics[trim={{0.2\columnwidth} 0 0 0},width=2.1\columnwidth]{plots-TN/TN_MchirpBiases_Lambda_SNR.pdf}
-\caption{Systematic fractional biases in recovered chirp-mass $\mchirp$, as a
-fraction of the injected (true) value, for NSBH binaries, shown here as a 
-function of the mass and spin of the BH (each panel), $\lambdans$ (across 
-rows), and injection's SNR $\rho$ (across columns). Tidal effects during
-inspiral and the effects of NS disruption close to merger are modelled in the
-signal, but \textit{not} in the templates. 
-}
-\label{fig:TNT_chirpMassBias_vs_SNR_q23}
-\end{figure*}
+%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
+\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR}.pdf
+\caption{We show here (Log of) the ratio of the systematic and statistical
+measurement uncertainties for the binary chirp mass over the NSBH parameter 
+space. Each panel shows the same as a function of BH mass and spin. Across
+each row, we can see the effect of increasing the signal strength (i.e. SNR)
+with the NS's deformability fixed. Down each column, we can see 
+the effect of the increasing NS's tidal deformability at fixed SNR. We also
+show dashed contours for where the ratio equals $10\%$ (labelled ``-1'')
+or $100\%$ (labelled ``0'').
 % 
-\begin{figure*}
-\centering
-\includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_MchirpCIWidths90_0_Lambda_SNR.pdf}
-\caption{$90\%$ confidence intervals for the recovered chirp-mass $\mchirp$, as a
-fraction of the injected (true) value, for NSBH binaries, shown here as a 
-function of the mass and spin of the BH (each panel), $\lambdans$ (across 
-rows), and injection's SNR $\rho$ (across columns). Tidal effects during
-inspiral and the effects of NS disruption close to merger are modelled in the
-signal, but \textit{not} in the templates. 
+Generally, these two sources of uncertainty are different and for BBHs, the
+statistical errors dominate systematic ones~\cite{Kumar:2016dhh}. We find
+that for BHNS binaries, its not much different until we get to high SNRs
+$\rho\gtrsim 70$ for which if the BH is spinning rapidly enough, the 
+measurement uncertainty for $\mchirp$ could become dominated by the exclusion
+of tidal effects in filtering templates.
 }
-\label{fig:TNT_chirpMassCIWidth90_vs_SNR_q23}
+\label{fig:TN_chirpMassBias_vs_Lambda_SNR}
 \end{figure*}
-% 
-\newpage
-\newpage
-
+%
 \begin{figure*}[!t]
 \centering    
-\includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_EtaBiases_Lambda_SNR.pdf}
-\caption{Systematic fractional biases in the recovered dimensionless mass-ratio
-$\eta = m_1 m_2 / (m_1+m_2)^2$, as a
-fraction of the injected (true) value, for NSBH binaries, shown here as a 
-function of the mass and spin of the BH (each panel), $\lambdans$ (across 
-rows), and injection's SNR $\rho$ (across columns). Tidal effects during
-inspiral and the effects of NS disruption close to merger are modelled in the
-signal, but \textit{not} in the templates. }
-\label{fig:TNT_EtaBias_vs_SNR_q23}
+%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
+\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR.pdf}\\
+\caption{These figures are similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
+with the difference that the quantity in question here is the symmetric 
+mass-ratio $\eta$. We find that for fairly loud GW signals, with $\rho\simeq 50$,
+NS tidal effects on GW emission can become the dominant source of error. However,
+for quieter signals with $\rho\leq 30$, we find that not including NS matter 
+effects in parameter estimation templates has minimal effects on the measurement
+of $\eta$. We remind the reader that the SNRs here are all single detector values.
+}
+\label{fig:TN_EtaBias_vs_Lambda_SNR}
 \end{figure*}
 % 
-\begin{figure*}
-\centering    
-\includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_EtaCIWidths68_3_Lambda_SNR.pdf}
-\caption{$90\%$ confidence intervals for the recovered dimensionless mass-ratio
-$\eta = m_1 m_2 / (m_1+m_2)^2$, as a
-fraction of the injected (true) value, for NSBH binaries, shown here as a 
-function of the mass and spin of the BH (each panel), $\lambdans$ (across 
-rows), and injection's SNR $\rho$ (across columns). Tidal effects during
-inspiral and the effects of NS disruption close to merger are modelled in the
-signal, but \textit{not} in the templates. }
-\label{fig:TNT_EtaCIWidth90_vs_SNR_q23}
-\end{figure*}
 % 
 \begin{figure*}
 \centering
-\includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_ChiBHBiases_CI90_0_Lambda_SNR.pdf}
-\caption{Systematic fractional biases in the recovered value of the BH spin $\chibh$,
-as a fraction of the injected (true) value, for NSBH binaries, shown here as a
-function of the mass and spin of the BH (each panel), $\lambdans$ (across 
-rows), and injection's SNR $\rho$ (across columns). Tidal effects during
-inspiral and the effects of NS disruption close to merger are modelled in the
-signal, but \textit{not} in the templates. }
+\includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI68_3.pdf}
+\includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI90_0.pdf}
+\caption{These figures show the ratio of the systematic and statistical
+measurement errors for BH spins, for all of our injected cases. The left
+panel corresponds to $1-\sigma$ statistical confidence level, while the right panel
+corresponds to $90\%$ confidence level. We note that below $\rho\approx 30$, ignoring
+tidal effects in templates introduces systematic effects that remain subdominant
+to the statistical measurement uncertainties.
+}
 \label{fig:TNT_BHspinBias_vs_SNR_q23}
-\end{figure*}
-% 
-\begin{figure*}
-\centering    
-\includegraphics[trim={{0.4\columnwidth} 0 0 0},width=2.2\columnwidth]{plots-TN/TN_ChiBHCIWidths90_0_Lambda_SNR.pdf}
-\caption{$90\%$ confidence intervals for the recovered value of the BH spin $\chibh$,
-as a fraction of the injected (true) value, for NSBH binaries, shown here as a 
-function of the mass and spin of the BH (each panel), $\lambdans$ (across 
-rows), and injection's SNR $\rho$ (across columns). Tidal effects during
-inspiral and the effects of NS disruption close to merger are modelled in the
-signal, but \textit{not} in the templates.}
-\label{fig:TNT_BHspinCIWidth90_vs_SNR_q23}
 \end{figure*}
 % 
 % 
