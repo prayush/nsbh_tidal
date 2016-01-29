@@ -712,9 +712,11 @@ quantiles=quantiles_95
 samples_combined = np.array([qval, Mval, chi1val, chi2val]).T
 print np.shape(samples_combined)
 print samples_combined
-fig = corner.corner(samples_combined, labels=["$q$", "$M$", "$\chi_1$", "$\chi_2$"], truths=[q_true, M_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
-fig.savefig("corner_q_M_chi1_chi2.png")
-pl.close(fig)
+try:
+  fig = corner.corner(samples_combined, labels=["$q$", "$M$", "$\chi_1$", "$\chi_2$"], truths=[q_true, M_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+  fig.savefig("corner_q_M_chi1_chi2.png")
+  pl.close(fig)
+except: pass
 
 samples_combined2 = np.array([etaval, Mcval, chi1val, chi2val]).T
 fig = corner.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_1$", "$\chi_2$"], truths=[eta_true, Mc_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)

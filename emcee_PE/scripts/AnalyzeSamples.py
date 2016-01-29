@@ -8,7 +8,7 @@ import os, sys
 import commands as cmd
 import numpy as np
 from matplotlib import mlab, cm, use
-#use('Agg')
+use('pdf')
 import matplotlib.pyplot as plt
 plt.rcParams.update({'text.usetex' : True})
 from mpl_toolkits.axes_grid1 import ImageGrid
@@ -346,7 +346,7 @@ def make_hexbin(X, Y, Z, xlabel='', ylabel='', clabel='', vmin=-1, vmax=None,\
 
 
 def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='',\
-                levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r,\
+                levelspacing=0.25, vmin=None, vmax=None, background_color=None,\
                 pcolors=linecolors, pmarkers=linestyles, lw=1.5,\
                 xmin=None, xmax=None, ymin=None, ymax=None,\
                 markerfirst=[True, False], sort_keys=False,\
@@ -375,8 +375,7 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
     
   #fig = plt.figure(int(1e7 * np.random.random()), \
   #            figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
-  plt.figure(int(1e7 * np.random.random()), figsize=(1.2*gmean*colwidth, colwidth))
-  
+  fig = plt.figure(int(1e7 * np.random.random()), figsize=(1.2*gmean*colwidth, colwidth))
   # FIrst make all lines
   all_lines = []
   xykeys = XY.keys()
@@ -391,6 +390,7 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
       grp_lines.append( line )
     all_lines.append( grp_lines )
   #
+  if background_color is not None: plt.gca().get_axes().set_axis_bgcolor(background_color)
   # Now make legends, one to indicate each group's characteristic
   if single_legend:
     harray = [all_lines[i][0] for i in range(ngrp1)]
@@ -990,15 +990,15 @@ plotdir = 'plots' + simstring + '/'
 figtype = 'pdf'
 
 # Plots showing Mass/Spin/Lambda recovery biases
-plot_MchirpBias      = False
-plot_MchirpErrorsAll = False
-plot_EtaBias         = False
-plot_QBias           = False
-plot_EtaErrorsAll    = False
-plot_QErrorsAll      = False
-plot_sBHBias         = False
-plot_sBHErrorsAll    = False
-plot_mBHBias         = False
+plot_MchirpBias      = True
+plot_MchirpErrorsAll = True
+plot_EtaBias         = True
+plot_QBias           = True
+plot_EtaErrorsAll    = True
+plot_QErrorsAll      = True
+plot_sBHBias         = True
+plot_sBHErrorsAll    = True
+plot_mBHBias         = True
 
 plot_LambdaBias           = True
 plot_LambdaErrorContours  = True
@@ -1011,7 +1011,7 @@ plot_ChiCriticalCurves    = False
 plot_QCriticalCurves      = False
 
 # Reduced ranges for plots
-plotSNRvec    = np.array([20, 30, 50, 70, 90])
+plotSNRvec    = np.array([20, 30, 50, 70, 90, 120])
 plotqvec      = qvec
 plotchi2vec   = np.array([0, 0.5, 0.74999])
 plotLambdavec = np.array([800, 1000, 1500])
@@ -1878,8 +1878,8 @@ made for different LAmbda values
 ###
 ### COLLECT CONTOURS
 ###
-figtype='png'
-if plot_LambdaBias and plot_LambdaErrorContours:
+figtype='pdf'
+if plot_LambdaBias and plot_LambdaErrorContours and recover_tidal:
   if True:
     ## 
     print """\
@@ -1938,13 +1938,15 @@ First we choose :
             title='$\\rho = %.1f$' % snr,\
             single_legend=False, leg_loc=[2,3], lw=3,\
             sort_keys=True, markerfirst=[False, False],\
+            background_color='lightgrey',\
             xmin=min(chi2vec), xmax=max(chi2vec),\
             ymin=mNS*min(qvec), ymax=mNS*max(qvec),\
             figname=os.path.join(plotdir, simstring+\
               ('LambdaErrorCurves_BHspin_BHmass_SNR%.0f_CI%.1f' %\
                 (snr, CILevels[plotCI])).replace('.','_')+'.'+figtype))
-        except OSError as oerr:
+        except OSError as oserr:
           print oserr
+          pass
           raise OSError
 
 

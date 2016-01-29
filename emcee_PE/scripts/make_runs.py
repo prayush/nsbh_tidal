@@ -189,8 +189,8 @@ def get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns):
 chi1 = 0.   # small BH
 chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
 mNS = 1.35
-qvec = [2, 3, 4]
-Lambdavec = [500, 800, 1000]
+qvec = [2, 3, 4, 5]
+Lambdavec = [500, 800, 1000, 1500, 2000]
 SNRvec = [20, 30, 50, 70, 90, 120]
 
 inject_tidal = True
@@ -214,7 +214,7 @@ chi2only = True
 LambdaMax = 4000*2
 Lambdastdev = 100
 
-recover_tidal = True
+recover_tidal = False
 
 ######################################################
 # Set up RUN parameters
