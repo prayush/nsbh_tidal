@@ -260,6 +260,91 @@ Describe the emcee-based PE code
 %corrections to IMR amplitude and phasing published in 
 %Ref.~\cite{Lackey:2013axa}, applied to SEOBNRv2 as the underlying BHBH model.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{How is PE affected by not including NS matter effects?}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% #################
+\begin{figure*}
+\centering 
+%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
+\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR}.pdf
+\caption{We show here (Log of) the ratio of the systematic and statistical
+measurement uncertainties for the binary chirp mass over the NSBH parameter 
+space. Each panel shows the same as a function of BH mass and spin. Across
+each row, we can see the effect of increasing the signal strength (i.e. SNR)
+with the NS's deformability fixed. Down each column, we can see 
+the effect of the increasing NS's tidal deformability at fixed SNR. We also
+show dashed contours for where the ratio equals $10\%$ (labelled ``-1'')
+or $100\%$ (labelled ``0'').
+% 
+Generally, these two sources of uncertainty are different and for BBHs, the
+statistical errors dominate systematic ones~\cite{Kumar:2016dhh}. We find
+that for BHNS binaries, its not much different until we get to high SNRs
+$\rho\gtrsim 70$ for which if the BH is spinning rapidly enough, the 
+measurement uncertainty for $\mchirp$ could become dominated by the exclusion
+of tidal effects in filtering templates.
+}
+\label{fig:TN_chirpMassBias_vs_Lambda_SNR}
+\end{figure*}
+%
+\begin{figure*}[!t]
+\centering    
+%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
+\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR.pdf}\\
+\caption{These figures are similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
+with the difference that the quantity in question here is the symmetric 
+mass-ratio $\eta$. We find that for fairly loud GW signals, with $\rho\simeq 50$,
+NS tidal effects on GW emission can become the dominant source of error. However,
+for quieter signals with $\rho\leq 30$, we find that not including NS matter 
+effects in parameter estimation templates has minimal effects on the measurement
+of $\eta$. We remind the reader that the SNRs here are all single detector values.
+}
+\label{fig:TN_EtaBias_vs_Lambda_SNR}
+\end{figure*}
+% 
+% 
+\begin{figure*}
+\centering
+\includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI68_3.pdf}
+\includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI90_0.pdf}
+\caption{These figures show the ratio of the systematic and statistical
+measurement errors for BH spins, for all of our injected cases. The left
+panel corresponds to $1-\sigma$ statistical confidence level, while the right panel
+corresponds to $90\%$ confidence level. We note that below $\rho\approx 30$, ignoring
+tidal effects in templates introduces systematic effects that remain subdominant
+to the statistical measurement uncertainties.
+}
+\label{fig:TNT_BHspinBias_vs_SNR_q23}
+\end{figure*}
+% 
+% 
+Advanced LIGO searches and parameter estimation efforts aimed at binaries 
+containing NS and stellar-mass BHs are poised to use waveform models that do not
+include the effects of the NS tidal deformability~\cite{Canton:2014ena}.
+While this is not expected to
+be the dominant source of error at low SNRs, it will likely introduce a
+systematic bias in the physical parameters that we recover from GW observations.
+In this section, we study the impact of the same for binaries where the BH spins
+are aligned to the orbital angular momentum.
+
+\begin{enumerate}
+\item Above what SNR values, below what mass-ratios, above what BH spins, etc, 
+do we begin to care about NS deformability?\newline
+``one interesting plot to make would be the parameter bias (max-Likelihood
+parameters minus true parameters) vs SNR, as functionals of q/sBH/Lambda, when
+using T signals recovered with N templates.''\newline
+\end{enumerate}
+
+
+\prayush{Could have subsections for different frequency-optimized aLIGO noise curves ?}
+
+\hspace{5mm}
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{What do we gain by using templates that include NS matter effects?}
@@ -337,7 +422,7 @@ with low SNR.
 % 
 We note a few things:
 (i) chirp mass is well constrained, with a nearly-Gaussian probability distribution;
-while (ii) the same for the other $3$ less constrained parameters rails against
+while (ii) the other $3$ less constrained parameters rail against
 prior boundaries. The specific boudary conditions that we run into are (a) for $\eta$,
 we are limited by the requirement that $m_\mathrm{NS}\geq 1.2M_\odot$ 
 of our templates; (b) for BH spin, we are limited by the $\chibh\leq+0.75$ requirement
@@ -433,95 +518,6 @@ posterior probability distribution for different binary parameters with (a) BHBH
 templates, and (b) NSBH templates. We will discuss the results of (b) here.
 
 
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{How is PE affected by not including NS matter effects?}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% #################
-\begin{figure*}
-\centering 
-%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
-\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR}.pdf
-\caption{We show here (Log of) the ratio of the systematic and statistical
-measurement uncertainties for the binary chirp mass over the NSBH parameter 
-space. Each panel shows the same as a function of BH mass and spin. Across
-each row, we can see the effect of increasing the signal strength (i.e. SNR)
-with the NS's deformability fixed. Down each column, we can see 
-the effect of the increasing NS's tidal deformability at fixed SNR. We also
-show dashed contours for where the ratio equals $10\%$ (labelled ``-1'')
-or $100\%$ (labelled ``0'').
-% 
-Generally, these two sources of uncertainty are different and for BBHs, the
-statistical errors dominate systematic ones~\cite{Kumar:2016dhh}. We find
-that for BHNS binaries, its not much different until we get to high SNRs
-$\rho\gtrsim 70$ for which if the BH is spinning rapidly enough, the 
-measurement uncertainty for $\mchirp$ could become dominated by the exclusion
-of tidal effects in filtering templates.
-}
-\label{fig:TN_chirpMassBias_vs_Lambda_SNR}
-\end{figure*}
-%
-\begin{figure*}[!t]
-\centering    
-%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
-\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR.pdf}\\
-\caption{These figures are similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
-with the difference that the quantity in question here is the symmetric 
-mass-ratio $\eta$. We find that for fairly loud GW signals, with $\rho\simeq 50$,
-NS tidal effects on GW emission can become the dominant source of error. However,
-for quieter signals with $\rho\leq 30$, we find that not including NS matter 
-effects in parameter estimation templates has minimal effects on the measurement
-of $\eta$. We remind the reader that the SNRs here are all single detector values.
-}
-\label{fig:TN_EtaBias_vs_Lambda_SNR}
-\end{figure*}
-% 
-% 
-\begin{figure*}
-\centering
-\includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI68_3.pdf}
-\includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI90_0.pdf}
-\caption{These figures show the ratio of the systematic and statistical
-measurement errors for BH spins, for all of our injected cases. The left
-panel corresponds to $1-\sigma$ statistical confidence level, while the right panel
-corresponds to $90\%$ confidence level. We note that below $\rho\approx 30$, ignoring
-tidal effects in templates introduces systematic effects that remain subdominant
-to the statistical measurement uncertainties.
-}
-\label{fig:TNT_BHspinBias_vs_SNR_q23}
-\end{figure*}
-% 
-% 
-Advanced LIGO searches and parameter estimation efforts aimed at binaries 
-containing NS and stellar-mass BHs are poised to use waveform models that do not
-include the effects of the NS tidal deformability~\cite{Canton:2014ena}.
-While this is not expected to
-be the dominant source of error at low SNRs, it will likely introduce a
-systematic bias in the physical parameters that we recover from GW observations.
-In this section, we study the impact of the same for binaries where the BH spins
-are aligned to the orbital angular momentum.
-
-\begin{enumerate}
-\item Above what SNR values, below what mass-ratios, above what BH spins, etc, 
-do we begin to care about NS deformability?\newline
-``one interesting plot to make would be the parameter bias (max-Likelihood
-parameters minus true parameters) vs SNR, as functionals of q/sBH/Lambda, when
-using T signals recovered with N templates.''\newline
-`` another interesting plot to make would be the fitting-factors recovered with
-a discrete (search oriented) template bank of BBH waveforms, for NSBH signals of
-loudness, deformability, spins, mass-ratios, etc. Which parameter plays the 
-dominant role in paramter regions where the bank does not suffice to recover
-the desired threshold of optimal SNR?''
-\end{enumerate}
-
-
-\prayush{Could have subsections for different frequency-optimized aLIGO noise curves ?}
-
-\hspace{5mm}
 
 
 
