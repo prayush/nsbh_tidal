@@ -1,19 +1,19 @@
-From 2d20af35add76b9a4c278dfd4b74f52e37b2521b Mon Sep 17 00:00:00 2001
+From bf7b2ea7868dedcace748b85ec6eacb28c71a7dc Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michael=20P=C3=BCrrer?= <Michael.Puerrer@ligo.org>
-Date: Mon, 25 Jan 2016 22:03:20 +0100
+Date: Wed, 3 Feb 2016 23:36:24 +0100
 Subject: [PATCH] Implement Lackey et al 2013 tidal NSBH model built on
  SEOBNRv2_ROM
 
 ---
  lalsimulation/src/LALSimIMR.h                      |   9 +-
- lalsimulation/src/LALSimIMRLackeyTidal2013.c       | 451 +++++++++++++++++++++
- lalsimulation/src/LALSimIMRLackeyTidal2013.h       |  67 +++
+ lalsimulation/src/LALSimIMRLackeyTidal2013.c       | 386 +++++++++++++++++++++
+ lalsimulation/src/LALSimIMRLackeyTidal2013.h       |  67 ++++
  .../src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c         |  20 +-
  lalsimulation/src/LALSimInspiral.c                 |  14 +
  lalsimulation/src/LALSimInspiral.h                 |   2 +
  lalsimulation/src/LALSimInspiralWaveformCache.c    |  11 +
  lalsimulation/src/Makefile.am                      |   2 +
- 8 files changed, 564 insertions(+), 12 deletions(-)
+ 8 files changed, 499 insertions(+), 12 deletions(-)
  create mode 100644 lalsimulation/src/LALSimIMRLackeyTidal2013.c
  create mode 100644 lalsimulation/src/LALSimIMRLackeyTidal2013.h
 
@@ -46,10 +46,10 @@ index cca623d..c8b8449 100644
  int XLALSimIMRPhenSpinFinalMassSpin(REAL8 *finalMass, REAL8 *finalSpin, REAL8 m1, REAL8 m2, REAL8 s1s1, REAL8 s2s2, REAL8 s1L, REAL8 s2L, REAL8 s1s2, REAL8 energy);
 diff --git a/lalsimulation/src/LALSimIMRLackeyTidal2013.c b/lalsimulation/src/LALSimIMRLackeyTidal2013.c
 new file mode 100644
-index 0000000..1c7293a
+index 0000000..6174deb
 --- /dev/null
 +++ b/lalsimulation/src/LALSimIMRLackeyTidal2013.c
-@@ -0,0 +1,451 @@
+@@ -0,0 +1,386 @@
 +/*
 + *  Copyright (C) 2016 Michael Puerrer, Prayush Kumar
 + *
@@ -118,7 +118,7 @@ index 0000000..1c7293a
 +  const double Lambda
 +) {
 +  // Coefficient in the amplitude factor, Eq 33 of Lackey et al
-+  *C = exp(b0 + b1*eta + b2*chi_BH)
++  *C = exp(b0 + b1*eta + b2*chi_BH) 
 +     + Lambda * exp(c0 + c1*eta + c2*chi_BH);
 +}
 +
@@ -210,8 +210,8 @@ index 0000000..1c7293a
 +
 +  // Beyond the phase transition frequency we evaluate the tidal phase
 +  // and its derivative at the transition frequency
-+  double psiT = tidalPNPhase(mfP, a0, a1, eta);
-+  double DpsiT= (mf - mfP) * tidalPNPhaseDeriv(mfP, a0, a1, eta);
++  double psiT = tidalPNPhase(mf, a0, a1, eta);
++  double DpsiT= (mf - mfP) * tidalPNPhaseDeriv(mf, a0, a1, eta);
 +  // Now compute the phenomenological term
 +  double E = G * pow(mf - mfP, 5./3.); // Eq 35 of Lackey et al
 +  double psiFit = eta * Lambda * E;
@@ -292,7 +292,7 @@ index 0000000..1c7293a
 +    for (UINT4 i=iStart; i<iStop; i++)
 +      freqs->data[i-iStart] = i*deltaF_geom;
 +
-+    offset = iStart;
++    offset = iStart;    
 +  }
 +  else { // unequally spaced frequency sequence
 +    freqs = XLALCreateREAL8Sequence(freqs_in->length);
@@ -316,8 +316,7 @@ index 0000000..1c7293a
 +    // Tidal corrections to be incorporated
 +    double ampC = tidalCorrectionAmplitude(Mf, C, eta, Lambda);
 +    double phsC = tidalCorrectionPhase(Mf, a0, a1, G, eta, Lambda);
-+    COMPLEX16 Corr = ampC * cexp(I*phsC);
-+    fprintf(stderr, "%g %g %g %g\n", Mf, i*deltaF, ampC, phsC);
++    COMPLEX16 Corr = ampC * cexp(-I*phsC);
 +    pdata[j] *= Corr;
 +    cdata[j] *= Corr;
 +  }
@@ -353,73 +352,9 @@ index 0000000..1c7293a
 + * @{
 + */
 +
-+// int XLALSimIMRLackeyTidal2013(
-+//   struct tagCOMPLEX16FrequencySeries **hptilde, /**< Output: Frequency-domain waveform h+ */
-+//   struct tagCOMPLEX16FrequencySeries **hctilde, /**< Output: Frequency-domain waveform hx */
-+//   REAL8 phiRef,                                 /**< Phase at reference time */
-+//   REAL8 deltaF,                                 /**< Sampling frequency (Hz) */
-+//   REAL8 fLow,                                   /**< Starting GW frequency (Hz) */
-+//   REAL8 fHigh,                                  /**< End frequency; 0 defaults to Mf=0.14 */
-+//   REAL8 fRef,                                   /**< Reference frequency (Hz); 0 defaults to fLow */
-+//   REAL8 distance,                               /**< Distance of source (m) */
-+//   REAL8 inclination,                            /**< Inclination of source (rad) */
-+//   REAL8 mBH_SI,                                 /**< Mass of black hole (kg) */
-+//   REAL8 mNS_SI,                                 /**< Mass of neutron star (kg) */
-+//   REAL8 chi_BH,                                 /**< Dimensionless aligned component spin of the BH */
-+//   REAL8 Lambda                                  /**< Dimensionless tidal deformability (Eq 1  of Lackey et al) */
-+// )
-+// {
-+//   double mBH = mBH_SI / LAL_MSUN_SI;
-+//   double mNS = mNS_SI / LAL_MSUN_SI;
-+//   double M = mBH + mNS;
-+//   double eta = mBH * mNS / (M*M);    /* Symmetric mass-ratio */
-+//   double Mtot_sec = M * LAL_MTSUN_SI; /* Total mass in seconds */
-+//   double chi_NS = 0; // NS has zero spin
-+//
-+//   // Impose sanity checks and cutoffs on mass-ratio, and BH spins
-+//   if (mBH < mNS) XLAL_ERROR(XLAL_EDOM, "mBH = %g < mNS = %g ! ", mBH, mNS);
-+//   if (eta < 6./49.) XLAL_ERROR(XLAL_EDOM, "eta = %g < 6/49!", eta);
-+//   if (chi_BH > 0.75) XLAL_ERROR(XLAL_EDOM, "BH spin = %g > 0.75!", chi_BH);
-+//   if (chi_BH < -0.75) XLAL_ERROR(XLAL_EDOM, "BH spin = %g < -0.75!", chi_BH);
-+//
-+//   // Call the high-resolution SEOBNRv2 ROM that can go to very low total mass
-+//   int ret = XLALSimIMRSEOBNRv2ROMDoubleSpinHI(
-+//     hptilde, hctilde,
-+//     phiRef, deltaF, fLow, fHigh, fRef, distance, inclination,
-+//     mBH_SI, mNS_SI,
-+//     chi_BH, chi_NS,
-+//     -1);
-+//   XLAL_CHECK(XLAL_SUCCESS == ret, ret, "XLALSimIMRSEOBNRv2ROMDoubleSpinHI() failed.");
-+//
-+//   size_t n = (*hptilde)->data->length;
-+//   COMPLEX16 *pdata=(*hptilde)->data->data;
-+//   COMPLEX16 *cdata=(*hctilde)->data->data;
-+//
-+//   // Precompute coefficients that do not depend on frequency
-+//   double C, a0, a1, G;
-+//   tidalPNAmplitudeCoefficient(&C, eta, chi_BH, Lambda);
-+//   tidalPNPhaseCoefficients(&a0, &a1, &G, eta, chi_BH, Lambda);
-+//   double dMf = deltaF * Mtot_sec;
-+//
-+//   size_t iStart = (size_t) ceil(fLow / deltaF);
-+//   for (size_t i=iStart; i < n; i++) {
-+//     double Mf = i*dMf;
-+//     // Tidal corrections to be incorporated
-+//     double ampC = tidalCorrectionAmplitude(Mf, C, eta, Lambda);
-+//     double phsC = tidalCorrectionPhase(Mf, a0, a1, G, eta, Lambda);
-+//     COMPLEX16 Corr = ampC * cexp(I*phsC);
-+//     fprintf(stderr, "%g %g %g %g\n", Mf, i*deltaF, ampC, phsC);
-+//     pdata[i] *= Corr;
-+//     cdata[i] *= Corr;
-+//   }
-+//
-+//   return XLAL_SUCCESS;
-+// }
-+
-+
 +
 +/**
-+ * Compute waveform in LAL format at specified frequencies for the Lackey et al (2013)
++ * Compute waveform in LAL format at specified frequencies for the Lackey et al (2013) 
 + * tidal model based on SEOBNRv2_ROM_DoubleSpin_HI.
 + *
 + * XLALSimIMRLackeyTidal2013() returns the plus and cross polarizations as a complex
@@ -460,7 +395,7 @@ index 0000000..1c7293a
 +}
 +
 +/**
-+ * Compute waveform in LAL format for the Lackey et al (2013) tidal model based on
++ * Compute waveform in LAL format for the Lackey et al (2013) tidal model based on 
 + * SEOBNRv2_ROM_DoubleSpin_HI.
 + *
 + * Returns the plus and cross polarizations as a complex frequency series with
