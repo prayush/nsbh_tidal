@@ -155,8 +155,13 @@ tLambda = 600.
 tw = tidalWavs(approx='SEOBNRv2_ROM_DoubleSpin_HI')
 
 # MP specify parameters directy
-M = 4.0
-et = 0.2
+q = 6.0
+mNS = 1.35
+mBH = q*mNS
+M = mNS + mBH
+print 'M', M
+et = mNS*mBH / M**2
+print 'eta', et
 s1 = 0.5
 tLambda = 600.
 
