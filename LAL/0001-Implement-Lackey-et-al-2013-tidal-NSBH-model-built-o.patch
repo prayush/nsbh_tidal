@@ -1,19 +1,19 @@
-From bf7b2ea7868dedcace748b85ec6eacb28c71a7dc Mon Sep 17 00:00:00 2001
+From 9d77d7b08cc9c0cd3c9e4bec6802d83f799e53a9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michael=20P=C3=BCrrer?= <Michael.Puerrer@ligo.org>
-Date: Wed, 3 Feb 2016 23:36:24 +0100
+Date: Tue, 9 Feb 2016 21:50:07 +0100
 Subject: [PATCH] Implement Lackey et al 2013 tidal NSBH model built on
- SEOBNRv2_ROM
+ SEOBNRv2_ROM_HI
 
 ---
  lalsimulation/src/LALSimIMR.h                      |   9 +-
- lalsimulation/src/LALSimIMRLackeyTidal2013.c       | 386 +++++++++++++++++++++
+ lalsimulation/src/LALSimIMRLackeyTidal2013.c       | 385 +++++++++++++++++++++
  lalsimulation/src/LALSimIMRLackeyTidal2013.h       |  67 ++++
  .../src/LALSimIMRSEOBNRv2ROMDoubleSpinHI.c         |  20 +-
  lalsimulation/src/LALSimInspiral.c                 |  14 +
  lalsimulation/src/LALSimInspiral.h                 |   2 +
  lalsimulation/src/LALSimInspiralWaveformCache.c    |  11 +
  lalsimulation/src/Makefile.am                      |   2 +
- 8 files changed, 499 insertions(+), 12 deletions(-)
+ 8 files changed, 498 insertions(+), 12 deletions(-)
  create mode 100644 lalsimulation/src/LALSimIMRLackeyTidal2013.c
  create mode 100644 lalsimulation/src/LALSimIMRLackeyTidal2013.h
 
@@ -46,10 +46,10 @@ index cca623d..c8b8449 100644
  int XLALSimIMRPhenSpinFinalMassSpin(REAL8 *finalMass, REAL8 *finalSpin, REAL8 m1, REAL8 m2, REAL8 s1s1, REAL8 s2s2, REAL8 s1L, REAL8 s2L, REAL8 s1s2, REAL8 energy);
 diff --git a/lalsimulation/src/LALSimIMRLackeyTidal2013.c b/lalsimulation/src/LALSimIMRLackeyTidal2013.c
 new file mode 100644
-index 0000000..6174deb
+index 0000000..c5808ab
 --- /dev/null
 +++ b/lalsimulation/src/LALSimIMRLackeyTidal2013.c
-@@ -0,0 +1,386 @@
+@@ -0,0 +1,385 @@
 +/*
 + *  Copyright (C) 2016 Michael Puerrer, Prayush Kumar
 + *
@@ -118,7 +118,7 @@ index 0000000..6174deb
 +  const double Lambda
 +) {
 +  // Coefficient in the amplitude factor, Eq 33 of Lackey et al
-+  *C = exp(b0 + b1*eta + b2*chi_BH) 
++  *C = exp(b0 + b1*eta + b2*chi_BH)
 +     + Lambda * exp(c0 + c1*eta + c2*chi_BH);
 +}
 +
@@ -292,7 +292,7 @@ index 0000000..6174deb
 +    for (UINT4 i=iStart; i<iStop; i++)
 +      freqs->data[i-iStart] = i*deltaF_geom;
 +
-+    offset = iStart;    
++    offset = iStart;
 +  }
 +  else { // unequally spaced frequency sequence
 +    freqs = XLALCreateREAL8Sequence(freqs_in->length);
@@ -354,7 +354,7 @@ index 0000000..6174deb
 +
 +
 +/**
-+ * Compute waveform in LAL format at specified frequencies for the Lackey et al (2013) 
++ * Compute waveform in LAL format at specified frequencies for the Lackey et al (2013)
 + * tidal model based on SEOBNRv2_ROM_DoubleSpin_HI.
 + *
 + * XLALSimIMRLackeyTidal2013() returns the plus and cross polarizations as a complex
@@ -395,7 +395,7 @@ index 0000000..6174deb
 +}
 +
 +/**
-+ * Compute waveform in LAL format for the Lackey et al (2013) tidal model based on 
++ * Compute waveform in LAL format for the Lackey et al (2013) tidal model based on
 + * SEOBNRv2_ROM_DoubleSpin_HI.
 + *
 + * Returns the plus and cross polarizations as a complex frequency series with
@@ -434,7 +434,6 @@ index 0000000..6174deb
 +
 +/** @} */
 +/** @} */
-+
 +
 diff --git a/lalsimulation/src/LALSimIMRLackeyTidal2013.h b/lalsimulation/src/LALSimIMRLackeyTidal2013.h
 new file mode 100644
@@ -680,18 +679,18 @@ index 7fda90f..a3d8d36 100644
              spin1[0]=S1x; spin1[1]=S1y; spin1[2]=S1z;
              spin2[0]=S2x; spin2[1]=S2y; spin2[2]=S2z;
 diff --git a/lalsimulation/src/Makefile.am b/lalsimulation/src/Makefile.am
-index 70d600b..0676b7a 100644
+index a0eaef2..9935ad3 100644
 --- a/lalsimulation/src/Makefile.am
 +++ b/lalsimulation/src/Makefile.am
-@@ -109,6 +109,7 @@ noinst_HEADERS = \
- 	LALSimIMRPhenomP.h \
- 	LALSimIMRSEOBNRROMUtilities.c \
- 	LALSimIMREOBNRv2HMROMUtilities.c \
+@@ -100,6 +100,7 @@ noinst_HEADERS = \
+ 	LALSimIMRSpinAlignedEOBHcapDerivativeOptimized.c \
+ 	LALSimIMRSpinEOB.h \
+ 	LALSimIMRSpinEOBAuxFuncs.c \
 +	LALSimIMRLackeyTidal2013.h \
- 	LALSimBlackHoleRingdownPrec.c \
- 	LALSimBlackHoleRingdownPrec.h \
- 	LALSimIMRSpinEOBFactorizedWaveformPrec.c \
-@@ -135,6 +136,7 @@ liblalsimulation_la_SOURCES = \
+ 	LALSimIMRSpinEOBAuxFuncsPrec.c \
+ 	LALSimIMRSpinEOBComputeAmpPhasefromEOMSoln.c \
+ 	LALSimIMRSpinEOBFactorizedFlux.c \
+@@ -136,6 +137,7 @@ liblalsimulation_la_SOURCES = \
  	LALSimIMRSEOBNRv2ROMDoubleSpinHI.c \
  	LALSimIMRSEOBNRv2ChirpTime.c \
  	LALSimIMREOBNRv2HMROM.c \
