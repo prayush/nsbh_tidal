@@ -305,11 +305,11 @@ sBH = np.random.uniform(0.0, 0.7, n)
 tLambda = np.random.uniform(0.0, 3000, n)
 
 
-# from multiprocessing import Pool
-# p = Pool(4)
-# data = p.map(mismatch_LAL_Python, ((M[i],eta[i],sBH[i],tLambda[i]) for i in np.arange(len(M))))
-# print data
-# np.savetxt('matches.dat', np.array([M, eta, sBH, tLambda, data]).T)
+from multiprocessing import Pool
+p = Pool(4)
+data = p.map(mismatch_LAL_Python, ((M[i],eta[i],sBH[i],tLambda[i]) for i in np.arange(len(M))))
+print data
+np.savetxt('matches.dat', np.array([M, eta, sBH, tLambda, data]).T)
 
 # check case with ~ 0.008% mismatch
 M = 9.2314523641097139
