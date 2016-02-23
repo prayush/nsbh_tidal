@@ -27,6 +27,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\mbh}{m_\mathrm{BH}}
 \newcommand{\mns}{m_\mathrm{NS}}
 \newcommand{\mchirp}{\mathcal{M}_c}
+\newcommand{\LL}{\mathcal{L}}
 
 \newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
     California Institute of Technology, Pasadena, CA 91125, USA}}
@@ -223,7 +224,16 @@ Describe the PN terms used here
 Describe the Lackey et al model
 
 \subsection{MCMC methods}
-Describe the emcee-based PE code
+% % Describe the emcee-based PE code
+
+The monte carlo algorithm samples the parameter space in proportion with 
+the likelihood $\LL(\vec{\theta}) = p(d|\vec{\theta})$, with a 
+uniform prior in parameters $p(\vec{\theta}) = \Theta(\vec{\theta}-\vec{\theta}_L) + \Theta(\vec{\theta}_H-\vec{\theta})$
+\begin{equation}
+ p(\vec{\theta}|d) = p(d|\vec{\theta}) p(\vec{\theta})
+\end{equation}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{How are detection searches affected by not including NS matter effects}
