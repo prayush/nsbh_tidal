@@ -9,9 +9,9 @@ L(s, theta) = exp(+(rho*match(s,h(theta)))^2/2)
 where rho is the desired snr.
 """
 
-__author__ = "Michael Puerrer"
+__author__ = "Michael Puerrer, Prayush Kumar"
 __copyright__ = "Copyright 2015"
-__email__ = "Michael.Puerrer@ligo.org"
+__email__ = "Michael.Puerrer@ligo.org, prkumar@cita.utoronto.ca"
 
 import lal, lalsimulation
 import numpy as np
@@ -75,6 +75,8 @@ parser.add_option("-s", "--snr", dest="SNR", type="float",
                   help="Signal SNR.", metavar="SNR")
 parser.add_option("-r", "--burnin", dest="burnin", type="int",
                   help="How many samples to discard at the beginning of each chain.", metavar="burnin")
+parser.add_option("--burnend", dest="burnend", type="int",
+                  help="How many samples to discard at the end of each chain.", metavar="burnend")
 parser.add_option("-S", "--signal_approximant", dest="signal_approximant", type="string",
                   help="Which approximant to use as a signal.", metavar="signal_approximant")
 parser.add_option("-T", "--template_approximant", dest="template_approximant", type="string",
@@ -116,7 +118,7 @@ parser.add_option("-Y", "--Lambda_stdev_init", dest="Lambda_stdev_init", type="f
 
 parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0, 
   chi2_signal=0.0, f_min=10, f_max=2048, deltaF=0.5, 
-  m1_min=6.0, m1_max=100.0, m2_min=6.0, m2_max=300.0, Mtot_max=500.0, SNR=15, burnin=250, eta_min=0.01,
+  m1_min=6.0, m1_max=100.0, m2_min=6.0, m2_max=300.0, Mtot_max=500.0, SNR=15, burnin=250, burnend=0, eta_min=0.01,
   signal_approximant='lalsimulation.SEOBNRv2_ROM_DoubleSpin', 
   template_approximant='lalsimulation.SEOBNRv2_ROM_DoubleSpin',
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
@@ -165,6 +167,7 @@ if options.M_signal < options.m1_min + options.m2_min or options.M_signal > opti
 nsamples = options.nsamples
 nwalkers = options.nwalkers
 burnin = options.burnin 
+burnend= options.burnend
 
 q_true = options.q_signal
 M_true = options.M_signal
@@ -657,12 +660,12 @@ pl.close(fig)
 
 # now use all good samples after burn-in
 # be careful to combine the matches and samples correctly
-samples_ok = chain[:, burnin:, :]
-loglike_ok = loglike[burnin:,:] # this is log posterior pdf, but can get get back match modulo prior
+samples_ok = chain[:, burnin:-1*(burnend+1), :]
+loglike_ok = loglike[burnin:-1*(burnend+1),:] # this is log posterior pdf, but can get get back match modulo prior
 matches_ok = np.sqrt(2*loglike_ok)/SNR
-#sel = np.isfinite(loglike_ok)  # could put something more stringent here!
-sel = np.isfinite(loglike_ok) & (matches_ok > 0.9)
-print 'Keeping %d of %d samples' %(len(samples_ok[:,:,0].T[sel]), len(samples_ok[:,:,0].T.flatten()))
+sel = np.isfinite(loglike_ok) & np.invert(np.isnan(loglike_ok)) # could put something more stringent here! FIXME
+#sel = np.isfinite(loglike_ok) & (matches_ok > 0.9)
+print 'Keeping %d of %d (total %d) samples' %(len(samples_ok[:,:,0].T[sel]), len(samples_ok[:,:,0].T.flatten()), len(chain[:,:,0].T.flatten()))
 etaval = samples_ok[:,:,0].T[sel]
 Mcval = samples_ok[:,:,1].T[sel]
 chi2val = samples_ok[:,:,2].T[sel]
@@ -673,6 +676,12 @@ Mval = Mfun(Mcval,etaval)
 m1val = m1fun(Mval,qval)
 m2val = m2fun(Mval,qval)
 chieffval = (m1val*0 + m2val*chi2val) / Mval # NS spin = 0
+# FIXME
+sel = np.isfinite(qval) & np.isfinite(Mval) & np.isfinite(m1val) & np.isfinite(m2val) & np.isfinite(chieffval)
+qval, Mval, m1val, m2val, chieffval = qval[sel], Mval[sel], m1val[sel], m2val[sel], chieffval[sel]
+etaval, Mcval, Lambdaval, chi2val = etaval[sel], Mcval[sel], Lambdaval[sel], chi2val[sel]
+loglikeval = loglikeval[sel]
+
 
 # if not post_process:
 #   # Thin samples by auto-correlation time
@@ -683,6 +692,59 @@ chieffval = (m1val*0 + m2val*chi2val) / Mval # NS spin = 0
 
 m1_true = m1fun(M_true, q_true)
 m2_true = m2fun(M_true, q_true)
+
+print "Generating PDF plots ..."
+plt.figure(int(np.random.random()*1e7))
+plt.subplot(2,2,1)
+plt.hist(Mcval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('mchirp')
+
+plt.subplot(2,2,2)
+plt.hist(etaval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('eta')
+
+plt.subplot(2,2,3)
+plt.hist(Lambdaval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('Lambda')
+
+plt.subplot(2,2,4)
+plt.hist(chi2val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('chi2')
+plt.savefig('PDFSamplingParameters.png')
+
+plt.figure(int(np.random.random()*1e7))
+plt.subplot(2,2,1)
+plt.hist(m1val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('m1')
+
+plt.subplot(2,2,2)
+plt.hist(m2val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('m2')
+
+plt.subplot(2,2,3)
+plt.hist(qval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('q')
+
+plt.subplot(2,2,4)
+plt.hist(chieffval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('chi effective')
+plt.savefig('PDFNonSampledParameters.png')
 
 print "Generating triangle plots ..."
 quantiles_68 = [0.16, 0.5, 0.84] # 1-sigma
@@ -771,7 +833,11 @@ print "Keeping samples with match >", match_safe, " for scatter plot."
 mask = matches > match_safe
 
 print "Generating scatter plot of match ..."
-make_scatter_plot_for_match(etaval[mask], Mcval[mask], chi2val[mask], Lambdaval[mask], matches[mask], "scatter_match.png")
-make_scatter_plot_for_match(etaval, Mcval, chi2val, Lambdaval, matches, "scatter_match_all.png")
+# FIXME
+try:
+  del chain, loglike, m1val, m2val, loglike_ok, samples_ok
+  make_scatter_plot_for_match(etaval[mask], Mcval[mask], chi2val[mask], Lambdaval[mask], matches[mask], "scatter_match.png")
+  make_scatter_plot_for_match(etaval, Mcval, chi2val, Lambdaval, matches, "scatter_match_all.png")
+except: pass
 
 print "All Done."

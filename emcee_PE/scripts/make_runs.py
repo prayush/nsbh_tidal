@@ -235,7 +235,7 @@ simstring = sigstring + tmpstring + '_'
 PWD = cmd.getoutput('pwd')
 filename = 'run.sub'
 Nwalkers = [100]
-Nsamples = [150000]
+Nsamples = [2000]
 Nburnin  = 500
 postprocess_only = False
 
