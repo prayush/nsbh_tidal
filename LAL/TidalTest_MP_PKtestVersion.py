@@ -2,6 +2,10 @@
 
 import os
 import sys
+sys.path.append('../emcee_PE/src/')
+from TidalWaveforms import tidalWavs
+print "Imported tidalWavs from ", tidalWavs.__module__
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -13,7 +17,7 @@ import pycbc.psd as ppsd
 from pycbc.filter import match
 
 
-class tidalWavs():
+class local_tidalWavs():
     #{{{
     def __init__(self, approx='IMRPhenomC', verbose=True):
         self.verbose = verbose
