@@ -1,6 +1,6 @@
-From 9d77d7b08cc9c0cd3c9e4bec6802d83f799e53a9 Mon Sep 17 00:00:00 2001
+From ba0bf3566cf67cd748d84cc3a09aee4b4a6013da Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michael=20P=C3=BCrrer?= <Michael.Puerrer@ligo.org>
-Date: Tue, 9 Feb 2016 21:50:07 +0100
+Date: Tue, 23 Feb 2016 09:56:54 +0100
 Subject: [PATCH] Implement Lackey et al 2013 tidal NSBH model built on
  SEOBNRv2_ROM_HI
 
@@ -46,7 +46,7 @@ index cca623d..c8b8449 100644
  int XLALSimIMRPhenSpinFinalMassSpin(REAL8 *finalMass, REAL8 *finalSpin, REAL8 m1, REAL8 m2, REAL8 s1s1, REAL8 s2s2, REAL8 s1L, REAL8 s2L, REAL8 s1s2, REAL8 energy);
 diff --git a/lalsimulation/src/LALSimIMRLackeyTidal2013.c b/lalsimulation/src/LALSimIMRLackeyTidal2013.c
 new file mode 100644
-index 0000000..c5808ab
+index 0000000..e2e6104
 --- /dev/null
 +++ b/lalsimulation/src/LALSimIMRLackeyTidal2013.c
 @@ -0,0 +1,385 @@
@@ -123,19 +123,19 @@ index 0000000..c5808ab
 +}
 +
 +static double tidalCorrectionAmplitude(
-+  const double mf,
++  const double Mf,
 +  const double C,
 +  const double eta,
 +  const double Lambda
 +) {
-+  const double mfA = 0.01; // amplitude transition frequency
-+  if (mf <= mfA)
++  const double MfA = 0.01; // amplitude transition frequency
++  if (Mf <= MfA)
 +    return 1.0;
 +  else {
 +    // Generate the amplitude factor, Eq 33 of Lackey et al
-+    double dmf = mf - mfA;
-+    double dmf2 = dmf*dmf;
-+    double B = C * dmf*dmf2;
++    double dMf = Mf - MfA;
++    double dMf2 = dMf*dMf;
++    double B = C * dMf*dMf2;
 +    return exp(-eta * Lambda * B);
 +  }
 +}
@@ -165,14 +165,14 @@ index 0000000..c5808ab
 +}
 +
 +static double tidalPNPhase(
-+  const double mf,
++  const double Mf,
 +  const double a0,
 +  const double a1,
 +  const double eta
 +) {
 +  // First compute the PN inspiral phasing correction
 +  // see Eq. 7,8 of Lackey et al
-+  double v = cbrt(LAL_PI * mf);
++  double v = cbrt(LAL_PI * Mf);
 +  double v2 = v*v;
 +  double v5 = v2*v2*v;
 +  double v7 = v5*v2;
@@ -180,14 +180,14 @@ index 0000000..c5808ab
 +}
 +
 +static double tidalPNPhaseDeriv(
-+  const double mf,
++  const double Mf,
 +  const double a0,
 +  const double a1,
 +  const double eta
 +) {
 +  // First compute the PN inspiral phasing correction
 +  // see Eq. 7,8 of Lackey et al
-+  double v = cbrt(LAL_PI * mf);
++  double v = cbrt(LAL_PI * Mf);
 +  double v2 = v*v;
 +  double v4 = v2*v2;
 +  return LAL_PI * (5.*a0*v2 + 7.*a1*v4) / (128.*eta);
@@ -195,7 +195,7 @@ index 0000000..c5808ab
 +
 +// Implements Eq. 34 of Lackey et al
 +static double tidalCorrectionPhase(
-+  const double mf,
++  const double Mf,
 +  const double a0,
 +  const double a1,
 +  const double G,
@@ -203,17 +203,17 @@ index 0000000..c5808ab
 +  const double Lambda
 +)
 +{
-+  const double mfP = 0.02; // phase transition frequency
++  const double MfP = 0.02; // phase transition frequency
 +
-+  if (mf <= mfP)
-+    return tidalPNPhase(mf, a0, a1, eta);
++  if (Mf <= MfP)
++    return tidalPNPhase(Mf, a0, a1, eta);
 +
 +  // Beyond the phase transition frequency we evaluate the tidal phase
 +  // and its derivative at the transition frequency
-+  double psiT = tidalPNPhase(mf, a0, a1, eta);
-+  double DpsiT= (mf - mfP) * tidalPNPhaseDeriv(mf, a0, a1, eta);
++  double psiT = tidalPNPhase(MfP, a0, a1, eta);
++  double DpsiT= (Mf - MfP) * tidalPNPhaseDeriv(MfP, a0, a1, eta);
 +  // Now compute the phenomenological term
-+  double E = G * pow(mf - mfP, 5./3.); // Eq 35 of Lackey et al
++  double E = G * pow(Mf - MfP, 5./3.); // Eq 35 of Lackey et al
 +  double psiFit = eta * Lambda * E;
 +  return psiT + DpsiT - psiFit; // Eq 34 of Lackey et al
 +}
