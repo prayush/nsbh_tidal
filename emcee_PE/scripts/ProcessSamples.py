@@ -183,7 +183,7 @@ def calculate_bias(\
     for idx in range(len(confidence_levels)):
       summary_data[idx,0] = confidence_levels[idx] / 100.
       summary_data[idx,1] = np.max( match['samples']['match'] ) 
-   match['samples'][param][np.where(match['samples']['match'] == np.max(match['samples']['match']))[0][0]]
+    
     idx = 2
     for param in parameters:
       # get the posterior samples

@@ -76,6 +76,8 @@ parser.add_option("-s", "--snr", dest="SNR", type="float",
                   help="Signal SNR.", metavar="SNR")
 parser.add_option("-r", "--burnin", dest="burnin", type="int",
                   help="How many samples to discard at the beginning of each chain.", metavar="burnin")
+parser.add_option("-r", "--burnend", dest="burnend", type="int",
+                  help="How many samples to discard at the end of each chain.", metavar="burnend")
 parser.add_option("-S", "--signal_approximant", dest="signal_approximant", type="string",
                   help="Which approximant to use as a signal.", metavar="signal_approximant")
 parser.add_option("-T", "--template_approximant", dest="template_approximant", type="string",
@@ -109,6 +111,7 @@ parser.add_option("--auto-resume", dest="auto_resume", action="store_false", \
             help="Restart the chain that has collected maximum steps",\
             metavar="auto_resume")
 parser.add_option("--verbose", action="store_true", default=False)
+parser.add_option("--debug", action="store_true", default=False)
 
 # Additional options for tidal corection waveforms
 parser.add_option("", "--inject-tidal", dest="inject_tidal", action="store_true",
@@ -120,7 +123,7 @@ parser.add_option("-L", "--Lambda_signal", dest="Lambda_signal", type="float",
 
 parser.set_defaults(nsamples=1000, nwalkers=100, q_signal=4.0, M_signal=100.0, 
   chi1_signal=0.0, chi2_signal=0.0, f_min=10, f_max=2048, deltaF=0.5, 
-  m1_min=6.0, m1_max=100.0, m2_min=6.0, m2_max=300.0, Mtot_max=500.0, SNR=15, burnin=250, eta_min=0.01,
+  m1_min=6.0, m1_max=100.0, m2_min=6.0, m2_max=300.0, Mtot_max=500.0, SNR=15, burnin=250, burnend=0, eta_min=0.01,
   signal_approximant='lalsimulation.SEOBNRv2_ROM_DoubleSpin', 
   template_approximant='lalsimulation.SEOBNRv2_ROM_DoubleSpin',
   lalsim_psd='lalsimulation.SimNoisePSDaLIGOZeroDetHighPower',
@@ -170,6 +173,7 @@ if options.M_signal < options.m1_min + options.m2_min or options.M_signal > opti
 nsamples = options.nsamples
 nwalkers = options.nwalkers
 burnin = options.burnin 
+burnend= options.burnend
 
 q_true = options.q_signal
 M_true = options.M_signal
@@ -325,6 +329,7 @@ print "chi1 = ", chi1_true
 print "chi2 = ", chi2_true
 print "f_min: {0:g} f_max: {1:g} deltaF: {2:g}\n".format(f_min, f_max, deltaF)
 print "Prior:\n [m1_min, m1_max] = [{0}, {1}], [m2_min, m2_max] = [{2}, {3}]".format(m1_min, m1_max, m2_min, m2_max)
+print "Prior:\n [eta_min, eta_max] = [{0}, {1}], [chi1_min, chi1_max] = [{2}, {3}], [chi1_min, chi1_max] = [{4}, {5}], Mtot_max = {6}".format(eta_min, eta_max, chi1_min, chi1_max, chi2_min, chi2_max, options.Mtot_max)
 print "Signal snr: ", SNR
 print "Using {0} as signal and {1} as templates.".format(options.signal_approximant, options.template_approximant)
 print "Using PSD ", options.lalsim_psd
@@ -346,6 +351,11 @@ def lnprior(theta):
   M = Mfun(Mc, eta)
   m1 = M*1.0/(1.0+q)
   m2 = M*q/(1.0+q)
+  #
+  if options.debug:
+    print "In LNPRIOR: [eta, Mc, chi1, chi2] = ", theta, " eta_min = %.2f, m1_max = %.2f, m2_max = %.2f" % (eta_min, m1_max, m2_max)
+    print "In LNPRIOR  [q, M, m1, m2] = ", [q, M, m1, m2], " m1 in [%.2f, %.2f], m2 in [%.2f, %.2f], chi1 in [%.2f, %.2f], chi2 in [%.2f, %.2f]" % (m1_min, m1_max, m2_min, m2_max, chi1_min, chi1_max, chi2_min, chi2_max)
+  #
   if m1 < m1_min or m1 > m1_max:
     return -np.inf
   if m2 < m2_min or m2 > m2_max:
@@ -378,6 +388,11 @@ def lnlikeMatch(theta, s):
   M = Mfun(Mc, eta)
   m1 = M*1.0/(1.0+q)
   m2 = M*q/(1.0+q)
+  #
+  if options.debug:
+    print "In LNlikeMATCH: [eta, Mc, chi1, chi2] = ", theta, " eta_min = %.2f, m1_max = %.2f, m2_max = %.2f" % (eta_min, m1_max, m2_max)
+    print "In LNPRIOR:  [q, M, m1, m2] = ", [q, M, m1, m2], " m1 in [%.2f, %.2f], m2 in [%.2f, %.2f], chi1 in [%.2f, %.2f], chi2 in [%.2f, %.2f]" % (m1_min, m1_max, m2_min, m2_max, chi1_min, chi1_max, chi2_min, chi2_max)
+  #
   m1_SI = m1*lal.MSUN_SI
   m2_SI = m2*lal.MSUN_SI
   # print M, q, chi1, chi2
@@ -403,9 +418,15 @@ def lnlikeMatch(theta, s):
 
 def lnprobMatch(theta, s):
   lp = lnprior(theta)
+  if options.debug:
+    print "\n\nIn LNPROBMatch: Log(Prior) for theta = ", theta, " is ", lp
   if not np.isfinite(lp):
     return -np.inf
-  return lp + lnlikeMatch(theta, s)
+  post = lp + lnlikeMatch(theta, s)
+  if options.debug:
+    print "\n\nIn LNPROBMatch: Log(Post) for theta = ", theta, " is ", post
+  #return lp + lnlikeMatch(theta, s)
+  return post
 
 
 # MismatchThreshold[nu_, P_, SNR_] := Quantile[ChiSquareDistribution[nu], P]/(2 SNR^2)
@@ -452,7 +473,7 @@ if not post_process:
       ## p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
       #
       # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
-      k = min(50, len(loglike[:,0]))
+      k = min(50000, len(loglike[:,0]))
       print "Using good samples from last %d iterations" %(k)
       match_cut = 1 - CR_99p9pc_threshold
       loglike_ok = loglike[-k:] # use samples from last k iterations
@@ -531,7 +552,7 @@ if not post_process:
     # p0=chain[:,-1,:] # very simplistic: Set initial walkers up from last sample
     
     # use all good samples from last 50 iterations and extract as many as we need to restart (nwalkers)
-    k = min(50, len(loglike[:,0]))
+    k = min(5000, len(loglike[:,0]))
     print "Using good samples from last %d iterations" %(k)
     match_cut = 1 - CR_99p9pc_threshold
     loglike_ok = loglike[-k:] # use samples from last k iterations
@@ -600,7 +621,7 @@ if not post_process:
   else:
     a_exp = max(sampler.acor)
   # a_int = np.max([emcee.autocorr.integrated_time(sampler.chain[i]) for i in range(len(sampler.chain))], 0)
-  # print('A reasonable burn-in should be around {:d} steps'.format(int(10*a_exp)))
+  print('A reasonable burn-in should be around {:d} steps'.format(int(10*a_exp)))
   try:
     tmpf = open('autocorr.dat','a')
     tmpf.write('After burn-in, each chain produces one independent sample per {:g} steps\n'.format(a_exp))
@@ -677,11 +698,11 @@ pl.close(fig)
 
 # now use all good samples after burn-in
 # be careful to combine the matches and samples correctly
-samples_ok = chain[:, burnin:, :]
-loglike_ok = loglike[burnin:,:] # this is log posterior pdf, but can get get back match modulo prior
+samples_ok = chain[:, burnin:-1*(burnend+1), :]
+loglike_ok = loglike[burnin:-1*(burnend+1),:] # this is log posterior pdf, but can get get back match modulo prior
 matches_ok = np.sqrt(2*loglike_ok)/SNR
-#sel = np.isfinite(loglike_ok)  # could put something more stringent here!
-sel = np.isfinite(loglike_ok) & (matches_ok > 0.9)
+sel = np.isfinite(loglike_ok)  # could put something more stringent here! FIXME
+#sel = np.isfinite(loglike_ok) & (matches_ok > 0.9)
 print 'Keeping %d of %d samples' %(len(samples_ok[:,:,0].T[sel]), len(samples_ok[:,:,0].T.flatten()))
 etaval = samples_ok[:,:,0].T[sel]
 Mcval = samples_ok[:,:,1].T[sel]
@@ -693,6 +714,11 @@ Mval = Mfun(Mcval,etaval)
 m1val = m1fun(Mval,qval)
 m2val = m2fun(Mval,qval)
 chieffval = (m1val*chi1val + m2val*chi2val) / Mval
+# FIXME
+sel = np.isfinite(qval) & np.isfinite(Mval) & np.isfinite(m1val) & np.isfinite(m2val) & np.isfinite(chieffval)
+qval, Mval, m1val, m2val, chieffval = qval[sel], Mval[sel], m1val[sel], m2val[sel], chieffval[sel]
+etaval, Mcval, chi1val, chi2val = etaval[sel], Mcval[sel], chi1val[sel], chi2val[sel]
+loglikeval = loglikeval[sel]
 
 # if not post_process:
 #   # Thin samples by auto-correlation time
@@ -703,6 +729,59 @@ chieffval = (m1val*chi1val + m2val*chi2val) / Mval
 
 m1_true = m1fun(M_true, q_true)
 m2_true = m2fun(M_true, q_true)
+
+print "Generating PDF plots ..."
+plt.figure(int(np.random.random()*1e7))
+plt.subplot(2,2,1)
+plt.hist(Mcval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('mchirp')
+
+plt.subplot(2,2,2)
+plt.hist(etaval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('eta')
+
+plt.subplot(2,2,3)
+plt.hist(chi1val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('chi1')
+
+plt.subplot(2,2,4)
+plt.hist(chi2val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('chi2')
+plt.savefig('PDFSamplingParameters.png')
+
+plt.figure(int(np.random.random()*1e7))
+plt.subplot(2,2,1)
+plt.hist(m1val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('m1')
+
+plt.subplot(2,2,2)
+plt.hist(m2val, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('m2')
+
+plt.subplot(2,2,3)
+plt.hist(qval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('q')
+
+plt.subplot(2,2,4)
+plt.hist(chieffval, bins=50, alpha=0.6)
+plt.gca().set_yscale('log')
+plt.grid()
+plt.xlabel('chi effective')
+plt.savefig('PDFNonSampledParameters.png')
 
 print "Generating triangle plots ..."
 quantiles_68 = [0.16, 0.5, 0.84] # 1-sigma
@@ -719,7 +798,7 @@ try:
 except: pass
 
 samples_combined2 = np.array([etaval, Mcval, chi1val, chi2val]).T
-fig = corner.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_1$", "$\chi_2$"], truths=[eta_true, Mc_true, chi1_true, chi2_true], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
+fig = corner.corner(samples_combined2, labels=["$\eta$", "$\mathcal{M}$", "$\chi_1$", "$\chi_2$"], truths=[eta_true, Mc_true, chi1_true, chi2_true], range=[0.9999, 0.9999, 0.9999, 0.9999], quantiles=quantiles, show_titles=True, title_args={"fontsize": 12}, verbose=True, plot_contours=True, plot_datapoints=True)
 fig.savefig("corner_eta_Mc_chi1_chi2.png")
 pl.close(fig)
 
@@ -830,7 +909,11 @@ print "Keeping samples with match >", match_safe
 mask = matches > match_safe
 
 print "Generating scatter plot of match ..."
-make_scatter_plot_for_match(etaval[mask], Mcval[mask], chi1val[mask], chi2val[mask], matches[mask], "scatter_match.png")
-make_scatter_plot_for_match(etaval, Mcval, chi1val, chi2val, matches, "scatter_match_all.png")
+# FIXME
+try:
+  del chain, loglike, m1val, m2val, loglike_ok, samples_ok
+  make_scatter_plot_for_match(etaval[mask], Mcval[mask], chi1val[mask], chi2val[mask], matches[mask], "scatter_match.png")
+  make_scatter_plot_for_match(etaval, Mcval, chi1val, chi2val, matches, "scatter_match_all.png")
+except: pass
 
 print "All Done."
