@@ -377,7 +377,7 @@ for qq in q_range:
   fout.write('%.12e\t%.12e\n' % (qq, m))
   fout.flush()
   matches.append(m)
-  print " .. match = ", m
+  print " .. match = %.12f" % m
       
 fout.close()
 
@@ -387,4 +387,5 @@ semilogy(q_range[:len(mismatchQvary)], mismatchQvary, 'k-o')
 xlabel('MASS-RATIO =m1/m2 (m2=1.35 fixed)')
 ylabel('1 - OVERLAP')
 grid()
+savefig('plot.png')
 ###########################################################
