@@ -358,7 +358,7 @@ def lnprior(theta):
     return -np.inf
   
   # Additional priors to avoid calling tidal model outside of region of validity
-  if eta < 6./49.:
+  if eta < 6./49. or eta > 2.01 / 3.01**2:
     return -np.inf
   if chi2 > 0.75 or chi2 < -0.75:
     return -np.inf
