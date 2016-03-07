@@ -7,6 +7,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{amssymb}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{placeins}
 
 \newcommand{\roughly}{\mathchar"5218\relax} % Different from \sim in spacing
 
@@ -21,6 +22,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 
 % Macros for text notes and comments
 \newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
+\newcommand{\D}{\mathrm{d}}
 \newcommand{\lambdans}{\Lambda_\mathrm{NS}}
 \newcommand{\chibh}{\chi_\mathrm{BH}}
 \newcommand{\chins}{\chi_\mathrm{NS}}
@@ -28,6 +30,8 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\mns}{m_\mathrm{NS}}
 \newcommand{\mchirp}{\mathcal{M}_c}
 \newcommand{\LL}{\mathcal{L}}
+\newcommand{\deff}{D_\mathrm{eff}}
+
 
 \newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
     California Institute of Technology, Pasadena, CA 91125, USA}}
@@ -223,7 +227,7 @@ Describe the PN terms used here
 \subsection{Modeling tidal disruption near merger}
 Describe the Lackey et al model
 
-\subsection{MCMC methods}
+\subsection{Bayesian methods}
 % % Describe the emcee-based PE code
 
 The monte carlo algorithm samples the parameter space in proportion with 
@@ -530,18 +534,163 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 
 
 
+\pagebreak
+\newpage
+\FloatBarrier
+\section{Combining observations: looking forward with Advanced LIGO}\label{s1:multiple_observations}
+% 
+% 
+\subsection{Multiple identical sources at low SNR}\label{s2:identical_multiple}
+% 
+% 
+Here we show a crude calculation which tells us that approximately $8$ (or $16$) observations
+of NSBH signals with $\rho\geq 10$ distributed uniformly in effective volume, would
+give us similarly accurate a measurement of $\lambdans$ as would a single detection
+with $\rho=50$ (or $\rho=70$). 
 
 
+We want to distribute signals in effective distance $\deff$, which is a combination of 
+luminosity distance, inclination angle of the binary's orbital angular momentum
+with respect to the detector, and its various sky angles. The signal strength 
+scales inversely with $\deff$, if it comprises only of the dominant $(2,2)$ mode, allowing
+for various angle-dependent factors to scale out beside the luminosity distance.
+% 
+In order to consider multiple events, lets imagine a population uniformly distributed
+in effective volume, i.e. within a sphere of radius $\deff^\mathrm{max}$. The 
+radius of this sphere is set by the lowest SNR that is distinguishable from noise
+by LIGO searches. Now, dividie the sphere into $I$ shells of equal width. The radius
+of the $i$-th sphere would then be $D_i = \deff^\mathrm{max} (i - 1/2)/I$. The 
+measurement uncertainty in $\lambdans$ scales inversely with the SNR, and hence
+directly with the effective distance to the source. Therefore, if we have a 
+measurement error $\sigma_0$ for a source located at $\deff = D_0$, the same error
+for the same source located within the $i$-th shell would be 
+$$
+\sigma_i = \sigma_0 \frac{D_i}{D_0}.
+$$
+Independent measurements of $\lambdans$ for identical sources at different distances
+would have their combined error given by
+\begin{equation}\label{eq:1oversigma}
+\frac{1}{\sigma^2} = \sum_{i=1}^I \frac{N_i}{\sigma_i^2} = \left(\frac{D_0}{\sigma_0}\right)^2 \sum_{i=1}^I\frac{N_i}{D_i^2},
+\end{equation}
+where $N_i$ is the number of sources detected in the $i$-th shell, and is a random
+variable, with its probability proportional to the volume of the shell, i.e.
+$$
+p(N_i) \propto \frac{V_i}{V_\mathrm{total}} \propto \dfrac{\left(\deff^\mathrm{max} \frac{i}{I}\right)^3 - \left(\deff^\mathrm{max} \frac{i-1}{I}\right)^3}{(\deff^\mathrm{max})^3} \propto \frac{1}{I^3} [i^3 - (i-1)^3].
+$$
+Therefore, the expected number of detections in the $i$-th shell would be
+$$
+\langle N_i\rangle = \frac{N}{I^3} [i^3 - (i-1)^3],
+$$
+where $N=\sum_{i=1}^I N_i$ is the total number of NSBH detections. $N$ is expected
+to be Poisson distributed around the mean detection rate
+$\mathcal{R}\equiv\langle N\rangle$. Let us assume that we have $\mathcal{R}_d$ detections
+per year per unit effective volume, where $\mathcal{R}_d$ can vary from $0.6-1000$ per
+$\mathrm{Gpc}^3$ per year~\cite{Abadie:2010cfa}. Then 
+\begin{equation}
+\langle N\rangle = \int_0^{\deff^\mathrm{max}} 4\pi D^2 \mathcal{R}_d \D D = \frac{4\pi}{3} \mathcal{R}_d (\deff^\mathrm{max})^3,
+\end{equation}
+and
+\begin{eqnarray}
+ \langle \frac{1}{\sigma^2}\rangle &=& \left(\frac{D_0}{\sigma_0}\right)^2 \int_0^{\deff^\mathrm{max}} \frac{4\pi\mathcal{R}_d D^2 }{D^2}\D D\\
+ &=& \left(\frac{D_0}{\sigma_0}\right)^2 4\pi \mathcal{R}_d \deff^\mathrm{max},
+\end{eqnarray}
+where in the previous equation we have converted the summation in Eq.~\ref{eq:1oversigma} 
+to an integral. So the root-mean-square averaged measurement error from $N$ sources 
+distributed uniformly in effective volume within a sphere of radius $\deff^\mathrm{max}$
+would be
+\begin{equation}\label{eq:rmsSigmaIdenticalSources}
+ \sigma_{avg} \equiv \frac{1}{\sqrt{\langle1/\sigma^{2}\rangle}} = \frac{\sigma_0}{D_0} \deff^\mathrm{max} \frac{1}{3\mathcal{R}_d}.
+\end{equation}
+Let us analyze the implications of Eq.~\ref{eq:rmsSigmaIdenticalSources}. It is
+straightforward to deduce that the same measurement certainty as afforded by a single
+observation with a high SNR $\alpha$ can be obtained from $N = \alpha^2/300$ observations
+uniformly distributed in effective volume with SNRs $\geq 10$. E.g., to get to the level 
+of certainty afforded at SNR$=70$, we would need $49/3\approx 16-17$ realistic detections.
+
+There are two main caveats to this rudimentary calculation, which was outlined in 
+Ref.~\cite{Markakis:2010mp}, (i) it applies to identical sources,
+which is astrophysically next to impossible to achieve exactly, but could perhaps happen 
+approximately; (ii) the average measurement error $\sigma_{avg}$ has been defined as in 
+the first equality in Eq.~\ref{eq:rmsSigmaIdenticalSources}. 
+
+% 
+\subsection{Astrophysical source population}\label{s2:astro_multiple}
+% 
+Lets try a respectable Bayesian approach. Imagine we have $N$ stretches of data,
+$d_1, d_2, \cdots, d_N$, each containing a single observation of an NSBH binary. Let $K$
+denote our collective prior knowledge, except for expectations on binary parameters
+themselves, which will enter the following calculation explicitly. Let the gravitational wave
+signal from each binary be characterized by the parameters 
+$\vec{\theta} = \{\mbh, \mns, \chibh, \chins, \rho\}$ and $\lambdans$. Note that we have folded
+in the luminosity distance, inclination angle of the binary's orbital angular momentum with
+respect to the plane of the detector, and its sky location angles into a single parameter $\rho$,
+which is the SNR of the received signal. Note also that $\vec{\theta}$ does not include
+$\lambdans$ as the latter would be treated independently. In addition, we assume
+that all observed NS's have the same equation of state, that uniquely determines their
+$\lambdans$ parameter. In other words, we assume that we know its mass perfectly.
+% 
+Using Bayes' theorem, the measured probability distribution function for the $\lambdans$
+parameter is given as
+\begin{equation}\label{eq:lambdaMultiple}
+ p(\lambdans | d_1, d_2, \cdots, d_N; K) = p(\lambdans | K)^{\alpha}\prod_{i=1}^N p(\lambdans | d_i, K),
+\end{equation}
+where $p(\lambdans|K)$ is the prior expectation for $\lambdans$, and we have assumed
+that all of the $N$ observations are independent. [Note: $\alpha$ will be calculated 
+soon, it should be a function only of N.]. A priori, we will assume that no particular value
+of $\lambdans$ is more preferred over another, and $\lambdans\leq 4000$, ie 
+$$
+p(\lambdans | K) = \mathrm{Rect}\left(\frac{\lambdans-2000}{4000}\right)
+$$
+% 
+The second set of terms $p(\lambdans | d_i, K)$ are the inferred posterior distribution
+functions for $\lambdans$ from \textit{each} observation independently, and are 
+calculated by marginalizing over all other binary parameters, i.e.
+\begin{equation}
+ p(\lambdans | d_n, K) = \int \D\, \vec{\theta} p(\vec{\theta}, \lambdans | d_n, K).
+\end{equation}
+The joint inferred probability distribution of all parameters $\vec{\theta}\cup\{\lambdans\}$ 
+is given by
+\begin{equation}
+ p(\vec{\theta}, \lambdans | d_n, K) = \dfrac{p(d_n|\vec{\theta}, \lambdans, K)\,p(\vec{\theta}, \lambdans | K)}{p(d_n|K)}.
+\end{equation}
+Here, $p(\vec{\theta}, \lambdans | K)$ is the prior probability for binary parameters of taking 
+particular values. In this paper, we use a uniform prior on the individual masses within 
+pre-chosen ranges, as well as a uniform prior on the spin of the black hole. We set neutron star's
+spin identically $=0$, and its tidal deformability parameter $\lambdans$ to be equally likely
+between $[0, 4000]$. The prior probability of obtaining a particular realization of data
+$p(d_n|K)$ is absorbed into the overall normalization. Finally, the first term in the numerator
+$p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given stretch of 
+data $d_n$ if we assume that a signal parameterized by $\vec{\theta}\cup\{\lambdans\}$ is buried
+in it, i.e.
+\begin{equation}\label{eq:likelihood}
+ \LL(\vec{\theta}, \lambdans) \equiv p(\vec{\theta}, \lambdans | K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+\end{equation}
+where $h\equiv h(\vec{\theta}, \lambdans)$ is our waveform model, and the detector noise
+weighted inner-product $\langle a|b\rangle$ is defined as 
+$$
+\langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
+$$
+where $\tilde{a}$ means the Fourier transform of the finite time series $a(t)$, and 
+$S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The definition of $\LL$ in 
+Eq.~\ref{eq:likelihood} assumes that the instrument noise is colored Gaussian. 
 
 
+\prayush{%
+As described in the previous sections, we have measured the $p(\lambdans | d_i, K)$ for a 
+set of different binary parameters. Therefore, the problem of finding the cumulative measurement
+constraint on $\lambdans$ using Eq.~\ref{eq:lambdaMultiple} reduces to being able to choose
+an astrophysically motivated sample set of $N$ binaries over which the second term on the RHS 
+can be computed.}
 
-
-
-
-
-
-
-
+\prayush{%
+Get posterior measurements for low SNRs, i.e. $\rho=\{10, 15, 20, 25, 30\}$. 
+Fix black hole mass and spins. Compute the measurement certainty for $\lambdans$
+as a function of the number of detections for a population astrophysically distributed 
+in effective distance. Repeat for a few different combinations of black hole masses
+and spins. This would be a sub-set of the overall detected population for NSBH binaries,
+but what fraction of it would this comprise of is something that we can only probe with
+LIGO itself. We do not know the real distribution of low-mass black holes in the field.
+}
 
 
 
