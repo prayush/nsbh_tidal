@@ -358,7 +358,7 @@ def lnprior(theta):
     return -np.inf
   
   # Additional priors to avoid calling tidal model outside of region of validity
-  if eta < 6./49. or eta > 2.01 / 3.01**2:
+  if eta < 6./49. or eta > 1.99/2.99**2:
     return -np.inf
   if chi2 > 0.75 or chi2 < -0.75:
     return -np.inf
@@ -549,6 +549,7 @@ if not post_process:
   f = open("chain.dat", "w")
   f.close()
   nout = 1000
+  nout2 = 500
   
   if auto_resume: unique_id, outidx = chainid, partid
   else: 
@@ -562,20 +563,23 @@ if not post_process:
     position = result[0]
     ii+=1
     f = open("chain.dat", "a")
+    chain_strings = []
     for k in range(position.shape[0]): # loop over number of walkers
-      if k == 0:
+      if (k == 0) and (ii % nout2 == 0):
         # Only works on OS X?
         # sys.stdout.write("\rIteration %d of %d" % ii, nsamples)
         # sys.stdout.flush()
         sys.stdout.write("Iteration %d of %d\n" %(ii, nsamples))
         sys.stdout.flush()
-      f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
+      #f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
+      chain_strings.append("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
       # Dump samples in npy format every nout iterations
       if (k == 0) and (ii % nout == 0):
         np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,ii-nout:ii,:])
         np.save("loglike%d-%d.npy" % (unique_id,outidx), sampler.lnprobability.T[ii-nout:ii,:]) # it's really log posterior pdf
         outidx += 1
         print "** Saved chain.npy and loglike.npy. **"
+    for chain_string in chain_strings: f.write(chain_string)
     f.close()
 
   if pt:

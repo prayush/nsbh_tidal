@@ -76,7 +76,7 @@ parser.add_option("-s", "--snr", dest="SNR", type="float",
                   help="Signal SNR.", metavar="SNR")
 parser.add_option("-r", "--burnin", dest="burnin", type="int",
                   help="How many samples to discard at the beginning of each chain.", metavar="burnin")
-parser.add_option("-r", "--burnend", dest="burnend", type="int",
+parser.add_option("--burnend", dest="burnend", type="int",
                   help="How many samples to discard at the end of each chain.", metavar="burnend")
 parser.add_option("-S", "--signal_approximant", dest="signal_approximant", type="string",
                   help="Which approximant to use as a signal.", metavar="signal_approximant")
@@ -577,6 +577,7 @@ if not post_process:
   f = open("chain.dat", "w")
   f.close()
   nout = 1000
+  nout2 = 500
   
   if auto_resume: unique_id, outidx = chainid, partid
   else: 
@@ -590,14 +591,16 @@ if not post_process:
     position = result[0]
     ii+=1
     f = open("chain.dat", "a")
+    chain_strings = []
     for k in range(position.shape[0]): # loop over number of walkers
-      if k == 0:
+      if (k == 0) and (ii % nout2 == 0):
         # Only works on OS X?
         # sys.stdout.write("\rIteration %d of %d" % ii, nsamples)
         # sys.stdout.flush()
         sys.stdout.write("Iteration %d of %d\n" %(ii, nsamples))
         sys.stdout.flush()
-      f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
+      #f.write("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
+      chain_strings.append("{0:4d} {1:s}\n".format(k, " ".join(map(str, position[k]))))
       # Dump samples in npy format every nout iterations
       if (k == 0) and (ii % nout == 0):
         np.save("chain%d-%d.npy" % (unique_id,outidx), sampler.chain[:,ii-nout:ii,:])
@@ -613,6 +616,7 @@ if not post_process:
         if options.verbose:
           print('After burn-in, each chain produces one independent sample per {:g} steps'.format(a_exp))
       except: pass
+    for chain_string in chain_strings: f.write(chain_string)
     f.close()
 
   if pt:
