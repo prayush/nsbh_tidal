@@ -137,7 +137,8 @@ def calculate_bias(\
   simdir='TN_q2.00_mNS1.35_chiBH0.50_Lambda500.0_SNR60.0/NW100_NS6000/',\
   M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, Lambda_inj=0, SNR_inj = 60,\
   biastype='fractional', recover_tidal=False, \
-  confidence_levels=[90.0, 68.26895, 95.44997, 99.73002]):
+  confidence_levels=[90.0, 68.26895, 95.44997, 99.73002],\
+  return_samples=True):
     """
     Load samples for a given physical configuration, 
     1. decode the location of the corresponding run. 
@@ -167,8 +168,11 @@ def calculate_bias(\
                   'q' : max(m1_inj,m2_inj)/min(m1_inj,m2_inj)}
     
     match = {}
-    match['samples'] = load_samples_join(test_dir, SNR_inj)
-    
+    #match['samples'] = load_samples_join(test_dir, SNR_inj)
+    dchain, dloglike = read_run_part_names(test_dir, SNR_inj)
+    match['samples'] = load_samples_join(test_dir, SNR_inj,\
+                                          dchain=dchain, dloglike=dloglike)
+    #
     if recover_tidal:
       match['samples']['Lambda'] = match['samples']['chi2']
       match['samples']['chi2']   = match['samples']['chi1']
@@ -217,7 +221,8 @@ def calculate_bias(\
       #  
       idx += num_of_data_fields
     #
-    return summary_data
+    if return_samples: return summary_data, dchain, dloglike
+    else: return summary_data
     #}}}
 
 
@@ -228,9 +233,10 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
   This function loops over all parameters for which ranges are given as input,
   reads the posterior samples for each injection combination, and computes 
   biases in different parameters' recovery for each injected parameter 
-  combination.  
+  combination.
   '''
   #{{{
+  print "Warning: Only the last of the set of Nsamples and Nwalkers is stored"
   fout = h5py.File(outfile, 'w')
   
   for qidx, q in enumerate(qvec):
@@ -244,19 +250,25 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
         if grp_l3 not in fout[grp_l1][grp_l2].keys():
           fout[grp_l1][grp_l2].create_group(grp_l3)
         for SNR in SNRvec:
-          dset_l1 = 'SNR%.1f.dat' % SNR
+          #dset_l1 = 'SNR%.1f.dat' % SNR
+          grp_l4 = 'SNR%.1f.dat' % SNR
+          if grp_l4 not in fout[grp_l1][grp_l2][grp_l3].keys():
+            fout[grp_l1][grp_l2][grp_l3].create_group(grp_l4)
           for Ns in Nsamples:
             for Nw in Nwalkers:
               simdir = get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
               print "\n\n Trying to read in %s" % simdir
               #
-              summ_data = calculate_bias(basedir=cmd.getoutput('pwd -P'),\
+              summ_data, ch, ll = calculate_bias(basedir=cmd.getoutput('pwd -P'),\
                     simdir=simstring+simdir+'/',\
                     M_inj=(1.+q)*mNS, eta_inj=q/(1.+q)**2,\
                     chi1_inj=chi1, chi2_inj=chi2, Lambda_inj=Lambda,\
-                    SNR_inj=SNR, recover_tidal=recover_tidal)
-              fout[grp_l1][grp_l2][grp_l3].create_dataset(dset_l1, data=summ_data)
-              
+                    SNR_inj=SNR, recover_tidal=recover_tidal,\
+                    return_samples=True)
+              #fout[grp_l1][grp_l2][grp_l3].create_dataset(dset_l1, data=summ_data)
+              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("summary.dat", data=summ_data)
+              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("chain.dat", data=ch)
+              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("loglikelihood.dat", data=ll)
   fout.close()
   #}}}
 
@@ -265,12 +277,14 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
 # Set up parameters of signal
 ######################################################
 chi1 = 0.   # small BH
-chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
+#chi2vec = [-0.5, 0, 0.5, 0.74999]  # larger BH
+chi2vec = [0.5]  # larger BH
 mNS = 1.35
-qvec = [2, 3, 4, 5]
-Lambdavec = [0]
-SNRvec = [20, 30, 50, 70, 90, 120]
-
+qvec = [2]#, 3, 4, 5]
+#Lambdavec = [0]
+Lambdavec = [1500]
+#SNRvec = [20, 30, 50, 70, 90, 120]
+SNRvec = [10, 15, 20]
 
 ######################################################
 # Set up parameters of templates

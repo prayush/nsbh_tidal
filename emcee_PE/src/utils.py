@@ -319,7 +319,7 @@ result files and combines them
 ###### Join MCMC sample data
 ################################################################################
 def load_samples_join(dataDir, SNR, burnin=500, useMaxNRun=True, \
-                      chain_number=-1, verbose=True):
+                      chain_number=-1, dchain=None, dloglike=None, verbose=True):
     """
  This function 
  1. loads in the MCMC samples from partial files and combines them.
@@ -343,9 +343,12 @@ def load_samples_join(dataDir, SNR, burnin=500, useMaxNRun=True, \
     """
     #{{{
     import glob
-    chain, loglike = read_run_part_names(dataDir, SNR, burnin=burnin, \
+    if dchain == None or dloglike == None:
+      # FIXME: Add tests to ensure that the passed data for chain and loglike
+      # sequences is sensible
+      chain, loglike = read_run_part_names(dataDir, SNR, burnin=burnin, \
             useMaxNRun=useMaxNRun, chain_number=chain_number, verbose=verbose )
-    
+    else: chain, loglike = dchain, dloglike
     print "datadir = ", dataDir, " SNR = ", SNR
     #print chain, loglike
     if np.shape(chain)[0] != np.shape(loglike)[1] or np.shape(chain)[1] != np.shape(loglike)[0]:
