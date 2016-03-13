@@ -347,7 +347,8 @@ def load_samples_join(dataDir, SNR, burnin=500, useMaxNRun=True, \
       # FIXME: Add tests to ensure that the passed data for chain and loglike
       # sequences is sensible
       chain, loglike = read_run_part_names(dataDir, SNR, burnin=burnin, \
-            useMaxNRun=useMaxNRun, chain_number=chain_number, verbose=verbose )
+                                      useMaxNRun=useMaxNRun, chain_number=chain_number,
+                                      return_ids=False, verbose=verbose )
     else: chain, loglike = dchain, dloglike
     print "datadir = ", dataDir, " SNR = ", SNR
     #print chain, loglike

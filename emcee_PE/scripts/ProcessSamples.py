@@ -138,7 +138,8 @@ def calculate_bias(\
   M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, Lambda_inj=0, SNR_inj = 60,\
   biastype='fractional', recover_tidal=False, \
   confidence_levels=[90.0, 68.26895, 95.44997, 99.73002],\
-  return_samples=True):
+  return_samples=True,
+  burnin=5000, burnend=0, autocorrlen=51):
     """
     Load samples for a given physical configuration, 
     1. decode the location of the corresponding run. 
@@ -170,8 +171,35 @@ def calculate_bias(\
     match = {}
     #match['samples'] = load_samples_join(test_dir, SNR_inj)
     dchain, dloglike = read_run_part_names(test_dir, SNR_inj)
+    if len(dchain) == 0 or len(dloglike) == 0:
+      if return_samples: return None, dchain, dloglike
+      else: return None
+    #
     match['samples'] = load_samples_join(test_dir, SNR_inj,\
                                           dchain=dchain, dloglike=dloglike)
+    #
+    # Here trim the chain and likelihood samples. Keep every 50th sample
+    # now use all good samples after burn-in
+    # be careful to combine the matches and samples correctly
+    #
+    samples_ok = dchain[:, burnin:-1*(burnend+1):autocorrlen, :]
+    loglike_ok = dloglike[burnin:-1*(burnend+1):autocorrlen,:] # this is log posterior pdf, but can get get back match modulo prior
+    sel        = np.isfinite(loglike_ok) & np.invert(np.isnan(loglike_ok)) # could put something more stringent here! FIXME
+    #matches_ok = np.sqrt(2*loglike_ok)/SNR_inj
+    #sel = np.isfinite(loglike_ok) & (matches_ok > 0.9)
+    #
+    p1vals = samples_ok[:,:,0].T.flatten()
+    samples_flat = np.zeros((len(p1vals), 4))
+    for i in range(4): samples_flat[:,i] = samples_ok[:,:,i].T.flatten()
+    #
+    print "shape of samples_ok, loglike_ok & sel=", np.shape(samples_ok), np.shape(loglike_ok), np.shape(sel)
+    print "shape of samples_flat=", np.shape(samples_flat)
+    dchain   = samples_flat # samples_ok
+    dloglike = loglike_ok.flatten()
+    print 'Keeping %d of %d (total %d) samples' % (len(samples_ok[:,:,0].T[sel]),\
+                                                   len(samples_ok[:,:,0].T.flatten()),\
+                                                   len(dchain[:,0].T.flatten()))
+    #
     #
     if recover_tidal:
       match['samples']['Lambda'] = match['samples']['chi2']
@@ -228,7 +256,7 @@ def calculate_bias(\
 
 def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,\
             Nsamples=[150000], Nwalkers=[100], outfile='output.h5', mNS = 1.35,\
-            recover_tidal=True):
+            recover_tidal=True, burnin=5000, burnend=0, autocorrlen=51):
   ''' 
   This function loops over all parameters for which ranges are given as input,
   reads the posterior samples for each injection combination, and computes 
@@ -252,8 +280,7 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
         for SNR in SNRvec:
           #dset_l1 = 'SNR%.1f.dat' % SNR
           grp_l4 = 'SNR%.1f.dat' % SNR
-          if grp_l4 not in fout[grp_l1][grp_l2][grp_l3].keys():
-            fout[grp_l1][grp_l2][grp_l3].create_group(grp_l4)
+          #fout[grp_l1][grp_l2][grp_l3].create_group(grp_l4)            
           for Ns in Nsamples:
             for Nw in Nwalkers:
               simdir = get_simdirname(q, mNS, chi2, Lambda, SNR, Nw, Ns)
@@ -264,14 +291,22 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
                     M_inj=(1.+q)*mNS, eta_inj=q/(1.+q)**2,\
                     chi1_inj=chi1, chi2_inj=chi2, Lambda_inj=Lambda,\
                     SNR_inj=SNR, recover_tidal=recover_tidal,\
-                    return_samples=True)
+                    return_samples=True,\
+                    burnin=burnin, burnend=burnend, autocorrlen=autocorrlen)
+              if summ_data == None:
+                # DONT WRITE DATA, DELETE THE GROUP
+                print "Since returned data is None, this run is not yet ready, and we move on.."
+                continue
               #fout[grp_l1][grp_l2][grp_l3].create_dataset(dset_l1, data=summ_data)
+              if grp_l4 not in fout[grp_l1][grp_l2][grp_l3].keys():
+                fout[grp_l1][grp_l2][grp_l3].create_group(grp_l4)
               fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("summary.dat", data=summ_data)
               fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("chain.dat", data=ch)
               fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("loglikelihood.dat", data=ll)
+              #
+              print grp_l1, grp_l2, grp_l3, grp_l4, fout[grp_l1][grp_l2][grp_l3].keys()
   fout.close()
   #}}}
-
 
 ######################################################
 # Set up parameters of signal
@@ -323,6 +358,9 @@ if inject_tidal: Lambdavec = [1500, 2000]
 Nwalkers = [100]
 Nsamples = [2000]
 Nburnin  = 500
+Nburnend  = 0
+Nautocorr = 51 + 10 # Choose this CAREFULLY..!
+
 
 #qvec = [2]
 #chi2vec = [-0.5, 0.5]
@@ -332,7 +370,12 @@ Nburnin  = 500
 print "\n\n\n"
 print "Storing data in HDF file for ", qvec, chi2vec, Lambdavec, SNRvec
 print "\n\n\n"
+
+outfile = simstring + 'ParameterBiasesAndConfidenceIntervals.h5'
+if os.path.exists(outfile): cmd.getoutput('mv %s %s' % (outfile, outfile+'.old'))
+
 calculate_store_biases(qvec=qvec, chi2vec=chi2vec, Lambdavec=Lambdavec,\
       SNRvec=SNRvec, recover_tidal=recover_tidal,\
       Nsamples=Nsamples, Nwalkers=Nwalkers,\
-      outfile=simstring+'ParameterBiasesAndConfidenceIntervals.h5')
+      burnin=Nburnin, burnend=Nburnend, autocorrlen=Nautocorr,\
+      outfile=outfile)
