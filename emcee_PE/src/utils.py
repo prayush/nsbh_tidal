@@ -267,6 +267,7 @@ result files and combines them
       if verbose: print "No npy file found."
       if return_ids: return [], [], -1, -1
       else: return [], []
+    #
     chain_nums= [int(f.split('/')[-1].split('-')[0].strip('chain')) for f in all_files]
     chain_nums = f7(chain_nums)
     # Get all continuation files for each
