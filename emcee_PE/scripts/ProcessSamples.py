@@ -2,6 +2,9 @@
 # Tools for analysis of MCMC samples from emcee for spin estimation project
 #
 # MP 04/2015, PK 2015
+import time
+itime = time.time()
+
 import os, sys
 import commands as cmd
 import numpy as np
@@ -379,3 +382,6 @@ calculate_store_biases(qvec=qvec, chi2vec=chi2vec, Lambdavec=Lambdavec,\
       Nsamples=Nsamples, Nwalkers=Nwalkers,\
       burnin=Nburnin, burnend=Nburnend, autocorrlen=Nautocorr,\
       outfile=outfile)
+
+print "All Completed. Time taken = %f seconds" % (time.time() - itime)
+
