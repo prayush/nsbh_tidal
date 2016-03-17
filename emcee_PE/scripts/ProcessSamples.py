@@ -141,8 +141,7 @@ def calculate_bias(\
   M_inj = 3*1.35, eta_inj = 2./9., chi1_inj=0, chi2_inj=0.5, Lambda_inj=0, SNR_inj = 60,\
   biastype='fractional', recover_tidal=False, \
   confidence_levels=[90.0, 68.26895, 95.44997, 99.73002],\
-  return_samples=True,
-  burnin=5000, burnend=0, autocorrlen=51):
+  return_samples=True, burnin=5000, burnend=0, autocorrlen=51):
     """
     Load samples for a given physical configuration, 
     1. decode the location of the corresponding run. 
@@ -162,6 +161,8 @@ def calculate_bias(\
     0 : Confidence interval probability
     1 : max LogLikelihood value
     
+    In addition,
+    Also return the uncorrelated samples, and the Gelman Rubin statistic    
     """
     #{{{
     test_dir = os.path.join(basedir, simdir)
@@ -171,39 +172,60 @@ def calculate_bias(\
                   'm1' : m1_inj, 'm2' : m2_inj, 
                   'q' : max(m1_inj,m2_inj)/min(m1_inj,m2_inj)}
     
-    match = {}
-    #match['samples'] = load_samples_join(test_dir, SNR_inj)
+    #
+    # First, read in the raw data from all chains
+    #
     dchain, dloglike = read_run_part_names(test_dir, SNR_inj)
     if len(dchain) == 0 or len(dloglike) == 0:
       if return_samples: return None, dchain, dloglike
       else: return None
     #
-    match['samples'] = load_samples_join(test_dir, SNR_inj,\
-                                          dchain=dchain, dloglike=dloglike)
+    # Second, pass the raw data to load_samples_safe, which prunes out 
+    # 1) chains with very large variances,
+    # 2) down-samples according to the autocorrelation lengths calculated for each chain
     #
-    # Here trim the chain and likelihood samples. Keep every 50th sample
-    # now use all good samples after burn-in
-    # be careful to combine the matches and samples correctly
+    #match['samples'] = load_samples_join(test_dir, SNR_inj,\
+    #                                      dchain=dchain, dloglike=dloglike)
     #
-    samples_ok = dchain[:, burnin:-1*(burnend+1):autocorrlen, :]
-    loglike_ok = dloglike[burnin:-1*(burnend+1):autocorrlen,:] # this is log posterior pdf, but can get get back match modulo prior
-    sel        = np.isfinite(loglike_ok) & np.invert(np.isnan(loglike_ok)) # could put something more stringent here! FIXME
-    #matches_ok = np.sqrt(2*loglike_ok)/SNR_inj
-    #sel = np.isfinite(loglike_ok) & (matches_ok > 0.9)
+    # Following two parameters control how "bad" chains are determined , and
+    # removed by load_samples_safe
+    Q_threshold = 0.25
+    Q_extent_threshold = 5
+    match = {}
+    #match['samples'] = load_samples_join(test_dir, SNR_inj)
+    if return_samples:
+      match['samples'] = load_samples_safe(test_dir, SNR_inj,\
+                                      dchain=dchain, dloglike=dloglike,\
+                                      param=1, param_true=params_inj['Mc'],\
+                                      Q_threshold=Q_threshold,\
+                                      Q_extent_threshold=Q_extent_threshold,\
+                                      return_good_chain_heuristic=False)
+    else:
+      match['samples'], idx_good, R, ACLs, Neff = load_samples_safe(\
+                                      test_dir, SNR_inj,\
+                                      dchain=dchain, dloglike=dloglike,\
+                                      param=1, param_true=params_inj['Mc'],\
+                                      Q_threshold=Q_threshold,\
+                                      Q_extent_threshold=Q_extent_threshold,\
+                                      return_good_chain_heuristic=True)
+    #    
+    # Third, prune the chains, as per the good indices and ACLs returned above
+    # We want to keep only the good chains, and 1 every ACL samples in each of those
     #
-    p1vals = samples_ok[:,:,0].T.flatten()
-    samples_flat = np.zeros((len(p1vals), 4))
-    for i in range(4): samples_flat[:,i] = samples_ok[:,:,i].T.flatten()
+    if return_samples:
+      # Now construct the final set of chains that we are going to keep
+      for i in idx_good:
+        if i==idx_good[0]:
+          # Initialize
+          final_chain   = dchain[i,::ACLs[i], :]
+          final_loglike = dloglike[::ACLs[i], i]
+        else:
+          final_chain   = np.append(final_chain, dchain[i,::ACLs[i], :], axis=0)
+          final_loglike = np.append(final_loglike, dloglike[::ACLs[i], i], axis=0)      
+      #
+      print 'Keeping %d of %d samples' % (len(final_chain), len(dchain))
     #
-    print "shape of samples_ok, loglike_ok & sel=", np.shape(samples_ok), np.shape(loglike_ok), np.shape(sel)
-    print "shape of samples_flat=", np.shape(samples_flat)
-    dchain   = samples_flat # samples_ok
-    dloglike = loglike_ok.flatten()
-    print 'Keeping %d of %d (total %d) samples' % (len(samples_ok[:,:,0].T[sel]),\
-                                                   len(samples_ok[:,:,0].T.flatten()),\
-                                                   len(dchain[:,0].T.flatten()))
-    #
-    #
+    # Get out the Lambda samples, as its used in the place of chi2
     if recover_tidal:
       match['samples']['Lambda'] = match['samples']['chi2']
       match['samples']['chi2']   = match['samples']['chi1']
@@ -211,6 +233,12 @@ def calculate_bias(\
     else:
       parameters = ['m1', 'm2', 'Mc', 'Mtot', 'eta', 'q', 'chi2']
     
+    #
+    # In the following we compute and store the statistical properties of the 
+    # posterior, i.e. 
+    # 1) the confidence levels imposed on various parameters @ 1sigma, 90% , ...
+    # 2) median value recovered for various parameters
+    #
     num_of_data_fields = 7
     summary_data = np.zeros(( len(confidence_levels), len(parameters)*num_of_data_fields + 1 + 1 ))
     
@@ -252,14 +280,14 @@ def calculate_bias(\
       #  
       idx += num_of_data_fields
     #
-    if return_samples: return summary_data, dchain, dloglike
+    if return_samples: return summary_data, final_chain, final_loglike
     else: return summary_data
     #}}}
 
 
 def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,\
             Nsamples=[150000], Nwalkers=[100], outfile='output.h5', mNS = 1.35,\
-            recover_tidal=True, burnin=5000, burnend=0, autocorrlen=51):
+            recover_tidal=True, burnin=5000, burnend=0, maxchainlen=10000):
   ''' 
   This function loops over all parameters for which ranges are given as input,
   reads the posterior samples for each injection combination, and computes 
@@ -295,17 +323,24 @@ def calculate_store_biases(qvec=None, chi2vec=None, Lambdavec=None, SNRvec=None,
                     chi1_inj=chi1, chi2_inj=chi2, Lambda_inj=Lambda,\
                     SNR_inj=SNR, recover_tidal=recover_tidal,\
                     return_samples=True,\
-                    burnin=burnin, burnend=burnend, autocorrlen=autocorrlen)
+                    burnin=burnin, burnend=burnend)
+              #
               if summ_data == None:
                 # DONT WRITE DATA, DELETE THE GROUP
                 print "Since returned data is None, this run is not yet ready, and we move on.."
                 continue
+              #
+              # If we want, we can prune the chain length to be stored here
+              #
+              tmp_ch = ch[:maxchainlen,:]
+              tmp_ll = ll[:maxchainlen]
+              print np.shape(ch), np.shape(tmp_ch), np.shape(ll), np.shape(tmp_ll)
               #fout[grp_l1][grp_l2][grp_l3].create_dataset(dset_l1, data=summ_data)
               if grp_l4 not in fout[grp_l1][grp_l2][grp_l3].keys():
                 fout[grp_l1][grp_l2][grp_l3].create_group(grp_l4)
               fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("summary.dat", data=summ_data)
-              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("chain.dat", data=ch)
-              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("loglikelihood.dat", data=ll)
+              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("chain.dat", data=tmp_ch)
+              fout[grp_l1][grp_l2][grp_l3][grp_l4].create_dataset("loglikelihood.dat", data=tmp_ll)
               #
               print grp_l1, grp_l2, grp_l3, grp_l4, fout[grp_l1][grp_l2][grp_l3].keys()
   fout.close()

@@ -129,6 +129,9 @@ def find_good_chains(chain, loglike, param, Q_true, burnin=1500, Q_threshold=0.0
     return igood, gelman_rubin_MP_pick(chain, loglike, igood, burnin=1500)
 
 def Compute_ACLs_Neff_for_chains(chain, loglike, param, burnin=1000):
+    '''
+    Calculates the AutoCorrelation length for the chains
+    '''
     ACLs = []
     Neffs = []
     for i in range(len(chain)):
