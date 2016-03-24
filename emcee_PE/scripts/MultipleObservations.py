@@ -15,7 +15,7 @@ from scipy.stats.stats import pearsonr
 from scipy.stats import gaussian_kde
 from scipy.stats import norm
 from scipy.interpolate import UnivariateSpline
-from scipy.optimize import minimize_scalar
+from scipy.optimize import minimize_scalar, fmin
 import scipy.integrate as si
 
 from sklearn.neighbors import KernelDensity
@@ -89,6 +89,7 @@ plt.rcParams.update({\
 #######################################################
 def obtain_statistical_information_from_kde(\
                 kde_func=None,\
+                x_ref=0,\
                 CILevel = 0.90,\
                 xllimit=0, xulimit=4000,\
                 verbose=False):
@@ -122,12 +123,25 @@ output:-
     def tmp_llimitfunc(L): return np.abs(tmp_rootfunc(L, eps[0]))
     def tmp_ulimitfunc(L): return np.abs(tmp_rootfunc(L, eps[-1]))
     #
-    median = minimize_scalar(tmp_medianfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16)
-    llimit = minimize_scalar(tmp_llimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16)
-    ulimit = minimize_scalar(tmp_ulimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16)
+    median = fmin(tmp_medianfunc, x_ref, xtol=1.e-16, ftol=1.e-16)
+    llimit = fmin(tmp_llimitfunc, x_ref, xtol=1.e-16, ftol=1.e-16)
+    ulimit = fmin(tmp_ulimitfunc, x_ref, xtol=1.e-16, ftol=1.e-16)
+    #
+    if False:
+        median2 = minimize_scalar(tmp_medianfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
+        llimit2 = minimize_scalar(tmp_llimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
+        ulimit2 = minimize_scalar(tmp_ulimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
+    #
+    if False and np.abs(median - median2)/median > 0.05:
+        if verbose:
+            print >>sys.stdout, "Root solvers don't match"
+            print >>sys.stdout, [llimit, median, ulimit], [llimit2, median2, ulimit2]
+            sys.stdout.flush()
+        cond = llimit < median and median < ulimit and (ulimit - llimit) > 0.1*median
+        cond2 = llimit2 < median2 and median2 < ulimit2 and (ulimit2 - llimit2) > 0.1*median2
+        if cond2: return [llimit2, median2, ulimit2]
     #
     return [llimit, median, ulimit]
-
 
 def sample_snr_from_volume(SNRvec):
     '''
@@ -392,10 +406,11 @@ n is a list of integers: all the indexed chains are used
         ### Calculate Median, Standard Deviation, Confidence intervals from the COMBINED 
         # probability distribution
         ll, ml, ul = obtain_statistical_information_from_kde(\
-                            kde_func=tmp_chain_kde_product, verbose=self.verbose)
-        fractional_err = np.abs(ul.x - ll.x)/self.NSLambda
+                            kde_func=tmp_chain_kde_product,\
+                            x_ref=self.NSLambda, verbose=self.verbose)
+        fractional_err = np.abs(ul - ll)/self.NSLambda
         if self.verbose: print "All done in %f seconds!" % (time.time() - itime)
-        return [ml.x, fractional_err, ll.x, ul.x]
+        return [ml, fractional_err, ll, ul]
     #
     ###
     def generate_cumulative_statistics(self):
