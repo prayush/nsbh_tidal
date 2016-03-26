@@ -123,23 +123,25 @@ output:-
     def tmp_llimitfunc(L): return np.abs(tmp_rootfunc(L, eps[0]))
     def tmp_ulimitfunc(L): return np.abs(tmp_rootfunc(L, eps[-1]))
     #
-    median = fmin(tmp_medianfunc, x_ref, xtol=1.e-16, ftol=1.e-16)
-    llimit = fmin(tmp_llimitfunc, x_ref, xtol=1.e-16, ftol=1.e-16)
-    ulimit = fmin(tmp_ulimitfunc, x_ref, xtol=1.e-16, ftol=1.e-16)
+    median = fmin(tmp_medianfunc, x_ref, maxiter=2000, xtol=1.e-16, ftol=1.e-16)[0]
+    llimit = fmin(tmp_llimitfunc, x_ref, maxiter=2000, xtol=1.e-16, ftol=1.e-16)[0]
+    ulimit = fmin(tmp_ulimitfunc, x_ref, maxiter=2000, xtol=1.e-16, ftol=1.e-16)[0]
     #
-    if False:
-        median2 = minimize_scalar(tmp_medianfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
-        llimit2 = minimize_scalar(tmp_llimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
-        ulimit2 = minimize_scalar(tmp_ulimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
-    #
-    if False and np.abs(median - median2)/median > 0.05:
-        if verbose:
+    if ulimit > xulimit or median > xulimit or llimit < xllimit or np.abs(ulimit - llimit) < 0.05 * median:
+        print >>sys.stdout, "ulimit = %e, median = %e, llimit = %e" % (ulimit, median, llimit)
+        sys.stdout.flush()
+        llimit2, median2, ulimit2 = llimit, median, ulimit # Store old ones
+        median = minimize_scalar(tmp_medianfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
+        llimit = minimize_scalar(tmp_llimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
+        ulimit = minimize_scalar(tmp_ulimitfunc, bounds=(xllimit, xulimit), method='bounded', tol=1.e-16).x
+        #
+        if np.abs(median - median2) > 0.01 * median or\
+            np.abs(llimit - llimit2) > 0.01 * median or\
+            np.abs(ulimit - ulimit2) > 0.01 * median:
+          if verbose:
             print >>sys.stdout, "Root solvers don't match"
             print >>sys.stdout, [llimit, median, ulimit], [llimit2, median2, ulimit2]
             sys.stdout.flush()
-        cond = llimit < median and median < ulimit and (ulimit - llimit) > 0.1*median
-        cond2 = llimit2 < median2 and median2 < ulimit2 and (ulimit2 - llimit2) > 0.1*median2
-        if cond2: return [llimit2, median2, ulimit2]
     #
     return [llimit, median, ulimit]
 
@@ -298,9 +300,9 @@ What it does:
             #
             lambda_kde = KDEUnivariate(lambda_chain)
             try:
-                lambda_kde.fit(kernel=self.kernel, bw=self.bw_method, fft=True)
+                lambda_kde.fit(kernel=self.kernel, bw=self.bw_method, fft=True, cut=1.01)
             except:
-                lambda_kde.fit(kernel=self.kernel, bw=self.bw_method, fft=False)
+                lambda_kde.fit(kernel=self.kernel, bw=self.bw_method, fft=False, cut=1.01)
             #
             ####
             ## Normalize the chain's integral
@@ -344,19 +346,29 @@ What it does:
     ### evaluated at X = L.
     ### Takes in a LIST of indices too!
     ###
-    def chain_kde_product(self, L, num=-1, normed=False):
+    def chain_kde_product(self, L, num=-1, xllimit=0, xulimit=4000, normed=True):
         '''
         Get the product of all posterior distributions, for a given lambda value
         i.e. returns "p(L) = p1(L) x p2(L) x p3(L) x p4(L) x .. x pN(L)"
+        
+        This is the function that implements the boundary condition that L must 
+        respect, i.e. L_low < L < L_high
         '''
+        if L < xllimit or L > xulimit: return 0
+        #
         prod = 1.0
         if type(num) == list:
             for i in num:
-                prod = prod * self.chain_kde(L, i, normed=normed)
+                prod = prod * self.chain_kde(L, i, normed=False)
         else:
           if num < 0: num = self.N
           for i in range(num):
-              prod = prod * self.chain_kde(L, i+1, normed=normed)
+              prod = prod * self.chain_kde(L, i+1, normed=False)
+          num = range(num)
+        #
+        if normed:
+            norm_tmp = self.chain_kde_product(1000, num=num, normed=False)
+            prod /= norm_tmp
         #
         return prod
     #####
