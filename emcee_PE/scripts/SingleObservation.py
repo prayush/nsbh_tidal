@@ -632,7 +632,7 @@ def get_bias(\
 # parameters as input
 def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
         p='Mc', qnt='median-val', \
-        CI=0, CILevs=[90.0, 68.26895, 95.44997, 99.73002], fmt='old'):
+        CI=0, CILevs=[90.0, 68.26895, 95.44997, 99.73002], fmt='new'):
   #{{{
   '''
   Confidence interval is indexed as {0 : 90, 1 : 68%, 2 : 95%, 3 : 99.7%}

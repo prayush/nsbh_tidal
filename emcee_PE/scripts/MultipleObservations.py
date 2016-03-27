@@ -327,7 +327,7 @@ What it does:
     ### Return the num-th of all probability distribution functions
     ###   i.e. p(num, X), where num is the index of the chain, evaluated
     ###   at X =  L.
-    def chain_kde(self, L, num=-1, normed=False):
+    def chain_kde(self, L, num=-1, xllimit=0, xulimit=4000, normed=False):
         '''
         Get the product of all posterior distributions, for a given lambda value
         i.e. returns "p(L) = p1(L) x p2(L) x p3(L) x p4(L) x .. x pN(L)"
@@ -339,6 +339,16 @@ What it does:
         _, kde_func, kde_norm = self.FULL_chain_set[num-1]
         kde_val = kde_func(L)
         if normed: kde_val = kde_val / kde_norm
+        
+        if False:
+          try:
+            mask = L < xllimit
+            kde_val[mask] = 1.e-999
+            mask = L > xulimit
+            kde_val[mask] = 1.e-999
+          except TypeError:
+            pass
+        
         return kde_val
     #####
     ### Returns P(num, X) = \PI_0^{num-1} p(i, X)
@@ -354,7 +364,6 @@ What it does:
         This is the function that implements the boundary condition that L must 
         respect, i.e. L_low < L < L_high
         '''
-        if L < xllimit or L > xulimit: return 0
         #
         prod = 1.0
         if type(num) == list:
@@ -440,7 +449,7 @@ Gnerate statistics for all of stored events, cumulatively including more & more
         ####
         for i in range(self.N):
             if self.verbose:
-              print " >> For the first %d events! >>>" % (i+1)
+              print "\n >> For the first %d events! >>>" % (i+1)
             self.statistical_data[i] =\
                                   self.statistics_from_events(num=range(1, i+1))
         #####
