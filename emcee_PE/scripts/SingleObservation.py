@@ -81,8 +81,8 @@ plt.rcParams.update({\
 # Plotting functions
 def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
         title='', titles=[], levellines=[100,200], levelspacing=0.25,\
-        vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f',\
-        xmin=None, xmax=None, ymin=None, ymax=None,\
+        vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f', lfmt='%.1f',\
+        xmin=None, xmax=None, ymin=None, ymax=None, alpha=0.9,\
         colorbartype='simple', figname='plot.png'):
   """
   Function to plot arbitrary numbers of contour plots in a single figure
@@ -143,6 +143,9 @@ col corresponds to the lower level group
   if vverbose: print "VMIN = %e, VMAX = %e" % (VMIN, VMAX)
   if VMIN > VMAX: raise IOError("Cant fit all data on a single colorbar")
   
+  ## FIXME
+  #VMIN = 0.01
+
   # Now make contour plots
   contours_all = {}
   for idx in range(nrow):
@@ -166,12 +169,12 @@ col corresponds to the lower level group
       CS = ax.contourf( xx, yy, zz,\
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
-              alpha=0.9, vmin=VMIN, vmax=VMAX)
+              alpha=alpha, vmin=VMIN, vmax=VMAX)
       contours_tmp = {}
       for lev in levellines:
-        cset = ax.contour(xx, yy, zz, levels=[lev], colors='k', ls='--', linewidths=2, hold="on")
-        for c in cset.collections: c.set_linestyle('dashed')
-        plt.clabel(cset, inline=1, fmt='%.0f', fontsize=12)
+        cset = ax.contour(xx, yy, zz, levels=[lev], colors='k', ls='--', linewidths=4, hold="on")
+        for c in cset.collections: c.set_linestyle('dotted')
+        plt.clabel(cset, colors='r', inline=1, fmt=lfmt, fontsize=16)
         contours_tmp[lev] = cset.collections[0].get_paths()
       if vverbose:
         print "for %s" % titles[idx][jdx], contours_tmp
@@ -241,7 +244,7 @@ def make_contour_array_old(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
       CS = ax.contourf( xx, yy, zz,\
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
-              alpha=0.9, vmin=vmin, vmax=vmax)
+              alpha=alpha, vmin=vmin, vmax=vmax)
       ax.grid()
       ax.set_xlim([xmin, xmax])
       ax.set_ylim([ymin, ymax])
