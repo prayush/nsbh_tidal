@@ -401,9 +401,9 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0.pdf}
-\includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0.pdf}
-\includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR50_CI90_0.pdf}\\
+% \includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0.pdf}
+\includegraphics[width=1.\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0.pdf}
+\includegraphics[width=1.\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR50_CI90_0.pdf}\\
 % \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR70_CI90_0.pdf}
 % \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR90_CI90_0.pdf}
 % \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR120_CI90_0.pdf}
@@ -422,55 +422,55 @@ set by the detectors).
 \label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
 \end{figure*}
 %
-\begin{figure*}
-\centering    
-\includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
-\includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_m1_m2_chi2_Lambda.pdf}
-\caption{These figure shows the $1-$ and $2-$dimensional 
-\textit{a posteriori} probability distributions 
-for different physical parameters describing a BHNS system including NS matter 
-effects, as measured by a Bayesian Markov-chain Monte Carlo using tidal templates.
-The true parameters of the injected signal are: 
-$\mathcal{M}=1.6406M_\odot, \eta=0.2222, \chibh=\chi_2=0.75$ and $\lambdans=1500$,
-with the injected SNR $\rho=20$. We show this case as typical of those with the largest
-tidal signatures imprinted on the emitted GWs (due to the system being comparable
-mass-ratio with a large-aligned spin on the BH and a fairly deformable NS), yet 
-with low SNR.
-% 
-We note a few things:
-(i) chirp mass is well constrained, with a nearly-Gaussian probability distribution;
-while (ii) the other $3$ less constrained parameters rail against
-prior boundaries. The specific boudary conditions that we run into are (a) for $\eta$,
-we are limited by the requirement that $m_\mathrm{NS}\geq 1.2M_\odot$ 
-of our templates; (b) for BH spin, we are limited by the $\chibh\leq+0.75$ requirement
-that results from a template model limitation~\cite{Lackey:2013axa}; and (c) for 
-$\lambdans$, we
-restrict it to $[0, 4000]$ for the same reason as (b). These prior boundaries
-limit the exploration of the entire likelihood surfaces. While (a) is astrophysically
-justified, given that we have not observed NSs with masses below 
-$1.25M_\odot$, (b) and (c) will be removed in future studies as more evolved template
-models become available. See, also, Fig.~\ref{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}.
-% 
-Finally, we note that the left panel corresponds to the actual sampling parameters,
-while the right panel to derived ones.
-}
-\label{fig:TT_pdf_q2_chi75_L1500_SNR20}
-\end{figure*}
-%
-\begin{figure*}
-\centering    
-% \includegraphics[width=.66\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
-\includegraphics[width=\columnwidth]{plots/TT_logLike_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
-\includegraphics[width=\columnwidth]{plots/TT_logProb_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
-\caption{These figures show the effect of limitation (a) (described in the caption
-of Fig.~\ref{fig:TT_pdf_q2_chi75_L1500_SNR20}) on the likelihood surface portion
-that is actually accessible to our Bayesian inferencing algorithm. On the left we show the
-entire likelihood surface in the $\mbh-\mns$ plane, while on the left is the 
-portion not forbidden by the requirement $\mns\geq 1.2M_\odot$. Similarly, our
-priors on BH spin and NS deformability further curtail the portion of sampled
-parameter space, albeit to much less impact than this mass cut.}
-\label{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}
-\end{figure*}
+% \begin{figure*}
+% \centering    
+% \includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
+% \includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_m1_m2_chi2_Lambda.pdf}
+% \caption{These figure shows the $1-$ and $2-$dimensional 
+% \textit{a posteriori} probability distributions 
+% for different physical parameters describing a BHNS system including NS matter 
+% effects, as measured by a Bayesian Markov-chain Monte Carlo using tidal templates.
+% The true parameters of the injected signal are: 
+% $\mathcal{M}=1.6406M_\odot, \eta=0.2222, \chibh=\chi_2=0.75$ and $\lambdans=1500$,
+% with the injected SNR $\rho=20$. We show this case as typical of those with the largest
+% tidal signatures imprinted on the emitted GWs (due to the system being comparable
+% mass-ratio with a large-aligned spin on the BH and a fairly deformable NS), yet 
+% with low SNR.
+% % 
+% We note a few things:
+% (i) chirp mass is well constrained, with a nearly-Gaussian probability distribution;
+% while (ii) the other $3$ less constrained parameters rail against
+% prior boundaries. The specific boudary conditions that we run into are (a) for $\eta$,
+% we are limited by the requirement that $m_\mathrm{NS}\geq 1.2M_\odot$ 
+% of our templates; (b) for BH spin, we are limited by the $\chibh\leq+0.75$ requirement
+% that results from a template model limitation~\cite{Lackey:2013axa}; and (c) for 
+% $\lambdans$, we
+% restrict it to $[0, 4000]$ for the same reason as (b). These prior boundaries
+% limit the exploration of the entire likelihood surfaces. While (a) is astrophysically
+% justified, given that we have not observed NSs with masses below 
+% $1.25M_\odot$, (b) and (c) will be removed in future studies as more evolved template
+% models become available. See, also, Fig.~\ref{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}.
+% % 
+% Finally, we note that the left panel corresponds to the actual sampling parameters,
+% while the right panel to derived ones.
+% }
+% \label{fig:TT_pdf_q2_chi75_L1500_SNR20}
+% \end{figure*}
+% %
+% \begin{figure*}
+% \centering    
+% % \includegraphics[width=.66\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
+% \includegraphics[width=\columnwidth]{plots/TT_logLike_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
+% \includegraphics[width=\columnwidth]{plots/TT_logProb_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
+% \caption{These figures show the effect of limitation (a) (described in the caption
+% of Fig.~\ref{fig:TT_pdf_q2_chi75_L1500_SNR20}) on the likelihood surface portion
+% that is actually accessible to our Bayesian inferencing algorithm. On the left we show the
+% entire likelihood surface in the $\mbh-\mns$ plane, while on the left is the 
+% portion not forbidden by the requirement $\mns\geq 1.2M_\odot$. Similarly, our
+% priors on BH spin and NS deformability further curtail the portion of sampled
+% parameter space, albeit to much less impact than this mass cut.}
+% \label{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}
+% \end{figure*}
 
 
 %

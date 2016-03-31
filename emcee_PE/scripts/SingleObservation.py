@@ -50,7 +50,7 @@ ErrThresh=[100, 200]
 # PLOTTING :
 # Function to make parameter bias plots
 ######################################################
-linestyles = ['solid', 'dashed', 'dashdot', 'dashed', 'dotted']
+linestyles = ['dotted', 'dashed', 'solid', 'dashed', 'dotted', 'dashdot', 'dashed', 'dotted']
 #linecolors = ['crimson', 'olivedrab', 'k', 'b', 'm', 'y']
 linecolors = ['crimson', 'darkorange', 'olivedrab', 'royalblue', 'purple', 'k']
 linemarkers= ['', 'x', 'o', '^']
@@ -174,7 +174,7 @@ col corresponds to the lower level group
       for lev in levellines:
         cset = ax.contour(xx, yy, zz, levels=[lev], colors='k', ls='--', linewidths=4, hold="on")
         for c in cset.collections: c.set_linestyle('dotted')
-        plt.clabel(cset, colors='r', inline=1, fmt=lfmt, fontsize=16)
+        plt.clabel(cset, colors='b', inline=1, fmt=lfmt, fontsize=16)
         contours_tmp[lev] = cset.collections[0].get_paths()
       if vverbose:
         print "for %s" % titles[idx][jdx], contours_tmp
