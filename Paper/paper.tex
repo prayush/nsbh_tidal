@@ -552,7 +552,28 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 \centering    
 \includegraphics[width=1.\columnwidth]{plots/pdfLambda_vs_N_L800.pdf}
 \includegraphics[width=1.\columnwidth]{plots/FillBetweenNormErrorBarsLambda_vs_N_L800.pdf}
-\caption{HELLO
+\caption{{\it Left}:  Posterior probability distributions for $\lambdans$
+and associated $90\%$ confidence intervals, shown as a function of number of events 
+accumulated $N$.
+{\it Right}: Filled-region plots showing the median and $90\%$ confidence intervals
+for $\lambdans$, as a function of the number of observed events $N$.
+ Shown are two independent filled regions. 
+%  
+ One in green shows the recovered confidence interval
+ for $\lambdans$ (on the left y-axis), normalized by its true value,
+ as a function of the 
+ number of observed events $N$. The recovered median is shown by the
+ green line-circled curve. The pair of horizontal green dashed (dotted)
+ lines show the $\pm 50\%$ ($\pm 25\%$) symmetric error bounds around
+ the true $\lambdans$ value, which is shown at y-value $=1$ by definition.
+% 
+ The second filled region, in grey, shows the recovered
+ confidence interval for neutron star compactness, without normalizing.
+ The corresponding y-values are shown on the *right* y-axis. The horizontal grey
+ dashed line traces the true value of $\lambdans$, and is what we expect
+ the filled region to approach with increasing number of observations.
+%  
+ Finally, the grey dotted lines are contours of $1/\sqrt{N}$, drawn to aid the eye.
 }
 \label{fig:TT_Lambda_vs_N_L800_CI90_0}
 \end{figure*}
@@ -564,7 +585,26 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 \includegraphics[width=1.\columnwidth]{plots/FillBetweenNormErrorBarsLambda_vs_N_L1500.pdf}\\
 \includegraphics[width=1.\columnwidth]{plots/FillBetweenNormErrorBarsLambda_vs_N_L1000.pdf}
 \includegraphics[width=1.\columnwidth]{plots/FillBetweenNormErrorBarsLambda_vs_N_L500.pdf}
-\caption{HELLO
+\caption{Filled-region plots showing the median and $90\%$ confidence intervals
+for $\lambdans$ measurement, as a function of the number of observed events $N$.
+Different panels correspond to different injected $\lambdans$ values, which is shown
+in their title. In each panel are shown two independent filled regions. 
+%  
+ One in green shows the recovered confidence interval
+ for $\lambdans$ (on the left y-axis), normalized by its true value,
+ as a function of the 
+ number of observed events $N$. The recovered median is shown by the
+ green line-circled curve. The pair of horizontal green dashed (dotted)
+ lines show the $\pm 50\%$ ($\pm 25\%$) symmetric error bounds around
+ the true $\lambdans$ value, which is shown at y-value $=1$ by definition.
+% 
+ The second filled region, in grey, shows the recovered
+ confidence interval for neutron star compactness, without normalizing.
+ The corresponding y-values are shown on the *right* y-axis. The horizontal grey
+ dashed line traces the true value of $\lambdans$, and is what we expect
+ the filled region to approach with increasing number of observations.
+%  
+ Finally, the grey dotted lines are contours of $1/\sqrt{N}$, drawn to aid the eye.
 }
 \label{fig:TT_Lambda_vs_N_L500_2000_CI90_0}
 \end{figure*}
@@ -581,9 +621,29 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=1.\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
 \includegraphics[width=1.\columnwidth]{plots/LambdaCIWidths_vs_N.pdf}
-\caption{HELLO
+\includegraphics[width=1.\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
+\caption{{\it Left}: In the main panel is shown the width of the measured $90\%$ 
+confidence interval for $\lambdans$, normalized by its true value,
+ as a function of the number of events observed $N$. In the inset, we
+ show the same measurement uncertainty, but not normalized, and on a 
+ logarithmic axis for $N$ as well.
+% 
+ From both the inset and the main plot, we find that for the first $3-4$ events
+ our measurement is prior limited. As $N$ increases, the uncertainty falls 
+ roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
+ (than $1/\sqrt{N}$) narrowing of the confidence interval.
+%  
+ {\it Right}: This figure shows the fractional difference between the median
+ recovered value from the posterior probability distribution for $\lambdans$
+ as a function of $N$. Different curves correspond to different injected values
+ of $\lambdans$, and are shaded from light to dark in direct proportion. 
+ The horizontal dashed brown line marks $10\%$ deviation of the median from the 
+ true value.
+%  
+We find that within $\approx 10$ detections, the median measured value for
+$\lambdans$ would estimate the true value for the star with the remarkable 
+accuracy of $10\%$.
 }
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
 \end{figure*}
@@ -593,7 +653,17 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 \begin{figure}
 \centering    
 \includegraphics[width=1.\columnwidth]{plots/LambdalErrorBars_vs_Lambda_N49_Log.pdf}
-\caption{HELLO
+\caption{This figure shows the relative uncertainty in the measurement of $\lambdans$,
+as a function of $\lambdans$ itself. The drawn curves are cumulative, in the sense 
+that the $N=n$ curve includes information from all of the first $n$ observed events.
+Those corresponding to the first $N\leq 5$ events are shown in fading shades of red,
+with the ones for higher value of $N$ being shown in grey (going from light to dark in
+proportion to $N$).
+Green dash-dotted lines are contours of $y=x^{-(1+1/5)}$.
+% 
+\prayush{We note that the measurement uncertainty from a population follows the
+equation for the green lines.}
+% 
 }
 \label{fig:TT_Lambda_vs_Lambda_L500_2000_CI90_0_AllInOne}
 \end{figure}
