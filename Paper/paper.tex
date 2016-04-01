@@ -284,7 +284,7 @@ uniform prior in parameters $p(\vec{\theta}) = \Theta(\vec{\theta}-\vec{\theta}_
 %\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
 % \includegraphics[trim={3.6cm 0 0 0},width=2.25\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR}
 \includegraphics[trim={1.3cm 0 0 0},width=2.\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear}
-\caption{We show here (Log of) the ratio of the systematic and statistical
+\caption{We show here the ratio of systematic and statistical
 measurement uncertainties for the binary chirp mass over the NSBH parameter 
 space. Each panel shows the same as a function of BH mass and spin. Across
 each row, we can see the effect of increasing the signal strength (i.e. SNR)
@@ -308,12 +308,12 @@ of tidal effects in filtering templates.
 %\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
 % \includegraphics[trim={3.6cm 0 0 0},width=2.25\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR.pdf}\\
 \includegraphics[trim={1.3cm 0 0 0},width=2.\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear002}
-\caption{These figures are similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
+\caption{This figure is similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
 with the difference that the quantity in question here is the symmetric 
 mass-ratio $\eta$. We find that for fairly loud GW signals, with $\rho\simeq 50$,
-NS tidal effects on GW emission can become the dominant source of error. However,
-for quieter signals with $\rho\leq 30$, we find that not including NS matter 
-effects in parameter estimation templates has minimal effects on the measurement
+not including the effects of NS's tidal deformation on GW emission can become the dominant
+source of error for astrophysical searches with Advanced LIGO. However,
+for quieter signals with $\rho\leq 30$, it will have minimal effects on the measurement
 of $\eta$. We remind the reader that the SNRs here are all single detector values.
 }
 \label{fig:TN_EtaBias_vs_Lambda_SNR}
@@ -325,12 +325,12 @@ of $\eta$. We remind the reader that the SNRs here are all single detector value
 \includegraphics[trim={1.3cm 0 0 0},width=2.\columnwidth]{plots/TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear}
 % \includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI68_3.pdf}
 % \includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI90_0.pdf}
-\caption{These figures show the ratio of the systematic and statistical
-measurement errors for BH spins, for all of our injected cases. The left
-panel corresponds to $1-\sigma$ statistical confidence level, while the right panel
-corresponds to $90\%$ confidence level. We note that below $\rho\approx 30$, ignoring
-tidal effects in templates introduces systematic effects that remain subdominant
-to the statistical measurement uncertainties.
+\caption{This figure shows the ratio of the systematic and statistical
+measurement errors for BH spins, with other attributed identical to 
+Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}, and~\ref{fig:TN_EtaBias_vs_Lambda_SNR}.
+Similar to the case of mass parameters, we find that below
+$\rho\approx 30$, ignoring tidal effects in templates introduces minor systematic effects,
+which remain subdominant to the statistical measurement uncertainties.
 }
 \label{fig:TNT_BHspinBias_vs_SNR_q23}
 \end{figure*}
@@ -354,7 +354,8 @@ using T signals recovered with N templates.''\newline
 \end{enumerate}
 
 
-\prayush{Could have subsections for different frequency-optimized aLIGO noise curves ?}
+
+
 
 \hspace{5mm}
 
@@ -383,14 +384,15 @@ using T signals recovered with N templates.''\newline
 \includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
 %\includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
 \caption{This figure shows the statistical uncertainty in the measurement of
-$\lambdans$, as a percentage of the injected signal's $\lambdans$. In each panel, 
+$\lambdans$, as a percentage of the injected signal's $\lambdans$ value. In each panel,
 the same is shown as a function of the BH mass and spin, keeping the 
 $\lambdans$ and injection's SNR $\rho$ fixed (given in the panel). Each row contains
-panels with the same value of $\lambdans$, while each column contains panels 
-with the same value of $\rho$. Two contours are drawn in each panel demarkating
-that the statistical measurement uncertainty for $\lambda$ is equal to (or twice
-of) its injected $\lambdans$ value, i.e. where we can place a factor of $1-2$ 
-bound on $\lambdans$.
+panels with the same value of $\lambdans$, with $\rho$ increasing from left to right.
+Each column contains panels with the same value of $\rho$, with $\lambdans$ 
+increasing from top to bottom.
+% 
+Contours are drawn in each panel demarkating regions where we can constrain the
+$\lambdans$ parameter well (within a factor of two of the injected value).
 % 
 We note that, as expected, the measurement accuracy for $\lambdans$ improves with (i) increasing
 SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and 
@@ -402,19 +404,22 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 \begin{figure*}
 \centering    
 % \includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0.pdf}
-\includegraphics[width=1.\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0.pdf}
-\includegraphics[width=1.\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR50_CI90_0.pdf}\\
+\includegraphics[width=1.025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0.pdf}
+\includegraphics[width=1.025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR50_CI90_0.pdf}\\
 % \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR70_CI90_0.pdf}
 % \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR90_CI90_0.pdf}
 % \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR120_CI90_0.pdf}
-\caption{We demarkate here the regions of BH mass and spin plane where we can 
+\caption{In these figures we highlight the regions of BH mass and spin plane where we can 
 constrain the $\lambdans$ of its companion NS within a factor of $1-2$ of its true value.
-Panels correspond to the injected SNR, with signal strength increasing
-from left to right and top to bottom. Within each panel, $\lambdans$ measurement uncertainty
-contours are shown as functions of BH mass and spin, with different colors corresponding to the
-injected $\lambdans$. We note that this information is, in principle, contained in 
-Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
-the effect of NS's deformability itself on its measurement. As from Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, we note that the measurability of NS matter
+Panels correspond to different signal strength, with $\rho$ increasing from left to right.
+Within each panel, $\lambdans$ measurement uncertainty contours are shown as functions of BH 
+mass and spin, with line-types corresponding to different uncertainty levels, and
+colors showing the injected $\lambdans$.
+% We note that this information is, in principle, contained in 
+% Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
+% the effect of NS's deformability itself on its measurement. 
+As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, we note that the measurability
+of NS matter
 effects improves with all factors that enhances the signature of the NS's disruption on
 the \textit{detectable} portion of the emitted GW signal (implying, within a frequency band
 set by the detectors).
@@ -565,13 +570,13 @@ templates, and (b) NSBH templates. We will discuss the results of (b) here.
 \end{figure*}
 %
 % 
-\begin{figure}
-\centering    
-\includegraphics[width=1.\columnwidth]{plots/FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf}
-\caption{HELLO
-}
-\label{fig:TT_Lambda_vs_N_L500_2000_CI90_0_AllInOne}
-\end{figure}
+% \begin{figure}
+% \centering    
+% \includegraphics[width=1.\columnwidth]{plots/FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf}
+% \caption{HELLO
+% }
+% \label{fig:TT_Lambda_vs_N_L500_2000_CI90_0_AllInOne}
+% \end{figure}
 %
 % 
 \begin{figure*}

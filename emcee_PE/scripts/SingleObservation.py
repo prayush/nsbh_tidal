@@ -367,7 +367,7 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
     'ytick.labelsize':16,\
     'figure.subplot.bottom':0.2,\
     'figure.figsize':figsize, \
-    'savefig.dpi': 300.0, \
+    'savefig.dpi': 500.0, \
     'figure.autolayout': True})
   
   ngrp1 = len(XY.keys())
@@ -378,7 +378,7 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
     
   #fig = plt.figure(int(1e7 * np.random.random()), \
   #            figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
-  fig = plt.figure(int(1e7 * np.random.random()), figsize=(1.2*gmean*colwidth, colwidth))
+  fig = plt.figure(int(1e7 * np.random.random()), figsize=(1.2*gmean*colwidth*0.75, 0.75*colwidth))
   # FIrst make all lines
   all_lines = []
   xykeys = XY.keys()
@@ -398,14 +398,14 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
   if single_legend:
     harray = [all_lines[i][0] for i in range(ngrp1)]
     harray.extend( [all_lines[0][i] for i in range(ngrp2)] )
-    first_legend = plt.legend(handles=harray, loc=1, ncol=2, framealpha=False, markerfirst=markerfirst[0])
+    first_legend = plt.legend(handles=harray, loc=1, ncol=2, framealpha=False, markerfirst=markerfirst[0], fontsize=10)
     ax = plt.gca().add_artist(first_legend)
   else:
     harray1 = [all_lines[i][0] for i in range(ngrp1)]
     harray2 = [all_lines[0][i] for i in range(ngrp2)]
-    first_legend  = plt.legend(handles=harray1, loc=leg_loc[0], ncol=1, framealpha=False, markerfirst=markerfirst[0])
+    first_legend  = plt.legend(handles=harray1, loc=leg_loc[0], ncol=1, framealpha=False, markerfirst=markerfirst[0], fontsize=10)
     ax = plt.gca().add_artist(first_legend)
-    second_legend = plt.legend(handles=harray2, loc=leg_loc[1], ncol=1, framealpha=False, markerfirst=markerfirst[1])
+    second_legend = plt.legend(handles=harray2, loc=leg_loc[1], ncol=1, framealpha=False, markerfirst=markerfirst[1], fontsize=10)
   #
   plt.grid(alpha=0.5)
   plt.xlim([xmin,xmax])
