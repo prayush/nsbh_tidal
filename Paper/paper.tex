@@ -24,6 +24,8 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\lambdans}{\Lambda_\mathrm{NS}}
+\newcommand{\dlambda}{\delta\Lambda}
+
 \newcommand{\chibh}{\chi_\mathrm{BH}}
 \newcommand{\chins}{\chi_\mathrm{NS}}
 \newcommand{\mbh}{m_\mathrm{BH}}
@@ -426,16 +428,16 @@ measurement bias for BH spin exceeds its statistical uncertainty to become the
 dominant source of error. Not surprisingly, the systematic bias at both spin 
 extremes pushes towards milder spins, since the prior excludes any more extreme
 spins than $[-0.75, +0.75]$ and that pushes the bulk of the posterior inwards.
-However as the signal's $\lambdans$ is increased from $500\rightarrow 2000$, the 
-low-mass BH-NS binaries with large spins on the BHs show very large systematic biases
-in spin values, that becomes larger than the statistical uncertinty for $\rho\geq30$
-and reaches up to $4\times$ the same quantity as $\rho\rightarrow 70$.
+However as the signal's $\lambdans$ is increased from $500\rightarrow 2000$,
+low-mass BH-NS binaries with large spins on the BH show very large systematic biases
+in spin values, that become larger than the statistical uncertainty for $\rho\geq 30$
+and reach up to $4\times$ the same quantity as $\rho\rightarrow 70$.
 
 
 Summarizing these results, we find that irrespective of system parameters, below a
 signal-to-noise ratio of $30$, our measurements of mass and spin parameters of 
 astrophysical BHNS binaries will remain limited by the intrinsic uncertainty due to 
-instrument noise, and not depend on whether we include tidal effects in template
+instrument noise, and do not depend on whether we include tidal effects in template
 models. However, when the signal-to-noise ratio exceeds $30$ the systematic bias in
 binary mass and spin measurements become comparable to and exceed the uncertainty
 due to noise. Of the different parameters considered, we find that the measurement 
@@ -450,17 +452,6 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{What do we gain by using templates that include NS matter effects?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{figure*}
-%\centering    
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI68_3.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda800_0_CI68_3.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda1000_0_CI68_3.png}\\
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda500_0_CI90_0.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda800_0_CI90_0.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_Lambda1000_0_CI90_0.png}
-%\caption{This figure shows.}
-%\label{fig:TT_SNRThresholdForLambdaMeasurement_BHspin_MassRatio_CI90_0}
-%\end{figure*}
 % 
 \begin{figure*}
 \centering    
@@ -486,12 +477,9 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 % 
 \begin{figure*}
 \centering    
-% \includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0.pdf}
+\includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1000_0_CI90_0}
 \includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0}
-\includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}\\
-% \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR70_CI90_0.pdf}
-% \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR90_CI90_0.pdf}
-% \includegraphics[width=.68\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR120_CI90_0.pdf}
+% \includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}\\
 \caption{In these figures we highlight the regions of BH mass and spin plane where we can 
 constrain the $\lambdans$ of its companion NS within a factor of $1-2$ of its true value.
 Panels correspond to different signal strength, with $\rho$ increasing from left to right.
@@ -507,7 +495,7 @@ effects improves with all factors that enhances the signature of the NS's disrup
 the \textit{detectable} portion of the emitted GW signal (implying, within a frequency band
 set by the detectors).
 }
-\label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
+\label{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0}
 \end{figure*}
 %
 \begin{figure*}
@@ -536,117 +524,100 @@ set by the detectors).
 \label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
 \end{figure*}
 %
-% \begin{figure*}
-% \centering    
-% \includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
-% \includegraphics[trim={0 0 0 0},width=\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_m1_m2_chi2_Lambda.pdf}
-% \caption{These figure shows the $1-$ and $2-$dimensional 
-% \textit{a posteriori} probability distributions 
-% for different physical parameters describing a BHNS system including NS matter 
-% effects, as measured by a Bayesian Markov-chain Monte Carlo using tidal templates.
-% The true parameters of the injected signal are: 
-% $\mathcal{M}=1.6406M_\odot, \eta=0.2222, \chibh=\chi_2=0.75$ and $\lambdans=1500$,
-% with the injected SNR $\rho=20$. We show this case as typical of those with the largest
-% tidal signatures imprinted on the emitted GWs (due to the system being comparable
-% mass-ratio with a large-aligned spin on the BH and a fairly deformable NS), yet 
-% with low SNR.
-% % 
-% We note a few things:
-% (i) chirp mass is well constrained, with a nearly-Gaussian probability distribution;
-% while (ii) the other $3$ less constrained parameters rail against
-% prior boundaries. The specific boudary conditions that we run into are (a) for $\eta$,
-% we are limited by the requirement that $m_\mathrm{NS}\geq 1.2M_\odot$ 
-% of our templates; (b) for BH spin, we are limited by the $\chibh\leq+0.75$ requirement
-% that results from a template model limitation~\cite{Lackey:2013axa}; and (c) for 
-% $\lambdans$, we
-% restrict it to $[0, 4000]$ for the same reason as (b). These prior boundaries
-% limit the exploration of the entire likelihood surfaces. While (a) is astrophysically
-% justified, given that we have not observed NSs with masses below 
-% $1.25M_\odot$, (b) and (c) will be removed in future studies as more evolved template
-% models become available. See, also, Fig.~\ref{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}.
-% % 
-% Finally, we note that the left panel corresponds to the actual sampling parameters,
-% while the right panel to derived ones.
-% }
-% \label{fig:TT_pdf_q2_chi75_L1500_SNR20}
-% \end{figure*}
-% %
-% \begin{figure*}
-% \centering    
-% % \includegraphics[width=.66\columnwidth]{plots/TT_q2-00_mNS1-35_chiBH0-75_Lambda1500-0_SNR20-0_corner_eta_Mc_chi2_Lambda.pdf}
-% \includegraphics[width=\columnwidth]{plots/TT_logLike_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
-% \includegraphics[width=\columnwidth]{plots/TT_logProb_vs_m1_m2_eta0-22_Mc1-64_chi0-00_chi0-50_L1000-0_SNR30.pdf}
-% \caption{These figures show the effect of limitation (a) (described in the caption
-% of Fig.~\ref{fig:TT_pdf_q2_chi75_L1500_SNR20}) on the likelihood surface portion
-% that is actually accessible to our Bayesian inferencing algorithm. On the left we show the
-% entire likelihood surface in the $\mbh-\mns$ plane, while on the left is the 
-% portion not forbidden by the requirement $\mns\geq 1.2M_\odot$. Similarly, our
-% priors on BH spin and NS deformability further curtail the portion of sampled
-% parameter space, albeit to much less impact than this mass cut.}
-% \label{fig:TT_logLikeProb_q2_chi75_L1500_SNR20}
-% \end{figure*}
+% 
+In the previous section we showed that we begin to care for the effects of NS's
+deformation due to its companion hole's tidal field, if (a) the BH is sufficiently
+small, (b) BH spin is aligned and $\gtrsim +0.4$, and (c) the NS is
+not very compact, with $\lambdans\gtrsim 1000$. The first two conditions
+enhance tidal effects on emitted GWs by increasing the number of orbits at small
+separation, where the deviation of NSBH and BHBH dynamics is the largest. The third,
+i.e. (c), simply makes the NS more easily deformable. All of them reduce the onset 
+frequency for NS's disruption close to merger. Therefore, systems that fulfil the 
+above conditions have considerably (or, at least, the most) different GW morphology
+when compared to equivalent BHBH coalescences. Ultimately, the extent of 
+tidal modulations of emitted GWs depends on the equation of state of neutron star
+matter, which becomes an indirect measurable in GW astrophysics.
+% 
+However, if we do indeed receive GWs from such a binary source, what information can we
+possibly extract from it about the internal structure of neutron stars?
+In this section we consider this question in perspective of measuring the tidal 
+deformability parameter of neutron stars purely from gravitational waves they emits 
+while orbiting spinning black holes.
+% 
+We find that when the BH is sufficiently spinning in the prograde sense,
+with $\chibh\gtrsim +0.7$, even at a relatively possible signal strengths ($\rho=20$),
+we can begin to constraint $\lambdans$ at the level of $\pm 75\%$ errors with a $90\%$
+confidence level. If the signal is stronger, say $\rho=30$, we can contraint
+$\lambdans$ better with only $\pm 50\%$ errors, for binaries with large BH spins.
+This trend continues as we vary the SNR from $\rho=30-50$ upwards. In other words,
+with a single but moderately loud NSBH signal observation, Advanced LIGO will begin
+to put constraints on NS matter properties. These constraints can consequently
+be used to assess the likelihood of different equations of state for nuclear
+matter, and possibly narrow the range they span.
+
+  `
+
+We use the same set of systems as in the previous section, with $q=\{2,3,4,5\}$,
+$\chibh=\{-0.5,0,+0.5,+0.75\}$, $\lambdans=\{500, 800, 1000, 1500, 2000\}$ and SNRs
+$\rho=\{20,30,50,70\}$. For each unique combination of these parameters, we obtain a
+signal waveform using the tidal model of Lackey et al~\cite{Lackey:2013axa}.
+We use the same waveform model as input to our Bayesian parameter estimation
+method in order to obtain estimates for different binary parameters alongwith 
+their full probability distributions, including for the combined NS tidal
+deformability parameter $\lambdans$.
 
 
-%
-%% 
-%\begin{figure*}
-%\centering    
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR30_0_CI68_3.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR50_0_CI68_3.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR90_0_CI68_3.png}\\
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR50_0_CI90_0.png}
-%\includegraphics[width=.65\columnwidth]{plots-TT/TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass_SNR90_0_CI90_0.png}
-%\caption{This figure shows.}
-%\label{fig:TT_LambdaThresholdForLambdaMeasurement_BHspin_BHmass}
-%\end{figure*}
-
-Having shown in the previous section that we begin to care for NS tidal effects
-for signals in the XXX corner of the paraemter space, with SNRs above YY, here
-we investigate the effect of the improvement in the accuracy of the recovered
-parameters when tidal effects are included in the templates.
-
-\begin{enumerate}
-\item Where in the parameter space can we actually make a statement about 
-$\Lambda_\mathrm{NS}$ ?
-\item What is the reduction in the bias of the maximum likelihood parameters
-when using tidal templates?\newline
-``Plot the ratio of the bias between N templates and T templates (against T
-signals), as a function of SNR.''
-\item What is the reduction in the uncertainty in binary mass and spin, if
-any?\newline
-``show how the the $90\%$ confidence intervals shrink, as a function of SNR, 
-when we go from using N templates to T templates.''
-\end{enumerate}
+The precision with which $\lambdans$ can be measured is given by the width of 
+its $90\%$ confidence interval, as a fraction of the true value. 
+In Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR} we show the same as a function
+of binary parameters and signal strength. Each panel shows the percent statistical
+uncertainty $\dlambda$ in the measurement of $\lambdans$ as a function of BH 
+masses and spins, with NS parameters and signal strength being held fixed. 
+In each row, the signal strength is increased from
+left to right with $\rho = 20\rightarrow 70$. In each column, the deformability
+of the NS is increased from top to bottom, with $\lambdans=500\rightarrow 2000$.
+% 
+We find that at SNRs around $\rho=30$, we begin to constrain $\lambdans$ 
+meaningfully with $\dlambda\approx 100-150\%$. Amongst other parameters, 
+the BH spin and mass play a big role. A smaller BH with a larger spin always
+allows for a more precise measurement on $\lambdans$. Visually we can see that
+in each panel the bottom right corner, which corresponds to low-mass BHs
+with large spins, is the region of smallest measurement errors on $\lambdans$.
+The actual deformability of the NS also plays an important role on its own
+measurability. For e.g., when $\lambdans\leq 1000$, it is fairly difficult
+to meaningfully constrain $\lambdans$ without getting remarkably lucky and
+finding such a binary with $\rho\gtrsim 50$.
 
 
-\subsection{Constraining the tidal deformability of the neutron star}\label{s2:measuring_lambda}
 
-With the enhanced sensitivity of aLIGO, we are likely to be able to measure or
-constrain deviations in the observed GW signals, especially close to binary
-merger, from their expected form under the point-particle approximation.
-The tidal disruption of the NS close to merger, and outside of the 
-inner-most circular orbit, will drastically change the morphology of the emitted
-GW signal, the measurement of which will allow us to constrain the equation 
-of state (EoS) of nuclear matter.
-The earlier in the orbit the NS disrupts, the sharper is the drop in the emitted
-GW signal for frequencies above the disruption frequency. In this section we
-study the ability of aLIGO to constrain the 
-$\lambdans\sim \left(R/M\right)_\mathrm{NS}^5$ parameter, which
-the combination that parametrizes the deviation in the emitted GW signal.
-Past studies~\cite{}
-have studied a limited sample of systems with distinguishability criterion that
-are typically applicable in the very high signal-to-noise ratio cases. 
-In what follows, we will use stochastic parameter estimation algorithms to show
-aLIGO's capability of extracting EoS information out from GW signals with 
-more realistic (likely) SNRs.
+In Fig.~\ref{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0} we take the case of
+faily deformable neutron stars, with actual $\lambdans = 1500$ (left panel) and
+$2000$ (right panel). In each case, we calculate the lowest SNR value $\rho_c$ 
+in order
+for the signal to have enough information that we can constrain $\dlambda$ below
+$100\%$. Note that this is a modest requirement on constrainability of $\lambdans$.
+In each panel of the figure, we show $\rho_c$ as a function of BH mass and spin.
+% 
+We immediately note that to fulfil this modest aim with a single observation, 
+we need an SNR of $30$ or higher in each detector. Given we have that, we can 
+bring $\dlambda$ below $100\%$ for the lowest BH masses and higher spins. To
+attain the same for other values of BH parameters, we will need a very loud
+signal with $\rho\gtrsim 50$.
 
-As before we focus on binaries with mass-ratios $q=\{[2,3,4,5\}$, with the NS mass
-fixed at $1.35M_\odot$. We allow BH spin to take the values 
-$\chibh=\{-0.5,0,+0.5,+0.75\}$, and $\lambdans=\{500, 800, 1000\}$. For each of these
-parameter combinations, we inject a tidal-corrected waveform using the 
-Lackey et al~\cite{} model , and use MCMC with ensemble sampling to construct the 
-posterior probability distribution for different binary parameters with (a) BHBH
-templates, and (b) NSBH templates. We will discuss the results of (b) here.
+
+
+% 
+% 
+% \subsection{Constraining the tidal deformability of the neutron star}\label{s2:measuring_lambda}
+% 
+
+% As before we focus on binaries with mass-ratios $q=\{[2,3,4,5\}$, with the NS mass
+% fixed at $1.35M_\odot$. We allow BH spin to take the values 
+% $\chibh=\{-0.5,0,+0.5,+0.75\}$, and $\lambdans=\{500, 800, 1000\}$. For each of these
+% parameter combinations, we inject a tidal-corrected waveform using the 
+% Lackey et al~\cite{} model , and use MCMC with ensemble sampling to construct the 
+% posterior probability distribution for different binary parameters with (a) BHBH
+% templates, and (b) NSBH templates. We will discuss the results of (b) here.
 
 
 
