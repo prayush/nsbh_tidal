@@ -332,32 +332,115 @@ Similar to the case of mass parameters, we find that below
 $\rho\approx 30$, ignoring tidal effects in templates introduces minor systematic effects,
 which remain subdominant to the statistical measurement uncertainties.
 }
-\label{fig:TNT_BHspinBias_vs_SNR_q23}
+\label{fig:TN_BHspinBias_vs_Lambda_SNR}
 \end{figure*}
 % 
 % 
-Advanced LIGO searches and parameter estimation efforts aimed at binaries 
-containing NS and stellar-mass BHs are poised to use waveform models that do not
-include the effects of the NS tidal deformability~\cite{Canton:2014ena}.
-While this is not expected to
-be the dominant source of error at low SNRs, it will likely introduce a
-systematic bias in the physical parameters that we recover from GW observations.
-In this section, we study the impact of the same for binaries where the BH spins
-are aligned to the orbital angular momentum.
+Past and future GW search and source characterization efforts with Advanced LIGO
+have used (or plan to) BH-BH waveform templates for NS-BH mergers, ignoring
+the effect of the tidal deformation of the neutron star due to its companion hole
+on the emitted GWs. In this section we present the first fully Bayesian Monte-Carlo
+study of the effects of this assumption on the recovery of other physical parameters
+of NS-BH sources. We do so by comparing the systematic biases introduced by this 
+assumption to the overall statistical uncertainties in the measurement of binary 
+mass and spin parameters. We find that unless the single-detector SNR of the signal
+exceeds $30$ (for design Advanced LIGO sensitivity), the bias accurued by ignoring
+tidal effects in filtering templates will remain smaller than the statistical 
+uncertainty of the same measurement.
 
-\begin{enumerate}
-\item Above what SNR values, below what mass-ratios, above what BH spins, etc, 
-do we begin to care about NS deformability?\newline
-``one interesting plot to make would be the parameter bias (max-Likelihood
-parameters minus true parameters) vs SNR, as functionals of q/sBH/Lambda, when
-using T signals recovered with N templates.''\newline
-\end{enumerate}
+We first take a set of NSBH binary waveforms, which include the modeling of spin and
+tidal effects. Binary mass-ratio is sampled
+uniformly over the range $q\in[2,5]$ taking $q=\{2,3,4,5\}$ as our test points. The
+mass of the NS is fixed to $\mns=1.35M_\odot$, and therefore knowing $q$ gives $\mbh$.
+The spin of the NS is fixed to zero. The spin of the BH is sampled uniformly over the
+range $\chibh\in[-0.75, +0.75]$, choosing $\chibh=\{-0.5, 0, +0.5, +0.75\}$ as our
+test points. Finally, we vary the deformability parameter uniformly over 
+$\lambdans\in[0,2000]$, choosing $\lambdans=\{500, 1000, 1500, 2000\}$ plus an additional
+$\lambdans=800$ case. Waveform are generated for all possible combinations of these
+parameters, and rescaled to different strengths with $\rho=\{20, 30, 50, 70\}$. For all
+of the resulting signals, we perform a fully Bayesian parameter estimation aimed at
+measuring binary masses and spins from the signal. Our analysis
+templates differ from the signal in only one sense: all tidal terms are set to zero
+in the former, i.e. they correspond to BHBH mergers.
+
+In Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR} we show the ratio of the systematic
+bias in the measured binary chirp mass $\mchirp$ versus its true value, to the 
+statistical uncertainty of the measurement itself. $\mchirp$ is the mass combination
+that occurs at leading order in the perturbative expression for GW strain from 
+compact binaries, and is therefore very precisely measurable. Even so, we find that
+for $\rho=30$ the signal is not loud enough for the systematic bias in $\mchirp$
+to exceed a fraction of the statistical uncertainty. When we increase the SNR to 
+$\rho=50$ (middle column), we find that if we have two favorable conditions present:
+(a) that the BH spin be $\gtrsim 0.4$, {\it and} (b) the NS's true deformability
+be large enough that its $\lambdans \gtrsim 1000$, the systematic biases from
+ignoring tidal effects in templates reach between $50-100\%$ of the statistical
+uncertainty. Therefore at this signal strength, including terms involving the neutron
+star's internal structure in waveform models becomes increasingly gainful. At 
+even higher SNRs, say $\rho=70$ (right column), under the same favorable conditions
+as listed above, the systematic bias in $\mchirp$ measurement {\it exceeds} its 
+statistical measurement uncertainty. If the BH is even mildly spinning, say
+$\chibh\gtrsim 0.2$, with the NS mildly deformable, say $\lambdans\gtrsim 800$, 
+we still are affected in our $\mchirp$ measurement at the $50\%$ level by the 
+use of point-particle waveform templates. Finally, we note that the measured (median)
+$\mchirp$ is always higher than its true value. This is reasonable since the tidal 
+deformation of NSs close to merger reduces the GW signal power in high frequencies, so
+it would look like a BH-BH signal of a higher mass (and therefore lower merger or
+peak GW-power frequency).
 
 
+In the next figure, Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}, we show the same
+information (i.e. the ratio of systematic bias to statistical uncertainty in parameter
+measurement) for the symmetric mass-ratio $\eta$. Note that $\eta$
+is bounded from above and below to within $\eta\in[0, 1/4]$. We immediately observe
+that the measured (median) $\eta$ is always lowered below its true value due to the 
+lack of $\lambdans$-dependent terms in the filter template model. This bias, as for 
+the $\mchirp$ bias, decreases the merger frequency for the BH-BH template, which must
+better match the NS-BH merger with its quietened merger and ringdown. At SNR $\rho=30$
+the systematic bias in $\eta$ measurement stays mostly around $10-50\%$ of its statistical
+measurement uncertainty. For the sole case of a very deformable NS with $\lambdans=2000$,
+the missing tidal pieces in template models could cause errors that are comparable to 
+that due to noise (i.e. statistical uncertainties). For a still stronger signal with 
+$\rho=50$, we find that 
+when the following conditions are fulfilled, the measurement of $\eta$ is {\it completely
+compromised} due to template biases: (a) BH mass $\mbh\leq 5M_\odot$, (b) BH spin
+$\chibh\gtrsim +0.4$, and (c) $\lambdans\gtrsim 1500$. Even under more moderate restrictions
+on BH and NS parameters, we find that $\rho=50$ is loud enough to necessitate the 
+use of tidal-modeled templates. This observation is further strengthened if we divert 
+our attention to the third column in Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR} that presents
+the case for even higher SNRs ($\rho=70$).
+
+Moving on from mass to spin parameters, we now consider the measurement of spin
+angular momentum of the BH $\chibh$. The ratio of the systematic bias introduced into
+and the statistical uncertainty associated with $\chibh$ measurement is shown in
+Fig.~\ref{fig:TN_BHspinBias_vs_Lambda_SNR}. The presentation of information in this 
+figure is identical to that in Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
+and~\ref{fig:TN_EtaBias_vs_Lambda_SNR}. A diverging colormap is used because both 
+extremes of the colorbar range point to large systematic biases, while its zero (or
+small) value lies in the middle. For the lowest considered SNR $\rho=30$, $\chibh$
+bias is negligible, being below $50\%$ of its statistical measurement uncertainty.
+For the most deformable NS structure {\it and} with a low-mass BH, the statistical
+bias in $\chibh$ does become an important error. This is furthered at higher SNR, 
+considering $\rho=50$ next (middle column of Fig.~\ref{fig:TN_BHspinBias_vs_Lambda_SNR}).
+We find that for low-mass BHs (with masses below $4.5M_\odot$), the systematic 
+measurement bias for BH spin exceeds its statistical uncertainty to become the 
+dominant source of error. Not surprisingly, the systematic bias at both spin 
+extremes pushes towards milder spins, since the prior excludes any more extreme
+spins than $[-0.75, +0.75]$ and that pushes the bulk of the posterior inwards.
+However as the signal's $\lambdans$ is increased from $500\rightarrow 2000$, the 
+low-mass BH-NS binaries with large spins on the BHs show very large systematic biases
+in spin values, that becomes larger than the statistical uncertinty for $\rho\geq30$
+and reaches up to $4\times$ the same quantity as $\rho\rightarrow 70$.
 
 
-
-\hspace{5mm}
+Summarizing these results, we find that irrespective of system parameters, below a
+signal-to-noise ratio of $30$, our measurements of mass and spin parameters of 
+astrophysical BHNS binaries will remain limited by the intrinsic uncertainty due to 
+instrument noise, and not depend on whether we include tidal effects in template
+models. However, when the signal-to-noise ratio exceeds $30$ the systematic bias in
+binary mass and spin measurements become comparable to and exceed the uncertainty
+due to noise. Of the different parameters considered, we find that the measurement 
+of $\eta$ degrades worst (in a relative-error sense) amongst all other parameters
+of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signal.
 
 
 
