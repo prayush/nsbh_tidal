@@ -164,6 +164,17 @@ the observable volume, i.e. 4/3 pi D_Luminosity^3
     raise RuntimeError("SNR sampling not being done properly")
         
 
+def find_closest_match(tmp_rand, vec):
+    '''
+Take a random number in the range spanned by vec, and find the
+element in vec closest to it.
+    '''
+    diffs = np.abs(np.array(vec) - tmp_rand)
+    idx_min = np.where(diffs == diffs.min())[0][0]
+    if idx_min < 0 or idx_min >= len(vec):
+        raise RuntimeError("Could not find closest match!")
+    return vec[idx_min]
+    
 #######################################################
 ### CALCULATION CLASSES
 #######################################################
@@ -252,7 +263,8 @@ What it does:
     ###
     def generate_events(self, lambda_posterior_chains=None,\
                         NSLambda=None,\
-                        qvec=None, chi2vec=None, SNRvec=None):
+                        qvec=None, chi2vec=None, SNRvec=None,\
+                       qmin=2.0, qmax=5.0, chi2min=0.0, chi2max=1.0):
         '''
         Returns is a list of events. For each event, two objects are returned:
         1. array of posterior samples
@@ -280,8 +292,8 @@ What it does:
                 print >>sys.stdout, "  Event %d" % i
                 sys.stdout.flush()
             # DRAW TWO uniformly distributed random samples for (q, chiBH)
-            rnd_q = qvec[np.int(np.random.uniform(0, len(qvec)))]
-            rnd_chiBH = chi2vec[np.int(np.random.uniform(0, len(chi2vec)))]
+            rnd_q = find_closest_match(np.random.uniform(qmin, qmax), qvec)
+            rnd_chiBH = find_closest_match(np.random.uniform(chi2min, chi2max), chi2vec)
             #
             # Sample the SNR depending on source distribution specified
             if 'UniformInVolume' in self.source_distribution:
