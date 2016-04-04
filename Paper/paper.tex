@@ -218,7 +218,7 @@ can be written as
 \begin{equation}
  \tilde{h}_\mathrm{NSBH}(f, \vec{\theta}) = \tilde{h}_\mathrm{BBH}(f, \vec{\theta} - \{\lambdans\})\,A(f, \vec{\theta})\,e^{\ii \Delta\Phi(f, \vec{\theta})},
 \end{equation}
-where $\vec{\theta}:=\{M, \eta, \chibh, \lambdans\}$ are the intrinsic binary
+where $\vec{\theta}:=\{\mbh, \mns, \chibh,\chins=0, \lambdans\}$ are the intrinsic binary
 parameters. The first term on the right hand side is an underlying
 BBH waveform model that is used as a base. In the original construction of LEA,
 this was taken to be the SEOBNRv1 model~\cite{Taracchini:2012} of the 
@@ -252,13 +252,31 @@ here (``LEA+'') is a more robust version of LEA.
 \subsection{Bayesian methods}\label{s2:bayesian}
 % % Describe the emcee-based PE code
 
-The monte carlo algorithm samples the parameter space in proportion with 
-the likelihood $\LL(\vec{\theta}) = p(d|\vec{\theta})$, with a 
-uniform prior in parameters $p(\vec{\theta}) = \Theta(\vec{\theta}-\vec{\theta}_L) + \Theta(\vec{\theta}_H-\vec{\theta})$
+The joint inferred probability distribution of all parameters $\vec{\theta}\cup\{\lambdans\}$ 
+is given by
 \begin{equation}
- p(\vec{\theta}|d) = p(d|\vec{\theta}) p(\vec{\theta})
+ p(\vec{\theta}, \lambdans | d_n, K) = \dfrac{p(d_n|\vec{\theta}, \lambdans, K)\,p(\vec{\theta}, \lambdans | K)}{p(d_n|K)}.
 \end{equation}
-
+Here, $p(\vec{\theta}, \lambdans | K)$ is the prior probability for binary parameters of taking 
+particular values. In this paper, we use a uniform prior on the individual masses within 
+pre-chosen ranges, as well as a uniform prior on the spin of the black hole. We set neutron star's
+spin identically $=0$, and its tidal deformability parameter $\lambdans$ to be equally likely
+between $[0, 4000]$. The prior probability of obtaining a particular realization of data
+$p(d_n|K)$ is absorbed into the overall normalization. Finally, the first term in the numerator
+$p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given stretch of 
+data $d_n$ if we assume that a signal parameterized by $\vec{\theta}\cup\{\lambdans\}$ is buried
+in it, i.e.
+\begin{equation}\label{eq:likelihood}
+ \LL(\vec{\theta}, \lambdans) \equiv p(\vec{\theta}, \lambdans | K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+\end{equation}
+where $h\equiv h(\vec{\theta}, \lambdans)$ is our waveform model, and the detector noise
+weighted inner-product $\langle a|b\rangle$ is defined as 
+$$
+\langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
+$$
+where $\tilde{a}$ means the Fourier transform of the finite time series $a(t)$, and 
+$S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The definition of $\LL$ in 
+Eq.~\ref{eq:likelihood} assumes that the instrument noise is colored Gaussian. 
 
 
 
@@ -834,72 +852,88 @@ $\vec{\theta} = \{\mbh, \mns, \chibh, \chins, \rho\}$ and $\lambdans$. Note that
 in the luminosity distance, inclination angle of the binary's orbital angular momentum with
 respect to the plane of the detector, and its sky location angles into a single parameter $\rho$,
 which is the SNR of the received signal. Note also that $\vec{\theta}$ does not include
-$\lambdans$ as the latter would be treated independently. In addition, we assume
-that all observed NS's have the same equation of state, that uniquely determines their
-$\lambdans$ parameter. In other words, we assume that we know its mass perfectly.
+$\lambdans$ as the latter would be treated independently. In addition we assume that all
+NS's in a population will have the same deformability parameter $\lambdans$, and therefore
+its cumulative measurement is possible.
 % 
-Using Bayes' theorem, the measured probability distribution function for the $\lambdans$
-parameter is given as
+Using Bayes' theorem, the measured probability distribution function for $\lambdans$
+from $N$ observations is
 \begin{equation}\label{eq:lambdaMultiple}
- p(\lambdans | d_1, d_2, \cdots, d_N; K) = p(\lambdans | K)^{\alpha}\prod_{i=1}^N p(\lambdans | d_i, K),
+ p(\lambdans | d_1, d_2, \cdots, d_N; K) = p(\lambdans | K)^{1-N}\prod_{i=1}^N p(\lambdans | d_i, K),
 \end{equation}
 where $p(\lambdans|K)$ is the prior expectation for $\lambdans$, and we have assumed
-that all of the $N$ observations are independent. [Note: $\alpha$ will be calculated 
-soon, it should be a function only of N.]. A priori, we will assume that no particular value
-of $\lambdans$ is more preferred over another, and $\lambdans\leq 4000$, ie 
-$$
-p(\lambdans | K) = \mathrm{Rect}\left(\frac{\lambdans-2000}{4000}\right)
-$$
+that all of the $N$ observations are independent. A priori, we assume that no 
+particular value of $\lambdans$ is more preferred over another, and $\lambdans\leq 4000$,
+i.e.
+\begin{equation}\label{eq:lprior}
+ p(\lambdans | K) = \dfrac{1}{4000}\,\mathrm{Rect}\left(\frac{\lambdans-2000}{4000}\right)
+\end{equation}
 % 
-The second set of terms $p(\lambdans | d_i, K)$ are the inferred posterior distribution
-functions for $\lambdans$ from \textit{each} observation independently, and are 
-calculated by marginalizing over all other binary parameters, i.e.
+The second set of terms in Eq.~\ref{eq:lambdaMultiple} of the form $p(\lambdans | d_i, K)$
+is each the probability distribution for $\lambdans$ inferred {\it a posteriori} from
+the \textit{i}-th observation independently. 
+They are calculated by integrating
 \begin{equation}
- p(\lambdans | d_n, K) = \int \D\, \vec{\theta} p(\vec{\theta}, \lambdans | d_n, K).
+ p(\lambdans | d_i, K) = \int \D \vec{\theta}\, p(\vec{\theta}, \lambdans | d_i, K),
 \end{equation}
-The joint inferred probability distribution of all parameters $\vec{\theta}\cup\{\lambdans\}$ 
-is given by
-\begin{equation}
- p(\vec{\theta}, \lambdans | d_n, K) = \dfrac{p(d_n|\vec{\theta}, \lambdans, K)\,p(\vec{\theta}, \lambdans | K)}{p(d_n|K)}.
-\end{equation}
-Here, $p(\vec{\theta}, \lambdans | K)$ is the prior probability for binary parameters of taking 
-particular values. In this paper, we use a uniform prior on the individual masses within 
-pre-chosen ranges, as well as a uniform prior on the spin of the black hole. We set neutron star's
-spin identically $=0$, and its tidal deformability parameter $\lambdans$ to be equally likely
-between $[0, 4000]$. The prior probability of obtaining a particular realization of data
-$p(d_n|K)$ is absorbed into the overall normalization. Finally, the first term in the numerator
-$p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given stretch of 
-data $d_n$ if we assume that a signal parameterized by $\vec{\theta}\cup\{\lambdans\}$ is buried
-in it, i.e.
-\begin{equation}\label{eq:likelihood}
- \LL(\vec{\theta}, \lambdans) \equiv p(\vec{\theta}, \lambdans | K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
-\end{equation}
-where $h\equiv h(\vec{\theta}, \lambdans)$ is our waveform model, and the detector noise
-weighted inner-product $\langle a|b\rangle$ is defined as 
-$$
-\langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
-$$
-where $\tilde{a}$ means the Fourier transform of the finite time series $a(t)$, and 
-$S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The definition of $\LL$ in 
-Eq.~\ref{eq:likelihood} assumes that the instrument noise is colored Gaussian. 
+where $p(\vec{\theta}, \lambdans | d_n, K)$ is the inferred joint probability 
+distribution of all source parameters $\vec{\theta}\cup\{\lambdans\}$ for the 
+$i$-th event, as described in Sec.~\ref{s2:bayesian}.
+
+Our goal is to understand the improvement in our measurement of $\lambdans$
+with the number of recorded events. To do so, we simulate populations of $N$
+observations each, and quantify what we learn from each successive observation 
+using Eq.~\ref{eq:lambdaMultiple}. This allows us to determine how
+rapidly does our median estimate for $\lambdans$ converges to the true value,
+and how broad our uncertainty intervals for the same are, as $N$ increases.
+In order to generate each population, we first fix
+the NS properties: (i) NS mass $\mns=1.35M_\odot$, (ii) NS spin $\chins=0$
+and (iii) NS tidal deformability $\lambdans=$ some value that is chosen from
+$\{500,800,1000,1500,2000\}$. Next, we successively generate $N$ 
+independent events, uniformly sampling the remaining
+source parameters from the following ranges: (i) mass-ratio $q\in[2,5]$, (ii)
+BH spin $\chibh\in[0, 0.75]$, (iii) effective distance from within a 
+spherical volume whose radius is given by the lowest detectable
+SNR (which we take as $\rho=10$). We remind ourselves that
+once source parameters are fixed, there is a one-to-one mapping between
+effective distance and SNR. Finally, in order to mitigate computational
+cost, we make an additional simplification.
+We perform full MCMC parameter estimation for a set of systems with parameters
+laid on the regular hypercubic grid (henceforth ``G'') that spans
+$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
+The final population is given by substituting all of the $N$ events, generated
+as above, with their respective nearest neighbours on the grid G.
 
 
-\prayush{%
-As described in the previous sections, we have measured the $p(\lambdans | d_i, K)$ for a 
-set of different binary parameters. Therefore, the problem of finding the cumulative measurement
-constraint on $\lambdans$ using Eq.~\ref{eq:lambdaMultiple} reduces to being able to choose
-an astrophysically motivated sample set of $N$ binaries over which the second term on the RHS 
-can be computed.}
+In Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0} we show results for a population
+of $N=50$ events with $\lambdans=800$. In the left panel, we show the 
+probability distributions for $\lambdans$ inferred from $N$ events with $N$
+ranging from $1-50$. We also mark the $90\%$ confidence interval on $\lambdans$
+as dark grey vertical lines corresponding to each cumulative distribution.
+Distributions are normalized to unit area. We see that the information coming
+from the first few observations does not limit $\lambdans$ much more than our
+prior from Eq.~\ref{eq:lprior} does. However, the median of the distribution 
+tracks the true value of $\lambdans$ fast, reaching close within as few as $4$
+observations.
+% 
+In the right panel, we show our measurement uncertainty $\delta\Lambda/\Lambda$
+as a function of $N$, where we take $\delta\Lambda$ to be the width of the 
+$90\%$ confidence interval on $\lambdans$ after $N$ observations.
+This is given by the green filled region (left y-axis).
+The green filled circles show the median measured value of $\lambdans$
+as a function of $N$. The dashed line at y value $=1$ marks zero error, i.e.
+$\delta\Lambda/\Lambda=0$. The dotted and dashed lines around this denote
+$\pm 25\%$ and $\pm 50\%$ relative errors, respectively. Independently, the
+light-grey filled shown the absolute measurement uncertainty $\delta\Lambda$
+on the right y-axis , as a function of $N$. A horizontal grey dashed line
+marks the true value of $\lambdans$. Contours of $1/\sqrt{N}$ are shown as 
+dotted light grey curves to guide the eye while studying the dependence of
+$\delta\Lambda$ on $N$.
+% 
 
-\prayush{%
-Get posterior measurements for low SNRs, i.e. $\rho=\{10, 15, 20, 25, 30\}$. 
-Fix black hole mass and spins. Compute the measurement certainty for $\lambdans$
-as a function of the number of detections for a population astrophysically distributed 
-in effective distance. Repeat for a few different combinations of black hole masses
-and spins. This would be a sub-set of the overall detected population for NSBH binaries,
-but what fraction of it would this comprise of is something that we can only probe with
-LIGO itself. We do not know the real distribution of low-mass black holes in the field.
-}
+
+
+
 
 
 
