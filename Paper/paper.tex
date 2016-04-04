@@ -26,6 +26,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\lambdans}{\Lambda_\mathrm{NS}}
 \newcommand{\dlambda}{\delta\Lambda}
 
+\newcommand{\ii}{\mathrm{i}}
 \newcommand{\chibh}{\chi_\mathrm{BH}}
 \newcommand{\chins}{\chi_\mathrm{NS}}
 \newcommand{\mbh}{m_\mathrm{BH}}
@@ -62,16 +63,7 @@ Measuring matter effects in Neutron star - Black hole binaries with Advanced LIG
 \date{\today}
 
 \begin{abstract}
-We attempt to answer the following questions: 
-\begin{enumerate}
- \item What systematic biases are introduced by neglecting the NS tidal
- disruption close to merger? 
- \item At what SNR do the systematic biases dominate over the statistical 
- errors in the recovery of binary parameters?
- \item By using templates which models NS deformation (over inspiral) and 
- NS disruption (close to merger), what information can we recover about
- the $\Lambda_\mathrm{BH}\sim (R/M)^5_\mathrm{NS}$ parameter?
-\end{enumerate}
+We attempt to answer the following questions:
 \end{abstract}
 
 \pacs{}
@@ -85,7 +77,7 @@ We attempt to answer the following questions:
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section{Introduction}\label{s1:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The Advanced LIGO (aLIGO) observatories began their first observing run ``O1''
@@ -173,63 +165,91 @@ We use the models published in Ref.~\cite{Lackey:2013axa,Pannarale:2015jka} to
 simulate NSBH merger waveforms.
 
 
+Finally, we note that our results are applicable for the design sensitivity
+LIGO instruments, that are expected to come online in $2018-19$. Also note
+that more a recent work that improves upon the waveform model we use in this
+study has been published~\cite{Pannarale:2015jka}, but it gives only an 
+amplitude model and needs to be (in future) augmented with a compatible phase
+model. In addition, accuracy of the underlying numerical simulations used to
+calibrate the waveform model used here has not been verified against 
+independent codes so far.
+It is therefore difficult to assess the combined modeling error and the 
+results presented in our study are limited by the limitations of the model.
+However, we expect the combined effect of modeling errors to not change our
+qualitative conclusions.
 
-\vspace{2cm}
 
-\textit{\prayush{Current status:}}
 
-Below we explain the outline the different calculations performed in this 
-paper:
 
-\begin{enumerate}
-\item We choose the following values of different NSBH binary parameters:
-\begin{enumerate}
-\item $m_\mathrm{NS}=1.35M_\odot$;
-\item $q=m_\mathrm{BH}/\mathrm{NS}=\{2,3\}$;
-\item $\chi_\mathrm{NS}=0$;
-\item $\chi_\mathrm{BH}=\{-0.5, 0, +0.5\}$;
-\item $\Lambda =\{500,1000,2000\}$ ($\Lambda=0\implies \mathrm{BHBH}$).
-\end{enumerate}
+The remainder of the paper is organized as follows. 
+Sec.~\ref{s1:techniques} discusses data analysis techniques and resources 
+used in this paper, such as the waveform model, and parameter estimation 
+algorithm.
+Sec.~\ref{s1:PEwithnoNS} discusses the consequences of ignoring tidal 
+effects in parameter estimation waveform models.
+Sec.~\ref{s1:PEwithNS} discusses the measurability for the leading order
+tidal parameter $\lambdans$ at plausible SNR values.
+Sec.~\ref{s1:multiple_observations} discusses the improvement in our
+measurement of $\lambdans$ with successive (multiple) observations of
+NSBH mergers.
+Finally, in Sec.~\ref{s1:discussion} we summarize our results and discuss
+future prospects with Advanced LIGO.
 
-\item For each system, corresponding to one of all possible unique combinations
-of the above parameter choices, we carry out three parameter estimation tests: 
-\begin{enumerate}
-\item BH-BH signals injected, recovered with BH-BH waveforms (control),
-\item NS-BH signals injected, recovered with BH-BH waveforms, (current approach) and
-\item NS-BH signals injected, recovered with NS-BH waveforms.
-\end{enumerate}
-Injections were made at different SNR values: 
-\begin{enumerate}
-\item $\rho = \{20, 30, 50, 70, 90, 120\}$.
-\end{enumerate}
-Choice of emcee parameters:
-\begin{enumerate}
-\item $N_\mathrm{samples}=150,000$; 
-\item $N_\mathrm{walkers}=100$; 
-\item $N_\mathrm{burn-in}=500$; 
-\end{enumerate}
-and choice of prior boundaries:
-\begin{enumerate} 
-\item $m_\mathrm{BH}\in [1.2, 25]M_\odot$;
-\item $m_\mathrm{NS}\in [1.2, 15]M_\odot$;
-\item $\Lambda\leq 4000$; 
-\item $\sigma\left(\Lambda\right) = 100$ (for chains where templates are NS-BH waveforms).
-\end{enumerate}
 
-\item Results are shown in
-Fig.~\ref{fig:TNT_chirpMassBias_vs_SNR_q23}-~\ref{fig:TT_NSLambdaCIWidth90_vs_SNR_q23}.
 
-\end{enumerate}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Techniques}
+\section{Techniques}\label{s1:techniques}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Modeling tidal deformation during inspiral}
-Describe the PN terms used here
+\subsection{Waveform Models}\label{s2:waveforms}
 
-\subsection{Modeling tidal disruption near merger}
-Describe the Lackey et al model
+In Ref.~\cite{Lackey:2013axa}, the authors presented a suite of $134$ numerical
+relativity simulations of neutron stars inspiraling into spinning black holes. Amongst
+the varied quantities were (a) the equation of state for the NS, (b) NS mass, 
+(c) mass-ratio and (d) black hole spins, taken as aligned with the orbit.
+A total of $21$ two-parameter EoSs were used for these simulations, which also 
+had $q\in[2, 5]$, $\chibh\in[-0.5, +0.75]$, and 
+$m_\mathrm{NS}\in[1.20, 1.45]M_\odot$. Based on this suite of simulations, the
+authors calibrated a frequency-domain waveform model for the inspiral and merger phasing of
+NSBH coalescences. The GW strain predicted by this model (henceforth ``LEA''),
+can be written as
+% 
+\begin{equation}
+ \tilde{h}_\mathrm{NSBH}(f, \vec{\theta}) = \tilde{h}_\mathrm{BBH}(f, \vec{\theta} - \{\lambdans\})\,A(f, \vec{\theta})\,e^{\ii \Delta\Phi(f, \vec{\theta})},
+\end{equation}
+where $\vec{\theta}:=\{M, \eta, \chibh, \lambdans\}$ are the intrinsic binary
+parameters. The first term on the right hand side is an underlying
+BBH waveform model that is used as a base. In the original construction of LEA,
+this was taken to be the SEOBNRv1 model~\cite{Taracchini:2012} of the 
+Effective-one-body (EOB) family~\cite{Buonanno99}. The second term changes the 
+amplitude of the BBH model
+to match that of an NSBH merger of otherwise identical parameters, with NS-matter
+effects parametrized by $\lambdans$. During inspiral this term is set to
+unity, but is a sensitive function of $\lambdans$ close to merger. The third 
+term does the same as the second, but to the waveform phasing. During inspiral,
+$\Delta\Phi(f, \vec{\theta})$ is set to the PN tidal phasing corrections,
+at the leading and next-to-leading orders~\cite{Vines2011}. Close to merger,
+additional phenomenological terms are added and calibrated to the $134$ available
+NR simulations.
 
-\subsection{Bayesian methods}
+In this paper we use LEA for our signal and template modeling, but switch the 
+underlying BBH model to SEOBNRv2~\cite{Taracchini:2013rva},
+using its reduced-order frequency-domain version~\cite{Purrer:2015tud}. We
+expect this change to make our conclusions more robust because: (a) the 
+SEOBNRv2 model is more accurate~\cite{Kumar:2015tha,Kumar:2016dhh}, and (b)
+the differences between the two EOB models are caused by the
+inaccuracies of SEOBNRv1 during the {\it inspiral} phase, many orbits before 
+merger~\cite{Kumar:2015tha}.
+Since LEA only augments the inspiral phasing with PN tidal terms, our
+change in the underlying BBH model does not change LEA's construction, but
+increases the overall model accuracy during inspiral. Therefore the model used 
+here (``LEA+'') is a more robust version of LEA.
+
+
+
+
+\subsection{Bayesian methods}\label{s2:bayesian}
 % % Describe the emcee-based PE code
 
 The monte carlo algorithm samples the parameter space in proportion with 
@@ -241,43 +261,9 @@ uniform prior in parameters $p(\vec{\theta}) = \Theta(\vec{\theta}-\vec{\theta}_
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{How are detection searches affected by not including NS matter effects}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%Near future detection searches with aLIGO are poised to search for NSBH
-%signals using BHBH templates. In this section, we examine the effect of ignoring
-%the effects of tidal deformation and disruption of the NS during inspiral and 
-%merger phases of search templates. We construct a template bank $\mathcal{B}$ 
-%restricted to the NSBH parameter space with $\mbh\in[2.5M_\odot, 20.5M_\odot]$, 
-%$\chibh\in[-0.5, +0.75]$, $\mns\in[1M_\odot,3M_\odot]$ and $\chi_\mathrm{NS}=0$,
-%using a PN-based geometric lattice placement method~\cite{Harry:2013tca}. 
-%
-%
-%Before investigating its SNR recovery against tidal NSBH signals, we test the 
-%effectualness of this bank to point-particle NSBH signals,
-%in order to make sure that the placement method does not leave any region of
-%the binary parameter-space under-covered. We simulate $50,000$ signals with 
-%component-mass and BH spin values
-%sampled uniformly over their allowed ranges, and filter each of them against
-%the entire bank. For both signals and templates, we use the frequency-domain 
-%reduced-order model (ROM) of the SEOBNRv2 approximant~\cite{Purrer:2014} 
-%implemented within the LIGO algorithms Library~\cite{lal}. We record the 
-%fitting-factors~\cite{FittingFactorApostolatos} recovered by the bank for all
-%signals, which measures the fraction of optimal SNR that the bank is able
-%to recover. Fig.~\ref{} shows these FFs as a function of the injected
-%BH mass and BH spin, and Fig.~\ref{} provides a histogram of the recovered FF 
-%values. From these figures, we conclude that our bank is effectual as intended.
-%
-%
-%Next, tn order to establish the effect of NS matter effects on the SNR recovery of 
-%detection searches, we perform a similar calculation as above, with the
-%difference that the signals are now modelled using the model of tidal 
-%corrections to IMR amplitude and phasing published in 
-%Ref.~\cite{Lackey:2013axa}, applied to SEOBNRv2 as the underlying BHBH model.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{How is PE affected by not including NS matter effects?}
+\section{How is PE affected by not including NS matter effects?}\label{s1:PEwithnoNS}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % #################
@@ -450,7 +436,7 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{What do we gain by using templates that include NS matter effects?}
+\section{What do we gain by using templates that include NS matter effects?}\label{s1:PEwithNS}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 \begin{figure*}
@@ -918,7 +904,7 @@ LIGO itself. We do not know the real distribution of low-mass black holes in the
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussion}
+\section{Discussion}\label{s1:discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Discussion
 

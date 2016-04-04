@@ -234,6 +234,7 @@ What it does:
                  only_positive_aligned_spins=True,\
                  kernel='gau',\
                  bw_method='scott',\
+                 write_data=True,\
                  verbose=False):
         ### REMOVE BH spins < 0
         if verbose:
@@ -257,6 +258,10 @@ What it does:
         self.bw_method = bw_method
         #
         self.verbose = verbose
+        self.write_data = write_data
+        #
+        # TAG for storing data to disk
+        self.TAG = str(int(np.random.random()*1e5))
         #
         self.print_info()
         return
@@ -280,6 +285,7 @@ What it does:
         if NSLambda == None: NSLambda = self.NSLambda
         # Initiate primary data structure
         chain_set = []
+        chain_params = []
         ###
         ## Loop over as many times as many events are to be generated
         ###
@@ -329,8 +335,84 @@ What it does:
             ## Add the RAW DATA and KDE to the PRIMARY DATA STRUCTURE
             ##
             chain_set.append( [lambda_chain, lambda_kde.evaluate, lambda_kde_norm] )
+            chain_params.append( [rnd_q, rnd_chiBH, rnd_SNR, NSLambda] )
         #
-        self.chain_set = chain_set
+        self.chain_set      = chain_set
+        self.chain_params   = chain_params
+        #
+        if self.write_data:
+          np.savetxt(self.TAG + "_chain_params.dat", chain_params, delimiter='\t')
+        #
+        self.FULL_chain_set = self.chain_set
+        self.generate_cumulative_normalizations() # Normalizations
+        self.print_info()
+        return chain_set
+    #####
+    ###
+    def load_events(self, chain_set,\
+                      lambda_posterior_chains=None,\
+                      NSLambda=None):
+        '''
+        Returns is a list of events. For each event, two objects are returned:
+        1. array of posterior samples
+        2. fitted kernel density estimator's evaluate method
+        
+        Input:
+        chain_set: list of tuples, where each tuple is (q, chi, SNR) for 1 event
+        '''
+        ####
+        if lambda_posterior_chains == None:
+            lambda_posterior_chains = self.lambda_posterior_chains
+        if NSLambda == None: NSLambda = self.NSLambda
+        # Initiate primary data structure
+        chain_params = []
+        ###
+        ## Loop over as many times as many events are to be generated
+        ###
+        if self.verbose:
+            print >>sys.stdout, "Loading Events >>"
+            sys.stdout.flush()
+        
+        N = 0
+        for rnd_q, rnd_chiBH, rnd_SNR, NSLambda in chain_params:
+            N += 1
+            #
+            if self.verbose:
+                print >>sys.stdout, "  Event %d" % i
+                sys.stdout.flush()
+            if self.verbose:
+                print >>sys.stdout, "Sampled q = %f, chiBH = %f, SNR = %f" % (rnd_q, rnd_chiBH, rnd_SNR)
+                sys.stdout.flush()
+            ####
+            ## Store the primary (RAW) data
+            lambda_chain = lambda_posterior_chains[rnd_q][rnd_chiBH][NSLambda][rnd_SNR]
+            ####
+            ## Now create the Kernel Density Estimator (KDE)
+            #
+            lambda_kde = KDEUnivariate(lambda_chain)
+            try:
+                lambda_kde.fit(kernel=self.kernel, bw=self.bw_method, fft=True, cut=1.01)
+            except:
+                lambda_kde.fit(kernel=self.kernel, bw=self.bw_method, fft=False, cut=1.01)
+            #
+            ####
+            ## Normalize the chain's integral
+            xllimit, xulimit = [0, 4000]
+            lambda_kde_norm = si.quad(lambda_kde.evaluate, xllimit, xulimit,\
+                                        epsabs=1.e-12, epsrel=1.e-12)[0]
+            #lambda_gaussian_kde = gaussian_kde(lambda_chain)
+            #lambda_multivariate_kde = KDEMultivariate(lambda_chain, bw=0.2*np.ones_like(lambda_chain), var_type='c')
+            #lambda_skl_kde = KernelDensity(bandwidth=0.2)
+            #lambda_skl_kde.fit(lambda_chain[:, np.newaxis])    
+            ####
+            ## Add the RAW DATA and KDE to the PRIMARY DATA STRUCTURE
+            ##
+            chain_set.append( [lambda_chain, lambda_kde.evaluate, lambda_kde_norm] )
+        #
+        self.N              = N
+        self.NSLambda       = NSLambda
+        self.chain_set      = chain_set
+        self.chain_params   = chain_params
         self.FULL_chain_set = self.chain_set
         self.generate_cumulative_normalizations() # Normalizations
         self.print_info()
