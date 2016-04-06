@@ -79,13 +79,13 @@ the NS by the BH during the inspiral, and of its tidal disruption (if that
 happens) at merger. In the NS is disrupted, the merger and ringdown signal
 is drastically suppressed, which distinguishes it from a BHBH merger.
 % 
-In this paper, we present a Bayesian study of the measurability of the 
-tidal deformability of neutron stars, allowing the companion hole to take 
+In this paper, we present the first Bayesian study of the measurability of
+the tidal deformability of neutron stars, allowing the companion hole to take 
 on a variety of masses and spins.
 % 
 First, we find that if BHBH templates are used to estimate source 
 parameters for an NSBH signal, a significant bias is introduced in the 
-inference if the signal-to-noise ratio (SNR) is greater than $\rho=30$.
+inference if the signal-to-noise ratio (SNR) is greater than $\rho\simeq30$.
 % 
 Second, we find that if we are to get a loud signal with $\rho\geq 23$, 
 we can put a factor of two bound on the NS tidal deformability parameter
@@ -95,8 +95,8 @@ Finally, we study the improvement in our measurement of $\lambdans$ from
 multiple observations. Using an approximately astrophysical population, 
 we find that (i) the median measured $\lambdans$ catches up to within
 $10\%$ of the true value in approximately $20$ observations; (ii) the $90\%$
-confidence interval for $\lambda$ shrinks to $\pm 50\%$ within the same
-number of observatoins.
+confidence interval for $\lambdans$ shrinks to $\pm 50\%$ around the true 
+value with the same number of observations.
 % 
 We find these results encouraging, and recommend that an effort to 
 measure $\lambdans$ be taken within the LIGO-Virgo Collaboration once
@@ -120,43 +120,72 @@ we begin to detect NSBH coalescences.
 The Advanced LIGO (aLIGO) observatories began their first observing run ``O1''
 mid-September 2015, operating at a factor of $3-4$ higher gravitational-wave (GW) 
 strain sensitivity than their first-generation counterparts~\cite{Shoemaker2009}.
-Coalescing binaries of
-compact objects, i.e. Black Holes (BH) and/or Neutron Stars (NS), are the most
-likely targets for GW detection with these ground-based instruments. Over a
-$3$-month O1, these detectors would have access to as
-many binary mergers as initial-LIGO detectors did over approximately $6$ years
-of coincident operation. Both of these instruments will be further upgraded in
-phases to reach their design sensitivity by $2018-19$, at which point we expect to
-observe $\sim 70$ binary mergers a year~\cite{Abadie:2010cf}.
+% 
+During O1, the first terrestrial detection of gravitational waves was made, as
+was announced earlier in 2016~\cite{LIGOVirgo2016a}. Emitted more than a billion
+year ago, these waves herald the era of observational gravitational wave (GW)
+astronomy as they pass through Earth.
+% 
+Over a $3$-month O1, aLIGO had access to more binary mergers than initial-LIGO
+over its entire coincident operation period. Both of aLIGO instruments will be
+further upgraded in phases to reach their design sensitivity by $2018-19$, at 
+which point we may expect to observe $\sim 70$ binary mergers a 
+year~\cite{Abadie:2010cf}.
 
-NS-BH binaries are one of the most important sources of gravitational waves (GW)
-with these ground-based instruments, and we expect to detect $\mathcal{O}(10)$
-of such systems every year~\cite{Abadie:2010cf}. 
-%
-One question that aLIGO will likely probe is `what is the nature of
-matter at nuclear densities', i.e. what is the equation of state (EoS) of 
-neutron stars. The EoS determines the compactness of NSs, which determines
-their deformation over the course of inspiral (albeit weakly, at $5$PN order in 
-phasing~\prayush{CITE PN TIDAL RESULTS}), as well as how early in the coalescence
-process will the NS be disrupted by the tidal field of the BH~\prayush{[CITE]}.
-Once disrupted,
-the NS forms an accretion disk around the BH. Most of this matter disk spirals 
-into the BH within a few milliseconds, with a small fraction becoming unbounded
-and gets ejected~\prayush{CITE BHNS NR}. It is believed that an accompanying
-short (lasting less than $2$ seconds) Gamma-ray Burst (sGRB) might be present
-under certain physical conditions~\prayush{CITE NSBH-GRB},
-making these systems one of the prime targets for joint electromagnetic-GW
-astronomy searches~\prayush{CITE EM-GW}.
-In such a situtation, the emitted GW signal
-is heavily damped post-disruption, and the quasi-normal modes of the resulting
-BH are not excited. Such a GW signal is qualitatively very different from a
-BH-BH merger, and one of the main goals of this work is to determine the 
-signal strength at which this difference will be quantifiabe by aLIGO.
-%
+
+Coalescing binaries of compact objects, i.e. black holes (BH) and/or neutron 
+stars (NS), remain the most interestings targets for GW based observation with
+aLIGO. NSBH binaries form an important class of compact binaries, and we expect
+to see $\mathcal{O}(10)$ of these every year with design-sensitivity 
+aLIGO~\cite{Abadie:2010cf}.
+% 
+NSBH mergers are of interest for various reasons. For instance, they have 
+been associated with (as the progenitors of) short Gamma-ray Bursts
+(GRBs)~\cite{eichler:89,1992ApJ...395L..83N,moch:93,Barthelmy:2005bx,
+2005Natur.437..845F,2005Natur.437..851G,Shibata:2005mz,Paschalidis2014,
+Tanvir:2013}. Plausible mechanisms have been proposed for such a 
+scenario~\cite{Paschalidis2014,Ciolfi:2014yla}. A joint detection of GWs
+from an NSBH system with a GRB would validate this hypothesis.
+% 
+Another question that NSBH mergers can be used to probe is `what is the 
+nature of matter at nuclear densities', i.e. what is the equation of state
+(EoS) of neutron stars. 
+% 
+The gravitational-waves emitted by NSBH binaries carry subtle hints of the 
+matter structure of the neutron star. During early inspiral, the (weak) tidal
+field of the companion hole deforms the star, thereby exciting its resonant
+oscillation modes. This drains energy from the orbit resulting in an
+increase of the inspiral rate. We know the leading and next-to-leading
+order terms in post-Newtonian (PN) theory that capture this 
+effect~\cite{Vines2011}, entering binary phasing at $5$PN. Closer to merger, 
+the neutron star could get disrupted by the tidal field of its companion.
+Once disrupted, the neutron star material may form an accretion disk around 
+the black hole. Most of this matter disk spirals in within a few 
+milliseconds, with a small fraction becoming unbounded and gets 
+ejected~\cite{Foucart2015,Lovelace:2013vma,Deaton2013,Foucart2012,
+Paschalidis2014} (under favorable conditions, and possible accompanied by 
+gamma-ray emission).
+The emitted GW signal is, as a result, heavily damped post-disruption, 
+and the quasi-normal modes of the resulting black hole are not excited. Such a
+GW signal will be qualitatively very different from that from an equivalent
+binary black hole (BBH) merger. The primary goal of this work is to understand
+what it requires to optimally extract information about neutron star structure
+from such NSBH signals.
+
+
+
+
 However, studies have shown that for mass-ratio $\mbh/\mns\gtrsim 5$ the BH
 will need to have fairly large and positively-aligned (with the orbit) spins
 in order for its tidal field to be strong enough to disrupt the NS before the
 innermost stable circular orbit (ISCO) is reached~\cite{Foucart:2013psa}.
+% 
+It is worth noting
+that not all point-particle terms in PN theory are known up to such high order,
+and therefore we need to be careful when using PN waveforms to measure tidal
+effects.
+%
+
 
 
 Conventional astronomical methods have, to date, made observations of ~2500
