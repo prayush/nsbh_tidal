@@ -812,7 +812,28 @@ accuracy of $10\%$.
 % 
 \begin{figure}
 \centering    
-\includegraphics[width=1.\columnwidth]{plots/LambdalErrorBars_vs_Lambda_N49_Log.pdf}
+\includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsN_vs_Lambda.pdf}
+\caption{This figure shows the relative uncertainty in the measurement of $\lambdans$,
+as a function of $\lambdans$ itself. The drawn curves are cumulative, in the sense 
+that the $N=n$ curve includes information from all of the first $n$ observed events.
+Those corresponding to the first $N\leq 5$ events are shown in fading shades of red,
+with the ones for higher value of $N$ being shown in grey (going from light to dark in
+proportion to $N$).
+Green dash-dotted lines are contours of $y=x^{-(1+1/5)}$.
+% 
+\prayush{We note that the measurement uncertainty from a population follows the
+equation for the green lines.}
+% 
+}
+\label{fig:TT_PowerLawLambdaErrorVsN}
+\end{figure}
+%
+
+% 
+\begin{figure*}
+\centering    
+\includegraphics[width=\columnwidth]{plots/LambdalErrorBars_vs_Lambda_N79_Log.pdf}
+\includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsLambda_vs_N.pdf}
 \caption{This figure shows the relative uncertainty in the measurement of $\lambdans$,
 as a function of $\lambdans$ itself. The drawn curves are cumulative, in the sense 
 that the $N=n$ curve includes information from all of the first $n$ observed events.
@@ -826,7 +847,7 @@ equation for the green lines.}
 % 
 }
 \label{fig:TT_Lambda_vs_Lambda_L500_2000_CI90_0_AllInOne}
-\end{figure}
+\end{figure*}
 %
 % 
 \textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
