@@ -261,7 +261,11 @@ What it does:
         self.write_data = write_data
         #
         # TAG for storing data to disk
-        self.TAG = str(int(np.random.random()*1e5))
+        tmp_dir = 'L%d_N%d_' % (NSLambda, N)
+        self.RND = int(np.random.random()*1e5)
+        self.TAG = tmp_dir + str(self.RND) + '/'
+        try: os.makedirs(self.TAG)
+        except: print "Warning: temporary dir %s already exists!!" % self.TAG
         #
         self.print_info()
         return
@@ -341,7 +345,7 @@ What it does:
         self.chain_params   = chain_params
         #
         if self.write_data:
-          np.savetxt(self.TAG + "_chain_params.dat", chain_params, delimiter='\t')
+          np.savetxt(self.TAG + "chain_params.dat", chain_params, delimiter='\t')
         #
         self.FULL_chain_set = self.chain_set
         self.generate_cumulative_normalizations() # Normalizations
@@ -349,7 +353,7 @@ What it does:
         return chain_set
     #####
     ###
-    def load_events(self, chain_set,\
+    def load_events(self, chain_set_number,\
                       lambda_posterior_chains=None,\
                       NSLambda=None):
         '''
@@ -364,15 +368,23 @@ What it does:
         if lambda_posterior_chains == None:
             lambda_posterior_chains = self.lambda_posterior_chains
         if NSLambda == None: NSLambda = self.NSLambda
+        
+        #### 
+        ## Read in the set of events
+        param_file = str(chain_set_number) + "_chain_params.dat"
+        if not os.path.exists(param_file):
+            raise IOError("Could not load data for chain set #%d" % chain_set_number)
+        chain_params = np.loadtxt(param_file)
+        
         # Initiate primary data structure
-        chain_params = []
+        chain_set = []
         ###
         ## Loop over as many times as many events are to be generated
         ###
         if self.verbose:
             print >>sys.stdout, "Loading Events >>"
             sys.stdout.flush()
-        
+        #
         N = 0
         for rnd_q, rnd_chiBH, rnd_SNR, NSLambda in chain_params:
             N += 1
@@ -409,6 +421,9 @@ What it does:
             ##
             chain_set.append( [lambda_chain, lambda_kde.evaluate, lambda_kde_norm] )
         #
+        ###
+        ###
+        
         self.N              = N
         self.NSLambda       = NSLambda
         self.chain_set      = chain_set
@@ -550,7 +565,23 @@ Gnerate statistics for all of stored events, cumulatively including more & more
         if self.verbose:
           print "All done in %f seconds!" % (time.time() - itime)
           self.print_info()
+        #####
+        self.write_cumulative_statistics()
         return self.statistical_data
+    #
+    def write_cumulative_statistics(self):
+        '''
+WRite the 'statistical_data' data structure to disk, in a self contained way.
+        '''
+        if not hasattr(self, 'statistical_data'):
+            self.generate_cumulative_statistics()
+        foutname = self.TAG + 'StatData_Lambda%d_N%d.h5' % (self.NSLambda, self.N)
+        fout = h5py.File(foutname, 'a')
+        for kk in self.statistical_data:
+            dsetname = str(kk) + '.dat'
+            fout.create_dataset(dsetname, data=self.statistical_data[kk])
+        fout.close()
+        return
     #
     def print_info(self):
         print """
