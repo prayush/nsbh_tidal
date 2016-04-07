@@ -474,9 +474,18 @@ as
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
 and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The 
 definition of $\LL$ in Eq.~\ref{eq:likelihood} assumes that the instrument
-noise is colored Gaussian.
+noise is colored Gaussian. The marginalized probability distribution for any
+single binary parameter (say $\alpha$) can be obtained by integrating
+Eq.~\ref{eq:postprob} over all other parameters, i.e. 
+\begin{equation}
+ p(\alpha | d_n, K) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, K),
+\end{equation}
+where $\vec{\Theta}_\alpha$ is the set of remaining parameters, i.e.
+$\vec{\Theta}_\alpha:=\vec{\Theta} - \{\alpha\}$.
 
-We sample the probability distribution given in Eq.~\ref{eq:postprob} using
+
+
+We sample the probability distribution of Eq.~\ref{eq:postprob} using
 an ensemble sampler Markov-chain Monte-Carlo algorithm based on the {\tt emcee}
 package~. A total of $100$ independent walkers were used, each of which
 was allowed to collect $100,000$ samples. We measure the correlation time and keep
