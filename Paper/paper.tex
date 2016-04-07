@@ -161,9 +161,14 @@ nature of matter at nuclear densities', i.e. what is the equation of state
 The gravitational-waves emitted by NSBH binaries carry subtle hints of the 
 matter structure of the neutron star. During early inspiral, the (weak) tidal
 field of the companion hole deforms the star, thereby exciting its resonant
-oscillation modes. This drains energy from the orbit resulting in an
-increase of the inspiral rate. We know the leading and next-to-leading
-order terms in post-Newtonian (PN) theory that capture this 
+oscillation modes. The induced quadrupolar moment of the star depends on the
+tidal field $\mathcal{E}_{ij}$ due to its companion through the relation
+$Q_{ij} = -\lambda\mathcal{E}_{ij}$, where $\lambda$ is the EoS dependent
+tidal deformability parameter related to the neutron star's dimensionless
+Love number $k_2$ and radius $R_\mathrm{NS}$ as
+$\lambda:=\frac{2}{3G}k_2 R_\mathrm{NS}^5$. This drains energy from the orbit
+resulting in an increase of the inspiral rate. We know the leading and next-to
+-leading order terms in post-Newtonian (PN) theory that capture this 
 effect~\cite{Vines2011}, entering binary phasing at $5$PN order. Close to
 merger, as the NS gets disrupted and forms long tails that feed into the 
 companion black hole, the quadrupole moment of the system falls monotonically.
@@ -237,29 +242,7 @@ We use the models published in Ref.~\cite{Lackey:2013axa,Pannarale:2015jka} to
 simulate NSBH merger waveforms.
 
 
-As this line of inquiry relies mainly on 
-classifying a GW signal as an NSBH binary, it can be pursued using non-tidal
-waveform models~\cite{}.
 
-
-
-% Conventional astronomical methods have, to date, made observations of ~2500
-% NSs with masses between $1.25-2.1 M_\odot$~\cite{Lyne:2004cj,
-% Demorest:2010bx,2013Sci...340..448A,atnfcatalog,mcgillmagnetarcatalog,
-% stellarcollapsemass}, although
-% tightly clustered within $1.35\pm0.5M_\odot$~\cite{stellarcollapsemass}.
-% %
-% Observations of over 2500 NSs have shown that the spin of NSs
-% $|\vec{\chi}_\mathrm{NS}|$ have magnitudes that are $<1\%$~\cite{Miller:2014aaa}.
-% %
-% On the other hand, indirect observations of stellar-mass BHs place their
-% masses between $5-35M_\odot$, with their spin angular momenta 
-% $|\vec{\chi}_\mathrm{BH}|$ ranging from small to nearly extremal (Kerr) values
-% (see, e.g., Refs.~\cite{McClintockEtAl:2006,Miller:2009cw,Gou:2014una} for 
-% examples of nearly extremal estimates of BH spins, Refs.~\cite{McClintock:2013vwa,
-% Reynolds:2013qqa} for recent reviews of astrophysical BH spin measurements,
-% and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
-% 
 
 
 
@@ -267,15 +250,15 @@ waveform models~\cite{}.
 Finally, we note that our results are applicable for the design sensitivity
 LIGO instruments, that are expected to come online in $2018-19$. Also note
 that more a recent work that improves upon the waveform model we use in this
-study has been published~\cite{Pannarale:2015jka}, but it gives only an 
-amplitude model and needs to be (in future) augmented with a compatible phase
-model. In addition, accuracy of the underlying numerical simulations used to
-calibrate the waveform model used here has not been verified against 
+study has been published~\cite{Pannarale:2015jka}, but it provides only an 
+amplitude model which needs to be (in future) augmented with a compatible
+phase model. In addition, accuracy of the underlying numerical simulations 
+used to calibrate the waveform model used here have not been verified against 
 independent codes so far.
-It is therefore difficult to assess the combined modeling error and the 
-results presented in our study are limited by the limitations of the model.
-However, we expect the combined effect of modeling errors to not change our
-qualitative conclusions.
+It is therefore difficult to assess the combined modeling error and its effect
+on our results. they are, therefore, limited by the limitations of our
+waveform model. However, we expect the combined effect of modeling errors to
+not change our qualitative conclusions.
 
 
 
@@ -1061,7 +1044,25 @@ $\delta\Lambda$ on $N$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}\label{s1:discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Discussion
+
+Conventional astronomical methods have, to date, made observations of ~2500
+NSs with masses between $1.25-2.1 M_\odot$~\cite{Lyne:2004cj,
+Demorest:2010bx,2013Sci...340..448A,atnfcatalog,mcgillmagnetarcatalog,
+stellarcollapsemass}, although
+tightly clustered within $1.35\pm0.5M_\odot$~\cite{stellarcollapsemass}.
+%
+Observations of over 2500 NSs have shown that the spin of NSs
+$|\vec{\chi}_\mathrm{NS}|$ have magnitudes that are $<1\%$~\cite{Miller:2014aaa}.
+%
+On the other hand, indirect observations of stellar-mass BHs place their
+masses between $5-35M_\odot$, with their spin angular momenta 
+$|\vec{\chi}_\mathrm{BH}|$ ranging from small to nearly extremal (Kerr) values
+(see, e.g., Refs.~\cite{McClintockEtAl:2006,Miller:2009cw,Gou:2014una} for 
+examples of nearly extremal estimates of BH spins, Refs.~\cite{McClintock:2013vwa,
+Reynolds:2013qqa} for recent reviews of astrophysical BH spin measurements,
+and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Acknowledgments
