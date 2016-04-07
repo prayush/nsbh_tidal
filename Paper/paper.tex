@@ -229,19 +229,70 @@ which is not reliable at realistic signal-to-noise ratios
 they sample~\cite{Foucart:2013psa}.
 
 
+In this paper we study the measurability of neutron star's tidal deformability
+from GWs emitted by {\it disruptive} NSBH mergers using aLIGO. We also probe how tidal 
+effects affect the estimation of other binary parameters for the same class
+of systems. This study improves upon previous work in many ways. First, we
+include tidal effects during inspiral and merger in a consistent way, by using
+the waveform model of Ref.~\cite{Lackey:2013axa} (henceforth ``LEA+''). Second,
+we include the effect
+of black hole spin on tidal GW signals, in addition to the effect of BH mass 
+and NS's deformability itself. Third, we perform a fully Bayesian 
+analysis, instead of using a Fisher matrix approximation. Fourth, we explore 
+how our measurement errors decrease as we gain information from multiple 
+(realistic) events.
 
 
-The goal of this paper is to probe the distinguishability of BHBH and NSBH
-mergers, focusing at the effects of the BH mass, BH spin, and the tidal 
-deformability parameter $\Lambda_\NS\sim(R/M)^5_\NS$. We also investigate the
-accuracy with which aLIGO can measure $\Lambda_\NS$ itself. For both of 
-these studies, we will use the zero-detuning high-power noise curve for the
-aLIGO detectors. \prayush{In addition, we also study the effect of tuning aLIGO
-over a narrow frequency range aimed at NSBH mergers.}
-We use the models published in Ref.~\cite{Lackey:2013axa,Pannarale:2015jka} to
-simulate NSBH merger waveforms.
-
-
+We first probe the effect of not including tidal effects in parameter 
+estimation templates on the recovery of non-tidal binary parameters, such as 
+component masses and spins. This is the case of current and planned aLIGO
+efforts.
+To do so, we use the LEA+ model to generate a set of realistic signals, and
+use that as data from which we estimate binary mass and spin parameters with
+a Bayesian Monte-Carlo algorithm, using non-tidal (BBH) waveforms as filters.
+% 
+As in rest of the paper, we restrict here our parameter space to span 
+mass-ratios $q:=\mbh/\mns\in[2,5]$, black hole spin $\chibh\in[-0.5, +0.75]$, 
+and dimensionless neutron star tidal deformability 
+$\lambdans:= G\left(\frac{c^2}{G \mns}\right)^5\lambda \in[500, 2000]$.
+The mass of NS for signals (and not templates) is fixed to $1.35M_\odot$ 
+throughout~\cite{stellarcollapsemass}, and is taken to be 
+non-spinning~\cite{Miller:2014aaa}.
+Each signal is rescaled to a range of SNR values $\rho\in[10, 70]$.
+% 
+We find that non-inclusion of tidal effects leads to systematic biases in
+the measurement of non-tidal parameters. Consider first the binary chirp 
+mass $\mchirp:=M\eta^{3/5}$ where $M$ is the binary total mass, and 
+$\eta:=\mbh\mns/M^2$ is the dimensionless mass-ratio. We find that for
+realistic (moderate) SNRs, i.e. $\rho\lesssim 30$, not including tidal
+effects introduces a barely measurable bias that remains below $50\%$
+of the statistical uncertainty of the $\mchirp$ measurement itself.
+For higher signal strengths, we find that the underlying statistical
+uncertainty decreases enough for the systematic bias to become comparable
+to it for $\rho=50-70$ and higher. This is expected because chirp mass is fairly
+accurately determined by the inspiral, where tidal effects are weak.
+Next, we consider the mass-ratio $\eta$. We find that only if the NS is quite
+deformable (with $\lambdans=2000$), {\it and} has a companion BH whose mass
+is $\mbh\lesssim 4.5M_\odot$ (i.e. in the astrophysical ``mass-gap''~\cite{
+Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}),
+will the systematic bias in $\eta$ measurement become comparable to its
+statistical uncertainties at SNRs $\rho\leq 30$. For SNRs $\rho\gtrsim30$,
+however, not including tidal effects is very likely to {\it significantly} bias
+the mass-ratio estimate for NSBH binaries. Finally, we consider the spin on the
+black hole $\chibh$. We find that $\chibh$ measurements are affected in a similar
+way to $\eta$. By not including tidal effects, we compromise our measurement of
+$\chibh$ significantly only if signal $\rho\gtrsim 30$. 
+%
+Overall, we learn an important thing. Bayesian parameter estimation algorithms
+aimed at identifying NSBH binaries with low latency in order to alert 
+electromagnetic (EM) observers in time to establish a possible coincident 
+observation of a GRB~\cite{2012A&A...541A.155A,Singer:2014qca,Singer:2015ema,
+Pankow:2015cra} can use BBH templates to look for NSBH systems with aLIGO.
+This is so because the primary requirement of the EM follow-up effort is rapid
+classification of a binary as an NSBH system, which can be achieved just as 
+easily with BBH templates, purely on the basis of the smaller component's mass.
+Another conclusion we draw is that detection searches are unaffected by the
+choice of ignoring tidal effects in matched-filtering templates.
 
 
 
