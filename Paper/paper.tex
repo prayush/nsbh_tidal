@@ -295,6 +295,49 @@ Another conclusion we draw is that detection searches are unaffected by the
 choice of ignoring tidal effects in matched-filtering templates.
 
 
+Next, we study the ability of aLIGO to constrain neutron star tidal 
+deformability with a single observation of coalescing NSBHs. For this, we
+use the same setup and parameter choices for signal waveforms as before, but
+replace the template model with one that includes tidal effects from inspiral
+through to merger~\cite{Lackey:2013axa} (i.e. LEA+). First of all, this reduces
+the biases in the measurement of non-tidal parameters. Second, as we can see
+from Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, at signal-to-noise
+ratios $\simeq 20-30$, only under the most favorable circumstance (including a
+BH with mass within the ``mass-gap'') can we put a factor of $1.5-2$ bound on
+$\lambdans$ at $90\%$ confidence level. For similar signals with 
+$\rho\gtrsim 30$ we can constrain $\lambdans$ within $\pm 50\%$ of its true
+value. For more realistic SNRs and BH parameters, a single measurement is 
+for $\lambdans$ is accompanied with a $\sim\pm150+\%$. uncertainty. While these
+results are expected, multiple realistic observations is the next window that 
+we explore in order to obtain more information on $\lambdans$. These results 
+are detailed in Sec.~\ref{s1:PEwithNS}.
+
+
+Multiple realistic observations deliver far more information than what a single
+observation furnishes, as has been shown the case to be for binary neutron
+stars~\cite{DelPozzo:13}. As our final study, we perform a fully-Bayesian 
+analysis of how our estimation of $\lambdans$ changes as we accumulate more and
+more detections. The choices that determine the population are important here,
+and were made as follows. Neutron star mass is fixed for signals at
+$1.35M_\odot$, and its spin $\chins=0$. Black hole mass is sampled uniformly
+from the range $[2,5]\times 1.35=[2.7, 6.75]M_\odot$. Our choice here is given
+by the intersection set of the mass range that allows for neutron star disruption
+and the range supported by the waveform model LEA+~\cite{Foucart2012,
+Foucart:2013a,Lackey:2013axa}. Black hole spin is sampled uniformly from the
+{\it aligned} range, i.e. $\chibh\in[0,+1]$. The true deformability is fixed
+once per population, sampled uniformly from the range $\lambdans\in[0,2000]$.
+In order to keep the computational cost tractable, we make a further 
+approximation. We inject signals into zero noise at different SNRs and recover
+their parameters from Bayesian inferencing for a fixed set of binaries,
+whose parameters lie on a uniform grid given by:
+$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
+Once the population parameters been selected, each event's parameters are
+replaced by their nearest neighbor in the above set. We make sure that this 
+approximation is conservative by keeping our population sampling ranges within the
+conservative side of the range spanned by the above set. With the caveats
+laid out, we report our results in Sec.~\ref{s1:multiple_observations}.
+% 
+We find \prayush{[...]}
 
 
 
@@ -335,6 +378,14 @@ future prospects with Advanced LIGO.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Techniques}\label{s1:techniques}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we summarize various technical aspects of this paper. The model
+used to obtain tidal waveforms is described in Sec.~\ref{s2:waveforms}. The 
+process of inferring source parameters from a GW signal is summarized in 
+Sec.~\ref{s2:bayesian}. The process of generating and combining multiple events
+is instead detailed in the corresponding results section,
+Sec.~\ref{s2:astro_multiple}.
+
 \subsection{Waveform Models}\label{s2:waveforms}
 
 In Ref.~\cite{Lackey:2013axa}, the authors presented a suite of $134$ numerical
@@ -385,32 +436,56 @@ here (``LEA+'') is a more robust version of LEA.
 \subsection{Bayesian methods}\label{s2:bayesian}
 % % Describe the emcee-based PE code
 
-The joint inferred probability distribution of all parameters 
-$\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ 
-is given by
-\begin{equation}
+We perform Bayesian parameter estimation for tidal signals, using
+both tidal and non-tidal templates. The signal parameters are selected 
+to lie on a grid given by:
+$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
+Corresponding signal waveforms are generated using the model described in the 
+previous sub-section, and each injected into a separate zero noise data segment
+$d_n$. Templates can be either tidal or non-tidal (LEA+ with $\lambdans=0$).
+
+Inferred from $d_n$, the joint probability distribution for binary parameters
+$\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ is given by
+\begin{equation}\label{eq:postprob}
  p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
 \end{equation}
-Here, $p(\vec{\Theta} | K)$ is the prior probability for binary parameters of taking 
-particular values. In this paper, we use a uniform prior on the individual masses within 
-pre-chosen ranges, as well as a uniform prior on the spin of the black hole. We set neutron star's
-spin identically $=0$, and its tidal deformability parameter $\lambdans$ to be equally likely
-between $[0, 4000]$. The prior probability of obtaining a particular realization of data
-$p(d_n|K)$ is absorbed into the overall normalization. Finally, the first term in the numerator
-$p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given stretch of 
-data $d_n$ if we assume that a signal parameterized by $\vec{\theta}\cup\{\lambdans\}$ is buried
-in it, i.e.
+Here, $p(\vec{\Theta} | K)$ is the prior probability for binary parameters of
+taking particular values. In this paper, we use a uniform prior on the
+individual masses within pre-chosen ranges, as well as a uniform prior on the
+spin of the black hole. We set neutron star's spin $=0$, and its tidal
+deformability parameter $\lambdans$ is sampled uniformly from $[0, 4000]$. In
+addition, we exclude mass-ratios between $[1,2]$ from our prior. This is done
+because of model constraints for LEA+. The prior probability of obtaining a 
+particular realization of data $p(d_n|K)$ is absorbed into the overall 
+normalization. Finally, the first term in the numerator
+$p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given
+stretch of data $d_n$ if we assume that a signal parameterized by
+$\vec{\theta}\cup\{\lambdans\}$ is buried in it, i.e.
 \begin{equation}\label{eq:likelihood}
- \LL(\vec{\Theta}) \equiv p(\vec{\Theta} | K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+ \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 \end{equation}
-where $h\equiv h(\vec{\Theta})$ is given by our waveform model LEA+, and the
-detector noise weighted inner-product $\langle a|b\rangle$ is defined as 
-$$
+where $h\equiv h(\vec{\Theta})$ is a template given by our waveform model LEA+,
+and the detector noise weighted inner-product $\langle a|b\rangle$ is defined 
+as
+\begin{equation}
 \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
-$$
-where $\tilde{a}$ means the Fourier transform of the finite time series $a(t)$, and 
-$S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The definition of $\LL$ in 
-Eq.~\ref{eq:likelihood} assumes that the instrument noise is colored Gaussian. 
+\end{equation}
+% 
+where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
+and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The 
+definition of $\LL$ in Eq.~\ref{eq:likelihood} assumes that the instrument
+noise is colored Gaussian.
+
+We sample the probability distribution given in Eq.~\ref{eq:postprob} using
+an ensemble sampler Markov-chain Monte-Carlo algorithm based on the {\tt emcee}
+package~. A total of $100$ independent walkers were used, each of which
+was allowed to collect $100,000$ samples. We measure the correlation time and keep
+only $20,000$ independent posterior points to further analyze the calculated 
+posterior probability distributions. One simplifying assumption made to mitigate 
+computational cost was setting the frequency sampling rate $\Delta f=0.4$~Hz, which
+we found to be sufficient to calculate likelihoods robustly~\cite{Purrer:2015nkh}.
+\prayush{TODO: MICHAEL}.
+
 
 
 
@@ -593,7 +668,7 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 % 
 \begin{figure*}
 \centering    
-\includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
+\includegraphics[trim={3cm 0 0 0},width=2.\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
 %\includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
 \caption{This figure shows the statistical uncertainty in the measurement of
 $\lambdans$, as a percentage of the injected signal's $\lambdans$ value. In each panel,
@@ -615,8 +690,8 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1000_0_CI90_0}
-\includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0}
+\includegraphics[width=0.9025\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1000_0_CI90_0}
+\includegraphics[width=0.9025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0}
 % \includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}\\
 \caption{In these figures we highlight the regions of BH mass and spin plane where we can 
 constrain the $\lambdans$ of its companion NS within a factor of $1-2$ of its true value.
@@ -638,27 +713,28 @@ set by the detectors).
 %
 \begin{figure*}
 \centering    
-\includegraphics[width=1.025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0.pdf}
-\includegraphics[width=1.025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0.pdf}
-\caption{In these figures we highlight the regions of BH mass and spin plane where we can 
-constrain the $\lambdans$ of its companion NS within a factor of $1-2$ of its true value.
-Panels correspond to different signal strength, with $\rho$ increasing from left to right.
-Within each panel, $\lambdans$ measurement uncertainty contours are shown as functions of BH 
-mass and spin, with line-types corresponding to different uncertainty levels, and
-colors showing the injected $\lambdans$.
+\includegraphics[width=0.9025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0}
+\includegraphics[width=0.9025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0}
+\caption{In these figures we highlight the regions of BH mass and spin plane 
+where we can constrain the $\lambdans$ of its companion NS within a factor of 
+$1-2$ of its true value. Panels correspond to different signal strength, with 
+$\rho$ increasing from left to right. Within each panel, $\lambdans$ 
+measurement uncertainty contours are shown as functions of BH mass and spin,
+with line-types corresponding to different uncertainty levels, and colors 
+showing the injected $\lambdans$. 
 % We note that this information is, in principle, contained in 
 % Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
 % the effect of NS's deformability itself on its measurement. 
-As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, we note that the measurability
-of NS matter
-effects improves with all factors that enhances the signature of the NS's disruption on
-the \textit{detectable} portion of the emitted GW signal (implying, within a frequency band
-set by the detectors).
+As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, the 
+measurability of NS tidal deformability improves with all factors that 
+enhances the signature of the NS's disruption on the \textit{detectable} 
+portion of the emitted GW signal (implying, within a frequency band set by the
+detectors).
 }
 \label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
 \end{figure*}
 %
-% 
+
 In the previous section we showed that we begin to care for the effects of NS's
 deformation due to its companion hole's tidal field, if (a) the BH is sufficiently
 small, (b) BH spin is aligned and $\gtrsim +0.4$, and (c) the NS is
@@ -772,9 +848,9 @@ with $\rho\geq 30$ and high BH spins, or $\rho\geq 50$.
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Combining observations: looking forward with Advanced LIGO}\label{s1:multiple_observations}
-% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 \begin{figure*}
 \centering    
@@ -849,8 +925,8 @@ in their title. In each panel are shown two independent filled regions.
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=1.025\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
-\includegraphics[width=1.025\columnwidth]{plots/LambdaCIWidths_vs_N.pdf}
+\includegraphics[width=1\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
+\includegraphics[width=1\columnwidth]{plots/LambdaCIWidths_vs_N.pdf}
 \caption{{\it Left}: In the main panel is shown the width of the measured $90\%$ 
 confidence interval for $\lambdans$, normalized by its true value,
  as a function of the number of events observed $N$. In the inset, we
@@ -876,7 +952,6 @@ accuracy of $10\%$.
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
 \end{figure*}
 %
-
 % 
 \begin{figure}
 \centering    
@@ -896,7 +971,6 @@ equation for the green lines.}
 \label{fig:TT_PowerLawLambdaErrorVsN}
 \end{figure}
 %
-
 % 
 \begin{figure*}
 \centering    
@@ -916,10 +990,10 @@ equation for the green lines.}
 }
 \label{fig:TT_Lambda_vs_Lambda_L500_2000_CI90_0_AllInOne}
 \end{figure*}
-%
-% 
+
+
+
 \textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
-% 
 % 
 First we show a crude calculation which tells us that approximately $8$ (or $16$) 
 observations
@@ -1003,7 +1077,7 @@ $d_1, d_2, \cdots, d_N$, each containing a single observation of an NSBH binary.
 denote our collective prior knowledge, except for expectations on binary parameters
 themselves, which will enter the following calculation explicitly. Let the gravitational wave
 signal from each binary be characterized by the parameters 
-$\vec{\theta} = \{\mbh, \mns, \chibh, \chins, \rho\}$ and $\lambdans$. Note that we have folded
+$\,\vec{\theta} = \{\mbh, \mns, \chibh, \chins, \rho\}$ and $\lambdans$. Note that we have folded
 in the luminosity distance, inclination angle of the binary's orbital angular momentum with
 respect to the plane of the detector, and its sky location angles into a single parameter $\rho$,
 which is the SNR of the received signal. Note also that $\vec{\theta}$ does not include
