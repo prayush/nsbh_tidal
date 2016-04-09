@@ -198,6 +198,7 @@ for i, NSL in enumerate(Lambdavec):
         xx_prev = xx[NSL]
         ## INITIATE A SET OF MULTIPLE OBSERVATIONS
         INDEX   = xx_prev.RND #int(sys.argv[2])
+        print "\n\n>> USING RANDOM = %d\n\n" % INDEX
         #
         plotdir = 'plots/N%d_%d/' % (NEVENTS, INDEX)
         try: os.makedirs(plotdir)
