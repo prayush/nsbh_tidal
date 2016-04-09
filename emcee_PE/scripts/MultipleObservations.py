@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 plt.rcParams.update({'text.usetex' : True})
 from mpl_toolkits.axes_grid1 import ImageGrid
 
+from glob import glob
+
 from pydoc import help
 from scipy import stats
 from scipy.stats.stats import pearsonr
@@ -234,7 +236,10 @@ What it does:
                  only_positive_aligned_spins=True,\
                  kernel='gau',\
                  bw_method='scott',\
+                 data_prefix='data',\
                  write_data=True,\
+                 post_process=False,\
+                 RND=0,\
                  verbose=False):
         ### REMOVE BH spins < 0
         if verbose:
@@ -258,14 +263,17 @@ What it does:
         self.bw_method = bw_method
         #
         self.verbose = verbose
+        self.data_prefix = data_prefix
         self.write_data = write_data
         #
         # TAG for storing data to disk
-        tmp_dir = 'L%d_N%d_' % (NSLambda, N)
-        self.RND = int(np.random.random()*1e5)
-        self.TAG = tmp_dir + str(self.RND) + '/'
-        try: os.makedirs(self.TAG)
-        except: print "Warning: temporary dir %s already exists!!" % self.TAG
+        if not post_process:
+            tmp_dir = '%s/L%d_N%d_' % (data_prefix, NSLambda, N)
+            if RND: self.RND = int(RND)
+            else: self.RND = int(np.random.random()*1e5)
+            self.TAG = tmp_dir + ('%d/' % self.RND)
+            try: os.makedirs(self.TAG)
+            except: print "Warning: temporary dir %s already exists!!" % self.TAG
         #
         self.print_info()
         return
@@ -353,8 +361,21 @@ What it does:
         return chain_set
     #####
     ###
-    def load_events(self, chain_set_number,\
+    def find_chain_sets(self, NSLambda=None, N=None):
+        '''
+This function finds the indexes of possible population sets (chain sets) that
+are available in the given data directory. The data directory is initialized
+by the constructor.
+        '''
+        if NSLambda == None: NSLambda = self.NSLambda
+        if N == None: N = self.N
+        dir_tag = '%s/L%d_N%d_*' % (self.data_prefix, NSLambda, N)
+        return [int(x.split('_')[-1]) for x in glob(dir_tag)]
+    #####
+    ###
+    def load_events(self, chain_set_number, N=None,\
                       lambda_posterior_chains=None,\
+                      precalculate_norms=False,\
                       NSLambda=None):
         '''
         Returns is a list of events. For each event, two objects are returned:
@@ -368,12 +389,17 @@ What it does:
         if lambda_posterior_chains == None:
             lambda_posterior_chains = self.lambda_posterior_chains
         if NSLambda == None: NSLambda = self.NSLambda
-        
+        if N == None: N = self.N
         #### 
         ## Read in the set of events
-        param_file = str(chain_set_number) + "_chain_params.dat"
+        tmp_dir = '%s/L%d_N%d_' % (self.data_prefix, NSLambda, N)
+        self.RND = chain_set_number
+        self.TAG =  tmp_dir + ('%d/' % self.RND)
+        #
+        param_file = self.TAG + "/chain_params.dat"
         if not os.path.exists(param_file):
-            raise IOError("Could not load data for chain set #%d" % chain_set_number)
+            raise IOError("Could not load data for chain set #%d from file %s" %\
+                                (chain_set_number, param_file))
         chain_params = np.loadtxt(param_file)
         
         # Initiate primary data structure
@@ -390,7 +416,7 @@ What it does:
             N += 1
             #
             if self.verbose:
-                print >>sys.stdout, "  Event %d" % i
+                print >>sys.stdout, "  Event %d" % N
                 sys.stdout.flush()
             if self.verbose:
                 print >>sys.stdout, "Sampled q = %f, chiBH = %f, SNR = %f" % (rnd_q, rnd_chiBH, rnd_SNR)
@@ -409,9 +435,11 @@ What it does:
             #
             ####
             ## Normalize the chain's integral
-            xllimit, xulimit = [0, 4000]
-            lambda_kde_norm = si.quad(lambda_kde.evaluate, xllimit, xulimit,\
-                                        epsabs=1.e-12, epsrel=1.e-12)[0]
+            if precalculate_norms:
+                xllimit, xulimit = [0, 4000]
+                lambda_kde_norm = si.quad(lambda_kde.evaluate, xllimit, xulimit,\
+                                            epsabs=1.e-12, epsrel=1.e-12)[0]
+            else: lambda_kde_norm = None
             #lambda_gaussian_kde = gaussian_kde(lambda_chain)
             #lambda_multivariate_kde = KDEMultivariate(lambda_chain, bw=0.2*np.ones_like(lambda_chain), var_type='c')
             #lambda_skl_kde = KernelDensity(bandwidth=0.2)
@@ -429,7 +457,7 @@ What it does:
         self.chain_set      = chain_set
         self.chain_params   = chain_params
         self.FULL_chain_set = self.chain_set
-        self.generate_cumulative_normalizations() # Normalizations
+        if precalculate_norms: self.generate_cumulative_normalizations() # Normalizations
         self.print_info()
         return chain_set
     #####
@@ -581,6 +609,33 @@ WRite the 'statistical_data' data structure to disk, in a self contained way.
             dsetname = str(kk) + '.dat'
             fout.create_dataset(dsetname, data=self.statistical_data[kk])
         fout.close()
+        return
+    #
+    def read_cumulative_statistics(self, chain_set_number=None, filename=None, NSLambda=None, N=None,\
+                                verbose=False):
+        '''
+READ the 'statistical_data' data structure to disk, in a self contained way.
+        '''
+        if filename == None and chain_set_number == None:
+            raise IOError("Need to give either file name to chain set's RND'")
+        #
+        if filename is None or not os.path.exists(filename):
+            tmp_dir = '%s/L%d_N%d_' % (self.data_prefix, self.NSLambda, self.N)
+            self.RND = chain_set_number
+            self.TAG =  tmp_dir + ('%d/' % self.RND)
+            finname = self.TAG + 'StatData_Lambda%d_N%d.h5' % (self.NSLambda, self.N)
+        elif os.path.exists(filename):
+            finname = filename
+        #
+        if not hasattr(self, 'statistical_data'): self.statistical_data = {}        
+        fin = h5py.File(finname, 'r')
+        #for kk in self.statistical_data: # fin
+        #    dsetname = str(kk) + '.dat' # keyname = int(kk.split('.')[0])
+        #    fout.create_dataset(dsetname, data=self.statistical_data[kk]) # self.statistical_data[kk] = fin[kk].value
+        for kk in fin:
+            keyname = int(kk.split('.')[0])
+            self.statistical_data[keyname] = fin[kk].value
+        fin.close()
         return
     #
     def print_info(self):
