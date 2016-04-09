@@ -139,7 +139,7 @@ Nburnin  = 2000
 # Read in parameter biases and other data
 ######################################################
 datafile_postfix = 'TT_ParameterBiasesAndConfidenceIntervals.h5'
-data_dir         = '/home/prayush/research/NSBH/TidalParameterEstimation/set006/'
+data_dir         = '/home/prayush/projects/nsbh/TidalParameterEstimation/nsbh_tidal/PEData/'
 
 # Load in all the Posterior distribution function samples
 all_posterior_chains   = {}
@@ -181,22 +181,10 @@ for q in qvec:
   fin.close()
 
 
+#########################
 # ## READ/ORGANIZE DATA
-
-# In[ ]:
-
-## INITIATE A SET OF MULTIPLE OBSERVATIONS
 NEVENTS = int(sys.argv[1])
-INDEX   = int(sys.argv[2])
 
-plotdir = 'plots/N%d-%d/' % (NEVENTS, INDEX)
-try: os.makedirs(plotdir)
-except: pass
-
-
-# In[ ]:
-
-fout = open(os.path.join(plotdir, 'chain_indices.dat'), 'w')
 #
 xx = {}
 for i, NSL in enumerate(Lambdavec):
@@ -208,6 +196,13 @@ for i, NSL in enumerate(Lambdavec):
                                           kernel='gau',\
                                           verbose=True)
         xx_prev = xx[NSL]
+        ## INITIATE A SET OF MULTIPLE OBSERVATIONS
+        INDEX   = xx_prev.RND #int(sys.argv[2])
+        #
+        plotdir = 'plots/N%d_%d/' % (NEVENTS, INDEX)
+        try: os.makedirs(plotdir)
+        except: pass
+        fout = open(os.path.join(plotdir, 'chain_indices.dat'), 'w')
     else:
         xx[NSL] = MO.multiple_observation_results(lambda_posterior_chains,\
                                           N=NEVENTS, NSLambda=NSL,\
@@ -222,12 +217,7 @@ for i, NSL in enumerate(Lambdavec):
 fout.close()
 
 
-# In[ ]:
 
-
-
-
-# In[ ]:
 
 ## GENERATE A SEQUENCE OF EVENTS
 for NSL in Lambdavec:
