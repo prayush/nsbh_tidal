@@ -370,7 +370,9 @@ by the constructor.
         if NSLambda == None: NSLambda = self.NSLambda
         if N == None: N = self.N
         dir_tag = '%s/L%d_N%d_*' % (self.data_prefix, NSLambda, N)
-        return [int(x.split('_')[-1]) for x in glob(dir_tag)]
+        dir_list = glob(dir_tag)
+        dir_list.sort(key=os.path.getmtime)
+        return [int(x.split('_')[-1]) for x in dir_list]
     #####
     ###
     def load_events(self, chain_set_number, N=None,\
