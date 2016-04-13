@@ -916,9 +916,10 @@ different number of accumulated observations $N$.
 \label{fig:TT_Lambda_vs_N_CI90_0}
 \end{figure}
 % 
-\begin{figure}
-\centering    
-\includegraphics[trim=20 0 0 0, width=1.05\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
+\begin{figure*}
+\centering
+\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
+\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}
 \caption{This figure shows the fractional difference between the median
  recovered value from the posterior probability distribution for $\lambdans$
  as a function of $N$. Different curves correspond to different injected values
@@ -931,7 +932,7 @@ $\lambdans$ would estimate the true value for the star with the remarkable
 accuracy of $10\%$.
 }
 \label{fig:TT_Lambda_vs_N_L500_2000_CI90_0_AllInOne}
-\end{figure}
+\end{figure*}
 %
 % 
 % \begin{figure*}
@@ -968,11 +969,16 @@ accuracy of $10\%$.
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
-\includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}\\
-\includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
-\includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
-\includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L2000.pdf}\\
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L1500.pdf}\\
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L1000.pdf}\\
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L800.pdf}\\
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
+\includegraphics[width=0.85\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L500.pdf}
 \caption{ In the main panel is shown the width of the measured $90\%$ 
 confidence interval for $\lambdans$, normalized by its true value,
  as a function of the number of events observed $N$. In the inset, we
@@ -986,6 +992,29 @@ confidence interval for $\lambdans$, normalized by its true value,
 }
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
 \end{figure*}
+% 
+% % 
+% \begin{figure*}
+% \centering    
+% \includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
+% \includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}\\
+% \includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
+% \includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
+% \includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
+% \caption{ In the main panel is shown the width of the measured $90\%$ 
+% confidence interval for $\lambdans$, normalized by its true value,
+%  as a function of the number of events observed $N$. In the inset, we
+%  show the same measurement uncertainty, but not normalized, and on a 
+%  logarithmic axis for $N$ as well.
+% % 
+%  From both the inset and the main plot, we find that for the first $3-4$ events
+%  our measurement is prior limited. As $N$ increases, the uncertainty falls 
+%  roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
+%  (than $1/\sqrt{N}$) narrowing of the confidence interval.
+% }
+% \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
+% \end{figure*}
+% % 
 % 
 \begin{figure}
 \centering    
