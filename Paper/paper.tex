@@ -926,31 +926,10 @@ in their title. In each panel are shown two independent filled regions.
 \end{figure*}
 %
 % 
-% \begin{figure}
-% \centering    
-% \includegraphics[width=1.\columnwidth]{plots/FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf}
-% \caption{HELLO
-% }
-% \label{fig:TT_Lambda_vs_N_L500_2000_CI90_0_AllInOne}
-% \end{figure}
-%
-% 
-\begin{figure*}
+\begin{figure}
 \centering    
-\includegraphics[width=1.03\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
-\includegraphics[width=1.03\columnwidth]{plots/LambdaCIWidths_vs_N.pdf}
-\caption{{\it Left}: In the main panel is shown the width of the measured $90\%$ 
-confidence interval for $\lambdans$, normalized by its true value,
- as a function of the number of events observed $N$. In the inset, we
- show the same measurement uncertainty, but not normalized, and on a 
- logarithmic axis for $N$ as well.
-% 
- From both the inset and the main plot, we find that for the first $3-4$ events
- our measurement is prior limited. As $N$ increases, the uncertainty falls 
- roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
- (than $1/\sqrt{N}$) narrowing of the confidence interval.
-%  
- {\it Right}: This figure shows the fractional difference between the median
+\includegraphics[trim=20 0 0 0, width=1.05\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
+\caption{This figure shows the fractional difference between the median
  recovered value from the posterior probability distribution for $\lambdans$
  as a function of $N$. Different curves correspond to different injected values
  of $\lambdans$, and are shaded from light to dark in direct proportion. 
@@ -961,13 +940,66 @@ We find that within $\approx 10$ detections, the median measured value for
 $\lambdans$ would estimate the true value for the star with the remarkable 
 accuracy of $10\%$.
 }
+\label{fig:TT_Lambda_vs_N_L500_2000_CI90_0_AllInOne}
+\end{figure}
+%
+% 
+% \begin{figure*}
+% \centering    
+% \includegraphics[width=1.03\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
+% \includegraphics[width=1.03\columnwidth]{plots/LambdaCIWidths_vs_N.pdf}
+% \caption{{\it Left}: In the main panel is shown the width of the measured $90\%$ 
+% confidence interval for $\lambdans$, normalized by its true value,
+%  as a function of the number of events observed $N$. In the inset, we
+%  show the same measurement uncertainty, but not normalized, and on a 
+%  logarithmic axis for $N$ as well.
+% % 
+%  From both the inset and the main plot, we find that for the first $3-4$ events
+%  our measurement is prior limited. As $N$ increases, the uncertainty falls 
+%  roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
+%  (than $1/\sqrt{N}$) narrowing of the confidence interval.
+% %  
+%  {\it Right}: This figure shows the fractional difference between the median
+%  recovered value from the posterior probability distribution for $\lambdans$
+%  as a function of $N$. Different curves correspond to different injected values
+%  of $\lambdans$, and are shaded from light to dark in direct proportion. 
+%  The horizontal dashed brown line marks $10\%$ deviation of the median from the 
+%  true value.
+% %  
+% We find that within $\approx 10$ detections, the median measured value for
+% $\lambdans$ would estimate the true value for the star with the remarkable 
+% accuracy of $10\%$.
+% }
+% \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
+% \end{figure*}
+%LambdaCIWidths_vs_N_AllPopulations_Log_L
+% 
+%
+% 
+\begin{figure*}
+\centering    
+\includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
+\includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}\\
+\includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
+\includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
+\includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
+\caption{ In the main panel is shown the width of the measured $90\%$ 
+confidence interval for $\lambdans$, normalized by its true value,
+ as a function of the number of events observed $N$. In the inset, we
+ show the same measurement uncertainty, but not normalized, and on a 
+ logarithmic axis for $N$ as well.
+% 
+ From both the inset and the main plot, we find that for the first $3-4$ events
+ our measurement is prior limited. As $N$ increases, the uncertainty falls 
+ roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
+ (than $1/\sqrt{N}$) narrowing of the confidence interval.
+}
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
 \end{figure*}
-%
 % 
 \begin{figure}
 \centering    
-\includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsN_vs_Lambda.pdf}
+\includegraphics[width=1.05\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf}
 \caption{This figure shows the relative uncertainty in the measurement of $\lambdans$,
 as a function of $\lambdans$ itself. The drawn curves are cumulative, in the sense 
 that the $N=n$ curve includes information from all of the first $n$ observed events.
@@ -986,8 +1018,8 @@ equation for the green lines.}
 % 
 \begin{figure}
 \centering    
-\includegraphics[width=1.03\columnwidth]{plots/LambdaRelErrorBars_vs_Lambda_N80_Log.pdf}
-% \includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsLambda_vs_N.pdf}
+% \includegraphics[width=1.03\columnwidth]{plots/LambdaRelErrorBars_vs_Lambda_AllPopulations_N80_Log.pdf}
+\includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf}
 \caption{This figure shows the relative uncertainty in the measurement of $\lambdans$,
 as a function of $\lambdans$ itself. The drawn curves are cumulative, in the sense 
 that the $N=n$ curve includes information from all of the first $n$ observed events.

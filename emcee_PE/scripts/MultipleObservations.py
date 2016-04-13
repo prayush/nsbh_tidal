@@ -240,6 +240,7 @@ What it does:
                  write_data=True,\
                  post_process=False,\
                  RND=0,\
+                 verbose_info=True,\
                  verbose=False):
         ### REMOVE BH spins < 0
         if verbose:
@@ -274,8 +275,12 @@ What it does:
             self.TAG = tmp_dir + ('%d/' % self.RND)
             try: os.makedirs(self.TAG)
             except: print "Warning: temporary dir %s already exists!!" % self.TAG
+        else:
+            if RND is not None and RND >= 0: self.RND = int(RND)
+            else:
+                raise IOError("Please provide the chain number as RND")
         #
-        self.print_info()
+        if verbose_info: self.print_info()
         return
     ###
     def generate_events(self, lambda_posterior_chains=None,\
