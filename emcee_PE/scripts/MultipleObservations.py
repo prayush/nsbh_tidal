@@ -286,7 +286,7 @@ What it does:
     def generate_events(self, lambda_posterior_chains=None,\
                         NSLambda=None,\
                         qvec=None, chi2vec=None, SNRvec=None,\
-                       qmin=2.0, qmax=5.0, chi2min=0.0, chi2max=1.0):
+                       qmin=20./9., qmax=5.0, chi2min=0.0, chi2max=1.0):
         '''
         Returns is a list of events. For each event, two objects are returned:
         1. array of posterior samples

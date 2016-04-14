@@ -861,57 +861,56 @@ with $\rho\geq 30$ and high BH spins, or $\rho\geq 50$.
 \section{Combining observations: looking forward with Advanced LIGO}\label{s1:multiple_observations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
-\begin{figure}
-\centering    
-\includegraphics[width=1.05\columnwidth]{plots/pdfLambda_vs_N_L800.pdf}
-% \includegraphics[width=1.\columnwidth]{plots/FillBetweenNormErrorBarsLambda_vs_N_L800.pdf}
-\caption{%
-Posterior probability distributions for $\lambdans$ (colored curves), and 
-associated $90\%$ confidence intervals (grey vertical lines), shown for 
-different number of accumulated observations $N$.
-}
-\label{fig:TT_Lambda_vs_N_L800_CI90_0}
-\end{figure}
-%
-% 
 \begin{figure*}
 \centering    
-\includegraphics[width=.9\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L2000.pdf}
-\includegraphics[width=.9\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L1500.pdf}\\
-\includegraphics[width=.67\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L1000.pdf}
-\includegraphics[width=.67\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L800.pdf}
-\includegraphics[width=.67\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L500.pdf}
-\caption{Filled-region plots showing the median and $90\%$ confidence intervals
-for $\lambdans$ measurement, as a function of the number of observed events $N$.
-Different panels correspond to different injected $\lambdans$ values, which is shown
-in their title. In each panel are shown two independent filled regions. 
-%  
- One in green shows the recovered confidence interval
- for $\lambdans$ (on the left y-axis), normalized by its true value,
- as a function of the 
- number of observed events $N$. The recovered median is shown by the
- green line-circled curve. The pair of horizontal green dashed (dotted)
- lines show the $\pm 50\%$ ($\pm 25\%$) symmetric error bounds around
- the true $\lambdans$ value, which is shown at y-value $=1$ by definition.
-% 
- The second filled region, in grey, shows the recovered
- confidence interval for neutron star compactness, without normalizing.
- The corresponding y-values are shown on the *right* y-axis. The horizontal grey
- dashed line traces the true value of $\lambdans$, and is what we expect
- the filled region to approach with increasing number of observations.
-%  
- Finally, the grey dotted lines are contours of $1/\sqrt{N}$, drawn to aid the eye.
+\includegraphics[width=1.05\columnwidth]{plots/pdfLambda_vs_N_L800.pdf}
+\includegraphics[width=1.\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L800.pdf}
+\caption{%
+These panels show the accumulation of information from a population whose
+$\lambdans=800$.
+{\it Left:} Posterior probability distributions for $\lambdans$ (colored 
+curves), and associated $90\%$ confidence intervals (grey vertical lines),
+shown for different number of accumulated observations $N$. Distributions are
+normalized to unit area.
+{\it Right:} Measured median value of $\lambdans$ (as solid circles) and the 
+associated $90\%$ confidence intervals (as the height of filled region), shown
+as a function of number of observations $N$. Solid horizontal line indicates
+the true value of $\lambdans$. Dashed and dotted horizontal lines (a pair for each
+line-style) demarcate $\pm 25\%$ and $\pm 50\%$ error bounds.
 }
-\label{fig:TT_Lambda_vs_N_L500_2000_CI90_0}
+\label{fig:TT_Lambda_vs_N_L800_CI90_0}
 \end{figure*}
+%
+% % 
+% \begin{figure*}
+% \centering    
+% \includegraphics[width=.9\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L2000.pdf}
+% \includegraphics[width=.9\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L1500.pdf}\\
+% \includegraphics[width=.67\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L1000.pdf}
+% \includegraphics[width=.67\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L800.pdf}
+% \includegraphics[width=.67\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L500.pdf}
+% \caption{Filled-region plots showing the median and $90\%$ confidence intervals
+% for $\lambdans$ measurement, as a function of the number of observed events $N$.
+% Each panel corresponds a unique population with injected $\lambdans$ fixed to
+% the value shown in its title. In each panel, the measured median for $\lambdans$
+% is shown by filled circles, and the $90\%$ confidence interval is shown by the 
+% height of the filled region. In addition, the dashed and 
+% dotted lines (2 of each line-style) show the $\pm 25\%$ and $\pm 50\%$ error
+% bounds, with respect to the true value.
+% }
+% \label{fig:TT_Lambda_vs_N_L500_2000_CI90_0}
+% \end{figure*}
 %
 \begin{figure}
 \centering    
 \includegraphics[width=1.05\columnwidth]{plots/FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf}
 \caption{%
-Posterior probability distributions for $\lambdans$ (colored curves), and 
-associated $90\%$ confidence intervals (grey vertical lines), shown for 
-different number of accumulated observations $N$.
+This filled-region figure shows how our measurement of $\lambdans$ improves with
+an increasing number of observed events $N$. Each color corresponds to an
+independent populations with the true value of $\lambdans$ fixed as given in
+the legend. For each population, we show the measured median (as filled
+circles) and $90\%$ confidence intervals for $\lambdans$ measurement (as the
+height of the filled region about the median). 
 }
 \label{fig:TT_Lambda_vs_N_CI90_0}
 \end{figure}
@@ -920,7 +919,8 @@ different number of accumulated observations $N$.
 \centering
 \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
 \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}
-\caption{This figure shows the fractional difference between the median
+\caption{%
+{\it Left:} This figure shows the fractional difference between the median
  recovered value from the posterior probability distribution for $\lambdans$
  as a function of $N$. Different curves correspond to different injected values
  of $\lambdans$, and are shaded from light to dark in direct proportion. 
@@ -930,8 +930,9 @@ different number of accumulated observations $N$.
 We find that within $\approx 10$ detections, the median measured value for
 $\lambdans$ would estimate the true value for the star with the remarkable 
 accuracy of $10\%$.
+{\it Right:} 
 }
-\label{fig:TT_Lambda_vs_N_L500_2000_CI90_0_AllInOne}
+\label{fig:TT_LambdaMedian_vs_N_AllInOne}
 \end{figure*}
 %
 % 
@@ -990,7 +991,7 @@ confidence interval for $\lambdans$, normalized by its true value,
  roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
  (than $1/\sqrt{N}$) narrowing of the confidence interval.
 }
-\label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
+\label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
 \end{figure*}
 % 
 % % 
@@ -1051,38 +1052,43 @@ Green dash-dotted lines are contours of $y=x^{-(1+1/5)}$.
 equation for the green lines.}
 % 
 }
-\label{fig:TT_Lambda_vs_Lambda_L500_2000_CI90_0_AllInOne}
+\label{fig:TT_PowerLawLambdaErrorVsLambda}
 \end{figure}
 
 
 
 \textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
 % 
-First we show a crude calculation which tells us that approximately $8$ (or $16$) 
+We start with a crude calculation which tells us that approximately $8$ (or $16$) 
 observations
 of NSBH signals with $\rho\geq 10$ distributed uniformly in effective volume, would
 give us similarly accurate a measurement of $\lambdans$ as would a single detection
 with $\rho=50$ (or $\rho=70$). 
 
 
-We want to distribute signals in effective distance $\deff$, which is a combination of 
-luminosity distance, inclination angle of the binary's orbital angular momentum
-with respect to the detector, and its various sky angles. The signal strength 
-scales inversely with $\deff$, if it comprises only of the dominant $(2,2)$ mode, allowing
-for various angle-dependent factors to scale out beside the luminosity distance.
+The approximation of using (only) the dominant $l=|m|=2$ multipoles of
+gravitational-wave strain to construct the signal, ignoring other $l\neq 2$
+multipoles, has the advantage of making various angle parameters 
+associated with the source degenerate with its distance. As a result, source
+distance, source sky location angles, and the inclination angle of
+the binary's orbital angular momentum with respect to the detector,
+all combine into a single ``effective distance'' $\deff$ that scales
+out as the constant amplitude factor $1/\deff$ (constant because none
+of the above parameters vary temporally for aligned-spin binaries).
 % 
-In order to consider multiple events, lets imagine a population uniformly distributed
-in effective volume, i.e. within a sphere of radius $\deff^\mathrm{max}$. The 
-radius of this sphere is set by the lowest SNR that is distinguishable from noise
-by LIGO searches. Now, divide the sphere into $I$ shells of equal width. The radius
-of the $i$-th sphere would then be $D_i = \deff^\mathrm{max} (i - 1/2)/I$. The 
-measurement uncertainty in $\lambdans$ scales inversely with the SNR, and hence
-directly with the effective distance to the source. Therefore, if we have a 
-measurement error $\sigma_0$ for a source located at $\deff = D_0$, the same error
-for the same source located within the $i$-th shell would be 
-$\sigma_i = \sigma_0 \dfrac{D_i}{D_0}.$
-Independent measurements of $\lambdans$ for identical sources at different distances
-would have their combined error given by
+In order to consider multiple events, lets imagine a population uniformly
+distributed in effective volume, i.e. within a sphere of radius 
+$\deff^\mathrm{max}$. The radius of this sphere is set by the lowest SNR that 
+is distinguishable from noise by LIGO searches. Now, divide the sphere into
+$I$ shells of equal thickness. The radius of the $i$-th sphere would then
+be $D_i = \deff^\mathrm{max} (i - 1/2)/I$. The measurement uncertainty in
+$\lambdans$ scales inversely with SNR, and hence directly with the 
+effective distance to the source. Therefore, if we have a measurement error 
+$\sigma_0$ for a source located at $\deff = D_0$, the same error for the same
+source located within the $i$-th shell would be 
+$\sigma_i = \sigma_0 \dfrac{D_i}{D_0}$. The combined error from independent
+measurements of $\lambdans$ for identical sources at different distances is
+given by
 \begin{equation}\label{eq:1oversigma}
 \frac{1}{\sigma^2} = \sum_{i=1}^I \frac{N_i}{\sigma_i^2} = \left(\frac{D_0}{\sigma_0}\right)^2 \sum_{i=1}^I\frac{N_i}{D_i^2},
 \end{equation}
@@ -1111,22 +1117,22 @@ where $N_i$ is the number of sources detected in the $i$-th shell.
 % \end{eqnarray}
 % where in the previous equation we have converted the summation in Eq.~\ref{eq:1oversigma} 
 % to an integral. 
-Continuing on this line of inquiry, Ref.~\cite{Markakis:2010mp} calculates the 
+Continuing on this line of inquiry, Ref.~\cite{Markakis:2010mp} found the 
 root-mean-square averaged measurement error from 
 $\langle N\rangle:=\langle\sum N_i\rangle$ sources distributed uniformly in
 effective volume within a sphere of radius $\deff^\mathrm{max}$ to be
 \begin{equation}\label{eq:rmsSigmaIdenticalSources}
  \sigma_{avg} := \frac{1}{\sqrt{\langle1/\sigma^{2}\rangle}} = \frac{\sigma_0}{D_0} \deff^\mathrm{max} \frac{1}{\sqrt{3\langle N\rangle}},
 \end{equation}
-given a fiducial pair $(\sigma_0, D_0)$.
-Further, it is straightforward to deduce from Eq.~\ref{eq:rmsSigmaIdenticalSources}
+given a fiducial pair $(\sigma_0, D_0)$. It is straightforward to deduce from
+Eq.~\ref{eq:rmsSigmaIdenticalSources}
 that the same measurement certainty as afforded by a single
 observation with a high SNR $\rho_c$ can be obtained from $N = \rho_c^2/300$ observations
 uniformly distributed in effective volume with SNRs $\geq 10$. E.g., to get to the level 
 of certainty afforded at SNR$=70$, we would need $49/3\approx 16-17$ realistic detections.
 
-There are two main caveats to this rudimentary calculation, which was outlined in 
-Ref.~\cite{Markakis:2010mp}, (i) it applies to identical sources,
+There are two main caveats to this rudimentary calculation, first outlined in 
+Ref.~\cite{Markakis:2010mp}: (i) it applies to identical sources,
 which is astrophysically next to impossible to achieve exactly, but could perhaps happen 
 approximately; (ii) the combined average measurement error $\sigma_{avg}$ has been defined
 as in the first equality in Eq.~\ref{eq:rmsSigmaIdenticalSources}. To overcome both,
@@ -1200,52 +1206,199 @@ mass-ratio $q\in[2,5]$, (ii) BH spin $\chibh\in[0, 0.75]$, (iii) effective
 distance from within a spherical volume whose radius is given by the lowest 
 detectable SNR (which we take as $\rho=10$). We remind ourselves that
 once binary parameters are fixed, there is a one-to-one mapping between
-effective distance and SNR. Finally, in order to mitigate computational
-cost, we make an additional simplification.
-We perform full Bayesian parameter estimation for a set of simulated signals
-whose parameters are the vertices of the following regular hypercubic grid
-(henceforth ``G''):
+effective distance and SNR. Additionally, we consider an alternate population
+paradigm (paradigm B, with paradigm A being the standard one described 
+above), where populations are generated as above but further restricting
+mass-ratios such that source BH masses lie {\it outside} the astrophysical 
+mass-gap~\cite{Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}.
+Finally, in order to mitigate computational cost, we make an additional 
+simplification. We perform full Bayesian parameter estimation for a set of 
+simulated signals whose parameters are the vertices of the following regular
+hypercubic grid (henceforth ``G''):
 $q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
 The final population is given by substituting all of the $N$ events, generated
 as above, with their respective nearest neighbours on the parameter grid G.
 
 
-In Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0} we show results for a population
-of $N=80$ events. The neutron star deformability is fixed at $\lambdans=800$
-for all events. Each curve shows the probability distributions for $\lambdans$
-as inferred from $N$ events, with $N$ ranging from $1-50$. We also mark the 
-$90\%$ confidence intervals for $\lambdans$ as dark grey vertical lines,
-one associated with each probability distribution curve. Distributions are 
-normalized to unit area. From the figure, we can visualize the information 
-information flow. The first few observations do not have enough information 
-to bound $\lambdans$ (with $90\%$ confidence) much more than our prior from
-Eq.~\ref{eq:lprior} does. However, the median of these cumulative distributions
-track the true value of $\lambdans$ rapidly, reaching close in as few as $4$
-observations.
-
-
-
-In Fig.~\ref{fig:TT_Lambda_vs_N_L500_2000_CI90_0}, we show our measurement 
-uncertainty for $\lambdans$ for different populations, with $\lambdans$ alone
-changing between populations. Lets consider the top left panel first, which
-corresponds to a population of the most deformable neutron stars considered,
-with $\lambdans=2000$. The green filled region shows $\delta\Lambda/\Lambda$
-as a function of $N$, where we take $\delta\Lambda$ to be the width of the 
-$90\%$ confidence interval on $\lambdans$ after $N$ observations.
-%
-The green filled circles show the median measured value of $\lambdans$
-as a function of $N$. The dashed line at y value $=1$ marks zero error, i.e.
-$\delta\Lambda/\Lambda=0$. The dotted and dashed lines around this denote
-$\pm 25\%$ and $\pm 50\%$ relative errors, respectively. Independently, the
-light-grey filled shown the absolute measurement uncertainty $\delta\Lambda$
-on the right y-axis , as a function of $N$. A horizontal grey dashed line
-marks the true value of $\lambdans$. Contours of $1/\sqrt{N}$ are shown as 
-dotted light grey curves to guide the eye while studying the dependence of
-$\delta\Lambda$ on $N$.
+In Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0} we show illustrative results
+for a single 
+population of $N=80$ events. The neutron star deformability is fixed at
+$\lambdans=800$ for all events. In the left panel, each curve shows the 
+probability distributions for $\lambdans$ as inferred from $N$ events, with $N$
+ranging from $1-80$. We also mark the $90\%$ confidence intervals associated
+with each of the probability distribution curves. From the figure, we
+can visualize information accumulation. The first few observations do not have
+enough information to bound $\lambdans$ (with $90\%$ confidence) much more than
+our prior from Eq.~\ref{eq:lprior} does. However, the median of these
+cumulative distributions appears to track the true value of $\lambdans$ 
+rapidly.
 % 
+In the right panel, we present information derived from the left panel.
+The line-circle curve shows the measured median from $N$ observations, with
+the latter on the $x$-axis. The pair of dashed (dotted) horizontal lines mark
+$\pm25\%$ ($\pm50\%$) error bars. At each $N$, the range spanned by the 
+filled region is the $90\%$ confidence interval deduced from the same 
+events. This figure somewhat quantifies the qualitative deductions we made
+from the left panel. We find that the measured median does track the true value
+quickly, reaching $10\%$ accuracy with $10-15$ observations. With the same
+information, our confidence intervals also shrink to $\pm 25\%$.
+% 
+In Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0} we show further results from $4$
+independent populations, with the source $\lambdans$ alone changing between
+them. The sampled values, i.e.$\lambdans=\{500,1000,1500,2000\}$, 
+range from the least to the most deformable neutron stars. As in the 
+right panel of Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}, the line-circle curves
+track the median measured $\lambdans$, while the filled regions show
+the associated $90\%$ confidence intervals. From the figure, we observe
+the following: (i) the shrinkage of confidence interval widths with increasing
+$N$ happens in a similar manner for all 
+populations, (ii) within $5-10$ observations, median measured $\lambdans$ for
+all populations lie within $\pm10\%$ of the true values, and (iii) it takes
+approximately $20$ events to distinguish definitively (with $90\%$ confidence)
+between deformable NSs with $\lambdans=2000$ and compact NSs with 
+$\lambdans=500$, or equivalently to distinguish between hard, moderate and soft
+nuclear equations of state. This is comparable to what has been found for
+monolithic binaries of neutron stars~\cite{DelPozzo:13,Chatziioannou:2015uea,
+Agathos:2015a}.
 
 
 
+So far we have discussed individual realizations of NSBH populations. The 
+underlying stochasticity of the population generation process makes it
+difficult to draw generalized inferences (from a single realization) about the
+measurability of $\lambdans$. We mitigate this by drawing multiple
+realizations of population generation (i.e. multiple identically constructed
+populations). Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} shows the first
+results for multiple populations. Lets focus on the left panel first. We
+show the median measured value of $\lambdans$ from $100$ independent 
+populations with fixed $\lambdans=2000$ as the top set of curves. The one 
+highlighted (in green) curve corresponds to the population discussed above.
+Similarly, we generate sets of $100$ populations with $\lambdans=500-1500$, and
+show the median measured $\lambdans$ as four distinct groups of curves in
+Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} (with the single highlighted
+curve in each group corresponding to
+Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0}-\ref{fig:TT_LambdaMedian_vs_N_AllInOne}.
+Dash-dotted horizontal lines demarcate $\pm50\%$ error intervals around
+the true $\lambdans$ values. All of these populations are drawn under
+paradigm A (i.e. with BH masses allowed to sample the mass-gap that spans
+$2-5M_\odot$).
+% 
+From the figure, we can conclude with a high likelihood that our measured
+$\lambdans$ values will be within $10\%$ of the real value in $15-20$ events
+for less deformable neutron stars with $\lambdans\leq 1000$, and in as few as
+$10$ events for more deformable stars with $\lambdans\geq 1500$.
+% 
+The right panel of the figure is identical to the left panel, but drawn under
+population paradigm B (no BHs alloewd within the mass-gap). Under this
+paradigm, we expectedly find that information accumulation is slower. It would
+take $20-40$ detections with $\rho\geq10$ under this paradigm, for our (median)
+measured $\lambdans$ to lie within $10\%$ of the true value (fewer for 
+more deformable NSs, as one would expect).
+% 
+This is a promising deduction, as one might expect to see $\mathcal{O}(10)$
+events over a few years' timescale with design aLIGO~\cite{Abadie:2010cfa}.
+
+
+
+Further, we investigate the statistical uncertainties associated with
+$\lambdans$ measurements. We use $90\%$ confidence intervals as our measure of
+the same. The left column of 
+Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne} shows results
+under paradigm A, where BH mass priors include the mass-gap. In each panel
+we show the width of the $90\%$ confidence interval measured from $N$ events
+(with $N$ on the $x$-axis), normalized by the true value of $\lambdans$ for
+the population. In grey are shown results from each of $100$ population
+realizations, with the single population highlighted in color corresponding
+to the one we focused on in 
+Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0}-\ref{fig:TT_LambdaMedian_vs_N_AllInOne}.
+The inset shows the same, except that the ordinate is {\it not} normalized by
+the true value of $\lambdans$. From top to bottom, the population $\lambdans$
+decreases from $\lambdans=2000\rightarrow 500$, corresponding to decreasingly
+deformable NSs with softer equations of state. We observe the following:
+(i) for moderately-hard to hard equations of state with $\lambdans\geq 1000$,
+we can constrain $\lambdans$ within $\pm 50\%$ using only $10-20$ events, and
+within $\pm 25\%$ with $25-40$ events; (ii) for softer equations of state with
+$\lambdans<1000$, we will achieve the same accuracy with $20-30$ and $50+$ 
+events, respectively; and (iii) for the first $5$ or so observations, our
+measurement confidence spans the entire prior allowed range 
+$\lambdans\in[0,4000]$, as shown by the plateauing towards the left edge in
+each panel's inset.
+% 
+In the right column, each panel panel is identical to its corresponding left
+one, with the difference that populations are drawn under paradigm B, which
+does {\it not} allow for BH masses to fall within the mass-gap. We find that
+for NSs with $\lambdans\leq 1000$, it would take $25-40$ events to
+constrain $\lambdans$ within $\pm 50\%$ and $50+$ events to constrain it
+within $\pm 25\%$. This is somewhat slower than paradigm A, as is to be
+expected since here we preclude the lowest mass-ratios, which correspond to
+signals with largest tidal signatures. For $\lambdans>1000$ we find that we
+can constrain $\lambdans$ within $\pm 50\%$ with a similar number of events as
+for paradigm A, but will need more ($30-40$, as compared to $25-40$) events
+to further constrain it to within $\pm 25\%$ of the true value.
+% 
+These are some of the primary findings of this paper.
+
+
+Finally, we quantitatively explore the dependence of our statistical
+uncertainties for $\lambdans$ on the number of events, as well as on the true
+NS deformability itself. First, we will focus on the dependence on $N$. We
+assume a power-law dependence of the form
+$\delta\lambdans\propto\ 1/N^\alpha$. For each of the $100$ populations 
+for each of $\lambdans=500-2000$, we compute the exponent $\alpha$ as a
+function of the number of observed events $N$, and show it in 
+Fig.~\ref{fig:TT_PowerLawLambdaErrorVsN}. There are $100\times5=500$ curves
+on the figure, with one highlighted for each value of population's $\lambdans$.
+These highlighted values are only special in the sense that they correspond to
+populations discussed earlier in this section (c.f.
+Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0}-\ref{fig:TT_LambdaMedian_vs_N_AllInOne}).
+We immediately observe two things, (i) there is a globally similar dependence
+on $N$ for all populations, and (ii) information accumulates faster than
+$1/\sqrt{N}$. In fact, we find that if
+$\delta\lambdans\propto\frac{1}{N^\alpha}$, $\alpha$ lines in the range
+$0.7_{-0.2}^{+0.2}$.
+% 
+Next, we focus on the dependence of $\delta\lambdans$ on $\lambdans$ of the
+population itself. As suggested by Fisher-matrix studies~\cite{Lackey:2013axa},
+and as for $N$, we assume the form $\delta\lambdans\propto\lambdans^\beta$.
+From each set of $100$ populations with a given $\lambdans$ value, we draw one
+at random, and form a set of $5$ similarly drawn populations, one for each of
+$\lambdans=\{500,800,1000,1500,2000\}$. With each set, we determine $\beta$
+for different number of observed events $N$. In all, we make $100$ independent
+$5-$population sets and show the value of $\beta$ measured from each in 
+Fig.~\ref{fig:TT_PowerLawLambdaErrorVsLambda}. We find that the assumed
+relation $\delta\lambdans\propto\lambdans^\beta$ gets fairly robust for 
+larger values of $N$, with $\beta$ converging to $\beta=0.5^{+0.33}_{-0.33}$.
+The fact that $\beta<1$ implies that the relative error
+$\delta\lambdans/\lambdans$ decreases with increasing $\lambdans$, while the 
+absolute error increases.
+% 
+From these results, we conclude that the measurement uncertainty for
+$\lambdans$ after $N$ observations is
+\begin{equation}
+ \delta\lambdans\propto \dfrac{\lambdans^{0.5^{+0.33}_{-0.33}}}{N^{0.7_{-0.2}^{+0.2}}}.
+\end{equation}
+We also find that while these results are inferred from paradigm A populations,
+paradigm B gives very similar results.
+
+
+
+To summarize, in this section we study the improvement in our measurement of 
+NS deformability parameter $\lambdans$ with an increasing number of events. We
+do so by simulating plausible populations of disrupting NSBH binaries (with
+$\rho\geq 10$). We find that:
+(i) for more deformable neutron stars (harder equation of states), the median
+measured value of $\lambdans$ comes within $10\%$ of the true value with as 
+few as $10$ events, while achieving the same accuracy for softer equations of 
+state will take $15-20$ source detections; (ii) the statistical uncertainty
+associated with $\lambdans$ measurement shrinks to within $\pm50\%$ with
+$10-20$ events, and to within $\pm 25\%$ with $50+$ events, when source 
+$\lambdans\geq 1000$; (iii) for softer equations of state, the same could take
+$25-40$ and $50+$ events, respectively for the two uncertainty thresholds;
+and (iv) if BHs really do observe the astrophysical mass-gap, the information
+accumulation is somewhat slower than if they do not. We conclude that within
+$20-30$ observations, aLIGO would begin to place very interesting bounds on 
+the NS deformability, which would allow us to rule out or rank different
+equations of state for neutron star matter.
 
 
 
