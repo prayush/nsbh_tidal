@@ -1,0 +1,69 @@
+% \documentclass[a4paper,amsmath,floats,floatfix,12pt]{article}
+\documentclass[aps,prd,amsmath,floats,floatfix,onecolumn,superscriptaddress,nofootinbib,showpacs]{revtex4-1}
+
+% \usepackage[utf8]{inputenc}
+
+% \usepackage[colorlinks, pdfborder={0 0 0}, plainpages=false]{hyperref}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{placeins}
+
+% Macros for text notes and comments
+\newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\lambdans}{\Lambda_\mathrm{NS}}
+\newcommand{\dlambda}{\delta\Lambda}
+
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\chibh}{\chi_\mathrm{BH}}
+\newcommand{\chins}{\chi_\mathrm{NS}}
+\newcommand{\mbh}{m_\mathrm{BH}}
+\newcommand{\mns}{m_\mathrm{NS}}
+\newcommand{\mchirp}{\mathcal{M}_c}
+\newcommand{\LL}{\mathcal{L}}
+\newcommand{\deff}{D_\mathrm{eff}}
+
+\begin{document}
+%opening
+\title{NSBH tidal paper, Q\&A}
+\author{Prayush Kumar}
+
+% \begin{abstract}
+% Blank
+% \end{abstract}
+\maketitle
+
+
+\section{Derivation of Eq.8 and footnote 2}
+The probability of $\lambdans$, given the $N$ unique and independent events,
+along with all other assumptions about the universe bundled into $K$, is
+\begin{eqnarray}
+ p(\lambdans |d_1, d_2, \cdots, d_N, K) &= \dfrac{p(d_1,d_2,\cdots,d_N |\lambdans , K)\,p(\lambdans)}{\int\D\lambdans p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)},\label{eq:11}\\
+  &= \dfrac{p(\lambdans) \prod_{i} p(d_i|\lambdans, K)}{\int\D\lambdans p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)},\label{eq:12}\\
+  &= \dfrac{p(\lambdans) \prod_{i} \left( p(\lambdans |d_i, K)\dfrac{p(d_i)}{p(\lambdans)} \right)}{\int\D\lambdans p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)}\label{eq:13};
+\end{eqnarray}
+where Eq.~\ref{eq:11} and Eq.~\ref{eq:13} are application of Bayes' theorem,
+while Eq.~\ref{eq:12} comes from the mutual independence of all $N$ events. 
+Assuming in addition that all events are {\it equally likely}: 
+$p(d_i) = p(d_j) = p(d)$, we get
+\begin{eqnarray}
+ p(\lambdans |d_1, d_2, \cdots, d_N, K) &= \dfrac{p(\lambdans) \left(\dfrac{p(d)}{p(\lambdans)}\right)^N\prod_{i} p(\lambdans |d_i, K) }{\int\D\lambdans p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)}\label{eq:21},\\
+  &= p(\lambdans)^{1-N}\times \dfrac{p(d)^N}{\int\D\lambdans p(\lambdans) p(d_1, d_2, \cdots, d_N |\lambdans, K)} \times\prod_i p(\lambdans |d_i, K)\label{eq:22}.
+\end{eqnarray}
+The first factor in Eq.~\ref{eq:22} is the prefactor appearing in Eq.(8), and
+the second factor in Eq.~\ref{eq:22} is the normalization factor I hint at
+in footnote 2.
+
+
+
+
+
+
+
+
+
+
+\end{document}
