@@ -129,16 +129,48 @@ waves~\cite{LIGOVirgo2016a}. Emitted by a pair of coalescing black holes, these
 waves heralded an era of observational GW astrophysics as they traveled 
 through Earth.
 % 
-By the end of the decade, we expect aLIGO to reach its design sensitivity,
-as well as for Advanced Virgo and KAGRA to begin observing. 
+Towards the end of this decade, we expect aLIGO to reach its design sensitivity.
+In addition to the US-based efforts, we also expect the French-Italian detector Advanced
+Virgo~\cite{aVIRGO,aVirgo2}, Japanese detctor KAGRA~\cite{kagra,Somiya:2011np},
+and LIGO-India~\cite{2013IJMPD..2241010U} to begin observing at comparable
+sensitivities within a few years. With a global network of sensitive GW
+observatories, we can expect GW astronomy to face significant developments over the
+coming years.
 % 
-At its design sensitivity, we expect aLIGO to observe $\sim 70$ compact binary
-mergers a year~\cite{Abadie:2010cf}.
+% At design sensitivity, we expect aLIGO to observe $\sim 70$ compact binary
+% mergers a year~\cite{Abadie:2010cf}.
 
-
+\red{
+Text about CBCs. How was each type observed so far?
+}
+\prayush{
 Coalescing binaries of compact objects, i.e. black holes (BH) and/or
 neutron stars (NS) are the primary target sources for 
-aLIGO~\cite{Abbott:2016nhf,LIGOVirgo2016a}. An important sub-class of these
+aLIGO~\cite{Abbott:2016nhf,LIGOVirgo2016a}.
+% 
+Compact binary merger rate estimates suggest
+a GW detection rate of approximately a few tens of binary black holes
+(BBH) every year~\cite{Abadie:2010cfa}. The actual masses of
+astrophysical black holes are uncertain, but observations and
+population synthesis studies suggest that BHs formed from stellar
+core-collapse can have masses up to and higher than
+$34M_\odot$~\cite{2008ApJ...678L..17S,2010ApJ...714.1217B}.  Also,
+recent measurements using continuum fitting and X-ray reflection
+fitting suggest that black holes can have high spin, with the BH
+angular momentum in dimensionless units exceeding
+$0.8$~\cite{2011ApJ...742...85G,2012MNRAS.424..217F,Gou:2013dna,
+  2009ApJ...697..900M,McClintock:2006xd,Miller:2009cw,McClintock:2013vwa}.
+Therefore the observations of GWs emitted by spinning BBHs will allow us to
+understand the spin-spin and spin-orbit dynamics of the two-body
+system, apart from allowing us to test strong-field dynamics of
+General Relativity.
+}
+% 
+
+\red{
+Text describing BHNS disruption and accretion dynamics.
+}
+An important sub-class of these
 are NSBH binaries, of which we expect $\mathcal{O}(10)$ GW observations
 every year~\cite{Abadie:2010cf}.
 NSBH binaries are of interest for multiple reasons. For instance,
@@ -165,6 +197,10 @@ possibility to confirm this hypothesis~\cite{Abbott:2016wya}.
 % to the very small amount of material ejected in the jet, but that's not what
 % people usually mean when talking about material unbound by the merger).
 % 
+
+\red{
+Text focusing on tides
+}
 Another question that NSBH mergers can help answer is `what is the 
 nature of matter at nuclear densities', i.e. what is the equation of state
 (EoS) of neutron star material. This is what we will focus on in this paper.
@@ -193,7 +229,13 @@ The difficulty in discerning NS matter effects in an NSBH coalescence from its
 GW signal lies in distinguishing it reliably from a BBH signal, since the 
 difference between the two is either subtle (during inspiral) or short-lived
 (disruption and merger). The earlier in inspiral the NS disrupts, the more
-orbits there are over which its effect is visible. The mechanism of disruption
+orbits there are over which its effect is visible.
+% 
+\red{
+Text about disruption of NSBHs, MOVE EARLIER.
+}
+\prayush{
+The mechanism of disruption
 is governed by the nature of the BH, i.e. its mass and spin. More massive BHs 
 (with $m_\mathrm{BH}\gtrsim 7\, m_\mathrm{NS}$), as well as BHs with
 (large) retrograde spins $(\chi_\mathrm{BH}\in[-1. 0])$, tend to swallow the 
@@ -207,17 +249,22 @@ $q\in[2, 5]$, and $\chi_\mathrm{BH}\geq 0$) can cause their companion star to
 disrupt much before merger, leaving a strong imprint on the emitted GW 
 signal~\cite{Shibata:2007zm,2010PhRvD..81f4026F,Lovelace:2013vma,
 Kawaguchi:2015}.
+}
+
+
+\red{
+Insert paragraph describing impact on GWs
+}
 
 
 
 A large fraction of past work aimed at measuring NS matter effects from GW
 signals has consisted of inquiries about binary neutron stars (BNS)~\cite{
 Lee1999a,Lee1999b,Lee2000,oechslin:07,Read:2008iy,Markakis:2010mp,Markakis:2011vd,
-stergioulas:11,East:2011xa,Lackey2014,Wade:2014vqa,Bauswein:2014qla}. While single 
-observations are not as informative, Bayesian studies have shown that with
-$20-30$ BNS observations, aLIGO would begin to distinguish between hard,
-moderate and soft candidate equations of state~\cite{DelPozzo:13,
-Chatziioannou:2015uea,Agathos:2015a}. These studies rely on the PN 
+stergioulas:11,East:2011xa,Lackey2014,Wade:2014vqa,Bauswein:2014qla}. 
+Studies~\cite{DelPozzo:13,Chatziioannou:2015uea,Agathos:2015a} have shown that
+with $20-30$ BNS observations, aLIGO would begin to distinguish between hard,
+moderate and soft candidate equations of state. These studies rely on the PN 
 description of BNS dynamics, which is reasonable since BNSs merge at very high
 frequencies and most of their signal power resides in inspiral.
 % 
@@ -229,9 +276,15 @@ measuring $\lambdans$. Some past NSBH studies aimed at measuring tidal effects,
 however, have used PN inspiral-only waveforms~\cite{Maselli:2013rza}. In doing
 so, however, (i) they ignore the merger signal which could contain significant
 information for NSBHs, and (ii) the errors due to unknown vaccum terms in PN 
-waveforms could easily dominate over the tidal terms 
-themselves~\cite{Yagi:2014}, since there are unknown point-particle terms at 
-orders {\it lower} than that at which tidal effects enter. Other studies that
+waveforms could easily dominate over the tidal terms themselves, since there 
+are unknown point-particle terms at orders {\it lower} than that at which tidal
+effects enter~\cite{Yagi:2014}.
+\red{
+Make clear the distinction between Fischer matrix studies and Bayesian ones. 
+Explain the differences. this is important as it sets the stage for for what is
+new in this paper.
+} 
+Other studies that
 use complete numerical simulations or derived models either use Fisher matrix 
 to estimate $\lambdans$ measurement error~\cite{Lackey2011,Lackey:2013axa},
 which is not reliable at realistic signal-to-noise ratios 
@@ -244,8 +297,11 @@ from GWs emitted by {\it disruptive} NSBH mergers using aLIGO. We also probe how
 effects affect the estimation of other binary parameters for the same class
 of systems. This study improves upon previous work in many ways. First, we
 include tidal effects during inspiral and merger in a consistent way, by using
-the waveform model of Ref.~\cite{Lackey:2013axa} (henceforth ``LEA+''). Second,
-we include the effect
+the waveform model of Ref.~\cite{Lackey:2013axa} (henceforth ``LEA+'').
+\red{
+(describe meaning of the acronym LEA+)
+}
+Second, we include the effect
 of black hole spin on tidal GW signals, in addition to the effect of BH mass 
 and NS's deformability itself. Third, we perform a fully Bayesian 
 analysis, instead of using a Fisher matrix approximation. Fourth, we explore 
@@ -253,14 +309,19 @@ how our measurement errors decrease as we gain information from multiple
 (realistic) events.
 
 
-We first probe the effect of not including tidal effects in parameter 
-estimation templates on the recovery of non-tidal binary parameters, such as 
+We first probe the effect of ignoring tidal effects in parameter 
+estimation on the recovery of non-tidal binary parameters, such as 
 component masses and spins. This is the case of current and planned aLIGO
 efforts.
 To do so, we use the LEA+ model to generate a set of realistic signals, and
 use that as data from which we estimate binary mass and spin parameters with
 a Bayesian Monte-Carlo algorithm, using non-tidal (BBH) waveforms as filters.
 % 
+\red{
+The following numerical details disrupt the flow of the text. MOVE after
+description of analyses.
+}
+\prayush{
 As in rest of the paper, we restrict here our parameter space to span 
 mass-ratios $q:=\mbh/\mns\in[2,5]$, black hole spin (aligned with orbit)
 $\chibh\in[-0.5, +0.75]$, and dimensionless neutron star tidal deformability 
@@ -269,7 +330,15 @@ The mass of NS for signals (and not templates) is fixed to $1.35M_\odot$
 throughout~\cite{stellarcollapsemass}, and is taken to be 
 non-spinning~\cite{Miller:2014aaa}.
 Each signal is rescaled to a range of SNR values $\rho\in[10, 70]$.
-% 
+}
+\red{
+MOVE the following to SUMMARY. Here, keep 1-2 sentences:
+For individual events, ignoring tidal effects will affect mass-estimation
+only marginally; only for very loud signals (SNRs $\gtrsim 30$) the systematic
+biases exceed the statistical uncertainties. Furthermore, detection searches
+can ignore tidal effects without loss of sensitivity.
+}
+\prayush{
 We find that non-inclusion of tidal effects leads to systematic biases in
 the measurement of non-tidal parameters. Consider first the binary chirp 
 mass $\mchirp:=M\eta^{3/5}$ where $M$ is the binary total mass, and 
@@ -303,8 +372,14 @@ classification of a binary as an NSBH system, which can be achieved just as
 easily with BBH templates, purely on the basis of the smaller component's mass.
 Another conclusion we draw is that detection searches are unaffected by the
 choice of ignoring tidal effects in matched-filtering templates.
+}
 
 
+\red{
+Somewhat reduce discussion of results. Discuss in order of probability, starting
+with low SNR, ending with exceptional events.
+}
+\prayush{
 Next, we study the ability of aLIGO to constrain neutron star tidal 
 deformability with a single observation of coalescing NSBHs. For this, we
 use the same setup and parameter choices for signal waveforms as before, but
@@ -317,17 +392,31 @@ BH with mass within the ``mass-gap'') can we put a factor of $1.5-2$ bound on
 $\lambdans$ at $90\%$ confidence level. For similar signals with 
 $\rho\gtrsim 30$ we can constrain $\lambdans$ within $\pm 50\%$ of its true
 value. For more realistic SNRs and BH parameters, a single measurement is 
-for $\lambdans$ is accompanied with a $\sim\pm150+\%$. uncertainty. While these
-results are expected, multiple realistic observations is the next window that 
-we explore in order to obtain more information on $\lambdans$. These results 
-are detailed in Sec.~\ref{s1:PEwithNS}.
+for $\lambdans$ is accompanied with a $\sim\pm150+\%$. uncertainty.
+% While these
+% results are expected, multiple realistic observations is the next window that 
+% we explore in order to obtain more information on $\lambdans$. These results 
+% are detailed in Sec.~\ref{s1:PEwithNS}.
+}
 
-
+\red{
+BEgin this paragraph by pointing out that EOS is universal among all NSs. 
+Therefore, one universal $\lambdans$ vs $\mns$ curve. Therefore, by combining
+multiple BHNS events, expect to measure $\lambdans$ better than with any 
+single BHNS event.
+}
+\prayush{
 Multiple realistic observations deliver far more information than what a single
 observation furnishes, as has been shown the case to be for binary neutron
 stars~\cite{DelPozzo:13}. As our final study, we perform a fully-Bayesian 
 analysis of how our estimation of $\lambdans$ changes as we accumulate more and
-more detections. The choices that determine the population are important here,
+more detections.
+}
+\red{
+MOVE into later sections. Keep here only 1-2 informational sentences.
+}
+\prayush{
+The choices that determine the population are important here,
 and were made as follows. Neutron star mass is fixed for signals at
 $1.35M_\odot$, and its spin $\chins=0$. Black hole mass is sampled uniformly
 from the range $[2,5]\times 1.35=[2.7, 6.75]M_\odot$. Our choice here is given
@@ -339,7 +428,7 @@ once per population, sampled uniformly from the range $\lambdans\in[0,2000]$.
 In order to keep the computational cost tractable, we make a further 
 approximation.
 %
-\prayush{%
+\textbf{%
 We inject signals into zero noise at different SNRs and recover
 their parameters from Bayesian inferencing for a fixed set of binaries,
 whose parameters lie on a uniform grid given by:
@@ -351,7 +440,15 @@ replaced by their nearest neighbor in the above set.
 We make sure that this approximation is conservative by keeping our population
 sampling ranges within the conservative side of the range spanned by the above
 set. With the caveats laid out, we report our results in
-Sec.~\ref{s1:multiple_observations}. In addition, we probe two paradigms, one
+Sec.~\ref{s1:multiple_observations}.
+}
+\red{
+MOVE to SUMMARY, only keeping 2-4 sentences here. Also, paradigm A/B barely
+matters. Therefore, first describe the common results, then point out how the
+presence/absence of mass gap modifies them.
+}
+\prayush{
+In addition, we probe two paradigms, one
 that allows for BH masses to lie within the astrophysical mass-gap (paradigm
 A), and one that does not (paradigm B).
 % 
@@ -378,12 +475,17 @@ mergers, aLIGO will begin to place interesting bounds on NS deformability.
 This, amongst other things, will allow us to rank different equations of 
 state for neutron star matter from most to least likely, with a few years'
 time-scale.
-
+}
 
 
 
 Finally, we note that our results are applicable for the design sensitivity
-LIGO instruments, that are expected to come online in $2018-19$. Also note
+LIGO instruments, that are expected to come online in $2018-19$.
+\red{
+MOVE towards end of SUMMARY, into ``Future work''.
+}
+\prayush{
+Also note
 that more a recent work that improves upon the waveform model we use in this
 study has been published~\cite{Pannarale:2015jka}, but it provides only an 
 amplitude model which needs to be (in future) augmented with a compatible
@@ -394,7 +496,7 @@ It is therefore difficult to assess the combined modeling error and its effect
 on our results. they are, therefore, limited by the limitations of our
 waveform model. However, we expect the combined effect of modeling errors to
 not change our qualitative conclusions.
-
+}
 
 
 
