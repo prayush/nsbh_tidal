@@ -60,7 +60,7 @@ Am M\"uhlenberg, G\"olm, Germany}} %
 \begin{document}
 
 \title{
-Measuring matter effects in Neutron star - Black hole binaries with Advanced LIGO: a Bayesian study
+Measuring neutron star tidal deformability with Advanced LIGO: a Bayesian analysis of mixed binary observations
 }
 
 \author{Prayush Kumar}\CITA\email{prkumar@cita.utoronto.ca}
@@ -116,19 +116,19 @@ we begin to detect NSBH coalescences.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}\label{s1:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% Over the $3$-months of O1, aLIGO had access to more binary mergers than 
-% initial-LIGO over its entire coincident operation period. 
 
 The Advanced LIGO (aLIGO) observatories completed their first observing run ``O1''
 early-2016, operating at a factor of $3-4$ higher gravitational-wave
 (GW) strain sensitivity than their first-generation 
 counterparts~\cite{Shoemaker2009}.
 % 
-During O1, aLIGO made the first terrestrial observation of gravitational 
+During O1, they made the first terrestrial observation of gravitational 
 waves~\cite{LIGOVirgo2016a}. Emitted by a pair of coalescing black holes, these
-waves
-heralded an era of observational GW astrophysics as they traveled through Earth.
+waves heralded an era of observational GW astrophysics as they traveled 
+through Earth.
+% 
+By the end of the decade, we expect aLIGO to reach its design sensitivity,
+as well as for Advanced Virgo and KAGRA to begin observing. 
 % 
 By $2018-19$, we expect the aLIGO instruments to reach their design
 sensitivity, at which point we may expect to observe $\sim 70$ binary mergers a
@@ -149,7 +149,7 @@ the tidal field of its companion BH. Once disrupted, most of the NS
 material falls into the BH over an $\mathcal{O}(1$ms$)$ time-scale,
 with the rest forming an accretion disk around the BH. This disk-BH system,
 which survives for $0.1-1$s, is hypothesized to drive SGRBs through the
-production of relativistic jets~\cite{Foucart2015,
+production of relativistic jets~\cite{Foucart:2015a,
 Lovelace:2013vma,Deaton2013,Foucart2012,Shibata:2005mz,Paschalidis2014}.
 A {\it coincident} detection of both gravitational and electromagnetic
 waves (gamma rays) from an NSBH system is therefore a {\it unique}
@@ -184,7 +184,7 @@ effect~\cite{Vines2011}, entering binary phasing at $5$PN order. As the NS gets
 disrupted close to binary's merger, the quadrupole moment of the system falls
 monotonically. As a result, the emitted GWs are subdued significantly
 post-disruption (as compared to what they would be for a 
-BBH)~\cite{Kyutoku:2010zd,Lackey:2013axa,Lovelace:2013vma,Foucart2015,
+BBH)~\cite{Kyutoku:2010zd,Lackey:2013axa,Lovelace:2013vma,Foucart:2015a,
 Pannarale:2015jia}.
 
 
@@ -1074,46 +1074,7 @@ confidence intervals will require $40+$ events.
 % \end{figure*}
 % % 
 % 
-\begin{figure}
-\centering    
-\includegraphics[width=1.05\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf}
-\caption{%
-Assuming a power-law dependence of the measurement error on the number of
-events: $\delta\lambdans\propto 1/N^\alpha$, we show $\alpha$ in this figure
-as a function of the number of observed events $N$. Shown are five families
-of $100$ population draws each, with each family corresponding to one of
-$\lambdans=\{500,800,1000,1500,2000\}$. Each grey curve corresponds to one
-of these $100\times5 = 500$ populations. The thicker curves, one from each
-family, shows the population we discussed in
-Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
-We find that a power-law is a good approximation for the concerned dependence,
-and information accumulates {\it faster} than $1/\sqrt{N}$. We estimate
-$\alpha\simeq 0.7^{+0.2}_{-0.2}$.
-}
-\label{fig:TT_PowerLawLambdaErrorVsN}
-\end{figure}
-%
-% 
-\begin{figure}
-\centering    
-% \includegraphics[width=1.03\columnwidth]{plots/LambdaRelErrorBars_vs_Lambda_AllPopulations_N80_Log.pdf}
-\includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf}
-\caption{%
-In this figure, which is similar to Fig.~\ref{fig:TT_PowerLawLambdaErrorVsN},
-we quantify the dependence of $\delta\lambdans$ on $\lambdans$ itself. Of 
-the five families of simulated NSBH populations, we construct $100$
-independent sets taking one population from each family. With each of 
-these $100$ sets, and assuming a power-law dependence:
-$\delta\lambdans\propto\lambdans^\beta$, we estimate $\beta$ and show it in
-this figure as a function of the number of observed events $N$.
-% 
-We find that $\beta$ can be estimated to lie within $[1/6,5/6]$ with a
-likely value close to $1/2$. Since $0<\beta<1$, the relative error
-$\delta\lambdans/\lambdans$ {\it decreases} as the star gets more 
-deformable, while the absolute error $\delta\lambdans$ {\it increases}.
-}
-\label{fig:TT_PowerLawLambdaErrorVsLambda}
-\end{figure}
+
 
 
 
@@ -1399,46 +1360,46 @@ to further constrain it to within $\pm 25\%$ of the true value.
 These are some of the primary findings of this paper.
 
 
-Finally, we quantitatively explore the dependence of our statistical
-uncertainties for $\lambdans$ on the number of events, as well as on the true
-NS deformability itself. First, we will focus on the dependence on $N$. We
-assume a power-law dependence of the form
-$\delta\lambdans\propto\ 1/N^\alpha$. For each of the $100$ populations 
-for each of $\lambdans=500-2000$, we compute the exponent $\alpha$ as a
-function of the number of observed events $N$, and show it in 
-Fig.~\ref{fig:TT_PowerLawLambdaErrorVsN}. There are $100\times5=500$ curves
-on the figure, with one highlighted for each value of population's $\lambdans$.
-These highlighted values are only special in the sense that they correspond to
-populations discussed earlier in this section (c.f.
-Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}).
-We immediately observe two things, (i) there is a globally similar dependence
-on $N$ for all populations, and (ii) information accumulates {\it faster} than
-$1/\sqrt{N}$. In fact, we find that if
-$\delta\lambdans\propto\frac{1}{N^\alpha}$, $\alpha$ lines in the range
-$0.7_{-0.2}^{+0.2}$.
-% 
-Next, we focus on the dependence of $\delta\lambdans$ on $\lambdans$ of the
-population itself. As suggested by Fisher-matrix studies~\cite{Lackey:2013axa},
-and as for $N$, we assume the form $\delta\lambdans\propto\lambdans^\beta$.
-From each set of $100$ populations with a given $\lambdans$ value, we draw one
-at random, and form a set of $5$ similarly drawn populations, one for each of
-$\lambdans=\{500,800,1000,1500,2000\}$. With each set, we determine $\beta$
-for different number of observed events $N$. In all, we make $100$ independent
-$5-$population sets and show the value of $\beta$ measured from each in 
-Fig.~\ref{fig:TT_PowerLawLambdaErrorVsLambda}. We find that the assumed
-relation $\delta\lambdans\propto\lambdans^\beta$ gets fairly robust for 
-larger values of $N$, with $\beta$ converging to $\beta=0.5^{+0.33}_{-0.33}$.
-The fact that $0<\beta<1$ implies that the relative error
-$\delta\lambdans/\lambdans$ {\it decreases} with increasing $\lambdans$, while
-the absolute error {\it increases}.
-% 
-From these results, we conclude that the measurement uncertainty for
-$\lambdans$ after $N$ observations is
-\begin{equation}
- \delta\lambdans\propto \dfrac{\lambdans^{0.5^{+0.33}_{-0.33}}}{N^{0.7_{-0.2}^{+0.2}}}.
-\end{equation}
-We also find that while these results are inferred from paradigm A populations,
-paradigm B gives very similar results.
+% Finally, we quantitatively explore the dependence of our statistical
+% uncertainties for $\lambdans$ on the number of events, as well as on the true
+% NS deformability itself. First, we will focus on the dependence on $N$. We
+% assume a power-law dependence of the form
+% $\delta\lambdans\propto\ 1/N^\alpha$. For each of the $100$ populations 
+% for each of $\lambdans=500-2000$, we compute the exponent $\alpha$ as a
+% function of the number of observed events $N$, and show it in 
+% Fig.~\ref{fig:TT_PowerLawLambdaErrorVsN}. There are $100\times5=500$ curves
+% on the figure, with one highlighted for each value of population's $\lambdans$.
+% These highlighted values are only special in the sense that they correspond to
+% populations discussed earlier in this section (c.f.
+% Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}).
+% We immediately observe two things, (i) there is a globally similar dependence
+% on $N$ for all populations, and (ii) information accumulates {\it faster} than
+% $1/\sqrt{N}$. In fact, we find that if
+% $\delta\lambdans\propto\frac{1}{N^\alpha}$, $\alpha$ lines in the range
+% $0.7_{-0.2}^{+0.2}$.
+% % 
+% Next, we focus on the dependence of $\delta\lambdans$ on $\lambdans$ of the
+% population itself. As suggested by Fisher-matrix studies~\cite{Lackey:2013axa},
+% and as for $N$, we assume the form $\delta\lambdans\propto\lambdans^\beta$.
+% From each set of $100$ populations with a given $\lambdans$ value, we draw one
+% at random, and form a set of $5$ similarly drawn populations, one for each of
+% $\lambdans=\{500,800,1000,1500,2000\}$. With each set, we determine $\beta$
+% for different number of observed events $N$. In all, we make $100$ independent
+% $5-$population sets and show the value of $\beta$ measured from each in 
+% Fig.~\ref{fig:TT_PowerLawLambdaErrorVsLambda}. We find that the assumed
+% relation $\delta\lambdans\propto\lambdans^\beta$ gets fairly robust for 
+% larger values of $N$, with $\beta$ converging to $\beta=0.5^{+0.33}_{-0.33}$.
+% The fact that $0<\beta<1$ implies that the relative error
+% $\delta\lambdans/\lambdans$ {\it decreases} with increasing $\lambdans$, while
+% the absolute error {\it increases}.
+% % 
+% From these results, we conclude that the measurement uncertainty for
+% $\lambdans$ after $N$ observations is
+% \begin{equation}
+%  \delta\lambdans\propto \dfrac{\lambdans^{0.5^{+0.33}_{-0.33}}}{N^{0.7_{-0.2}^{+0.2}}}.
+% \end{equation}
+% We also find that while these results are inferred from paradigm A populations,
+% paradigm B gives very similar results.
 
 
 
@@ -1494,6 +1455,8 @@ and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
 
 \prayush{[PK: To be continued after revision of the introduction.]}
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Acknowledgments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1513,6 +1476,102 @@ We thank Ben Lackey, Francesco Pannarale, Francois Foucart, and Duncan Brown
   Potsdam, for hospitality during part of the time where this research
   was completed.
 \end{acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{appendix}
+
+
+
+\section{Phenomenology of $\lambdans$ measurement errors}
+% 
+\begin{figure}
+\centering    
+\includegraphics[width=1.05\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf}
+\caption{%
+Assuming a power-law dependence of the measurement error on the number of
+events: $\delta\lambdans\propto 1/N^\alpha$, we show $\alpha$ in this figure
+as a function of the number of observed events $N$. Shown are five families
+of $100$ population draws each, with each family corresponding to one of
+$\lambdans=\{500,800,1000,1500,2000\}$. Each grey curve corresponds to one
+of these $100\times5 = 500$ populations. The thicker curves, one from each
+family, shows the population we discussed in
+Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
+We find that a power-law is a good approximation for the concerned dependence,
+and information accumulates {\it faster} than $1/\sqrt{N}$. We estimate
+$\alpha\simeq 0.7^{+0.2}_{-0.2}$.
+}
+\label{fig:TT_PowerLawLambdaErrorVsN}
+\end{figure}
+%
+% 
+\begin{figure}
+\centering    
+% \includegraphics[width=1.03\columnwidth]{plots/LambdaRelErrorBars_vs_Lambda_AllPopulations_N80_Log.pdf}
+\includegraphics[width=\columnwidth]{plots/PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf}
+\caption{%
+In this figure, which is similar to Fig.~\ref{fig:TT_PowerLawLambdaErrorVsN},
+we quantify the dependence of $\delta\lambdans$ on $\lambdans$ itself. Of 
+the five families of simulated NSBH populations, we construct $100$
+independent sets taking one population from each family. With each of 
+these $100$ sets, and assuming a power-law dependence:
+$\delta\lambdans\propto\lambdans^\beta$, we estimate $\beta$ and show it in
+this figure as a function of the number of observed events $N$.
+% 
+We find that $\beta$ can be estimated to lie within $[1/6,5/6]$ with a
+likely value close to $1/2$. Since $0<\beta<1$, the relative error
+$\delta\lambdans/\lambdans$ {\it decreases} as the star gets more 
+deformable, while the absolute error $\delta\lambdans$ {\it increases}.
+}
+\label{fig:TT_PowerLawLambdaErrorVsLambda}
+\end{figure}
+% 
+Finally, we quantitatively explore the dependence of our statistical
+uncertainties for $\lambdans$ on the number of events, as well as on the true
+NS deformability itself. First, we will focus on the dependence on $N$. We
+assume a power-law dependence of the form
+$\delta\lambdans\propto\ 1/N^\alpha$. For each of the $100$ populations 
+for each of $\lambdans=500-2000$, we compute the exponent $\alpha$ as a
+function of the number of observed events $N$, and show it in 
+Fig.~\ref{fig:TT_PowerLawLambdaErrorVsN}. There are $100\times5=500$ curves
+on the figure, with one highlighted for each value of population's $\lambdans$.
+These highlighted values are only special in the sense that they correspond to
+populations discussed earlier in this section (c.f.
+Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}).
+We immediately observe two things, (i) there is a globally similar dependence
+on $N$ for all populations, and (ii) information accumulates {\it faster} than
+$1/\sqrt{N}$. In fact, we find that if
+$\delta\lambdans\propto\frac{1}{N^\alpha}$, $\alpha$ lines in the range
+$0.7_{-0.2}^{+0.2}$.
+% 
+Next, we focus on the dependence of $\delta\lambdans$ on $\lambdans$ of the
+population itself. As suggested by Fisher-matrix studies~\cite{Lackey:2013axa},
+and as for $N$, we assume the form $\delta\lambdans\propto\lambdans^\beta$.
+From each set of $100$ populations with a given $\lambdans$ value, we draw one
+at random, and form a set of $5$ similarly drawn populations, one for each of
+$\lambdans=\{500,800,1000,1500,2000\}$. With each set, we determine $\beta$
+for different number of observed events $N$. In all, we make $100$ independent
+$5-$population sets and show the value of $\beta$ measured from each in 
+Fig.~\ref{fig:TT_PowerLawLambdaErrorVsLambda}. We find that the assumed
+relation $\delta\lambdans\propto\lambdans^\beta$ gets fairly robust for 
+larger values of $N$, with $\beta$ converging to $\beta=0.5^{+0.33}_{-0.33}$.
+The fact that $0<\beta<1$ implies that the relative error
+$\delta\lambdans/\lambdans$ {\it decreases} with increasing $\lambdans$, while
+the absolute error {\it increases}.
+% 
+From these results, we conclude that the measurement uncertainty for
+$\lambdans$ after $N$ observations is
+\begin{equation}
+ \delta\lambdans\propto \dfrac{\lambdans^{0.5^{+0.33}_{-0.33}}}{N^{0.7_{-0.2}^{+0.2}}}.
+\end{equation}
+We also find that while these results are inferred from paradigm A populations,
+paradigm B gives very similar results.
+
+
+\end{appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{References}
