@@ -420,113 +420,101 @@ than $\rho =30$, we can constrain $\lambdans$ to a much more meaningful degree
 While this is discouraging at first, we turn to ask: what if we combine
 information from a population of low-SNR observations?
 
-\red{
-BEgin this paragraph by pointing out that EOS is universal among all NSs. 
-Therefore, one universal $\lambdans$ vs $\mns$ curve. Therefore, by combining
-multiple BHNS events, expect to measure $\lambdans$ better than with any 
-single BHNS event.
-}
-% \prayush{
-Multiple realistic observations deliver far more information than what a single
-observation furnishes, as has been shown the case to be for binary neutron
-stars~\cite{DelPozzo:13}. As our final study, we perform a fully-Bayesian 
-analysis of how our estimation of $\lambdans$ changes as we accumulate more and
-more detections.
+
+
+% \red{
+% BEgin this paragraph by pointing out that EOS is universal among all NSs. 
+% Therefore, one universal $\lambdans$ vs $\mns$ curve. Therefore, by combining
+% multiple BHNS events, expect to measure $\lambdans$ better than with any 
+% single BHNS event.
+% }
+% % \prayush{
+The EoS of matter at nuclear densities is believed to be universal among all
+neutron stars. The TOV equations therefore furnish a unique dependence of
+$\lambdans$ on $\mns$. This fact enables us to go further - combine
+information from multiple observations of realistic NSBH systems and
+perform a fully-Bayesian analysis of how our estimation of $\lambdans$ changes
+as we accumulate detections. This is similar to an earlier
+study~\cite{DelPozzo:13} aimed at binary neutron stars.
+% % }
+% % 
+% \red{
+% MOVE into later sections. Keep here only 1-2 informational sentences.
+% }
+% % 
+We restrict ourselves to a population of NSs with masses clustered very tightly
+around $1.35M_\odot$ (with a negligible variance), and negligible spins. We
+sample different nuclear EoSs by sampling entire populations with different
+values set for the tidal deformability of the NS.
+% These values correspond to a hard EoS at the lower end, and a soft EoS at the upper.
+Finally, we take source
+locations to be uniformly distributed in spatial volume, and source
+orientations to be uniform on a $2-$sphere. From an ensemble of such
+populations, we learn the following.
+% 
+Our best estimate for $\lambdans$ improves much faster than our statistical
+uncertainties. Within $10-20$ detections, the median measured value of
+$\lambdans$ lies within $10\%$ of its actual value.
+Measurement uncertainties for $\lambdans$, on the other hand, depend on
+$\lambdans$ itself. We find that for hard equations of state (with 
+$\lambdans\geq 1000$), $10-20$ observations are sufficient to constrain
+$\lambdans$ within $\pm 50\%$. For softer equations of state, the same level
+of certainty would require substantially more ($25-40$) observations.
+% 
+Further, if the astrophysical ``mass-gap'' is real, we find that $20-50\%$
+additional observations would be required to attain the same measurement
+accuracy as above. Putter tighter constraints on the $\lambdans$ of a
+population would require $50+$ NSBH observations, in either scenario.
+% 
+All of the above is possible within a few years of design
+aLIGO operation~\cite{Abadie:2010cfa}.
+
+% \red{
+% MOVE to SUMMARY, only keeping 2-4 sentences here. Also, paradigm A/B barely
+% matters. Therefore, first describe the common results, then point out how the
+% presence/absence of mass gap modifies them.
 % }
 % 
-\red{
-MOVE into later sections. Keep here only 1-2 informational sentences.
-}
-\prayush{
-The choices that determine the population are important here,
-and were made as follows. Neutron star mass is fixed for signals at
-$1.35M_\odot$, and its spin $\chins=0$. Black hole mass is sampled uniformly
-from the range $[2,5]\times 1.35=[2.7, 6.75]M_\odot$. Our choice here is given
-by the intersection set of the mass range that allows for neutron star disruption
-and the range supported by the waveform model LEA+~\cite{Foucart2012,
-Foucart:2013a,Lackey:2013axa}. Black hole spin is sampled uniformly from the
-{\it aligned} range, i.e. $\chibh\in[0,+1]$. The true deformability is fixed
-once per population, sampled uniformly from the range $\lambdans\in[0,2000]$.
-In order to keep the computational cost tractable, we make a further 
-approximation.
-%
-\textbf{%
-We inject signals into zero noise at different SNRs and recover
-their parameters from Bayesian inferencing for a fixed set of binaries,
-whose parameters lie on a uniform grid given by:
-$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
-% 
-Once the population parameters been selected, each event's parameters are
-replaced by their nearest neighbor in the above set.
-}
-We make sure that this approximation is conservative by keeping our population
-sampling ranges within the conservative side of the range spanned by the above
-set. With the caveats laid out, we report our results in
-Sec.~\ref{s1:multiple_observations}.
-}
-\red{
-MOVE to SUMMARY, only keeping 2-4 sentences here. Also, paradigm A/B barely
-matters. Therefore, first describe the common results, then point out how the
-presence/absence of mass gap modifies them.
-}
-\prayush{
-In addition, we probe two paradigms, one
-that allows for BH masses to lie within the astrophysical mass-gap (paradigm
-A), and one that does not (paradigm B).
-% 
-For paradigm A, we find the following: (i) for the softer equations of state
-that result in less deformable neutron stars, $15-20$ detections are sufficient
-for our median measured value of $\lambdans$ to lie within $10\%$ of the true
-value. (ii) For NSBH populations with more deformable NSs
-($\lambdans\geq 1000$), the same is achievable within as few as $10$ realistic
-observations. (iii) The statistical uncertainty associated with $\lambdans$
-measurement can be restricted to be within $\pm50\%$ using $10-20$ observations
-when $\lambdans\geq 1000$), and using $25-40$ observations for softer equations
-of state. All of the above is possible within a few years of design
-aLIGO operation~\cite{Abadie:2010cfa}, if astrophysical BHs do indeed have
-masses between $\leq 5M_\odot$ (i.e. in the mass-gap). However, further
-restricting $\lambdans$ will require $50+$ NSBH observations.
-% 
-For paradigm B, we find the information accumulation to be somewhat slower.
-While the quantitative inferences for $\lambdans\geq1000$ populations are
-not affected significantly, we find $\mathcal{O}(10-20)\%$ more events are
-required to attain the same measurement accuracy as under paradigm A.
-% 
-We conclude that within as few as $20-30$ observations of disruptive NSBH
-mergers, aLIGO will begin to place interesting bounds on NS deformability.
-This, amongst other things, will allow us to rank different equations of 
-state for neutron star matter from most to least likely, with a few years'
-time-scale.
-}
+% % \prayush{
+% In addition, we probe two paradigms, one
+% that allows for BH masses to lie within the astrophysical mass-gap (paradigm
+% A), and one that does not (paradigm B).
+% % 
+% For paradigm A, we find the following: (i) for the softer equations of state
+% that result in less deformable neutron stars, $15-20$ detections are sufficient
+% for our median measured value of $\lambdans$ to lie within $10\%$ of the true
+% value. (ii) For NSBH populations with more deformable NSs
+% ($\lambdans\geq 1000$), the same is achievable within as few as $10$ realistic
+% observations. (iii) The statistical uncertainty associated with $\lambdans$
+% measurement can be restricted to be within $\pm50\%$ using $10-20$ observations
+% when $\lambdans\geq 1000$), and using $25-40$ observations for softer equations
+% of state. All of the above is possible within a few years of design
+% aLIGO operation~\cite{Abadie:2010cfa}, if astrophysical BHs do indeed have
+% masses between $\leq 5M_\odot$ (i.e. in the mass-gap). However, further
+% restricting $\lambdans$ will require $50+$ NSBH observations.
+% % 
+% For paradigm B, we find the information accumulation to be somewhat slower.
+% While the quantitative inferences for $\lambdans\geq1000$ populations are
+% not affected significantly, we find $\mathcal{O}(10-20)\%$ more events are
+% required to attain the same measurement accuracy as under paradigm A.
+% % 
+% We conclude that within as few as $20-30$ observations of disruptive NSBH
+% mergers, aLIGO will begin to place interesting bounds on NS deformability.
+% This, amongst other things, will allow us to rank different equations of 
+% state for neutron star matter from most to least likely, with a few years'
+% time-scale.
+% % }
 
 
 
-Finally, we note that our results are applicable for the design sensitivity
-LIGO instruments, that are expected to come online in $2018-19$.
-\red{
-MOVE towards end of SUMMARY, into ``Future work''.
-}
-\prayush{
-Also note
-that more a recent work that improves upon the waveform model we use in this
-study has been published~\cite{Pannarale:2015jka}, but it provides only an 
-amplitude model which needs to be (in future) augmented with a compatible
-phase model. In addition, accuracy of the underlying numerical simulations 
-used to calibrate the waveform model used here have not been verified against 
-independent codes so far.
-It is therefore difficult to assess the combined modeling error and its effect
-on our results. they are, therefore, limited by the limitations of our
-waveform model. However, we expect the combined effect of modeling errors to
-not change our qualitative conclusions.
-}
 
+% \red{
+% The following numerical details disrupt the flow of the text. MOVE after
+% description of analyses.
+% }
 
-\red{
-The following numerical details disrupt the flow of the text. MOVE after
-description of analyses.
-}
-\prayush{
-As in rest of the paper, we restrict here our parameter space to span 
+% \prayush{
+In rest of the paper, we restrict our parameter space to span 
 mass-ratios $q:=\mbh/\mns\in[2,5]$, black hole spin (aligned with orbit)
 $\chibh\in[-0.5, +0.75]$, and dimensionless neutron star tidal deformability 
 $\lambdans:= G\left(\frac{c^2}{G \mns}\right)^5\lambda \in[500, 2000]$.
@@ -534,7 +522,11 @@ The mass of NS for signals (and not templates) is fixed to $1.35M_\odot$
 throughout~\cite{stellarcollapsemass}, and is taken to be 
 non-spinning~\cite{Miller:2014aaa}.
 Each signal is rescaled to a range of SNR values $\rho\in[10, 70]$.
-}
+% }
+% 
+Finally, we note that our results are applicable for the design sensitivity
+LIGO instruments, that are expected to come online in $2018-19$.
+
 
 
 The remainder of the paper is organized as follows. 
@@ -1631,6 +1623,82 @@ Another conclusion we draw is that detection searches are unaffected by the
 choice of ignoring tidal effects in matched-filtering templates.
 }
 
+
+\prayush{
+The choices that determine the population are important here,
+and were made as follows. Neutron star mass is fixed for signals at
+$1.35M_\odot$, and its spin $\chins=0$. Black hole mass is sampled uniformly
+from the range $[2,5]\times 1.35=[2.7, 6.75]M_\odot$. Our choice here is given
+by the intersection set of the mass range that allows for neutron star disruption
+and the range supported by the waveform model LEA+~\cite{Foucart2012,
+Foucart:2013a,Lackey:2013axa}. Black hole spin is sampled uniformly from the
+{\it aligned} range, i.e. $\chibh\in[0,+1]$. The true deformability is fixed
+once per population, sampled uniformly from the range $\lambdans\in[0,2000]$.
+In order to keep the computational cost tractable, we make a further 
+approximation.
+%
+\textbf{%
+We inject signals into zero noise at different SNRs and recover
+their parameters from Bayesian inferencing for a fixed set of binaries,
+whose parameters lie on a uniform grid given by:
+$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
+% 
+Once the population parameters been selected, each event's parameters are
+replaced by their nearest neighbor in the above set.
+}
+We make sure that this approximation is conservative by keeping our population
+sampling ranges within the conservative side of the range spanned by the above
+set. With the caveats laid out, we report our results in
+Sec.~\ref{s1:multiple_observations}.
+}
+
+
+\prayush{
+In addition, we probe two paradigms, one
+that allows for BH masses to lie within the astrophysical mass-gap (paradigm
+A), and one that does not (paradigm B).
+% 
+For paradigm A, we find the following: (i) for the softer equations of state
+that result in less deformable neutron stars, $15-20$ detections are sufficient
+for our median measured value of $\lambdans$ to lie within $10\%$ of the true
+value. (ii) For NSBH populations with more deformable NSs
+($\lambdans\geq 1000$), the same is achievable within as few as $10$ realistic
+observations. (iii) The statistical uncertainty associated with $\lambdans$
+measurement can be restricted to be within $\pm50\%$ using $10-20$ observations
+when $\lambdans\geq 1000$), and using $25-40$ observations for softer equations
+of state. All of the above is possible within a few years of design
+aLIGO operation~\cite{Abadie:2010cfa}, if astrophysical BHs do indeed have
+masses between $\leq 5M_\odot$ (i.e. in the mass-gap). However, further
+restricting $\lambdans$ will require $50+$ NSBH observations.
+% 
+For paradigm B, we find the information accumulation to be somewhat slower.
+While the quantitative inferences for $\lambdans\geq1000$ populations are
+not affected significantly, we find $\mathcal{O}(10-20)\%$ more events are
+required to attain the same measurement accuracy as under paradigm A.
+% 
+We conclude that within as few as $20-30$ observations of disruptive NSBH
+mergers, aLIGO will begin to place interesting bounds on NS deformability.
+This, amongst other things, will allow us to rank different equations of 
+state for neutron star matter from most to least likely, with a few years'
+time-scale.
+}
+
+\red{
+MOVE towards end of SUMMARY, into ``Future work''.
+}
+\prayush{
+Also note
+that more a recent work that improves upon the waveform model we use in this
+study has been published~\cite{Pannarale:2015jka}, but it provides only an 
+amplitude model which needs to be (in future) augmented with a compatible
+phase model. In addition, accuracy of the underlying numerical simulations 
+used to calibrate the waveform model used here have not been verified against 
+independent codes so far.
+It is therefore difficult to assess the combined modeling error and its effect
+on our results. they are, therefore, limited by the limitations of our
+waveform model. However, we expect the combined effect of modeling errors to
+not change our qualitative conclusions.
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
