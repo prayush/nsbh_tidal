@@ -249,17 +249,20 @@ compared to an equivalent BBH)~\cite{Flanagan2008}.
 % more rapidly from the orbit and increases the inspiral rate (compared to a
 % BBH)~\cite{Flanagan2008}.
 % 
-We know the leading and next-to-leading order terms in post-Newtonian (PN)
-theory that capture this effect~\cite{Vines2011}, entering binary phasing at
-$5$PN order.
+% We know the leading and next-to-leading order terms in post-Newtonian (PN)
+% theory that capture this effect~\cite{Vines2011}, entering binary phasing at
+% $5$PN order.
 % 
 Closer to merger, the strong tidal field of the BH can disrupt the NS. The
 quadrupolar moment of the disrupted binary system falls monotonically over a
 millisecond time-scale~\cite{Kyutoku:2010zd,Lackey:2013axa,Lovelace:2013vma,Foucart:2015a,
 Pannarale:2015jia}.
 % 
-This penultimate stage carries the strongest signature in the GW spectrum, and
-can possibly be accompanied by SGRBs. 
+This penultimate stage also depends strongly on the internal structure and energy
+transport mechanism of the NS~\cite{}.
+
+% This penultimate stage carries the strongest signature in the GW spectrum, and
+% can possibly be accompanied by SGRBs. 
 % The final stage is a BH, whose quasi-normal
 % modes may (or not) be strongly excited~\cite{FoucartEtAl:2011,Lackey:2013axa}.
 
@@ -282,136 +285,114 @@ can possibly be accompanied by SGRBs.
 
 
 
-\red{
-Insert paragraph describing impact on GWs
-}
-
-GWs emitted by NSBH coalescences carry subtle hints of the material structure
-of NSs.
-
-
-
-The difficulty in discerning NS matter effects in an NSBH coalescence from its
-GW signal lies in distinguishing it reliably from a BBH signal, since the 
-difference between the two is either subtle (during inspiral) or short-lived
-(disruption and merger). The earlier in inspiral the NS disrupts, the more
-orbits there are over which its effect is visible.
+% \red{
+% Insert paragraph describing impact on GWs
+% }
 % 
-A large fraction of past work aimed at measuring NS matter effects from GW
-signals has consisted of inquiries about binary neutron stars (BNS)~\cite{
-Lee1999a,Lee1999b,Lee2000,oechslin:07,Read:2008iy,Markakis:2010mp,Markakis:2011vd,
-stergioulas:11,East:2011xa,Lackey2014,Wade:2014vqa,Bauswein:2014qla}. 
-Studies~\cite{DelPozzo:13,Chatziioannou:2015uea,Agathos:2015a} have shown that
-with $20-30$ BNS observations, aLIGO would begin to distinguish between hard,
-moderate and soft candidate equations of state. These studies rely on the PN 
-description of BNS dynamics, which is reasonable since BNSs merge at very high
-frequencies and most of their signal power resides in inspiral.
-% 
-On the other hand, NSBHs merge at relatively lower frequencies than BNS, 
-and their disruption during late-inspiral occurs at frequencies where aLIGO
-has relatively more resolving power. This, combined with a shorter inspiral,
-means that the merger portion of NSBH signals is relatively more valuable for
-measuring $\lambdans$. Some past NSBH studies aimed at measuring tidal effects,
-however, have used PN inspiral-only waveforms~\cite{Maselli:2013rza}. In doing
-so, however, (i) they ignore the merger signal which could contain significant
+% \red{
+% Make clear the distinction between Fischer matrix studies and Bayesian ones. 
+% Explain the differences. this is important as it sets the stage for for what is
+% new in this paper.
+% } 
+% - Describe how waves are affected in each stage for a NSBH. 
+% - Describe what past work has studied and how?
+% - Do we need to compare with BNS.. Maybe in passing, say `` In comparison, for BNS we expect to measure EoSs within 20 detections.
+
+Gravitational waves emitted by coalescing NSBH binaries carry subtle hints of
+the NS EoS from inspiral through to merger. During early inspiral, the tidal
+dephasing is relatively weak and appears as a $5^{th}$ Post-Newtonian (PN)
+order effect~\cite{Vines2011}. Closer to merger, a disruptive fate of the NS
+can result in a strong suppression of GW emission above a cut-off 
+frequency~\cite{Pannarale:2015jia}. Some past studies of tidal measurements
+with NSBH binaries have used PN inspiral-only waveforms~\cite{Maselli:2013rza}.
+In doing so, however, (i) they ignore the merger signal which could contain significant
 information for NSBHs, and (ii) the errors due to unknown vaccum terms in PN 
-waveforms could easily dominate over the tidal terms themselves, since there 
-are unknown point-particle terms at orders {\it lower} than that at which tidal
-effects enter~\cite{Yagi:2014}.
-\red{
-Make clear the distinction between Fischer matrix studies and Bayesian ones. 
-Explain the differences. this is important as it sets the stage for for what is
-new in this paper.
-} 
-Other studies that
-use complete numerical simulations or derived models either use Fisher matrix 
-to estimate $\lambdans$ measurement error~\cite{Lackey2011,Lackey:2013axa},
-which is not reliable at realistic signal-to-noise ratios 
-(SNR)~\cite{Vallisneri:2007ev}, or are limited in the binary parameter space
-they sample~\cite{Foucart:2013psa}.
+waveforms could dominate over the tidal terms themselves~\cite{Barkett2015,
+Yagi:2014}.
+% 
+Some other studies that account for merger effects via the use of complete
+numerical simulations~\cite{Foucart:2013psa}, are limited in the binary
+parameter space they sample.
+% 
+Others, that do the same through the use of phenomenological waveform
+models~\cite{Lackey2011,Lackey:2013axa} use the Fisher matrix to estimate
+$\lambdans$ measurement errors. Fisher matrix estimates are known to be
+unreliable at realistic signal-to-noise ratios (SNR)~\cite{Vallisneri:2007ev},
+such as those as we might expect in the upcoming observing runs of GW
+detectors~\cite{Abadie:2010cf}.
+
+
+
+
+% A large fraction of past work aimed at measuring NS matter effects from GW
+% signals has consisted of inquiries about binary neutron stars (BNS)~\cite{
+% Lee1999a,Lee1999b,Lee2000,oechslin:07,Read:2008iy,Markakis:2010mp,Markakis:2011vd,
+% stergioulas:11,East:2011xa,Lackey2014,Wade:2014vqa,Bauswein:2014qla}.
+% % 
+% % It has shown~\cite{DelPozzo:13,Chatziioannou:2015uea,Agathos:2015a} that
+% % with $20-30$ BNS observations, aLIGO would begin to distinguish between hard,
+% % moderate and soft candidate equations of state.
+% % 
+% % These studies rely on the PN 
+% % description of BNS dynamics, which is reasonable since BNSs merge at very high
+% % frequencies and most of their signal power resides in inspiral.
+% % 
+% During early inspiral the tidally induced waves are weak in strength,
+% as appropriate for an effect that enters binary phasing at $5^{th}$
+% Post-Newtonian (PN) order~\cite{Vines2011}. During late-inspiral and merger,
+% a disruptive fate of the NS could result in significant suppression of the
+% emitted GWs~\cite{}.
+% % 
+% % The difficulty in discerning NS matter effects in an NSBH coalescence from its
+% % GW signal lies in distinguishing it reliably from a BBH signal, since the 
+% % difference between the two is either subtle (during inspiral) or short-lived
+% % (disruption and merger).
+% % 
+% The earlier in inspiral the NS disrupts, the more orbits there are over which
+% its effects are manifest in the GW signal.
+% % 
+% In addition, NSBHs merge at relatively lower frequencies than BNS, and their
+% disruption during late-inspiral occurs at frequencies where aLIGO has
+% relatively more resolving power. This, combined with a shorter inspiral,
+% means that the merger portion of NSBH signals is relatively more valuable for
+% measuring $\lambdans$. 
 
 
 In this paper we study the measurability of neutron star's tidal deformability
-from GWs emitted by {\it disruptive} NSBH mergers using aLIGO. We also probe how tidal 
-effects affect the estimation of other binary parameters for the same class
-of systems. This study improves upon previous work in many ways. First, we
-include tidal effects during inspiral and merger in a consistent way, by using
-the waveform model of Ref.~\cite{Lackey:2013axa} (henceforth ``LEA+'').
-\red{
-(describe meaning of the acronym LEA+)
-}
-Second, we include the effect
-of black hole spin on tidal GW signals, in addition to the effect of BH mass 
-and NS's deformability itself. Third, we perform a fully Bayesian 
-analysis, instead of using a Fisher matrix approximation. Fourth, we explore 
-how our measurement errors decrease as we gain information from multiple 
-(realistic) events.
+from realistic binaries of {\it low}-mass BHs and NSs by aLIGO. We also probe
+how tidal effects affect the estimation of other binary parameters for the same
+class of systems. This study improves upon previous work in the following ways.
+% 
+First, we include tidal effects during inspiral and merger in a consistent
+way, by using the waveform model of Lackey et al.~\cite{Lackey:2013axa}
+(abbreviated henceforth to ``LEA+'').
+% 
+Second, we include the effect of black hole spin on tidal GW signals, in
+addition to the effect of BH mass, NS's deformability, and the SNR.
+% 
+Third, we perform a complete Bayesian analysis, instead of using the Fisher matrix
+approximation.
+% 
+Fourth, we explore how our measurement errors decrease as we gain information
+from multiple (realistic) events.
 
 
 We first probe the effect of ignoring tidal effects in parameter 
 estimation on the recovery of non-tidal binary parameters, such as 
 component masses and spins. This is the case of current and planned aLIGO
 efforts.
-To do so, we use the LEA+ model to generate a set of realistic signals, and
-use that as data from which we estimate binary mass and spin parameters with
-a Bayesian Monte-Carlo algorithm, using non-tidal (BBH) waveforms as filters.
+To do so, we first use the LEA+ model to generate a set of realistic signals;
+and then use non-tidal (BBH) waveform filters to estimate the underlying
+binary masses and spins with a Markov-chain Monte Carlo.
 % 
-\red{
-The following numerical details disrupt the flow of the text. MOVE after
-description of analyses.
-}
-\prayush{
-As in rest of the paper, we restrict here our parameter space to span 
-mass-ratios $q:=\mbh/\mns\in[2,5]$, black hole spin (aligned with orbit)
-$\chibh\in[-0.5, +0.75]$, and dimensionless neutron star tidal deformability 
-$\lambdans:= G\left(\frac{c^2}{G \mns}\right)^5\lambda \in[500, 2000]$.
-The mass of NS for signals (and not templates) is fixed to $1.35M_\odot$ 
-throughout~\cite{stellarcollapsemass}, and is taken to be 
-non-spinning~\cite{Miller:2014aaa}.
-Each signal is rescaled to a range of SNR values $\rho\in[10, 70]$.
-}
-\red{
-MOVE the following to SUMMARY. Here, keep 1-2 sentences:
-For individual events, ignoring tidal effects will affect mass-estimation
-only marginally; only for very loud signals (SNRs $\gtrsim 30$) the systematic
-biases exceed the statistical uncertainties. Furthermore, detection searches
-can ignore tidal effects without loss of sensitivity.
-}
-\prayush{
-We find that non-inclusion of tidal effects leads to systematic biases in
-the measurement of non-tidal parameters. Consider first the binary chirp 
-mass $\mchirp:=M\eta^{3/5}$ where $M$ is the binary total mass, and 
-$\eta:=\mbh\mns/M^2$ is the dimensionless mass-ratio. We find that for
-realistic (moderate) SNRs, i.e. $\rho\lesssim 30$, not including tidal
-effects introduces a barely measurable bias that remains below $50\%$
-of the statistical uncertainty of the $\mchirp$ measurement itself.
-For higher signal strengths, we find that the underlying statistical
-uncertainty decreases enough for the systematic bias to become comparable
-to it for $\rho=50-70$ and higher. This is expected because chirp mass is fairly
-accurately determined by the inspiral, where tidal effects are weak.
-Next, we consider the mass-ratio $\eta$. We find that only if the NS is quite
-deformable (with $\lambdans=2000$), {\it and} has a companion BH whose mass
-is $\mbh\lesssim 4.5M_\odot$ (i.e. in the astrophysical ``mass-gap''~\cite{
-Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}),
-will the systematic bias in $\eta$ measurement become comparable to its
-statistical uncertainties at SNRs $\rho\leq 30$. For SNRs $\rho\gtrsim30$,
-however, not including tidal effects is very likely to {\it significantly} bias
-the mass-ratio estimate for NSBH binaries. Finally, we consider the spin on the
-black hole $\chibh$. We find that $\chibh$ measurements are affected in a similar
-way to $\eta$. By not including tidal effects, we compromise our measurement of
-$\chibh$ significantly only if signal $\rho\gtrsim 30$. 
-%
-Overall, we learn an important thing. Bayesian parameter estimation algorithms
-aimed at identifying NSBH binaries with low latency in order to alert 
-electromagnetic (EM) observers in time to establish a possible coincident 
-observation of a GRB~\cite{2012A&A...541A.155A,Singer:2014qca,Singer:2015ema,
-Pankow:2015cra} can use BBH templates to look for NSBH systems with aLIGO.
-This is so because the primary requirement of the EM follow-up effort is rapid
-classification of a binary as an NSBH system, which can be achieved just as 
-easily with BBH templates, purely on the basis of the smaller component's mass.
-Another conclusion we draw is that detection searches are unaffected by the
-choice of ignoring tidal effects in matched-filtering templates.
-}
+% \red{
+% MOVE the following to SUMMARY. Here, keep 1-2 sentences:
+We find that, for individual events, ignoring tidal effects will affect
+mass-estimation only marginally; only for very loud signals (SNRs $\gtrsim 30$)
+will the systematic biases be large enough to exceed the underlying
+statistical uncertainty. Furthermore, detection searches can ignore tidal
+effects without loss of sensitivity.
+% }
 
 
 \red{
@@ -537,6 +518,21 @@ waveform model. However, we expect the combined effect of modeling errors to
 not change our qualitative conclusions.
 }
 
+
+\red{
+The following numerical details disrupt the flow of the text. MOVE after
+description of analyses.
+}
+\prayush{
+As in rest of the paper, we restrict here our parameter space to span 
+mass-ratios $q:=\mbh/\mns\in[2,5]$, black hole spin (aligned with orbit)
+$\chibh\in[-0.5, +0.75]$, and dimensionless neutron star tidal deformability 
+$\lambdans:= G\left(\frac{c^2}{G \mns}\right)^5\lambda \in[500, 2000]$.
+The mass of NS for signals (and not templates) is fixed to $1.35M_\odot$ 
+throughout~\cite{stellarcollapsemass}, and is taken to be 
+non-spinning~\cite{Miller:2014aaa}.
+Each signal is rescaled to a range of SNR values $\rho\in[10, 70]$.
+}
 
 
 The remainder of the paper is organized as follows. 
@@ -1596,6 +1592,42 @@ Reynolds:2013qqa} for recent reviews of astrophysical BH spin measurements,
 and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
 
 \prayush{[PK: To be continued after revision of the introduction.]}
+
+\prayush{
+We find that non-inclusion of tidal effects leads to systematic biases in
+the measurement of non-tidal parameters. Consider first the binary chirp 
+mass $\mchirp:=M\eta^{3/5}$ where $M$ is the binary total mass, and 
+$\eta:=\mbh\mns/M^2$ is the dimensionless mass-ratio. We find that for
+realistic (moderate) SNRs, i.e. $\rho\lesssim 30$, not including tidal
+effects introduces a barely measurable bias that remains below $50\%$
+of the statistical uncertainty of the $\mchirp$ measurement itself.
+For higher signal strengths, we find that the underlying statistical
+uncertainty decreases enough for the systematic bias to become comparable
+to it for $\rho=50-70$ and higher. This is expected because chirp mass is fairly
+accurately determined by the inspiral, where tidal effects are weak.
+Next, we consider the mass-ratio $\eta$. We find that only if the NS is quite
+deformable (with $\lambdans=2000$), {\it and} has a companion BH whose mass
+is $\mbh\lesssim 4.5M_\odot$ (i.e. in the astrophysical ``mass-gap''~\cite{
+Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}),
+will the systematic bias in $\eta$ measurement become comparable to its
+statistical uncertainties at SNRs $\rho\leq 30$. For SNRs $\rho\gtrsim30$,
+however, not including tidal effects is very likely to {\it significantly} bias
+the mass-ratio estimate for NSBH binaries. Finally, we consider the spin on the
+black hole $\chibh$. We find that $\chibh$ measurements are affected in a similar
+way to $\eta$. By not including tidal effects, we compromise our measurement of
+$\chibh$ significantly only if signal $\rho\gtrsim 30$. 
+%
+Overall, we learn an important thing. Bayesian parameter estimation algorithms
+aimed at identifying NSBH binaries with low latency in order to alert 
+electromagnetic (EM) observers in time to establish a possible coincident 
+observation of a GRB~\cite{2012A&A...541A.155A,Singer:2014qca,Singer:2015ema,
+Pankow:2015cra} can use BBH templates to look for NSBH systems with aLIGO.
+This is so because the primary requirement of the EM follow-up effort is rapid
+classification of a binary as an NSBH system, which can be achieved just as 
+easily with BBH templates, purely on the basis of the smaller component's mass.
+Another conclusion we draw is that detection searches are unaffected by the
+choice of ignoring tidal effects in matched-filtering templates.
+}
 
 
 
