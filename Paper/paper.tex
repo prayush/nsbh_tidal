@@ -144,17 +144,17 @@ coming years.
 % Text about CBCs. How was each type observed so far?
 % }
 Coalescing compact binaries (both monolithic and mixed) of stellar-mass black
-holes (BH) and neutron stars (NS) are the primary target sources for the second
+holes (BH) and neutron stars (NS) are the primary targets for the second
 generation GW detectors~\cite{Timmes:1995kp,Fryer:1999mi,RevModPhys.74.1015,
 2010ApJ...714.1217B,2010ApJ...715L.138B,Dominik:2014yma,Belczynski:2006zi,
 2012ApJ...749...91F,
 Wex:1998wt,1991ApJ...379L..17N,Mandel:2015spa,Abbott:2016nhf}.
 A monolithic binary of black holes was recently observed by 
 aLIGO~\cite{LIGOVirgo2016a}. Previously, stellar-mass black holes had only 
-been seen in binaries with stellar companion (inferred from the observed spectrum
-of electromagnetic waves emitted by the companion)~\cite{Lewin2010,
+been observed by inference in mixed binaries with stellar companion (through
+electromagnetic observations of the companion)~\cite{Lewin2010,
 Remillard:2006fc,Fragos:2010tm}.
-Neutron stars, on the other hand, have had numerous sightings. Thousands have
+Neutron stars, on the other hand, have had numerous sightings. Thousands of
 electromagnetically emitting neutron stars, or pulsars, have been 
 documented~\cite{Manchester:2004bp},
 in varied situations: as radio pulsars~\cite{Lattimer:2012nd,Manchester:2004bp},
@@ -224,7 +224,8 @@ that are required to sustain
 SGRBs~\cite{Shibata:2007zm,2010PhRvD..81f4026F,Lovelace:2013vma,Kawaguchi:2015}.
 % 
 % Such systems additionally leave a strong imprint on the emitted GW signal.
-A {\it coincident} detection of both GWs and gamma-rays from an NSBH merger will
+A {\it coincident} detection of both GWs and gamma-rays from an NSBH merger,
+whenever it happens, will
 provide us with a uniquely opportunity to confirm this hypothesized link between
 NSBH mergers and GRBs~\cite{Abbott:2016wya}.
 
@@ -234,8 +235,8 @@ NSBH mergers and GRBs~\cite{Abbott:2016wya}.
 % }
 
 Another question that NSBH mergers can help answer is `what is the 
-nature of matter at nuclear densities', i.e. what is the equation of state
-(EoS) of neutron star material. This is what we will focus on in this paper.
+nature of matter at nuclear densities', i.e. `what is the EoS of NS material'?
+This is what we will focus on in this paper.
 % 
 During the course of early inspiral, the tidal field of the BH produces a
 deformation in its companion NS. The quadrupolar moment of the star associated
@@ -243,7 +244,7 @@ with this deformation also depends on its material properties, through an EoS-de
 tidal deformability parameter $\lambdans$. This induced quadrupolar moment
 changes over the orbital time-scale, resulting in the emission of GWs in {\it
 coherence} with the orbital waves.
-These waves draw energy from the orbit and increase the inspiral rate (as
+These waves draw more energy from the orbit and increase the inspiral rate (as
 compared to an equivalent BBH)~\cite{Flanagan2008}.
 % The coherence of GW emission between stellar and orbital waves drains energy 
 % more rapidly from the orbit and increases the inspiral rate (compared to a
@@ -430,8 +431,9 @@ information from a population of low-SNR observations?
 % }
 % % \prayush{
 The EoS of matter at nuclear densities is believed to be universal among all
-neutron stars. The Tolman-Oppenheimer-Volkoff equation would then predict that all
-NSs lie on a universal $\lambdans$ versus $\mns$ curve. As the final part of
+neutron stars. The Tolman-Oppenheimer-Volkoff equation would then predict that NS
+properties satisfy a universal relationship between $\lambdans$ and $\mns$. As
+the final part of
 this paper, we combine information from multiple observations of realistic NSBH
 systems and perform a fully-Bayesian analysis of how our estimation of
 $\lambdans$ changes as we accumulate detections. This is similar to an earlier
@@ -513,19 +515,34 @@ aLIGO operation~\cite{Abadie:2010cfa}.
 % }
 
 % \prayush{
-In rest of the paper, we restrict our parameter space to span 
-mass-ratios $q:=\mbh/\mns\in[2,5]$, black hole spin (aligned with orbit)
-$\chibh\in[-0.5, +0.75]$, and dimensionless neutron star tidal deformability 
+In this paper, we restrict our parameter space to span mass-ratios
+$q:=\mbh/\mns\in[2,5]$, BH spin (aligned with orbit)
+$\chibh\in[-0.5, +0.75]$, and dimensionless NS tidal deformability 
 $\lambdans:= G\left(\frac{c^2}{G \mns}\right)^5\lambda \in[500, 2000]$.
 The mass of NS for signals (and not templates) is fixed to $1.35M_\odot$ 
-throughout~\cite{stellarcollapsemass}, and is taken to be 
-non-spinning~\cite{Miller:2014aaa}.
-Each signal is rescaled to a range of SNR values $\rho\in[10, 70]$.
+throughout~\cite{stellarcollapsemass}. Similarly, their spin is taken to be
+negligible~\cite{Miller:2014aaa}. Signal strength is sampled over a range of
+SNR $\rho\in[10, 70]$.
 % }
 % 
-Finally, we note that our results are applicable for the design sensitivity
-LIGO instruments, that are expected to come online in $2018-19$.
-\prayush{INSERT TEXT ON LIMITATIONS}
+Further, we note that our results are applicable for the design sensitivity
+LIGO instruments ($2018-19$).
+We also note that the parameter space probed is somewhat restricted by the
+domain of applicability of the LEA+ model which we use as filters.
+Finally, the accuracy of our quantitative results depends on the reliability of
+the same waveform model, which is the only one available of its kind in 
+current literature. A more recent work~\cite{Pannarale:2015jka}, improves on
+the GW amplitude model, which however needs to be augmented with a compatible
+phase model. 
+% In addition, accuracy of the underlying numerical simulations 
+% used to calibrate the waveform model used here have not been verified against 
+% independent codes so far.
+% It is therefore difficult to assess the combined modeling error and its effect
+% on our results. they are, therefore, limited by the limitations of our
+% waveform model. 
+However, we expect the combined effect of modeling errors to not change our 
+broad qualitative conclusions, which are based on vague statistical trends 
+with large errors themselves.
 
 
 
