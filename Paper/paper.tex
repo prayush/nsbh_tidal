@@ -8,9 +8,8 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \usepackage{amssymb}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{placeins}
+% \usepackage[switch,columnwise]{lineno} 
 \usepackage{lineno}
-\linenumbers
-
 \newcommand{\roughly}{\mathchar"5218\relax} % Different from \sim in spacing
 
 % Macros for text changes
@@ -60,6 +59,7 @@ Am M\"uhlenberg, G\"olm, Germany}} %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\linenumbers
 
 \title{
 Measuring neutron star tidal deformability with Advanced LIGO: a Bayesian analysis of mixed binary observations
@@ -229,32 +229,56 @@ provide us with a uniquely opportunity to confirm this hypothesized link between
 NSBH mergers and GRBs~\cite{Abbott:2016wya}.
 
 
-\red{
-Text focusing on tides
-}
+% \red{
+% Text focusing on tides
+% }
 
 Another question that NSBH mergers can help answer is `what is the 
 nature of matter at nuclear densities', i.e. what is the equation of state
 (EoS) of neutron star material. This is what we will focus on in this paper.
 % 
-During early inspiral, the (weak) tidal field of the companion BH
-deforms the star, thereby exciting its resonant oscillation modes. The induced
-quadrupolar moment of the star is proportional to the tidal field of its companion,
-% through the relation $Q_{ij} = -\lambda\mathcal{E}_{ij}$,
-with $\lambdans$ the EoS-dependent proportionality constant that is also the
-tidal deformability parameter, related to the NS's dimensionless Love number
-$k_2$ and radius $R_\mathrm{NS}$ as $\lambdans:=\frac{2}{3G}k_2 R_\mathrm{NS}^5$.
+During the course of early inspiral, the tidal field of the BH produces a
+deformation in its companion NS. The quadrupolar moment of the star associated
+with this deformation also depends on its material properties, through an EoS-dependent
+tidal deformability parameter $\lambdans$. This induced quadrupolar moment
+changes over the orbital time-scale, resulting in the emission of GWs in {\it
+coherence} with the orbital waves.
+These waves draw energy from the orbit and increase the inspiral rate (as
+compared to an equivalent BBH)~\cite{Flanagan2008}.
+% The coherence of GW emission between stellar and orbital waves drains energy 
+% more rapidly from the orbit and increases the inspiral rate (compared to a
+% BBH)~\cite{Flanagan2008}.
 % 
-The coherence of GW emission between stellar quadrupolar waves and orbital
-waves drains energy from the orbit and increases the inspiral rate~\cite{Flanagan2008}.
-We know the leading and next-to
--leading order terms in post-Newtonian (PN) theory that capture this 
-effect~\cite{Vines2011}, entering binary phasing at $5$PN order. As the NS gets
-disrupted close to binary's merger, the quadrupole moment of the system falls
-monotonically. As a result, the emitted GWs are subdued significantly
-post-disruption (as compared to what they would be for a 
-BBH)~\cite{Kyutoku:2010zd,Lackey:2013axa,Lovelace:2013vma,Foucart:2015a,
+We know the leading and next-to-leading order terms in post-Newtonian (PN)
+theory that capture this effect~\cite{Vines2011}, entering binary phasing at
+$5$PN order.
+% 
+Closer to merger, the strong tidal field of the BH can disrupt the NS. The
+quadrupolar moment of the disrupted binary system falls monotonically over a
+millisecond time-scale~\cite{Kyutoku:2010zd,Lackey:2013axa,Lovelace:2013vma,Foucart:2015a,
 Pannarale:2015jia}.
+% 
+This penultimate stage carries the strongest signature in the GW spectrum, and
+can possibly be accompanied by SGRBs. 
+% The final stage is a BH, whose quasi-normal
+% modes may (or not) be strongly excited~\cite{FoucartEtAl:2011,Lackey:2013axa}.
+
+
+
+% During early inspiral, the (weak) tidal field of the BH deforms its companion
+% NS.
+% % , thereby exciting its resonant oscillation modes.
+% The resulting induced quadrupolar moment of the star is proportional to the
+% tidal field of its companion,
+% % through the relation $Q_{ij} = -\lambda\mathcal{E}_{ij}$,
+% with $\lambdans$ the EoS-dependent proportionality constant. $\lambdans$ is the
+% NS's tidal deformability parameter, related to its dimensionless Love number
+% $k_2$ and radius $R_\mathrm{NS}$ as $\lambdans:=\frac{2}{3G}k_2 R_\mathrm{NS}^5$.
+% % 
+% Over the course of inspiral, the change in NS's quadrupole moment results in 
+% the emission of GWs that are coherent with the orbital waves.
+% % 
+% 
 
 
 
