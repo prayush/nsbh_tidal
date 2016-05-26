@@ -626,8 +626,8 @@ In this paper we use LEA for our signal and template modeling, but switch the
 underlying BBH model to SEOBNRv2 (and refer to it as enhanced-LEA or
 ``LEA+'')~\cite{Taracchini:2013rva}. We using the reduced-order
 frequency-domain version of SEOBNRv2, which has the additional benefit of
-reducing computational cost~\cite{Purrer:2015tud}. We expect this change
-(LEA$\rightarrow$LEA+) to make our conclusions more robust because: (a) the 
+reducing computational cost~\cite{Purrer:2015tud}. We expect this enhancement
+from LEA$\rightarrow$LEA+ to make our conclusions more robust because: (a) the 
 SEOBNRv2 model is more accurate~\cite{Kumar:2015tha,Kumar:2016dhh}, and (b)
 the differences between the two EOB models are caused by the
 inaccuracies of SEOBNRv1 during the {\it inspiral} phase, many orbits before 
@@ -638,10 +638,14 @@ increases the overall model accuracy during inspiral.
 % We will refer to this enhanced-LEA model henceforth as ``LEA+''.
 
 
-
-
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 \subsection{Bayesian methods}\label{s2:bayesian}
 % % Describe the emcee-based PE code
+\red{
+Section is immensely technical. Perform careful polishing pass to 
+improve flow and to make it more accessible.
+}
 
 We perform Bayesian parameter estimation for tidal signals, using
 both tidal and non-tidal templates. The signal parameters are selected 
@@ -672,14 +676,18 @@ $\vec{\theta}\cup\{\lambdans\}$ is buried in it, i.e.
  \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 \end{equation}
 where $h\equiv h(\vec{\Theta})$ is a template given by our waveform model LEA+,
-and the detector noise weighted inner-product $\langle a|b\rangle$ is defined 
-as
+% and the detector noise weighted inner-product $\langle a|b\rangle$ is defined 
+% as
+and $\langle\cdot|\cdot\rangle$ is the detector noise weighted 
+inner-product~\footnote{%
+This inner product is defined as
 \begin{equation}
 \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
 \end{equation}
 % 
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
-and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. The 
+and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}
+The 
 definition of $\LL$ in Eq.~\ref{eq:likelihood} assumes that the instrument
 noise is colored Gaussian. The marginalized probability distribution for any
 single binary parameter (say $\alpha$) can be obtained by integrating
