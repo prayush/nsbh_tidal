@@ -642,73 +642,132 @@ increases the overall model accuracy during inspiral.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 \subsection{Bayesian methods}\label{s2:bayesian}
 % % Describe the emcee-based PE code
-\red{
-Section is immensely technical. Perform careful polishing pass to 
-improve flow and to make it more accessible.
-}
+% \red{
+% Section is immensely technical. Perform careful polishing pass to 
+% improve flow and to make it more accessible.
+% }
 
-We perform Bayesian parameter estimation for tidal signals, using
-both tidal and non-tidal templates. The signal parameters are selected 
-to lie on a grid given by:
-$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
-Corresponding signal waveforms are generated using the model described in the 
-previous sub-section, and each injected into a separate zero noise data segment
-$d_n$. Templates can be either tidal or non-tidal (LEA+ with $\lambdans=0$).
-
-Inferred from $d_n$, the joint probability distribution for binary parameters
-$\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ is given by
+The process of measuring systematic and statistical measurement errors
+involves simulating many artificial GW signals, and inferring source binary
+parameters from them.
+We start with generating a signal waveform, using the model LEA+, and injecting
+it in zero noise to obtain a stretch of data $d_n$. Source binary parameters
+$\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ are reconstructed from this
+injected signal. Using Bayes' theorem, their joint inferred probability
+distribution can be calculated as
 \begin{equation}\label{eq:postprob}
  p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
 \end{equation}
-Here, $p(\vec{\Theta} | K)$ is the prior probability for binary parameters of
-taking particular values. In this paper, we use a uniform prior on the
-individual masses within pre-chosen ranges, as well as a uniform prior on the
-spin of the black hole. We set neutron star's spin $=0$, and its tidal
-deformability parameter $\lambdans$ is sampled uniformly from $[0, 4000]$. In
-addition, we exclude mass-ratios between $[1,2]$ from our prior. This is done
-because of model constraints for LEA+. The prior probability of obtaining a 
-particular realization of data $p(d_n|K)$ is absorbed into the overall 
-normalization. Finally, the first term in the numerator
-$p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given
-stretch of data $d_n$ if we assume that a signal parameterized by
-$\vec{\theta}\cup\{\lambdans\}$ is buried in it, i.e.
+Here, $p(\vec{\Theta} | K)$ is the a-priori probability of binary parameters
+taking particular values. Throughout this paper, we impose a prior uniform on
+individual component masses, BH spin, and NS's tidal deformability. In
+addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not valid for 
+$1\leq q\leq 2$. $p(d_n|\vec{\Theta}, K)$ is the
+likelihood of obtaining the given stretch of data $d_n$ if we assume that a
+signal parameterized by $\vec{\Theta}$ is buried in it, and is given by
 \begin{equation}\label{eq:likelihood}
- \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+ \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 \end{equation}
-where $h\equiv h(\vec{\Theta})$ is a template given by our waveform model LEA+,
-% and the detector noise weighted inner-product $\langle a|b\rangle$ is defined 
-% as
-and $\langle\cdot|\cdot\rangle$ is the detector noise weighted 
-inner-product~\footnote{%
-This inner product is defined as
+where $h\equiv h(\vec{\Theta})$ is a filter template with parameters 
+$\vec{\Theta}$, and $\langle\cdot|\cdot\rangle$ is a suitably defined
+detector-noise weighted inner-product~\footnote{The inner product
+$\langle\cdot|\cdot\rangle$  is defined as
 \begin{equation}
 \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
 \end{equation}
-% 
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
 and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}
-The 
-definition of $\LL$ in Eq.~\ref{eq:likelihood} assumes that the instrument
-noise is colored Gaussian. The marginalized probability distribution for any
-single binary parameter (say $\alpha$) can be obtained by integrating
-Eq.~\ref{eq:postprob} over all other parameters, i.e. 
-\begin{equation}
+The denominator in Eq.~\ref{eq:postprob} is the a-priori probability of finding
+the particular signal in $d_n$ and we assume that each injected signal is as
+likely as any other. Having constructed the probability distribution function
+$p(\vec{\Theta} | d_n, K)$, extracting the measured probability distribution
+for a single parameter (say $\alpha$) involves integrating
+\begin{equation}\label{eq:marginalize}
  p(\alpha | d_n, K) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, K),
 \end{equation}
 where $\vec{\Theta}_\alpha$ is the set of remaining parameters, i.e.
 $\vec{\Theta}_\alpha:=\vec{\Theta} - \{\alpha\}$.
 
-
-
-We sample the probability distribution of Eq.~\ref{eq:postprob} using
-an ensemble sampler Markov-chain Monte-Carlo algorithm based on the {\tt emcee}
-package~. A total of $100$ independent walkers were used, each of which
-was allowed to collect $100,000$ samples. We measure the correlation time and keep
-only $20,000$ independent posterior points to further analyze the calculated 
-posterior probability distributions. One simplifying assumption made to mitigate 
+We use an ensemble sampler Markov-chain Monte-Carlo algorithm based on the
+{\tt emcee} package~\cite{emcee}, to sample the probability distribution 
+$p(\vec{\Theta} | d_n, K)$. We start with $100$ independent walkers, each
+of which is allowed to collect $100,000$ samples.
+% 
+% We perform Bayesian parameter estimation for tidal signals, using
+% both tidal and non-tidal templates. The signal parameters are selected 
+% to lie on a grid given by:
+% $q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
+% Corresponding signal waveforms are generated using the model described in the 
+% previous sub-section, and each injected into a separate zero noise data segment
+% $d_n$. Templates can be either tidal or non-tidal (LEA+ with $\lambdans=0$).
+% 
+% Inferred from $d_n$, the joint probability distribution for binary parameters
+% $\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ is given by
+% \begin{equation}\label{eq:postprob}
+%  p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
+% \end{equation}
+% Here, $p(\vec{\Theta} | K)$ is the prior probability for binary parameters of
+% taking particular values. In this paper, we use a uniform prior on the
+% individual masses within pre-chosen ranges, as well as a uniform prior on the
+% spin of the black hole. We set neutron star's spin $=0$, and its tidal
+% deformability parameter $\lambdans$ is sampled uniformly from $[0, 4000]$. In
+% addition, we exclude mass-ratios between $[1,2]$ from our prior. This is done
+% because of model constraints for LEA+. The prior probability of obtaining a 
+% particular realization of data $p(d_n|K)$ is absorbed into the overall 
+% normalization. Finally, the first term in the numerator
+% $p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given
+% stretch of data $d_n$ if we assume that a signal parameterized by
+% $\vec{\theta}\cup\{\lambdans\}$ is buried in it, i.e.
+% \begin{equation}\label{eq:likelihood}
+%  \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+% \end{equation}
+% where $h\equiv h(\vec{\Theta})$ is a template given by our waveform model LEA+,
+% % and the detector noise weighted inner-product $\langle a|b\rangle$ is defined 
+% % as
+% and $\langle\cdot|\cdot\rangle$ is the detector noise weighted 
+% inner-product~\footnote{%
+% This inner product is defined as
+% \begin{equation}
+% \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
+% \end{equation}
+% % 
+% where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
+% and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}
+% The 
+% definition of $\LL$ in Eq.~\ref{eq:likelihood} assumes that the instrument
+% noise is colored Gaussian. The marginalized probability distribution for any
+% single binary parameter (say $\alpha$) can be obtained by integrating
+% Eq.~\ref{eq:postprob} over all other parameters, i.e. 
+% \begin{equation}
+%  p(\alpha | d_n, K) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, K),
+% \end{equation}
+% where $\vec{\Theta}_\alpha$ is the set of remaining parameters, i.e.
+% $\vec{\Theta}_\alpha:=\vec{\Theta} - \{\alpha\}$.
+% 
+% 
+% 
+% We sample the probability distribution of Eq.~\ref{eq:postprob} using
+% an ensemble sampler Markov-chain Monte-Carlo algorithm based on the {\tt emcee}
+% package~. A total of $100$ independent walkers were used, each of which
+% was allowed to collect $100,000$ samples. We measure the correlation time and keep
+% only $20,000$ independent posterior points to further analyze the calculated 
+% posterior probability distributions. 
+% 
+One simplifying assumption made to mitigate 
 computational cost was setting the frequency sampling rate $\Delta f=0.4$~Hz, which
 we found to be sufficient to calculate likelihoods robustly~\cite{Purrer:2015nkh}.
-\prayush{TODO: MICHAEL}.
+% \prayush{TOCheck: MICHAEL}.
+Once more than $10,000$ independent samples have been collected, we integrate
+Eq.~\ref{eq:marginalize} to obtain the marginalized probability distribution
+for the tidal deformability of the NS $p(\lambdans|d_n,K)$.
+The most likely value of $\lambdans$ for this distribution is our 
+{\it measured} value for the parameter, and the $90\%$ confidence intervals
+associated with the distribution serve as statistical error-bars.
+% 
+% We use this
+% distribution to put confidence bounds on our measurement of $\lambdans$.
+% 
+% of this distribution to estimate our statistical and 
 
 
 
