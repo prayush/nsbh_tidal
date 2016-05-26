@@ -568,56 +568,74 @@ future prospects with Advanced LIGO.
 \section{Techniques}\label{s1:techniques}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we summarize various technical aspects of this paper. The model
-used to obtain tidal waveforms is described in Sec.~\ref{s2:waveforms}. The 
-process of inferring source parameters from a GW signal is summarized in 
-Sec.~\ref{s2:bayesian}. The process of generating and combining multiple events
-is instead detailed in the corresponding results section,
-Sec.~\ref{s2:astro_multiple}.
+% In this section we summarize various technical aspects of this paper. The model
+% used to obtain tidal waveforms is described in Sec.~\ref{s2:waveforms}. The 
+% process of inferring source parameters from a GW signal is summarized in 
+% Sec.~\ref{s2:bayesian}. The process of generating and combining multiple events
+% is instead detailed in the corresponding results section,
+% Sec.~\ref{s2:astro_multiple}.
 
 \subsection{Waveform Models}\label{s2:waveforms}
 
-In Ref.~\cite{Lackey:2013axa}, the authors presented a suite of $134$ numerical
-relativity simulations of neutron stars inspiraling into spinning black holes. Amongst
-the varied quantities were (a) the equation of state for the NS, (b) NS mass, 
-(c) mass-ratio and (d) black hole spins, taken as aligned with the orbit.
-A total of $21$ two-parameter EoSs were used for these simulations, which also 
-had $q\in[2, 5]$, $\chibh\in[-0.5, +0.75]$, and 
-$m_\mathrm{NS}\in[1.20, 1.45]M_\odot$. Based on this suite of simulations, the
-authors calibrated a frequency-domain waveform model for the inspiral and merger phasing of
-NSBH coalescences. The GW strain predicted by this model (henceforth ``LEA''),
-can be written as
+% \red{
+% Begin with introducing sentence:
+% }
+
+Lackey et al.~(LEA)~\cite{Lackey:2013axa} developed a complete inspiral-merger
+waveform model for disrupting NSBHs. Theirs is a frequency-domain
+phenomenological model that includes the effect of BH and NS masses and spins
+$\{\mbh, \chibh, \mns\}\equiv\vec{\theta}$ and NS tidal deformability
+$\lambdans$. It was calibrated to a suite of $134$ numerical relativity (NR)
+simulations of NSs inspiraling into spinning BHs. The parameter space these
+simulations span, which we assume to be the domain of validity for the LEA
+model, includes NS masses $1.2M_\odot\leq\mns\leq 1.45M_\odot$,
+mass-ratios $2\leq q\leq 5$, and BH spins $-0.5\leq\chibh\leq+0.75$.
+They also sample a total of $21$ two-parameter nuclear EoSs to cover the
+spectrum of NS deformability.
 % 
+% Amongst the varied quantities were (a) the
+% equation of state for the NS, (b) NS mass, (c) mass-ratio and (d) black hole
+% spins, taken as aligned with the orbit.
+% A total of $21$ two-parameter EoSs were used for these simulations, which also 
+% had $q\in[2, 5]$, $\chibh\in[-0.5, +0.75]$, and 
+% $m_\mathrm{NS}\in[1.20, 1.45]M_\odot$. Based on this suite of simulations, the
+% authors calibrated a frequency-domain waveform model for the inspiral and merger phasing of
+% NSBH coalescences.
+% 
+The GW strain $\tilde{h}(f)$ per the LEA model can be written as
 \begin{equation}
  \tilde{h}_\mathrm{NSBH}(f, \vec{\theta}, \lambdans) = \tilde{h}_\mathrm{BBH}(f, \vec{\theta})\,A(f, \vec{\theta}, \lambdans)\,e^{\ii \Delta\Phi(f, \vec{\theta}, \lambdans)},
 \end{equation}
-where $\vec{\theta}:=\{\mbh, \mns, \chibh,\chins=0\}$ are the intrinsic binary
-parameters. The first term on the right hand side is an underlying
-BBH waveform model that is used as a base. In the original construction of LEA,
-this was taken to be the SEOBNRv1 model~\cite{Taracchini:2012} of the 
-Effective-one-body (EOB) family~\cite{Buonanno99}. The second term changes the 
-amplitude of the BBH model
-to match that of an NSBH merger of otherwise identical parameters, with NS-matter
-effects parametrized by $\lambdans$. During inspiral this term is set to
-unity, but is a sensitive function of $\lambdans$ close to merger. The third 
-term does the same as the second, but to the waveform phasing. During inspiral,
-$\Delta\Phi(f, \vec{\theta}, \lambdans)$ is set to the PN tidal phasing corrections,
+with NS spin $\chins=0$ identically. Here, $\tilde{h}_\mathrm{BBH}$ is
+an underlying BBH waveform model. In the original LEA model,
+this was taken to be the SEOBNRv1
+model~\cite{Taracchini:2012} of the Effective-one-body (EOB)
+family~\cite{Buonanno99}. The factor $A(\cdot)$ adjusts
+the amplitude of the BBH model to match that of an NSBH merger of otherwise
+identical parameters, with NS-matter effects parametrized by $\lambdans$.
+During early inspiral this term is set to
+unity, but is a sensitive function of $\lambdans$ close to merger. The term with
+$\Delta\Phi$ corrects the waveform phasing. During inspiral,
+$\Delta\Phi$ is set to the PN tidal phasing corrections,
 at the leading and next-to-leading orders~\cite{Vines2011}. Close to merger,
-additional phenomenological terms are added and calibrated to the $134$ available
-NR simulations.
+additional phenomenological terms are needed. Both $A$ and $\Delta\Phi$ are
+calibrated to all $134$ available NR simulations.
+
 
 In this paper we use LEA for our signal and template modeling, but switch the 
-underlying BBH model to SEOBNRv2~\cite{Taracchini:2013rva},
-using its reduced-order frequency-domain version~\cite{Purrer:2015tud}. We
-expect this change to make our conclusions more robust because: (a) the 
+underlying BBH model to SEOBNRv2 (and refer to it as enhanced-LEA or
+``LEA+'')~\cite{Taracchini:2013rva}. We using the reduced-order
+frequency-domain version of SEOBNRv2, which has the additional benefit of
+reducing computational cost~\cite{Purrer:2015tud}. We expect this change
+(LEA$\rightarrow$LEA+) to make our conclusions more robust because: (a) the 
 SEOBNRv2 model is more accurate~\cite{Kumar:2015tha,Kumar:2016dhh}, and (b)
 the differences between the two EOB models are caused by the
 inaccuracies of SEOBNRv1 during the {\it inspiral} phase, many orbits before 
 merger~\cite{Kumar:2015tha}.
-Since LEA only augments the inspiral phasing with PN tidal terms, our
-change in the underlying BBH model does not change LEA's construction, but
-increases the overall model accuracy during inspiral. Therefore the model used 
-here (``LEA+'') is a more robust version of LEA.
+Since LEA only augments inspiral phasing with PN tidal terms, our
+change in the underlying BBH model does not change LEA's construction, {\it and}
+increases the overall model accuracy during inspiral.
+% We will refer to this enhanced-LEA model henceforth as ``LEA+''.
 
 
 
