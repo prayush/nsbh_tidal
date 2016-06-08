@@ -777,16 +777,41 @@ associated with the distribution serve as statistical error-bars.
 % #################
 \begin{figure*}
 \centering 
-\includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q3_0_mc1_98_chi0_50}
-\caption{$\eta$
+\includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}
+\caption{We show here the measured probability distribution for the
+dimensionless mass ratio $\eta$ of a binary with
+$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and
+$\lambdans=2000$. The templates used here {\it ignore} tidal effects.
+These figures show that this approximation holds up to (SNR)
+$\rho\simeq 30-50$.
+% 
+In each panel- the dashed red line marks the {\it measured} value of $\eta$,
+which is given by the median of its probability distribution.
+The {\it true} value is marked by the dashed green line. The difference
+between the true and measured values is the systematic bias introduced
+by ignoring tidal effects in templates. The darker shading shows
+the recovered $90\%$ confidence interval for $\eta$. The width of this
+region is a direct measure of our statistical uncertainty.
+% 
+Comparing systematic and statistical errors, we find that:
+at $\rho=20$, $\eta$ measurement is dominated by statistical
+errors; at $\rho=30$, the two become comparable; and 
+for louder signals ($\rho\simeq50$), the systematic errors dominate.
 }
 \label{fig:SingleSystemEtaPDFvsSNR}
 \end{figure*}
 % #################
 \begin{figure*}
 \centering 
-\includegraphics[width=1.8\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}
-\caption{$\eta$
+\includegraphics[width=1.9\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}
+\caption{
+We show here the statistical uncertainty of our measurement of the 
+dimensionless mass ratio $\eta$ (at $90\%$ confidence), over the NSBH
+parameter space.
+Individual panels show the same as a function of BH mass and spin.
+Across each row, we see the effect of increasing signal strength (i.e.
+SNR) with the NS's tidal deformability $\lambdans$ fixed. Down each
+column, we see the effect of increasing $\lambdans$, at fixed SNR.
 }
 \label{fig:SingleSystemEtaPDFvsSNR}
 \end{figure*}
@@ -850,10 +875,9 @@ which remain subdominant to the statistical measurement uncertainties.
 % 
 Past and future GW search and source characterization efforts with Advanced LIGO
 have used (or plan to) BH-BH waveform templates for NS-BH mergers, ignoring
-the effect of the tidal deformation of the neutron star due to its companion hole
-on the emitted GWs. In this section we present the first fully Bayesian Monte-Carlo
-study of the effects of this assumption on the recovery of other physical parameters
-of NS-BH sources.
+NS tidal effects on the emitted GWs. In this section we present a fully
+Bayesian analysis of the effects of this assumption on the recovery of NSBH
+masses and spins from their GW signals.
 % We do so by comparing the systematic biases introduced by this 
 % assumption to the overall statistical uncertainties in the measurement of binary 
 % mass and spin parameters. We find that unless the single-detector SNR of the signal
