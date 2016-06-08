@@ -98,7 +98,7 @@ col corresponds to the lower level group
   """
   if colorbartype != 'simple':
     raise IOError("Colorbar type %s not supported" % colorbartype)
-  colwidth = 1.7
+  #
   if np.shape(X)[:2] != np.shape(Y)[:2] or np.shape(X)[:2] != np.shape(Z2d)[:2]:
     raise IOError("X, Y and Z arrays have different number of sets to plot")
   
@@ -112,15 +112,17 @@ col corresponds to the lower level group
     'ytick.labelsize':16,\
     'figure.subplot.bottom':0.2,\
     'figure.figsize':figsize, \
-    'savefig.dpi': 300.0, \
-    'figure.autolayout': True})
+    'savefig.dpi': 300.0})#, \
+  #'figure.autolayout': True})
 
   nrow, ncol, _ = np.shape(X)
   if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
   pltid = 0
   
+  colwidth = 1.3
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((1.5*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
+              figsize=((1.3*gmean*ncol+1.25)*colwidth, 1.65*colwidth*nrow),\
+              dpi=100)
   fig.clf()
   grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
             share_all=True,\
@@ -187,20 +189,22 @@ col corresponds to the lower level group
       if jdx == 0: ax.set_ylabel(ylabel)
       #if np.shape(titles) == (nrow, ncol): ax.set_title(titles[idx][jdx])
       if np.shape(titles) == (nrow, ncol):
-        ax.text(.5, .9, titles[idx][jdx], horizontalalignment='center', transform=ax.transAxes)
+        ax.text(.5, .8, titles[idx][jdx], horizontalalignment='center', transform=ax.transAxes)
       #if idx == 0 and jdx==(ncol/2) and title != '':
       #  ax.set_title(titles[idx][jdx]+'\n '+title)  
       if idx == 0 and jdx==(ncol/2) and title != '':
-        ax.text(.5, .9, titles[idx][jdx]+'\n '+title, horizontalalignment='center', transform=ax.transAxes)
+        ax.text(.5, .8, titles[idx][jdx]+'\n '+title, horizontalalignment='center', transform=ax.transAxes)
       #
       contours_all[idx][jdx] = contours_tmp
+    if vverbose:
+      print "Made ROW %d/%d" % (idx+1, nrow)
   #
   cb = ax.cax.colorbar(CS, format=cfmt)
   cb.set_label_text(clabel)
   ax.cax.toggle_label(True)
   fig.subplots_adjust(right=0.8)
   #fig.tight_layout(rect=(0, 0, 0.82, 1))
-  fig.savefig(figname)
+  fig.savefig(figname, dpi=300)
   return contours_all
 
 

@@ -657,9 +657,10 @@ def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
     raise IOError("Need all of (q,chi,NSL,SNR) parameters")
   l1grp, l2grp, l3grp = \
         ['q%.1f.dir' % q, 'chiBH%.2f.dir' % chiBH, 'LambdaNS%.1f.dir' % NSLmbd]
-  dset = 'SNR%.1f.dat' % SNR
+  l4grp = 'SNR%.1f.dir' % SNR
+  dset  = 'summary.dat'
   if vverbose: print "Group names = ", l1grp, l2grp, l3grp, dset
-  alldata = data[l1grp][l2grp][l3grp][dset].value
+  alldata = data[l1grp][l2grp][l3grp][l4grp][dset].value
   
   num_of_data_fields = 5
   if 'm1' in p: pidx = 2 + 0*num_of_data_fields
@@ -953,12 +954,11 @@ etavec = qvec / (1. + qvec)**2
 mtotalvec = mNS + mNS * qvec
 mchirpvec = mtotalvec * etavec**0.6
 Lambdavec = np.array([0])#[500, 800, 1000])
-SNRvec = np.array([20, 30, 50, 70, 90, 120])
+SNRvec = np.array([20, 30, 50, 70])
 if inject_tidal: Lambdavec = np.array([500, 800, 1000, 1500, 2000])
 #if inject_tidal: Lambdavec = np.array([500, 800, 1000])
 
 ######################################################
-# TEMPLATE PARAMETERS
 ######################################################
 # Taking an uninformed prior
 m1min = 1.2
@@ -1011,7 +1011,7 @@ plot_ChiCriticalCurves    = False
 plot_QCriticalCurves      = False
 
 # Reduced ranges for plots
-plotSNRvec    = np.array([20, 30, 50, 70, 90, 120])
+plotSNRvec    = np.array([20, 30, 50, 70])
 plotqvec      = qvec
 plotchi2vec   = np.array([0, 0.5, 0.74999])
 plotLambdavec = np.array([800, 1000, 1500])
@@ -1023,21 +1023,34 @@ error_p         = error_threshold * 100.
 ######################################################
 # READ DATA
 ######################################################
-datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/FinalCombinedPEData/'
+if recover_tidal: datafile_postfix = 'TT_ParameterBiasesAndConfidenceIntervals.h5'
+else: datafile_postfix = 'TN_ParameterBiasesAndConfidenceIntervals.h5'
+datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/set006/'
 #datadir  = '/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/' + simstring
-datafile = simstring + '_ParameterBiasesAndConfidenceIntervals.h5'
-datafile = os.path.join(datadir, datafile)
+#datafile = simstring + '_ParameterBiasesAndConfidenceIntervals.h5'
+#datafile = os.path.join(datadir, datafile)
 
 if not recover_tidal:
-  datafileNN = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/NN','NN_ParameterBiasesAndConfidenceIntervals.h5')
+  pass
+  #datafileNN = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/NN','NN_ParameterBiasesAndConfidenceIntervals.h5')
   #dataNN = h5py.File(datafileNN, 'r')
   #datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TN','TN_ParameterBiasesAndConfidenceIntervals.h5')
 #else:
 #  datafile = os.path.join('/home/prayush/research/NSBH/TidalParameterEstimation/ParameterBiasVsSnr/SEOBNRv2/set005/TT','TT_ParameterBiasesAndConfidenceIntervals.h5')
   
-print '''Reading from data file : %s''' % datafile
 
-data = h5py.File(datafile, 'r')
+#data = h5py.File(datafile, 'r')
+
+# Load in all the Posterior distribution function samples
+data_dict = {}
+for q in qvec:
+  datafile = datadir + ('q%1d_' % q) + datafile_postfix
+  print '''Reading from data file : %s''' % datafile
+  fin = h5py.File(datafile, 'r')
+  for fkey in fin.keys(): data_dict[fkey] = fin[fkey]
+
+data = data_dict
+
 
 print \
 '''

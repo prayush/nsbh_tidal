@@ -649,12 +649,12 @@ increases the overall model accuracy during inspiral.
 
 The process of measuring systematic and statistical measurement errors
 involves simulating many artificial GW signals, and inferring source binary
-parameters from them.
+parameters from them using Bayesian statistics.
 We start with generating a signal waveform, using the model LEA+, and injecting
 it in zero noise to obtain a stretch of data $d_n$. Source binary parameters
 $\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ are reconstructed from this
 injected signal. Using Bayes' theorem, their joint inferred probability
-distribution can be calculated as
+distribution of $\vec{\Theta}$ can be written as
 \begin{equation}\label{eq:postprob}
  p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
 \end{equation}
@@ -753,10 +753,9 @@ of which is allowed to collect $100,000$ samples.
 % only $20,000$ independent posterior points to further analyze the calculated 
 % posterior probability distributions. 
 % 
-One simplifying assumption made to mitigate 
-computational cost was setting the frequency sampling rate $\Delta f=0.4$~Hz, which
-we found to be sufficient to calculate likelihoods robustly~\cite{Purrer:2015nkh}.
-% \prayush{TOCheck: MICHAEL}.
+One simplification we make to mitigate computational cost is to set the
+frequency sampling interval to $\Delta f=0.4$~Hz, which we find to be
+sufficient for robust likelihoods calculations~\cite{Purrer:2015nkh}.
 Once more than $10,000$ independent samples have been collected, we integrate
 Eq.~\ref{eq:marginalize} to obtain the marginalized probability distribution
 for the tidal deformability of the NS $p(\lambdans|d_n,K)$.
@@ -773,7 +772,7 @@ associated with the distribution serve as statistical error-bars.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{How is PE affected by not including NS matter effects?}\label{s1:PEwithnoNS}
+\section{How is PE affected if we ignore NS matter effects?}\label{s1:PEwithnoNS}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % #################
@@ -839,15 +838,27 @@ have used (or plan to) BH-BH waveform templates for NS-BH mergers, ignoring
 the effect of the tidal deformation of the neutron star due to its companion hole
 on the emitted GWs. In this section we present the first fully Bayesian Monte-Carlo
 study of the effects of this assumption on the recovery of other physical parameters
-of NS-BH sources. We do so by comparing the systematic biases introduced by this 
-assumption to the overall statistical uncertainties in the measurement of binary 
-mass and spin parameters. We find that unless the single-detector SNR of the signal
-exceeds $30$ (for design Advanced LIGO sensitivity), the bias accurued by ignoring
-tidal effects in filtering templates will remain smaller than the statistical 
-uncertainty of the same measurement.
+of NS-BH sources.
+% We do so by comparing the systematic biases introduced by this 
+% assumption to the overall statistical uncertainties in the measurement of binary 
+% mass and spin parameters. We find that unless the single-detector SNR of the signal
+% exceeds $30$ (for design Advanced LIGO sensitivity), the bias accurued by ignoring
+% tidal effects in filtering templates will remain smaller than the statistical 
+% uncertainty of the same measurement.
 
+\red{Reorder:
+We construct NSBH waveforms with LEA+. We inject them, and run MCMC on the injections
+using BBH templates. We perform this analysis for [... parameters ...]. We always
+use $\mns=1.35M_\odot$, but explore $\lambdans=\{500,1000,1500,2000\}$.
+}
+
+\prayush{
 We first take a set of NSBH binary waveforms, which include the modeling of spin and
-tidal effects. Binary mass-ratio is sampled
+tidal effects.
+For all of the resulting signals, we perform a fully Bayesian parameter estimation
+aimed at measuring binary masses and spins from the signal. Our analysis
+templates differ from the signal in only one sense: all tidal terms are set to zero
+in the former, i.e. they correspond to BHBH mergers. Binary mass-ratio is sampled
 uniformly over the range $q\in[2,5]$ taking $q=\{2,3,4,5\}$ as our test points. The
 mass of the NS is fixed to $\mns=1.35M_\odot$, and therefore knowing $q$ gives $\mbh$.
 The spin of the NS is fixed to zero. The spin of the BH is sampled uniformly over the
@@ -855,11 +866,8 @@ range $\chibh\in[-0.75, +0.75]$, choosing $\chibh=\{-0.5, 0, +0.5, +0.75\}$ as o
 test points. Finally, we vary the deformability parameter uniformly over 
 $\lambdans\in[0,2000]$, choosing $\lambdans=\{500, 1000, 1500, 2000\}$ plus an additional
 $\lambdans=800$ case. Waveform are generated for all possible combinations of these
-parameters, and rescaled to different strengths with $\rho=\{20, 30, 50, 70\}$. For all
-of the resulting signals, we perform a fully Bayesian parameter estimation aimed at
-measuring binary masses and spins from the signal. Our analysis
-templates differ from the signal in only one sense: all tidal terms are set to zero
-in the former, i.e. they correspond to BHBH mergers.
+parameters, and rescaled to different strengths with $\rho=\{20, 30, 50, 70\}$.
+}
 
 In Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR} we show the ratio of the systematic
 bias in the measured binary chirp mass $\mchirp$ versus its true value, to the 
