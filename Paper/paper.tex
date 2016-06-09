@@ -840,9 +840,7 @@ of tidal effects in filtering templates.
 \end{figure*}
 %
 \begin{figure*}[!t]
-\centering    
-%\includegraphics[trim={11cm 0 0 0},width=2.7\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI68_3_Lambda_SNR.pdf}\\
-% \includegraphics[trim={3.6cm 0 0 0},width=2.25\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR.pdf}\\
+\centering
 \includegraphics[width=1.8\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear002}
 \caption{This figure is similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
 with the difference that the quantity in question here is the symmetric 
@@ -858,7 +856,7 @@ of $\eta$. We remind the reader that the SNRs here are all single detector value
 % 
 \begin{figure*}
 \centering
-\includegraphics[width=1.8\columnwidth]{plots/TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear}
+\includegraphics[width=1.95\columnwidth]{plots/TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear}
 % \includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI68_3.pdf}
 % \includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI90_0.pdf}
 \caption{This figure shows the ratio of the systematic and statistical
@@ -877,18 +875,6 @@ have used (or plan to) BH-BH waveform templates for NS-BH mergers, ignoring
 NS tidal effects on the emitted GWs. In this section we present a fully
 Bayesian analysis of the effects of this assumption on the recovery of NSBH
 masses and spins from their GW signals.
-% We do so by comparing the systematic biases introduced by this 
-% assumption to the overall statistical uncertainties in the measurement of binary 
-% mass and spin parameters. We find that unless the single-detector SNR of the signal
-% exceeds $30$ (for design Advanced LIGO sensitivity), the bias accurued by ignoring
-% tidal effects in filtering templates will remain smaller than the statistical 
-% uncertainty of the same measurement.
-
-% \red{Reorder:
-% We construct NSBH waveforms with LEA+. We inject them, and run MCMC on the injections
-% using BBH templates. We perform this analysis for [... parameters ...]. We always
-% use $\mns=1.35M_\odot$, but explore $\lambdans=\{500,1000,1500,2000\}$.
-% }
 
 
 We construct NSBH waveforms using the LEA+ model. We inject these into zero
@@ -899,18 +885,14 @@ and BH spins $\chibh\in\{-0.5, 0, +0.5, +0.75\}$. We always use $\mns=1.35M_\odo
 $\chins=0$, but explore $\lambdans\in\{500, 800, 1000, 1500, 2000\}$. The signal
 strength is varied from $\rho=20\rightarrow70$. Our choice of this SNR range is
 motivated by previous studies which suggest that signatures of NS tidal effects
-become observable only at relatively large SNRs~\cite{Lackey:2013axa}.
+become observable only at relatively large SNRs~\cite{Lackey:2013axa}, and is validated
+by the results to follow. At design sensitivity, if we expect $10-300$ NSBH detections 
+a year~\cite{Abadie:2010cfa}, and if BH masses are uniformly likely up to
+$\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we would expect to detect $0.3-7$ disruptive
+NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with $\rho\geq 30$, and $0.04-1$ a
+year with $\rho\geq 70$.
 
-% We simulate NSBH signal waveforms using the LEA+ model, inject them into zero
-% noise, and perform fully Bayesian parameter estimation analyses on them to
-% estimate their source masses and spins. We set tidal terms in search
-% templates to zero, ensuring that they mimic BBH mergers. We perform this
-% analysis for a range of systems: with mass ratios $q\in\{2,3,4,5\}$, BH spins
-% $\chibh\in\{-0.5, 0, +0.5, +0.75\}$, and NS tidal deformability
-% $\lambdans\in\{500, 800, 1000, 1500, 2000\}$. We fix NS mass to $1.35M_\odot$
-% and its spin to zero (for signals). In addition, signals are simulated at
-% different strengths, i.e. $\rho=\{20, 30, 50, 70\}$, in order to estimate the
-% dependence of parameter measurement errors on the SNR.
+
 
 As an illustration, in Fig.~\ref{fig:SingleSystemEtaPDFvsSNR} we show the
 probability distribution for binary mass ratio $\eta$ recovered from a GW
@@ -964,6 +946,7 @@ to obtain {\it accurate} estimates of source masses and spins from observed GW
 signals.
 
 
+
 We first calculate the ratio of errors $\arr$ associated with chirp mass measurements
 and show it in
 Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}. $\mchirp$ is the mass combination
@@ -977,7 +960,7 @@ realistic SNRs (say $\rho=50$), we find that $\arr$ can become comparable to uni
 if additionally: (i) the BH has a prograde spin $\chibh\gtrsim 0.4$, {\it and} (ii)
 the NS's true deformability is large enough, s.t. $\lambdans \gtrsim 1000$.
 % 
-It is only at SNRs as high as $\rho=70$ that the systematic biases for $\mchirp$
+It is only at SNRs as high as $\rho\simeq70$ that the systematic biases for $\mchirp$
 exceed the underlying statistical uncertainty to become the dominant source of
 errors.
 % 
@@ -986,32 +969,35 @@ terms that capture the effect of neutron star's structural dynamics on emitted G
 For lower SNRs, improvements in template model will be washed out by the statistical
 measurement uncertainty for $\mchirp$.
 % 
-As a last note, we find that $\arr$ is always positive for $\mchirp$, suggesting that
+Lastly, we note that $\arr$ is always positive for $\mchirp$, suggesting that
 it is always over-estimated.
 This is understandable since the tidal deformation of NSs close to merger reduces
 the GW signal power at high frequencies, which would make the resulting signal
 resemble a BBH signal of higher mass (and therefore lower merger frequency).
 
 
-In the next figure, Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}, we show the ratio of
-measurement errors $\arr$ for the symmetric mass-ratio $\eta$. Note that $\eta$
-is bounded from above and below to within $\eta\in[0, 1/4]$. We immediately observe
-that the measured (median) $\eta$ is always lowered below its true value due to the 
-lack of $\lambdans$-dependent terms in the filter template model. This bias,
-similar to the $\mchirp$ bias, decreases the merger frequency for BBH templates,
-in order to better match the relatively quiet merger and ringdown of NSBHs.
-At SNR $\rho=30$
-the systematic bias in $\eta$ measurement stays mostly around $10-50\%$ of its statistical
-measurement uncertainty. For the sole case of a very deformable NS with $\lambdans=2000$,
-the missing tidal pieces in template models could cause errors that are comparable to 
-that due to noise (i.e. statistical uncertainties). For a still stronger signal with 
-$\rho=50$, we find that 
-when the following conditions are fulfilled, the measurement of $\eta$ is {\it completely
-compromised} due to template biases: (a) BH mass $\mbh\leq 5M_\odot$, (b) BH spin
-$\chibh\gtrsim +0.4$, and (c) $\lambdans\gtrsim 1500$. Even under more moderate restrictions
-on BH and NS parameters, we find that $\rho=50$ is loud enough to necessitate the 
-use of tidal-modeled templates. This observation is further strengthened if we divert 
-our attention to the third column in Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR} that presents
+Next, in Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}, we show the ratio of
+measurement errors $\arr$ for the symmetric mass-ratio $\eta$. We immediately
+observe that the measured (median) $\eta$ is always lowered below its true
+value due to the lack of $\lambdans$-dependent terms in the filter template
+model. This bias, similar to the $\mchirp$ bias, reduces the merger frequency
+for BBH templates, in order to better match the relatively quiet merger and
+ringdown of NSBHs. 
+% 
+At $\rho=30$, the systematic bias in $\eta$ measurement stays mostly around
+$10-50\%$ of its statistical measurement uncertainty. For the sole case of a
+very deformable NS with $\lambdans=2000$, can the effect of missing tidal pieces
+in the template model become comparable to that of noise (which is usually
+more restrictive on measurements).
+% 
+For a still stronger signal with $\rho=50$, we find that when the following
+conditions are fulfilled, the measurement of $\eta$ is unreliable due to
+template biases: (a) BH mass $\mbh\leq 5M_\odot$, (b) BH spin
+$\chibh\gtrsim +0.4$, and (c) $\lambdans\gtrsim 1500$. Even under more
+moderate restrictions on BH and NS parameters, we find that $\rho=50$ is 
+loud enough to motivate the use of tidal-modeled templates. This observation
+is further strengthened if we divert our attention to the third column in
+Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR} that presents
 the case for even higher SNRs ($\rho=70$).
 
 
