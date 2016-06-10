@@ -109,8 +109,8 @@ col corresponds to the lower level group
     'axes.labelsize':16,\
     'font.family':'serif',\
     'font.size':16,\
-    'xtick.labelsize':16,\
-    'ytick.labelsize':16,\
+    'xtick.labelsize':14,\
+    'ytick.labelsize':14,\
     'figure.subplot.bottom':0.2,\
     'figure.figsize':figsize, \
     'savefig.dpi': 300.0})#, \
@@ -128,7 +128,7 @@ col corresponds to the lower level group
   grid = ImageGrid(fig, 111,\
             nrows_ncols=(nrow, ncol), \
             share_all=True,\
-            axes_pad=0.05,\
+            axes_pad=0.2,\
             cbar_mode="single", cbar_location="right",\
             cbar_pad=0.05, cbar_size="2%", \
             aspect=True,\
@@ -185,7 +185,7 @@ col corresponds to the lower level group
       contours_tmp = {}
       for lev in levellines:
         cset = ax.contour(xx, yy, zz, levels=[lev * levline_scaling],\
-				colors='k', ls='--', linewidths=2, hold="on")
+			alpha=0.8, colors='k', ls='--', linewidths=2, hold="on")
         for c in cset.collections: c.set_linestyle('dotted')
         if levellabels:
           label_dict = {}
@@ -197,7 +197,7 @@ col corresponds to the lower level group
         print "for %s" % titles[idx][jdx], contours_tmp
         print "ymin, ymax = ", ymin, ymax
       #
-      ax.grid(True)
+      ax.grid(True, color='k')
       if xticks is not None: ax.get_xaxis().set_ticks(xticks)
       if yticks is not None: ax.get_yaxis().set_ticks(yticks)
       ax.set_xlim([xmin, xmax])
