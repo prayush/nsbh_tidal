@@ -122,7 +122,7 @@ col corresponds to the lower level group
   
   colwidth = 1.3
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((1.5*gmean*ncol+1.75)*colwidth, 1.5*colwidth*nrow),\
+              figsize=((1.3*gmean*ncol+1.75)*colwidth, 1.2*colwidth*nrow),\
               dpi=100)
   fig.clf()
   grid = ImageGrid(fig, 111,\
@@ -185,13 +185,13 @@ col corresponds to the lower level group
       contours_tmp = {}
       for lev in levellines:
         cset = ax.contour(xx, yy, zz, levels=[lev * levline_scaling],\
-			alpha=1., colors='k', ls='--', linewidths=2, hold="on")
+			colors='k', ls='--', linewidths=1.2, hold="on")
         for c in cset.collections: c.set_linestyle('dotted')
         if levellabels:
           label_dict = {}
           for ll in [lev * levline_scaling]: label_dict[ll] = str(int(lev*100))
           lfmt = label_dict
-        plt.clabel(cset, colors='brown', inline=1, fmt=lfmt, fontsize=12)
+        plt.clabel(cset, colors='r', inline=1, fmt=lfmt, fontsize=10)
         contours_tmp[lev] = cset.collections[0].get_paths()
       if vverbose:
         print "for %s" % titles[idx][jdx], contours_tmp
@@ -320,11 +320,12 @@ def make_contour(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', title='',\
                 levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r,\
                 xmin=None, xmax=None, ymin=None, ymax=None,\
                 cbfmt='%.1f', figname='plot.png'):
-  colwidth = 4.8
-  plt.figure(int(1e7 * np.random.random()), figsize=(1.*gmean*colwidth, colwidth))
+  colwidth = 4.
+  plt.figure(int(1e7 * np.random.random()), figsize=(0.75*gmean*colwidth, 0.75*colwidth))
   norm = cm.colors.Normalize(vmax=Z2d.max(), vmin=Z2d.min())
   #cmap = cm.rainbow
   levels = np.arange(Z2d.min(), Z2d.max(), levelspacing)
+  print np.min(Z2d), np.max(Z2d), levelspacing
   plt.contourf( X, Y, Z2d,\
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\

@@ -692,6 +692,9 @@ increases the overall model accuracy during inspiral.
 % improve flow and to make it more accessible.
 % }
 
+\red{SOMEHOW INTRODUCE SNR AND MENTION IF IT IS A NETWORK SNR OR WHAT KIND OF 
+'SNR' IS IT?}
+
 The process of measuring systematic and statistical measurement errors
 involves simulating many artificial GW signals, and inferring source binary
 parameters from them using Bayesian statistics.
@@ -819,7 +822,7 @@ serve as statistical error-bars.
 % #################
 \begin{figure*}
 \centering 
-\includegraphics[width=1.8\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear}
+\includegraphics[width=1.6\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear}
 \caption{We show here the ratio of systematic and statistical
 measurement uncertainties for the binary chirp mass over the NSBH parameter 
 space. Each panel shows the same as a function of BH mass and spin. Across
@@ -1084,7 +1087,7 @@ panels with the same value of $\lambdans$, with $\rho$ increasing from left to r
 Each column contains panels with the same value of $\rho$, with $\lambdans$ 
 increasing from top to bottom.
 % 
-Contours are drawn in each panel demarkating regions where we can constrain the
+Contours are drawn in each panel demarcating regions where we can constrain the
 $\lambdans$ parameter well (within a factor of two of the injected value).
 % 
 We note that, as expected, the measurement accuracy for $\lambdans$ improves with (i) increasing
@@ -1096,8 +1099,8 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=0.9025\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1000_0_CI90_0}
-\includegraphics[width=0.9025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0}
+\includegraphics[trim={0 0 0 2cm}, width=0.95\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0.pdf}
+\includegraphics[width=0.95\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0.pdf}
 % \includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}\\
 \caption{\red{Correct caption.}
 In these figures we highlight the regions of BH mass and spin plane where we can 
@@ -1123,7 +1126,8 @@ set by the detectors).
 \centering    
 \includegraphics[width=0.9025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0}
 \includegraphics[width=0.9025\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0}
-\caption{In these figures we highlight the regions of BH mass and spin plane 
+\caption{\red{FIGURE FEELS UNFINISHED. POLISH AND SYNCHRONIZE FIGURE WITH CAPTION.}
+In these figures we highlight the regions of BH mass and spin plane 
 where we can constrain the $\lambdans$ of its companion NS within a factor of 
 $1-2$ of its true value. Panels correspond to different signal strength, with 
 $\rho$ increasing from left to right. Within each panel, $\lambdans$ 
@@ -1251,12 +1255,22 @@ we need SNRs of $30$ or higher. This can be seen from the right
 panel of Fig.~\ref{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0}, which is similar
 to the left but for a higher $\lambdans (=1500)$ system, with a more stringent
 constraint requirement that $\lambdans$ be measured within a factor of $1$ of 
-its true value (i.e. with $\pm 50\%$ errors, instead of $\pm 100\%$). Even for
+its true value (i.e. with $\pm 50\%$ errors, instead of $\pm 100\%$).
+\red{Dont use two different thresholds in figure.} Even for
 the most conducive cases, we {\it need} the SNR to be above $30$ to reach our 
 accuracy threshold (which is more than $3\times$ less likely to happen than
 getting a signal with $\rho=20$).
 
 
+\red{%
+(i) Rework text, so that you slowly build up the information needed. First, explain
+the general idea pursued, then discuss one panel first, then introduce second
+panel, finally, contrast both panels.
+(ii) High information density. Distinction between left and right panels notation
+not needed in the first sentence. deferring this info by a few sentences will make
+it easier for the reader to follow the discussion.
+}
+\prayush{%
 Lastly, in Fig.~\ref{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0} we show the
 conditions that BH parameters must fulfill beside having an SNR of $20$ (left 
 panel) or $30$ (right panel), to obtain meaningful constraints on $\lambdans$.
@@ -1265,9 +1279,9 @@ $\chibh\gtrsim +0.6$ and a very deformable NS with $\lambdans\geq 1500$, in
 order to put a factor of $2$ bound on $\lambdans$. At $\rho=30$, with
 $\lambdans\gtrsim 1000$ and $\chibh\geq+0.6$ we can put a similar factor of
 $2$ bound on $\lambdans$, but with $\chibh\sim+0.75$ and an extremely deformable
-NS with $\lambdans=200$ one could even put a $\pm 50\%$ error-bar on 
+NS with $\lambdans=2000$ one could even put a $\pm 50\%$ error-bar on 
 $\lambdans$ measurement.
-
+}
 
 
 
