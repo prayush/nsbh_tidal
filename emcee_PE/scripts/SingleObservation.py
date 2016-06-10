@@ -122,7 +122,7 @@ col corresponds to the lower level group
   
   colwidth = 1.3
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((1.3*gmean*ncol+1.75)*colwidth, 1.2*colwidth*nrow),\
+              figsize=((1.5*gmean*ncol+1.75)*colwidth, 1.5*colwidth*nrow),\
               dpi=100)
   fig.clf()
   grid = ImageGrid(fig, 111,\
@@ -185,7 +185,7 @@ col corresponds to the lower level group
       contours_tmp = {}
       for lev in levellines:
         cset = ax.contour(xx, yy, zz, levels=[lev * levline_scaling],\
-			alpha=0.8, colors='k', ls='--', linewidths=2, hold="on")
+			alpha=1., colors='k', ls='--', linewidths=2, hold="on")
         for c in cset.collections: c.set_linestyle('dotted')
         if levellabels:
           label_dict = {}
