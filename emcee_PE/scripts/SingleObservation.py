@@ -50,7 +50,7 @@ ErrThresh=[100, 200]
 # PLOTTING :
 # Function to make parameter bias plots
 ######################################################
-linestyles = ['dotted', 'dashed', 'solid', 'dashed', 'dotted', 'dashdot', 'dashed', 'dotted']
+linestyles = ['solid', 'dashed', 'dashdot', 'dashed', 'dotted', 'dashdot', 'dashed', 'dotted']
 #linecolors = ['crimson', 'olivedrab', 'k', 'b', 'm', 'y']
 linecolors = ['crimson', 'darkorange', 'olivedrab', 'royalblue', 'purple', 'k']
 linemarkers= ['', 'x', 'o', '^']
