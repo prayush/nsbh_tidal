@@ -80,10 +80,11 @@ plt.rcParams.update({\
 
 # Plotting functions
 def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
-        title='', titles=[], levellines=[100,200], levelspacing=0.25,\
+        title='', titles=[], xticks=None, yticks=None,\
+	levellinesscale=None, levellines=[100,200], levellabels=True, levelspacing=0.25,\
         vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f', lfmt='%.1f',\
         xmin=None, xmax=None, ymin=None, ymax=None, alpha=0.9,\
-        colorbartype='simple', figname='plot.png'):
+        colorticks=None, colorbartype='simple', figname='plot.png'):
   """
   Function to plot arbitrary numbers of contour plots in a single figure
   """
@@ -121,11 +122,13 @@ col corresponds to the lower level group
   
   colwidth = 1.3
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((1.3*gmean*ncol+1.25)*colwidth, 1.65*colwidth*nrow),\
+              figsize=((1.3*gmean*ncol+1.75)*colwidth, 1.2*colwidth*nrow),\
               dpi=100)
   fig.clf()
-  grid = ImageGrid(fig, 111, nrows_ncols=(nrow, ncol), \
+  grid = ImageGrid(fig, 111,\
+            nrows_ncols=(nrow, ncol), \
             share_all=True,\
+            axes_pad=0.05,\
             cbar_mode="single", cbar_location="right",\
             cbar_pad=0.05, cbar_size="2%", \
             aspect=True,\
@@ -147,12 +150,19 @@ col corresponds to the lower level group
   
   ## FIXME
   #VMIN = 0.01
-
+  
   # Now make contour plots
   contours_all = {}
   for idx in range(nrow):
     contours_all[idx] = {}
     for jdx in range(ncol):
+      levline_scaling = 1
+      try:
+        if levellinesscale is not None:
+          levline_scaling = levellinesscale[idx][jdx]
+      except: pass
+      #
+      print "Scaling level lines with %f" % levline_scaling
       try: xx, yy, zz = X[idx][jdx], Y[idx][jdx], Z2d[idx][jdx]
       except: 
         print "Array shapes = ", np.shape(xx), np.shape(yy), np.shape(zz)
@@ -174,15 +184,22 @@ col corresponds to the lower level group
               alpha=alpha, vmin=VMIN, vmax=VMAX)
       contours_tmp = {}
       for lev in levellines:
-        cset = ax.contour(xx, yy, zz, levels=[lev], colors='k', ls='--', linewidths=4, hold="on")
+        cset = ax.contour(xx, yy, zz, levels=[lev * levline_scaling],\
+				colors='k', ls='--', linewidths=2, hold="on")
         for c in cset.collections: c.set_linestyle('dotted')
-        plt.clabel(cset, colors='r', inline=1, fmt=lfmt, fontsize=16)
+        if levellabels:
+          label_dict = {}
+          for ll in [lev * levline_scaling]: label_dict[ll] = str(int(lev*100))
+          lfmt = label_dict
+        plt.clabel(cset, colors='brown', inline=1, fmt=lfmt, fontsize=12)
         contours_tmp[lev] = cset.collections[0].get_paths()
       if vverbose:
         print "for %s" % titles[idx][jdx], contours_tmp
         print "ymin, ymax = ", ymin, ymax
       #
-      ax.grid()
+      ax.grid(True)
+      if xticks is not None: ax.get_xaxis().set_ticks(xticks)
+      if yticks is not None: ax.get_yaxis().set_ticks(yticks)
       ax.set_xlim([xmin, xmax])
       ax.set_ylim([ymin, ymax])
       if idx == (nrow-1): ax.set_xlabel(xlabel)
@@ -193,13 +210,15 @@ col corresponds to the lower level group
       #if idx == 0 and jdx==(ncol/2) and title != '':
       #  ax.set_title(titles[idx][jdx]+'\n '+title)  
       if idx == 0 and jdx==(ncol/2) and title != '':
-        ax.text(.5, .8, titles[idx][jdx]+'\n '+title, horizontalalignment='center', transform=ax.transAxes)
+        ax.text(.5, .8, titles[idx][jdx]+'\n '+title,\
+          horizontalalignment='center', transform=ax.transAxes)
       #
       contours_all[idx][jdx] = contours_tmp
     if vverbose:
       print "Made ROW %d/%d" % (idx+1, nrow)
   #
-  cb = ax.cax.colorbar(CS, format=cfmt)
+  if colorticks is not None: cb = ax.cax.colorbar(CS, format=cfmt, ticks=colorticks)
+  else: cb = ax.cax.colorbar(CS, format=cfmt)
   cb.set_label_text(clabel)
   ax.cax.toggle_label(True)
   fig.subplots_adjust(right=0.8)

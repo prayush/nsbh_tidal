@@ -1045,9 +1045,37 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 \begin{figure*}
+\centering 
+\includegraphics[width=1.8\columnwidth]{plots/SingleSystem_q4_0_mc2_25_chi0_50}
+\caption{We show here the probability distribution recovered for the NS tidal
+deformability parameter $\lambdans$ from a GW injection, with the following
+parameters characterizing the binary:
+$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and
+$\lambdans=2000$. The templates used here {\it ignore} tidal effects.
+These figures show that this approximation holds up to (SNR)
+$\rho\simeq 30-50$.
+% 
+In each panel- the dashed red line marks the {\it measured} value of
+$\lambdans$,
+which is given by the median of its probability distribution.
+The {\it true} value is marked by the dashed green line. The difference
+between the true and measured values is the systematic bias introduced
+by ignoring tidal effects in templates. The darker shading shows
+the recovered $90\%$ confidence interval for $\lambdans$. The width of this
+region is a direct measure of our statistical uncertainty.
+% 
+Comparing systematic and statistical errors, we find that:
+at $\rho=20$, $\lambdans$ measurement is dominated by statistical
+errors; at $\rho=30$, the two become comparable; and 
+for louder signals ($\rho\simeq50$), the systematic errors dominate.
+}
+\label{fig:SingleSystemLambdaPDFvsSNR}
+\end{figure*}
+% #################
+\begin{figure*}
 \centering    
-\includegraphics[trim={3cm 0 0 0},width=2.\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
-%\includegraphics[trim={3cm 0 0 0},width=2.3\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
+\includegraphics[trim={3cm 0 0 0},width=1.9\columnwidth]{plots/TTLambdaRawCIWidths90_0_Lambda_SNR}
+% \includegraphics[trim={3cm 0 0 0},width=2.\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
 \caption{This figure shows the statistical uncertainty in the measurement of
 $\lambdans$, as a percentage of the injected signal's $\lambdans$ value. In each panel,
 the same is shown as a function of the BH mass and spin, keeping the 
