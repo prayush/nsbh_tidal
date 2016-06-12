@@ -120,9 +120,9 @@ col corresponds to the lower level group
   if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
   pltid = 0
   
-  colwidth = 1.3
+  colwidth = 1.75
   fig = plt.figure(int(1e7 * np.random.random()), \
-              figsize=((1.3*gmean*ncol+1.75)*colwidth, 1.2*colwidth*nrow),\
+              figsize=((1.3*gmean*ncol+1.3)*colwidth, 1.2*colwidth*nrow),\
               dpi=100)
   fig.clf()
   grid = ImageGrid(fig, 111,\

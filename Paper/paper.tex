@@ -573,20 +573,19 @@ future prospects with Advanced LIGO.
 \begin{figure*}
 \centering 
 \includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}
-\caption{We show here the measured probability distribution for the
-dimensionless mass ratio $\eta$ of a binary with
-$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and
-$\lambdans=2000$. The templates used here {\it ignore} tidal effects.
-These figures show that this approximation holds up to (SNR)
-$\rho\simeq 30-50$.
+\caption{We show here probability distributions for mass ratio $\eta$ as measured
+for the same injection at different SNRs. The intrinsic parameters of the source
+are: $q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and $\lambdans=2000$;
+and the signal is injected at SNRs $\rho=\{20,30,50\}$ (left to right). The templates
+{\it ignore} tidal effects.
 % 
-In each panel- the dashed red line marks the {\it measured} value of $\eta$,
-which is given by the median of its probability distribution.
-The {\it true} value is marked by the dashed green line. The difference
-between the true and measured values is the systematic bias introduced
+In each panel: the dashed red line marks the median {\it measured} value
+$\eta^\mathrm{Median}$, while the dashed green line show the true value
+$\eta^\mathrm{Injected}$. The difference between the true and measured values
+is the systematic bias introduced
 by ignoring tidal effects in templates. The darker shading shows
-the recovered $90\%$ confidence interval for $\eta$. The width of this
-region is a direct measure of our statistical uncertainty.
+the recovered $90\%$ confidence interval for $\eta$, $(\Delta\eta)^{90\%}$, 
+which is a direct measure of our statistical uncertainty on $\eta$.
 % 
 Comparing systematic and statistical errors, we find that:
 at $\rho=20$, $\eta$ measurement is dominated by statistical
@@ -1049,28 +1048,29 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 % 
 \begin{figure*}
 \centering 
-\includegraphics[width=1.8\columnwidth]{plots/SingleSystem_q4_0_mc2_25_chi0_50}
-\caption{We show here the probability distribution recovered for the NS tidal
-deformability parameter $\lambdans$ from a GW injection, with the following
-parameters characterizing the binary:
-$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and
-$\lambdans=2000$. The templates used here {\it ignore} tidal effects.
-These figures show that this approximation holds up to (SNR)
-$\rho\simeq 30-50$.
+% \includegraphics[width=1.8\columnwidth]{plots/SingleSystem_q4_0_mc2_25_chi0_50}
+\includegraphics[width=1.8\columnwidth]{plots/SingleSystemLambdaVary_q4_0_mc2_25_chi0_50}
+\caption{We illustrate here probability distributions recovered for the NS tidal
+deformability parameter $\lambdans$ from three GW injections, with parameters:
+$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and 
+$\lambdans=\{1000,1500,2000\}$ from left to right. The injection SNR is fixed at
+$\rho=50$. The templates {\it include} tidal effects, with a prior $0\leq\lambdans\leq 4000$.
+% These figures show that this approximation holds up to (SNR)
+% $\rho\simeq 30-50$.
 % 
-In each panel- the dashed red line marks the {\it measured} value of
-$\lambdans$,
-which is given by the median of its probability distribution.
-The {\it true} value is marked by the dashed green line. The difference
-between the true and measured values is the systematic bias introduced
-by ignoring tidal effects in templates. The darker shading shows
-the recovered $90\%$ confidence interval for $\lambdans$. The width of this
-region is a direct measure of our statistical uncertainty.
+In each panel- the dashed red line marks the median {\it measured} value for
+$\lambdans$, and the dashed green line marks its {\it true} value.
+The darker shading shows the $90\%$ confidence interval, whose width
+$(\Delta\lambdans)^{90\%}$ is a direct measure of our statistical uncertainty.
+By comparing the measurement uncertainty for these three injections, we see
+that $(\Delta\lambdans)^{90\%}$ grows very slowly with $\lambdans$. Therefore,
+the fractional measurement error - $(\Delta\lambdans)^{90\%}/\lambdans$ -
+decreases monotonically as $\lambdans$ increases (with signal strength fixed).
 % 
-Comparing systematic and statistical errors, we find that:
-at $\rho=20$, $\lambdans$ measurement is dominated by statistical
-errors; at $\rho=30$, the two become comparable; and 
-for louder signals ($\rho\simeq50$), the systematic errors dominate.
+% Comparing systematic and statistical errors, we find that:
+% at $\rho=20$, $\lambdans$ measurement is dominated by statistical
+% errors; at $\rho=30$, the two become comparable; and 
+% for louder signals ($\rho\simeq50$), the systematic errors dominate.
 }
 \label{fig:SingleSystemLambdaPDFvsSNR}
 \end{figure*}
@@ -1079,15 +1079,15 @@ for louder signals ($\rho\simeq50$), the systematic errors dominate.
 \centering    
 \includegraphics[trim={2cm 0 0 0},width=2.2\columnwidth]{plots/TTLambdaRawCIWidths90_0_Lambda_SNR}
 % \includegraphics[trim={3cm 0 0 0},width=2.\columnwidth]{plots/TTLambdaCIWidths90_0_Lambda_SNR.pdf}
-\caption{This figure shows the statistical uncertainty in the measurement of
-$\lambdans$, as a percentage of the injected signal's $\lambdans$ value. In each panel,
-the same is shown as a function of the BH mass and spin, keeping the 
-$\lambdans$ and injection's SNR $\rho$ fixed (given in the panel). Each row contains
-panels with the same value of $\lambdans$, with $\rho$ increasing from left to right.
+\caption{Here we show the statistical uncertainty in the measurement of
+$\lambdans$, as a percentage of the injected/true value. In each panel, the
+same is shown as a function of the BH mass and spin, keeping $\lambdans$ and
+injection's SNR $\rho$ fixed (noted in the panel). Each row contains panels
+with the same value of $\lambdans$, with $\rho$ increasing from left to right.
 Each column contains panels with the same value of $\rho$, with $\lambdans$ 
 increasing from top to bottom.
 % 
-Contours are drawn in each panel demarcating regions where we can constrain the
+Contours demarcate regions where we can constrain the
 $\lambdans$ parameter well (within a factor of two of the injected value).
 % 
 We note that, as expected, the measurement accuracy for $\lambdans$ improves with (i) increasing
@@ -1097,54 +1097,56 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 \label{fig:TT_LambdaCIWidths90_0_Lambda_SNR}
 \end{figure*}
 % 
-\begin{figure*}
+\begin{figure}
 \centering    
-\includegraphics[trim={0 0 0 2cm}, width=0.95\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0.pdf}
-\includegraphics[width=0.95\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0.pdf}
+% \includegraphics[trim={0 0 0 2cm}, width=0.95\columnwidth]{plots/TTSNRThresholdFor200LambdaMeasurement_BHspin_BHmass_Lambda1500_0_CI90_0}
+\includegraphics[width=\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}
 % \includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}\\
-\caption{\red{Correct caption.}
-In these figures we highlight the regions of BH mass and spin plane where we can 
-constrain the $\lambdans$ of its companion NS within a factor of $1-2$ of its true value.
-Panels correspond to different signal strength, with $\rho$ increasing from left to right.
-Within each panel, $\lambdans$ measurement uncertainty contours are shown as functions of BH 
-mass and spin, with line-types corresponding to different uncertainty levels, and
-colors showing the injected $\lambdans$.
+\caption{
+We show here, as a function of BH mass and spin, the {\it minimum} signal
+strength (SNR) required to constrain $\lambdans$ of the companion NS within a factor
+of $100\%$ of its true value, i.e. with $\pm 50\%$ error-bars. The NS mass is fixed
+at $1.35M_\odot$, spin at zero, and $\lambdans=2000$.
+% 
+We can see that, irrespective of BH properties, we cannot constrain $\lambdans$
+to better than $\pm 50\%$ if the SNR is below $\approx 29$.
+% 
 % We note that this information is, in principle, contained in 
 % Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
 % the effect of NS's deformability itself on its measurement. 
-As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, we note that the measurability
-of NS matter
-effects improves with all factors that enhances the signature of the NS's disruption on
-the \textit{detectable} portion of the emitted GW signal (implying, within a frequency band
-set by the detectors).
-\red{Use same colorbar bounds in both panels}.
+% 
+% As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, we note that the measurability
+% of NS matter effects improves with all factors that enhances the signature of the NS's disruption on
+% the \textit{detectable} portion of the emitted GW signal (implying, within a frequency band
+% set by the detectors).
 }
 \label{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0}
-\end{figure*}
+\end{figure}
 %
-\begin{figure*}
-\centering    
-\includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0}
-\includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0}
-\caption{\red{FIGURE FEELS UNFINISHED. POLISH AND SYNCHRONIZE FIGURE WITH CAPTION.}
-In these figures we highlight the regions of BH mass and spin plane 
-where we can constrain the $\lambdans$ of its companion NS within a factor of 
-$1-2$ of its true value. Panels correspond to different signal strength, with 
-$\rho$ increasing from left to right. Within each panel, $\lambdans$ 
-measurement uncertainty contours are shown as functions of BH mass and spin,
-with line-types corresponding to different uncertainty levels, and colors 
-showing the injected $\lambdans$. 
-% We note that this information is, in principle, contained in 
-% Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
-% the effect of NS's deformability itself on its measurement. 
-As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, the 
-measurability of NS tidal deformability improves with all factors that 
-enhances the signature of the NS's disruption on the \textit{detectable} 
-portion of the emitted GW signal (implying, within a frequency band set by the
-detectors).
-}
-\label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
-\end{figure*}
+% \begin{figure*}
+% \centering    
+% \includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR20_CI90_0}
+% \includegraphics[width=\columnwidth]{plots/TTLambdaErrorCurves_BHspin_BHmass_SNR30_CI90_0}
+% \caption{\red{FIGURE FEELS UNFINISHED. POLISH AND SYNCHRONIZE FIGURE WITH CAPTION.}
+% \prayush{TRY AND MAKE THIS POINT IN THE FIGURE ABOVE ONLY.}
+% In these figures we highlight the regions of BH mass and spin plane 
+% where we can constrain the $\lambdans$ of its companion NS within a factor of 
+% $1-2$ of its true value. Panels correspond to different signal strength, with 
+% $\rho$ increasing from left to right. Within each panel, $\lambdans$ 
+% measurement uncertainty contours are shown as functions of BH mass and spin,
+% with line-types corresponding to different uncertainty levels, and colors 
+% showing the injected $\lambdans$. 
+% % We note that this information is, in principle, contained in 
+% % Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
+% % the effect of NS's deformability itself on its measurement. 
+% As hinted at in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, the 
+% measurability of NS tidal deformability improves with all factors that 
+% enhances the signature of the NS's disruption on the \textit{detectable} 
+% portion of the emitted GW signal (implying, within a frequency band set by the
+% detectors).
+% }
+% \label{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0}
+% \end{figure*}
 %
 
 In the previous section we showed that we begin to care for the effects of NS's
@@ -1166,31 +1168,19 @@ In this section we consider this question in perspective of measuring the tidal
 deformability parameter of neutron stars purely from gravitational waves they emits 
 while orbiting spinning black holes.
 % 
-\red{Move to discussion}
-\prayush{%
-We find that when the BH is sufficiently spinning in the prograde sense,
-with $\chibh\gtrsim +0.7$, even at a relatively possible signal strengths ($\rho=20$),
-we can begin to constraint $\lambdans$ at the level of $\pm 75\%$ errors with a $90\%$
-confidence level. If the signal is stronger, say $\rho=30$, we can contraint
-$\lambdans$ better with only $\pm 50\%$ errors, for binaries with large BH spins.
-This trend continues as we vary the SNR from $\rho=30-50$ upwards. In other words,
-with a single but moderately loud NSBH signal observation, Advanced LIGO will begin
-to put constraints on NS matter properties. These constraints can consequently
-be used to assess the likelihood of different equations of state for nuclear
-matter, and possibly narrow the range they span.
-}
+
   `
-\red{Is this the LEA+ mode? If yes, say so}
-\prayush{%
-We use the same set of systems as in the previous section, with $q=\{2,3,4,5\}$,
-$\chibh=\{-0.5,0,+0.5,+0.75\}$, $\lambdans=\{500, 800, 1000, 1500, 2000\}$ and SNRs
-$\rho=\{20,30,50,70\}$. For each unique combination of these parameters, we obtain a
-signal waveform using the tidal model of Lackey et al~\cite{Lackey:2013axa}.
-We use the same waveform model as input to our Bayesian parameter estimation
-method in order to obtain estimates for different binary parameters along with 
-their full probability distributions, including for the NS tidal
-deformability parameter $\lambdans$.
-}
+% \red{Is this the LEA+ mode? If yes, say so}
+% \prayush{%
+We sample the same set of systems as in the previous section, i.e. those with
+$q=\{2,3,4,5\}$, $\chibh=\{-0.5,0,+0.5,+0.75\}$, and
+$\lambdans=\{500, 800, 1000, 1500, 2000\}$. For each unique combination of
+these parameters, we generate separate injections at SNRs
+$\rho=\{20,30,50,70\}$, using the LEA+ model~\cite{Lackey:2013axa}. We perform a
+full Bayesian analyses on each of these injections using LEA+ templates, and obtain
+probabilistic estimates for source binary parameters from the GW information
+alone, including for the NS tidal deformability parameter $\lambdans$.
+
 
 \red{Present posterior distributions of selected configurations first..}
 
@@ -1945,6 +1935,22 @@ This, amongst other things, will allow us to rank different equations of
 state for neutron star matter from most to least likely, with a few years'
 time-scale.
 }
+
+
+\red{Move to discussion}
+\prayush{%
+We find that when the BH is sufficiently spinning in the prograde sense,
+with $\chibh\gtrsim +0.7$, even at a relatively possible signal strengths ($\rho=20$),
+we can begin to constraint $\lambdans$ at the level of $\pm 75\%$ errors with a $90\%$
+confidence level. If the signal is stronger, say $\rho=30$, we can contraint
+$\lambdans$ better with only $\pm 50\%$ errors, for binaries with large BH spins.
+This trend continues as we vary the SNR from $\rho=30-50$ upwards. In other words,
+with a single but moderately loud NSBH signal observation, Advanced LIGO will begin
+to put constraints on NS matter properties. These constraints can consequently
+be used to assess the likelihood of different equations of state for nuclear
+matter, and possibly narrow the range they span.
+}
+
 
 \red{
 MOVE towards end of SUMMARY, into ``Future work''.
