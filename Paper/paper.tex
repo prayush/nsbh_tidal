@@ -25,7 +25,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\Note}[1]{\textcolor{blue}{\textbf{[#1]}}}
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\lambdans}{\Lambda_\mathrm{NS}}
-\newcommand{\dlambda}{\delta\Lambda}
+\newcommand{\dlambda}{\delta\lambdans^{90\%}}
 
 \newcommand{\ii}{\mathrm{i}}
 \newcommand{\chibh}{\chi_\mathrm{BH}}
@@ -36,7 +36,6 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\LL}{\mathcal{L}}
 \newcommand{\deff}{D_\mathrm{eff}}
 \newcommand{\arr}{\mathtt{r}}
-
 
 \newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
     California Institute of Technology, Pasadena, CA 91125, USA}}
@@ -1132,12 +1131,15 @@ SNR, (ii) decreasing BH mass, (iii) increasing BH spin, and
 % \includegraphics[width=1.025\columnwidth]{plots/TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0}\\
 \caption{
 We show here, as a function of BH mass and spin, the {\it minimum} signal
-strength (SNR) required to constrain $\lambdans$ of the companion NS within a factor
-of $100\%$ of its true value, i.e. with $\pm 50\%$ error-bars. The NS mass is fixed
-at $1.35M_\odot$, spin at zero, and $\lambdans=2000$.
+strength (SNR) required to constrain $\lambdans$ within an interval of width
+equal to $100\%$ of its true value, i.e. with $\pm 50\%$ error-bars. The NS mass
+is fixed at $1.35M_\odot$, spin at zero, and $\lambdans=2000$.
 % 
-We can see that, irrespective of BH properties, we cannot constrain $\lambdans$
-to better than $\pm 50\%$ if the SNR is below $\approx 29$.
+We can see that, even in the most conducive circumstances with large aligned 
+$\chibh$ and a comparable mass BH, we can only constrain $\lambdans$ to better
+than $\pm 50\%$ {\it if} the SNR is $\gtrsim 29$. In the era of design
+sensitivity LIGO instruments, we expect this to happen approximately once in a
+year of observation.
 % 
 % We note that this information is, in principle, contained in 
 % Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which we gather here to better understand
@@ -1239,8 +1241,11 @@ while the median recovered value is marked by a red (dashed) line. The darker
 shaded region marks the $90\%$ confidence interval on $\lambdans$. One thing
 to note in this figure is that the measurement uncertainty on $\lambdans$, i.e.
 the full width of its $90\%$ confidence interval, grows slower than $\lambdans$
-as $\lambdans$ is turned up (while the fractional uncertainty 
-$(\Delta\lambdans)^{90\%}/\lambdans$ decreases with increasing $\lambdans$).
+as $\lambdans$ is turned up (while the fractional uncertainty
+\begin{equation}
+\delta\lambdans^{90\%}:= (\Delta\lambdans)^{90\%}/\lambdans
+\end{equation}
+decreases with increasing $\lambdans$).
 %
 Next, in Fig.~\ref{fig:SingleSystemLambda2DPDFs} we show the correlation of
 mass, spin, and tidal parameter measurements. We keep the binary parameters
@@ -1255,7 +1260,7 @@ difference that the SNR has been turned up to $50$ to bring out the intrinsic
 ambiguity contours.
 %
 We find that the measurement of $\lambdans$ is only weakly degenerate with
-other parameters, and may not improve much if we knew non-tidal parameters
+other parameters, and may only marginally improve if we knew non-tidal parameters
 to better accuracy. The predominant factor that would improve the measurement
 accuracy for $\lambdans$ is the signal strength, SNR.
 
@@ -1281,8 +1286,8 @@ accuracy for $\lambdans$ is the signal strength, SNR.
 
 
 
-The precision with which $\lambdans$ can be measured is given by the width of 
-its $90\%$ confidence interval, as a fraction of the true value. 
+%The precision with which $\lambdans$ can be measured is given by the full 
+%width of its $90\%$ confidence interval, as a fraction of the true value. 
 In Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR} we show the same as a function
 of binary parameters and signal strength. Each panel shows the percent statistical
 uncertainty $\dlambda$ in the measurement of $\lambdans$ as a function of BH 
@@ -1311,15 +1316,16 @@ to be for us to put meaningful constraints on the tidal deformability of NSs.
 In the left panel, as a function BH mass and spin, 
 we show the lowest SNR value $\rho_c$ in order for the signal to have enough
 information that we can constrain $\dlambda$ below $200\%$.
-\red{%
-\begin{enumerate}
- \item Inconsistent notation $\delta$ vs $\dlambda$. Unify.
- \item Explain precise definition of $\delta\lambdans/\dlambda$: Is this the 
- full width or half width of the posterior. Such explanation fit in nicely into
- the discussion of the new $\lambdans$ posterior plots like Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}.
-\end{enumerate}
-}
-\hspace{-3mm}Note that being able to constrain $\lambdans$ within a factor of $2$ interval 
+%\red{%
+%\begin{enumerate}
+% \item Inconsistent notation $\delta$ vs $\dlambda$. Unify.
+% \item Explain precise definition of $\delta\lambdans/\dlambda$: Is this the 
+% full width or half width of the posterior. Such explanation fit in nicely into
+% the discussion of the new $\lambdans$ posterior plots like Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}.
+%\end{enumerate}
+%}
+%\hspace{-3mm}
+Note that being able to constrain $\lambdans$ within a factor of $2$ interval 
 (i.e. within $\pm 100\%$) is a fairly modest requirement. We find promising 
 results, which suggest that there is a fairly wide range of BH spins, less
 wide (but non-trivial) range of BH masses, within
@@ -1340,26 +1346,26 @@ accuracy threshold (which is more than $3\times$ less likely to happen than
 getting a signal with $\rho=20$).
 
 
-\red{%
-(i) Rework text, so that you slowly build up the information needed. First, explain
-the general idea pursued, then discuss one panel first, then introduce second
-panel, finally, contrast both panels.
-(ii) High information density. Distinction between left and right panels notation
-not needed in the first sentence. deferring this info by a few sentences will make
-it easier for the reader to follow the discussion.
-}
-\prayush{%
-Lastly, in Fig.~\ref{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0} we show the
-conditions that BH parameters must fulfill beside having an SNR of $20$ (left 
-panel) or $30$ (right panel), to obtain meaningful constraints on $\lambdans$.
-At $\rho=20$, the left panel shows that we need high BH spins 
-$\chibh\gtrsim +0.6$ and a very deformable NS with $\lambdans\geq 1500$, in 
-order to put a factor of $2$ bound on $\lambdans$. At $\rho=30$, with
-$\lambdans\gtrsim 1000$ and $\chibh\geq+0.6$ we can put a similar factor of
-$2$ bound on $\lambdans$, but with $\chibh\sim+0.75$ and an extremely deformable
-NS with $\lambdans=2000$ one could even put a $\pm 50\%$ error-bar on 
-$\lambdans$ measurement.
-}
+%\red{%
+%(i) Rework text, so that you slowly build up the information needed. First, explain
+%the general idea pursued, then discuss one panel first, then introduce second
+%panel, finally, contrast both panels.
+%(ii) High information density. Distinction between left and right panels notation
+%not needed in the first sentence. deferring this info by a few sentences will make
+%it easier for the reader to follow the discussion.
+%}
+%\prayush{%
+%Lastly, in Fig.~\ref{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0} we show the
+%conditions that BH parameters must fulfill beside having an SNR of $20$ (left 
+%panel) or $30$ (right panel), to obtain meaningful constraints on $\lambdans$.
+%At $\rho=20$, the left panel shows that we need high BH spins 
+%$\chibh\gtrsim +0.6$ and a very deformable NS with $\lambdans\geq 1500$, in 
+%order to put a factor of $2$ bound on $\lambdans$. At $\rho=30$, with
+%$\lambdans\gtrsim 1000$ and $\chibh\geq+0.6$ we can put a similar factor of
+%$2$ bound on $\lambdans$, but with $\chibh\sim+0.75$ and an extremely deformable
+%NS with $\lambdans=2000$ one could even put a $\pm 50\%$ error-bar on 
+%$\lambdans$ measurement.
+%}
 
 
 
