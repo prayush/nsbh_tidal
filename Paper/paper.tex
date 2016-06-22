@@ -888,11 +888,13 @@ $\chins=0$, but explore $\lambdans\in\{500, 800, 1000, 1500, 2000\}$. The signal
 strength is varied from $\rho=20\rightarrow70$. Our choice of this SNR range is
 motivated by previous studies which suggest that signatures of NS tidal effects
 become observable only at relatively large SNRs~\cite{Lackey:2013axa}, and is validated
-by the results to follow. At design sensitivity, if we expect $10-300$ NSBH detections 
+by results that follow. At design sensitivity, if we expect $10-300$ NSBH detections 
 a year~\cite{Abadie:2010cfa}, and if BH masses are uniformly likely up to
 $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we would expect to detect $0.3-7$ disruptive
 NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with $\rho\geq 30$, and $0.04-1$ a
-year with $\rho\geq 70$.
+year with $\rho\geq 70$. For our priors, we choose uniform distribution for 
+both component masses as well as for black hole spins, i.e. $\mbh\in[2,20]M_\odot$,
+$\mns\in[1,3]M_\odot$ and $-0.5\leq \chibh\leq +0.75$. \prayush{FIXME}
 
 
 
@@ -1077,18 +1079,26 @@ decreases monotonically as $\lambdans$ increases (with signal strength fixed).
 %%
 \begin{figure*}
 \centering 
-\includegraphics[width=0.62\columnwidth]{plots/McEta2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.62\columnwidth]{plots/EtaChiBH2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.62\columnwidth]{plots/McChiBH2D_q4_mc2_25_chi0_50_snr30}\\
-\includegraphics[width=0.62\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.62\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.62\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr30}\\
-\includegraphics[width=0.6\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr50}
-\includegraphics[width=0.6\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr50}
-\includegraphics[width=0.6\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr50}
-\caption{\prayush{INCOMPLETE..}We illustrate here two-dimensional probability distributions, showing
-the correlation between the NS tidal deformability parameter $\lambdans$ 
-and binary mass and spin parameters.
+\includegraphics[width=0.5\columnwidth]{plots/McEta2D_q4_mc2_25_chi0_50_snr30}
+\includegraphics[width=0.5\columnwidth]{plots/EtaChiBH2D_q4_mc2_25_chi0_50_snr30}
+\includegraphics[width=0.5\columnwidth]{plots/McChiBH2D_q4_mc2_25_chi0_50_snr30}\\
+\includegraphics[width=0.5\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr30}
+\includegraphics[width=0.5\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr30}
+\includegraphics[width=0.5\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr30}\\
+\includegraphics[width=0.47\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr50}
+\includegraphics[width=0.47\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr50}
+\includegraphics[width=0.47\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr50}
+\caption{%
+We illustrate here two-dimensional joint probability distributions, as
+recovered for the intrinsic parameters of a binary with
+$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$,
+$\lambdans=2000$, and $\rho=30$ (same as in
+Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}).
+The top row shows the same for combinations of 
+non-tidal parameters, i.e. binary masses and spins, while the middle row 
+shows combinations of $\lambdans$ with non-tidal parameters. The bottom row
+is similar to the middle, with the only difference being that the SNR has been
+turned up to $\rho=50$.
 }
 \label{fig:SingleSystemLambda2DPDFs}
 \end{figure*}
@@ -1168,7 +1178,7 @@ to better than $\pm 50\%$ if the SNR is below $\approx 29$.
 %
 
 In the previous section, we showed that the effects of NS's deformation due to
-its companion hole's tidal field becomes discernible in GW spectrum only when
+its companion hole's tidal field become discernible in the GW spectrum only when
 the following hold: (a) the BH has a sufficiently small mass, (b) BH spin
 is positive aligned, i.e. $\chibh\gtrsim +0.4$, (c) the NS is not very compact,
 with $\lambdans\gtrsim 1000$, and finally, (d) the source is close enough
@@ -1176,57 +1186,101 @@ such that SNR $\gtrsim 30$.
 % 
 The first two conditions both enhance the tidal distortion of the star and increase
 the number of orbits the system goes through at small separation, where the
-differences between NSBH and BHBH signals is maximal.
+differences between NSBH and BHBH signals are maximal.
 % 
-The third simply makes the NS more easily deformable. All of them also reduce
-the onset frequency of NS's disruption, allowing for it to happen earlier in
-the orbit. 
+The first three also reduce the onset frequency of NS's disruption, allowing
+for it to happen earlier in the orbit. 
 % 
-In addition, a SNR of $30$ corresponds to a $1.35+5M_\odot$ binary with 
-$\chibh = 0.4$ at a luminosity distance of $XXX$~Mpc, if optimally aligned
-with LIGO. If, instead, it subtends a non-zero angle with LIGO's line of sight
-(say $45^o$), the binary would need to be at $\approx XXX$~Mpc to achieve the
-same signal strength.
+We expect that these conditions are also the ones which would maximize the
+likelihood of {\it measuring} tidal effects in NSBH signals. We, therefore,
+%
+%In addition, a SNR of $30$ corresponds to a $1.35+5M_\odot$ binary with 
+%$\chibh = 0.4$ at a luminosity distance of $XXX$~Mpc, if optimally aligned
+%with LIGO ($XXX$~Mpc if the binary subtends a $45^o$ angle with LIGO's line of
+%sight.
+%
+%These conditions are strong, but not unrealistic. For e.g., a detection rate
+%of $20$ NSBHs a year implies $1-2$ of them will have SNRs$\gtrsim 30$, since
+%the number of expected events scales as $1/\rho^2$ if we assume that sources
+%are distributed uniformly in spacial volume.
+%
+turn the question around and ask: under similarly favorable circumstances, can
+we gain insights about the internal structure of neutron stars from GW observations.
 
 
-
-Ultimately, the extent of tidal modulations of emitted GWs depends on the
-equation of state of neutron star interior, which becomes an indirect
-measurable in GW astrophysics.
+%
+%Ultimately, the extent of tidal moduilations of emitted GWs depends on the
+%equation of state of neutron star matter, which becomes an indirect
+%measurable in GW astrophysics.
 % 
-We therefore turn to the question: If we do observe GWs from disruptive 
-coalescing NSBHs, what information can we extract from them about the internal
-structure of neutron stars?
+%We therefore turn to the question: If we do observe GWs from disruptive 
+%coalescing NSBHs, what information can we extract from them about the internal
+%structure of neutron stars?
 % 
-We calculate here the accuracy with which we measure $\lambdans$ from a 
-{\it single} GW observation. We will focus on combining multiple observations
-in the following section.
+In order to explore this, we calculate here the accuracy with which we measure
+$\lambdans$ from {\it single} GW observations. We sample the same set of
+disruptive NSBH systems as in the previous section, i.e. those with
+$q=\{2,3,4,5\}$, $\chibh=\{-0.5,0,+0.5,+0.75\}$, and $\lambdans=\{500, 800, 1000, 1500, 2000\}$.
+For each unique combination of these parameters, we generate separate injections
+at SNRs $\rho=\{20,30,50,70\}$, using the LEA+ model~\cite{Lackey:2013axa}. We
+perform full Bayesian analyses on each of these injections using LEA+ templates,
+and obtain probabilistic estimates for source binary parameters using GW information
+alone (including the NS tidal deformability parameter $\lambdans$). Our priors
+on component masses and spins remain as in the previous section, while $\lambdans$
+is sampled uniformly from $[0,4000]$.
+
+As an illustration, we show the recovered
+probability distribution for $\lambdans$ for three specific configurations in 
+Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}. We fix $q = m_1/m_2 =
+5.4M_\odot/1.35M_\odot = 4$, with $\chibh=+0.5$, while varying $\lambdans$
+over $\{1000, 1500, 2000\}$ between the three panels. The SNR is fixed at $\rho=50$.
+The true value of $\lambdans$ is given the green (dashed) vertical line,
+while the median recovered value is marked by a red (dashed) line. The darker
+shaded region marks the $90\%$ confidence interval on $\lambdans$. One thing
+to note in this figure is that the measurement uncertainty on $\lambdans$, i.e.
+the full width of its $90\%$ confidence interval, grows slower than $\lambdans$
+as $\lambdans$ is turned up (while the fractional uncertainty 
+$(\Delta\lambdans)^{90\%}/\lambdans$ decreases with increasing $\lambdans$).
+%
+Next, in Fig.~\ref{fig:SingleSystemLambda2DPDFs} we show the correlation of
+mass, spin, and tidal parameter measurements. We keep the binary parameters
+as in Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}, with $\lambdans=2000$, and
+$\rho=30$ (instead of $50$). In the top panel, we show the correlation between
+non-tidal parameters, as manifested in their recovered joint probability
+distributions.
+In the middle row, we show the same between $\lambdans$ and non-tidal 
+parameters, i.e. chirp mass (left panel), mass ratio $\eta$ (middle panel), and
+BH spin $\chibh$ (right). The same is shown in the row below, with the
+difference that the SNR has been turned up to $50$ to bring out the intrinsic
+ambiguity contours.
+%
+We find that the measurement of $\lambdans$ is only weakly degenerate with
+other parameters, and may not improve much if we knew non-tidal parameters
+to better accuracy. The predominant factor that would improve the measurement
+accuracy for $\lambdans$ is the signal strength, SNR.
 
 
-  `
-% \red{Is this the LEA+ mode? If yes, say so}
-% \prayush{%
-We sample the same set of systems as in the previous section, i.e. those with
-$q=\{2,3,4,5\}$, $\chibh=\{-0.5,0,+0.5,+0.75\}$, and
-$\lambdans=\{500, 800, 1000, 1500, 2000\}$. For each unique combination of
-these parameters, we generate separate injections at SNRs
-$\rho=\{20,30,50,70\}$, using the LEA+ model~\cite{Lackey:2013axa}. We perform a
-full Bayesian analyses on each of these injections using LEA+ templates, and obtain
-probabilistic estimates for source binary parameters from the GW information
-alone, including for the NS tidal deformability parameter $\lambdans$.
 
 
-\red{Present posterior distributions of selected configurations first..}
 
-\red{%
-\begin{enumerate}
- \item State the prior on $\lambdans$ because $\lambdans$ weakly deforms waveforms,
-I would expect that measurement uncertainty in $\lambdans$ is approx. independent
-of $\lambdans$, except for running into the $\lambdans\geq 0$ prior.
- \item Is $\lambdans$ measurement degenerate with other parameters? Either cite 
- known studies [if any], or provide 2-d posterior plots.
-\end{enumerate}
-}
+
+
+
+%\red{Present posterior distributions of selected configurations first..}
+
+%\red{%
+%\begin{enumerate}
+% \item State the prior on $\lambdans$ because $\lambdans$ weakly deforms waveforms,
+%I would expect that measurement uncertainty in $\lambdans$ is approx. independent
+%of $\lambdans$, except for running into the $\lambdans\geq 0$ prior.
+% \item Is $\lambdans$ measurement degenerate with other parameters? Either cite 
+% known studies [if any], or provide 2-d posterior plots.
+%\end{enumerate}
+%}
+
+
+
+
 The precision with which $\lambdans$ can be measured is given by the width of 
 its $90\%$ confidence interval, as a fraction of the true value. 
 In Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR} we show the same as a function
