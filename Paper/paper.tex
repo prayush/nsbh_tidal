@@ -10,6 +10,8 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \usepackage{placeins}
 % \usepackage[switch,columnwise]{lineno} 
 \usepackage{lineno}
+\interfootnotelinepenalty=10000
+
 \newcommand{\roughly}{\mathchar"5218\relax} % Different from \sim in spacing
 
 % Macros for text changes
@@ -1179,12 +1181,13 @@ year of observation.
 % \end{figure*}
 %
 
-In the previous section, we showed that the effects of NS's deformation due to
-its companion hole's tidal field become discernible in the GW spectrum only when
-the following hold: (a) the BH has a sufficiently small mass, (b) BH spin
+In the previous section, we showed that the effect of NS's deformation due to
+its companion BH's quadrupolar tidal field becomes discernible in the
+GW spectrum only when the following hold:
+(a) the BH has a sufficiently small mass, (b) BH spin
 is positive aligned, i.e. $\chibh\gtrsim +0.4$, (c) the NS is not very compact,
-with $\lambdans\gtrsim 1000$, and finally, (d) the source is close enough
-such that SNR $\gtrsim 30$.
+with $\lambdans\gtrsim 1000$, {\it and} (d) the source is close enough
+such that its GW SNR $\gtrsim 30$.
 % 
 The first two conditions both enhance the tidal distortion of the star and increase
 the number of orbits the system goes through at small separation, where the
@@ -1194,7 +1197,7 @@ The first three also reduce the onset frequency of NS's disruption, allowing
 for it to happen earlier in the orbit. 
 % 
 We expect that these conditions are also the ones which would maximize the
-likelihood of {\it measuring} tidal effects in NSBH signals. We, therefore,
+likelihood of {\it measuring} tidal effects in NSBH signals. In this section,
 %
 %In addition, a SNR of $30$ corresponds to a $1.35+5M_\odot$ binary with 
 %$\chibh = 0.4$ at a luminosity distance of $XXX$~Mpc, if optimally aligned
@@ -1206,7 +1209,7 @@ likelihood of {\it measuring} tidal effects in NSBH signals. We, therefore,
 %the number of expected events scales as $1/\rho^2$ if we assume that sources
 %are distributed uniformly in spacial volume.
 %
-turn the question around and ask: under similarly favorable circumstances, can
+we turn the question around and ask: under similarly favorable circumstances, can
 we gain insights about the internal structure of neutron stars from GW observations.
 
 
@@ -1219,12 +1222,13 @@ we gain insights about the internal structure of neutron stars from GW observati
 %coalescing NSBHs, what information can we extract from them about the internal
 %structure of neutron stars?
 % 
-In order to explore this, we calculate here the accuracy with which we measure
+We begin by calculating the accuracy with which we measure
 $\lambdans$ from {\it single} GW observations. We sample the same set of
 disruptive NSBH systems as in the previous section, i.e. those with
-$q=\{2,3,4,5\}$, $\chibh=\{-0.5,0,+0.5,+0.75\}$, and $\lambdans=\{500, 800, 1000, 1500, 2000\}$.
-For each unique combination of these parameters, we generate separate injections
-at SNRs $\rho=\{20,30,50,70\}$, using the LEA+ model~\cite{Lackey:2013axa}. We
+$q=\{2,3,4,5\}$, $\chibh=\{-0.5,0,+0.5,+0.75\}$, and $\lambdans=\{500, 800, 1000, 1500, 2000\}$;
+fixing the NS mass $\mns=1.35 M_\odot$ and $\chins=0$.
+For each unique combination of these parameters, we generate separate 
+zero-noise injections at SNRs $\rho=\{20,30,50,70\}$, using the LEA+ model. We
 perform full Bayesian analyses on each of these injections using LEA+ templates,
 and obtain probabilistic estimates for source binary parameters using GW information
 alone (including the NS tidal deformability parameter $\lambdans$). Our priors
@@ -1255,9 +1259,9 @@ non-tidal parameters, as manifested in their recovered joint probability
 distributions.
 In the middle row, we show the same between $\lambdans$ and non-tidal 
 parameters, i.e. chirp mass (left panel), mass ratio $\eta$ (middle panel), and
-BH spin $\chibh$ (right). The same is shown in the row below, with the
-difference that the SNR has been turned up to $50$ to bring out the intrinsic
-ambiguity contours.
+BH spin $\chibh$ (right panel). The same is shown in the row below, with the
+difference that the SNR has been turned up to $\rho=50$, which brings out the
+intrinsic ambiguity contours more clearly.
 %
 We find that the measurement of $\lambdans$ is only weakly degenerate with
 other parameters, and may only marginally improve if we knew non-tidal parameters
@@ -1267,112 +1271,79 @@ accuracy for $\lambdans$ is the signal strength, SNR.
 
 
 
+In Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR} we show the main results
+of this section. In each panel, as a function of black hole mass and spin,
+we show the measured $90\%$ confidence intervals for $\lambdans$, i.e.
+$(\Delta\lambdans)^{90\%}$. These correspond to the full width of the dark
+shaded region in the illustrative figure,
+Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}. The effect of signal strength,
+i.e. SNR, can be seen as we go from left to right in each row. The
+effect of NS's tidal deformability $\lambdans$ on its own measurability
+can be seen by comparing panels within each column. The NS becomes more 
+deformable as we go from top to bottom. In addition, contours of
+$\dlambda=\{50\%,75\%,100\%,150\%,200\%\}$ are also shown in all panels.
+%
+A clear pattern emerges in the left-most column, which corresponds to
+$\rho=20$. We find that at this signal strength, our measurement of 
+$\lambdans$ is dominated by the width of our prior on $\lambdans$. In other
+words, our measured confidence interval is restricted by the
+allowed range of $\lambdans$. Increasing the signal strength to
+$\rho=30$ gives somewhat similar results, as can be seen from the second-from-left
+column of the figure. We do, however, find more encouraging results
+for high BH spins, in which case we can put $\pm 100\%$ to $\pm 75\%$
+bounds on $\lambdans$~\footnote{The symmetric error-bars of
+$\pm\mathrm{X}\%$ correspond to $\dlambda = 2\mathrm{X}\%$.}.
+In addition to large BH spins, this level of
+precision will also require rather deformable neutron stars.
+%
+At higher SNRs, $\rho\gtrsim 50$, we can put stronger constraints
+on $\lambdans$. With a {\it single} observation of a $q=4$ binary with
+$\chibh\geq 0.6$ and $\rho = 50$~\footnote{For an optimally oriented
+source with $q=4, \mns=1.35M_\odot, \chibh=0.6$, an SNR of 
+$\rho = 50$ corresponds to a luminosity distance of $\approx 113$Mpc.},
+we would be able to estimate 
+$\lambdans$ to within $\pm 40\%$ of its true value 
+(which is equivalent to measuring the ratio of its radius to mass
+with an uncertainty of about $\pm 10\%$).
 
 
 
 
-%\red{Present posterior distributions of selected configurations first..}
-
-%\red{%
-%\begin{enumerate}
-% \item State the prior on $\lambdans$ because $\lambdans$ weakly deforms waveforms,
-%I would expect that measurement uncertainty in $\lambdans$ is approx. independent
-%of $\lambdans$, except for running into the $\lambdans\geq 0$ prior.
-% \item Is $\lambdans$ measurement degenerate with other parameters? Either cite 
-% known studies [if any], or provide 2-d posterior plots.
-%\end{enumerate}
-%}
-
-
-
-
-%The precision with which $\lambdans$ can be measured is given by the full 
-%width of its $90\%$ confidence interval, as a fraction of the true value. 
-In Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR} we show the same as a function
-of binary parameters and signal strength. Each panel shows the percent statistical
-uncertainty $\dlambda$ in the measurement of $\lambdans$ as a function of BH 
-masses and spins, with NS parameters and signal strength being held fixed. 
-In each row, the signal strength is increased from
-left to right with $\rho = 20\rightarrow 70$. In each column, the deformability
-of the NS is increased from top to bottom, with $\lambdans=500\rightarrow 2000$.
-% 
-We find that at SNRs around $\rho=30$, we begin to constrain $\lambdans$ 
-meaningfully with $\dlambda\approx 100-150\%$. Amongst other parameters, 
-the BH spin and mass play a big role. A smaller BH with a larger spin always
-allows for a more precise measurement on $\lambdans$. Visually we can see that
-in each panel the bottom right corner, which corresponds to low-mass BHs
-with large spins, is the region of smallest measurement errors on $\lambdans$.
+Amongst other source parameters, BH mass and spin play a dominant role. A smaller
+BH with a larger spin always allows for a more precise measurement on $\lambdans$.
+Visually we can see this in the bottom right corner of each panel in
+Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, which corresponds to low-mass BHs
+with large spins, and is simultaneously the region of smallest measurement errors on $\lambdans$.
 The actual deformability of the NS also plays an important role on its own
 measurability. For e.g., when $\lambdans\leq 1000$, it is fairly difficult
-to meaningfully constrain $\lambdans$ without getting remarkably lucky and
-finding such a binary with $\rho\gtrsim 50$.
-
-
-
-In Fig.~\ref{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0} we take the case of
-moderately deformable neutron stars, with actual $\lambdans = 1000$ (left 
-panel) and $1500$ (right panel), and ask how loud such a signal will have
-to be for us to put meaningful constraints on the tidal deformability of NSs.
-In the left panel, as a function BH mass and spin, 
-we show the lowest SNR value $\rho_c$ in order for the signal to have enough
-information that we can constrain $\dlambda$ below $200\%$.
-%\red{%
-%\begin{enumerate}
-% \item Inconsistent notation $\delta$ vs $\dlambda$. Unify.
-% \item Explain precise definition of $\delta\lambdans/\dlambda$: Is this the 
-% full width or half width of the posterior. Such explanation fit in nicely into
-% the discussion of the new $\lambdans$ posterior plots like Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}.
-%\end{enumerate}
-%}
-%\hspace{-3mm}
-Note that being able to constrain $\lambdans$ within a factor of $2$ interval 
-(i.e. within $\pm 100\%$) is a fairly modest requirement. We find promising 
-results, which suggest that there is a fairly wide range of BH spins, less
-wide (but non-trivial) range of BH masses, within
-which if we get a moderately loud NSBH signal with $\rho\approx 23$, we constrain
-$\lambdans$ within a factor of $2$ interval (i.e. within $\pm 100\%$) around
-the true value. While this is not very precise, it can possibly allow us to
-rule out candidates for the equation of state of neutron star matter.
+to meaningfully constrain $\lambdans$ without requiring the source to be
+close ($\approx 100$Mpc) with a GW SNR $\rho\gtrsim 50$. Quantifying this further,
+in Fig.~\ref{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0} we show the minimum
+signal strength required to attain a certain level of confidence in our
+$\lambdans$ measurement, as a function of BH properties. The NS is allowed
+the most favorable (hardest) EoS considered, with $\lambdans^\mathrm{true}=2000$.
 % 
-If we want to constrain $\lambdans$ better with a single observation, however,
-we need SNRs of $30$ or higher. This can be seen from the right
-panel of Fig.~\ref{fig:TT_SNRThresholds_BHspin_BHmass_CI90_0}, which is similar
-to the left but for a higher $\lambdans (=1500)$ system, with a more stringent
-constraint requirement that $\lambdans$ be measured within a factor of $1$ of 
-its true value (i.e. with $\pm 50\%$ errors, instead of $\pm 100\%$).
-\red{Dont use two different thresholds in figure.} Even for
-the most conducive cases, we {\it need} the SNR to be above $30$ to reach our 
-accuracy threshold (which is more than $3\times$ less likely to happen than
-getting a signal with $\rho=20$).
-
-
-%\red{%
-%(i) Rework text, so that you slowly build up the information needed. First, explain
-%the general idea pursued, then discuss one panel first, then introduce second
-%panel, finally, contrast both panels.
-%(ii) High information density. Distinction between left and right panels notation
-%not needed in the first sentence. deferring this info by a few sentences will make
-%it easier for the reader to follow the discussion.
-%}
-%\prayush{%
-%Lastly, in Fig.~\ref{fig:TT_LambdaErrorCurves_BHspin_BHmass_CI90_0} we show the
-%conditions that BH parameters must fulfill beside having an SNR of $20$ (left 
-%panel) or $30$ (right panel), to obtain meaningful constraints on $\lambdans$.
-%At $\rho=20$, the left panel shows that we need high BH spins 
-%$\chibh\gtrsim +0.6$ and a very deformable NS with $\lambdans\geq 1500$, in 
-%order to put a factor of $2$ bound on $\lambdans$. At $\rho=30$, with
-%$\lambdans\gtrsim 1000$ and $\chibh\geq+0.6$ we can put a similar factor of
-%$2$ bound on $\lambdans$, but with $\chibh\sim+0.75$ and an extremely deformable
-%NS with $\lambdans=2000$ one could even put a $\pm 50\%$ error-bar on 
-%$\lambdans$ measurement.
-%}
+We first note that, even with the most favorable BH and NS properties, achieving
+a $\pm 50\%$ measurement certainty on $\lambdans$ will require a GW SNR
+$\rho\gtrsim 30$. If we additionally restrict BH masses to lie outside of the so-called
+astrophysical mass-gap~\cite{Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,
+Littenberg:2015tpa}, we will simultaneously need to restrict BH spins
+to $\chibh\gtrsim +0.5$ to obtain the same measurement confidence at the same
+source location.
 
 
 
-In summary, with a single moderately loud BHNS observation, we could constrain
+In summary, with a single moderately loud ($\rho\lesssim 30$) GW signal from
+a disruptive BHNS coalescence, we can constrain
 the NS compactness parameter $\lambdans$ within $\pm 100\%$ of its true value.
-To measure better with one observation, we will need to get lucky with signals
-with $\rho\geq 30$ and high BH spins, or $\rho\geq 50$.
+To measure better with one observation, we will need a more fine-tuned source, with
+$\rho\geq 30$ and high BH spins, or $\rho\geq 50$.
+% 
+Finally, we note that these results are {\it conservative}, and 
+BHs with spins $\chibh > 0.75$ will prove to be even more favorable laboratories
+for $\lambdans$ measurement. However, we are presently unable to explore this case
+in quantitative detail due to waveform model restrictions~\cite{Lackey:2013axa},
+which will restrict our analyses of actual GW signals as well.
 
 
 
