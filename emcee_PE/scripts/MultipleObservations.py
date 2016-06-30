@@ -118,7 +118,7 @@ output:-
             return 0
         elif L > xulimit:
             L = xulimit
-        return si.quad(kde_func, xllimit, L, epsabs=1.49e-12, epsrel=1.49e-12)[0] / denom
+        return si.quad(kde_func, xllimit, L, epsabs=1.49e-16, epsrel=1.49e-16)[0] / denom
     #
     def tmp_rootfunc(L, eps): return np.abs(tmp_intfunc(L) - eps)
     def tmp_medianfunc(L): return np.abs(tmp_rootfunc(L, 0.5))
@@ -473,7 +473,7 @@ What it does:
             ## Normalize the chain's integral
             xllimit, xulimit = [0, 4000]
             lambda_kde_norm = si.quad(lambda_kde.evaluate, xllimit, xulimit,\
-                                        epsabs=1.e-12, epsrel=1.e-12)[0]
+                                        epsabs=1.e-16, epsrel=1.e-16)[0]
             #lambda_gaussian_kde = gaussian_kde(lambda_chain)
             #lambda_multivariate_kde = KDEMultivariate(lambda_chain, bw=0.2*np.ones_like(lambda_chain), var_type='c')
             #lambda_skl_kde = KernelDensity(bandwidth=0.2)
@@ -575,7 +575,7 @@ by the constructor.
             if precalculate_norms:
                 xllimit, xulimit = [0, 4000]
                 lambda_kde_norm = si.quad(lambda_kde.evaluate, xllimit, xulimit,\
-                                            epsabs=1.e-12, epsrel=1.e-12)[0]
+                                            epsabs=1.e-16, epsrel=1.e-16)[0]
             else: lambda_kde_norm = None
             #lambda_gaussian_kde = gaussian_kde(lambda_chain)
             #lambda_multivariate_kde = KDEMultivariate(lambda_chain, bw=0.2*np.ones_like(lambda_chain), var_type='c')
