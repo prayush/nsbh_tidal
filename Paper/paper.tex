@@ -1526,9 +1526,13 @@ confidence intervals will require $40+$ events.
 % 
 
 
-
+\red{Add segway into multiple observations. Point out that all NSs share the same
+$\lambdans(\mns)$, so multiple signals can be combined the measure the common $\lambdans$.}
 
 \textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
+% 
+\red{Simplify presentation: remove (or 16) and (or $\rho=70$) etc. ADd sentence:
+similarly, $16,\rho=10$ events are comparable to one $\rho=70$ event.}
 % 
 We start with a crude calculation which tells us that approximately $8$ (or $16$) 
 observations
@@ -1537,6 +1541,7 @@ give us similarly accurate a measurement of $\lambdans$ as would a single detect
 with $\rho=50$ (or $\rho=70$). 
 
 
+\dred{%
 The approximation of using (only) the dominant $l=|m|=2$ multipoles of
 gravitational-wave strain to construct the signal, ignoring other $l\neq 2$
 multipoles, has the advantage of making various angle parameters 
@@ -1549,7 +1554,16 @@ of the above parameters vary temporally for aligned-spin binaries).
 % 
 In order to consider multiple events, lets imagine a population uniformly
 distributed in effective volume, i.e. within a sphere of radius 
-$\deff^\mathrm{max}$. The radius of this sphere is set by the lowest SNR that 
+$\deff^\mathrm{max}$.}
+% 
+\red{These sentences are distracting. I suggest to simply say 'sources
+uniform in volume'. Probably not necessary to discuss effective distance
+at all. If so, then do so in a footnote.}
+\red{Explain (or state, if explanation is trivial} that uniform in volume,
+uniform in orientation, is equivalent to uniform in effective volume.}
+% 
+\dred{%
+The radius of this sphere is set by the lowest SNR that 
 is distinguishable from noise by LIGO searches. Now, divide the sphere into
 $I$ shells of equal thickness. The radius of the $i$-th sphere would then
 be $D_i = \deff^\mathrm{max} (i - 1/2)/I$. The measurement uncertainty in
@@ -1559,7 +1573,8 @@ $\sigma_0$ for a source located at $\deff = D_0$, the same error for the same
 source located within the $i$-th shell would be 
 $\sigma_i = \sigma_0 \dfrac{D_i}{D_0}$. The combined error from independent
 measurements of $\lambdans$ for identical sources at different distances is
-given by
+given by}
+\red{..into $I$ shells of same radial thickness. The radius at the middle of the}
 \begin{equation}\label{eq:1oversigma}
 \frac{1}{\sigma^2} = \sum_{i=1}^I \frac{N_i}{\sigma_i^2} = \left(\frac{D_0}{\sigma_0}\right)^2 \sum_{i=1}^I\frac{N_i}{D_i^2},
 \end{equation}

@@ -147,6 +147,19 @@ output:-
     #
     return [llimit, median, ulimit]
 
+
+def find_closest_match(tmp_rand, vec):
+    '''
+Take a random number in the range spanned by vec, and find the
+element in vec closest to it.
+    '''
+    diffs = np.abs(np.array(vec) - tmp_rand)
+    idx_min = np.where(diffs == diffs.min())[0][0]
+    if idx_min < 0 or idx_min >= len(vec):
+        raise RuntimeError("Could not find closest match!")
+    return vec[idx_min]
+    
+
 def sample_snr_from_volume(SNRvec):
     '''
 Sample the SNR of signals, as if they are distributed uniformly in
@@ -164,19 +177,124 @@ the observable volume, i.e. 4/3 pi D_Luminosity^3
         if cumsum > rnd_tmp: return SNRvec[i]
     #
     raise RuntimeError("SNR sampling not being done properly")
-        
 
-def find_closest_match(tmp_rand, vec):
+
+def sample_angles_on_S2():
+    """
+Samples a point uniformly from a 2-sphere. Returns its spherical angles.
+first -- polar angle
+second-- azimuthal angle
+    """
+    # First sample in a unit cube, with origin at centroid
+    r = 100
+    while r > 1:
+        x = np.random.uniform(-1, 1)
+        y = np.random.uniform(-1, 1)
+        z = np.random.uniform(-1, 1)
+        r = (x**2 + y**2 + z**2)**0.5
+    x /= r
+    y /= r
+    z /= r
+    #
+    theta = np.arccos(z) # polar angle     (w.r.t. z-axis)
+    if np.isnan(theta): print "Theta is NAN for x, y, z, r, z/r = %f,%f,%f,%f,%f" % (x,y,z,r,z/r)
+    phi   = np.arctan2(y, x) # azimuthal angle (in x-y plane)
+    #
+    return [theta, phi]
+
+
+def sample_snr_from_volume_inclination(SNRvec, q, chi,\
+                        snr_threshold_low=10, snr_threshold_high=100,\
+                        time_length = 256, sample_rate = 16384, f_lower = 15,\
+                        psd = None, verbose=False, vverbose=False):
     '''
-Take a random number in the range spanned by vec, and find the
-element in vec closest to it.
+Sample the SNR of signals, as if they are distributed uniformly in
+the spacial volume, i.e. 4/3 pi D^3, and simultaneously have 
+a. inclination angle with respect to our line of sight uniformly distributed \in [0, pi]
+b. polarization angle
+c. sky location angles on a 2-sphere
+
+Inputs are : 
+1. list of SNR values for Nearest-neighbor interpolation
+2,3. Chosen Q and CHI values
+
+
+Step1:-
+Draw inclination, polarization, right ascension, declination appropriately
+
+Step2:-
+Draw distance from a sphere with radius 1 Gpc
+
+Step3:-
+Calculate the resulting SNR of the signal.
+
+Step4:-
+If SNR is less than threshold, GOTO Step1.
+
+Step5:-
+Return the nearest neighbor of the drawn SNR from the list of SNR values given
     '''
-    diffs = np.abs(np.array(vec) - tmp_rand)
-    idx_min = np.where(diffs == diffs.min())[0][0]
-    if idx_min < 0 or idx_min >= len(vec):
-        raise RuntimeError("Could not find closest match!")
-    return vec[idx_min]
-    
+    try:
+      from pycbc.waveform import get_fd_waveform, get_td_waveform
+      from pycbc.types import FrequencySeries, TimeSeries
+      from pycbc.psd import from_string
+      from pycbc.filter import sigma
+    except ImportError as ie:
+      print ie, "Please source your Pycbc environment properly"
+      raise ImportError
+    #
+    N = sample_rate * time_length
+    if psd is None or type(psd)!=FrequencySeries:
+      psd = from_string('aLIGOZeroDetHighPower', N/2 + 1, 1./time_length, 10)
+    if vverbose:
+      print "length of PSD vector in frequency domain = %d, max freq = %f Hz" %\
+                (len(psd), len(psd) * psd.delta_f)
+    #
+    signal_snr = 0 # Source infinitely far away, we'll get it closer :)
+    ii = 0
+    while signal_snr < snr_threshold_low or signal_snr > snr_threshold_high:
+      ii += 1
+      if verbose: print "Iteration %d" % ii
+      # First sample the source distance from a volume (Mpc)
+      ## Q. How do we set this range -- Too High upper threshold = 1Gpc
+      distance = np.random.uniform(0, 650**2) ** 0.5
+      #
+      # Next sample the source inclination from a range
+      inclination, polarization = sample_angles_on_S2()
+      # Then sample source location from a range
+      sky_theta, sky_phi = sample_angles_on_S2()
+      #
+      Fp = Fplus(sky_theta, sky_phi, polarization)
+      Fc = Fcross(sky_theta, sky_phi, polarization)
+      # Next, calculate the expected SNR of the event
+      hp, hc = get_fd_waveform(approximant='IMRPhenomD',\
+                                mass1=q*1.35, mass2=1.35, spin1z=chi,\
+                                distance=distance, inclination=inclination,\
+                                f_lower=f_lower, delta_f=1./time_length)
+      h = Fp * hp + Fc * hc
+      if vverbose:
+        print "length of strain vector in frequency domain = %d, max freq = %f Hz" %\
+                (len(hp), len(hp) * hp.delta_f)
+      if len(h) < len(psd):
+        hnew = FrequencySeries(np.zeros(N/2+1), dtype=h.dtype, delta_f=h.delta_f)
+        hnew[:len(h)] = h
+        hold = h
+        h = hnew
+      if len(h) > len(psd):
+        h = h[:len(psd)]
+        print "Waveform's max frequency %f is higher than PSD's %f" %\
+                          (len(h)*h.delta_f, len(psd)*psd.delta_f)
+      #
+      signal_snr = sigma(h, psd=psd, low_frequency_cutoff=f_lower)
+      if verbose: print "SNR this iteration.. = %.2f" % signal_snr
+    #  
+    SNRvec    = np.array(SNRvec)
+    if verbose: print "\n\n"
+    return find_closest_match(signal_snr, SNRvec)
+    #
+    raise RuntimeError("SNR sampling not being done properly")
+  
+
 #######################################################
 ### CALCULATION CLASSES
 #######################################################
@@ -286,14 +404,14 @@ What it does:
     def generate_events(self, lambda_posterior_chains=None,\
                         NSLambda=None,\
                         qvec=None, chi2vec=None, SNRvec=None,\
-                       qmin=20./9., qmax=5.0, chi2min=0.0, chi2max=1.0):
+                        qmin=3./1.35, qmax=5.0, chi2min=0.0, chi2max=1.0):
         '''
         Returns is a list of events. For each event, two objects are returned:
         1. array of posterior samples
         2. fitted kernel density estimator's evaluate method
         '''
+        from pycbc.psd import from_string
         ####
-        N = self.N
         if lambda_posterior_chains == None:
             lambda_posterior_chains = self.lambda_posterior_chains
         if SNRvec == None: SNRvec = self.SNRvec
@@ -309,7 +427,12 @@ What it does:
         if self.verbose:
             print >>sys.stdout, "Creating Events >>"
             sys.stdout.flush()
-        for i in range(N):
+        #
+        sample_rate = 16384
+        time_length = 256
+        N = sample_rate * time_length
+        psd = from_string('aLIGOZeroDetHighPower', N/2 + 1, 1./time_length, 10)
+        for i in range(self.N):
             #
             if self.verbose:
                 print >>sys.stdout, "  Event %d" % i
@@ -320,9 +443,16 @@ What it does:
             #
             # Sample the SNR depending on source distribution specified
             if 'UniformInVolume' in self.source_distribution:
-                rnd_SNR = sample_snr_from_volume(SNRvec)
+              rnd_SNR = sample_snr_from_volume(SNRvec)
+            elif 'UniformIn3DVolumeInclination' in self.source_distribution:
+              rnd_SNR = sample_snr_from_volume_inclination(SNRvec,\
+                              rnd_q, rnd_chiBH,\
+                              sample_rate=sample_rate, time_length=time_length,\
+                              psd=psd)
             else:
-                raise IOError("Only UniformInVolume is supported as a source distribution")
+              raise IOError(\
+              "Only UniformInVolume/UniformIn3DVolumeInclination supported as source distribution, given=%s"\
+              % self.source_distribution)
             #
             if self.verbose:
                 print >>sys.stdout, "Sampled q = %f, chiBH = %f, SNR = %f" % (rnd_q, rnd_chiBH, rnd_SNR)

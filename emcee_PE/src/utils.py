@@ -13,7 +13,7 @@ where rho is the desired snr.
 
 __author__ = "Michael Puerrer, Prayush Kumar"
 __copyright__ = "Copyright 2015"
-__email__ = "Michael.Puerrer@ligo.org"
+__email__ = "Michael.Puerrer@ligo.org; prayush.kumar@ligo.org"
 
 import sys,os
 import lal, lalsimulation
@@ -36,6 +36,24 @@ import scipy.interpolate as ip
 from match import *
 from injection import *
 
+
+################################################################################
+################################################################################
+def Fplus(theta, phi, psi):
+  """
+LIGO's sensitivity function, Eq. 57 of http://relativity.livingreviews.org/Articles/lrr-2009-2/download/lrr-2009-2Color.pdf
+  """
+  t1 = (1. + np.cos(theta)**2) * np.cos(2 * phi) * np.cos(2 * psi) / 2
+  t2 = np.cos(theta) * np.sin(2 * phi) * np.sin(2 * psi)
+  return t1 - t2
+
+def Fcross(theta, phi, psi):
+  """
+LIGO's sensitivity function, Eq. 57 of http://relativity.livingreviews.org/Articles/lrr-2009-2/download/lrr-2009-2Color.pdf
+  """
+  t1 = (1. + np.cos(theta)**2) * np.cos(2 * phi) * np.sin(2 * psi) / 2
+  t2 = np.cos(theta) * np.sin(2 * phi) * np.cos(2 * psi)
+  return t1 + t2
 
 ################################################################################
 # Function to compute percentile intervals from samples
