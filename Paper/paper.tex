@@ -621,6 +621,13 @@ column, we see the effect of increasing $\lambdans$, at fixed SNR.
 % Sec.~\ref{s2:astro_multiple}.
 
 \red{SAY HERE THAT WE ONLY USE THE $l=|m|=2$ modes.}
+\prayush{
+This is possible because of our simplification of 
+using only the dominant $l=|m|=2$ modes of the GW strain~\footnote{The 
+$l=|m|=2$ multipoles of the GW strain, when decomposed in a spin $-2$ weighted
+spherical harmonic basis, contain more than $99\%$ of the total signal power}
+that makes various angle parameters completely degenerate with distance. 
+}
 % 
 \subsection{Waveform Models}\label{s2:waveforms}
 
@@ -1547,8 +1554,7 @@ framework.
 
 
 
-% \textbf{Multiple identical sources at low SNR: }
-\label{s2:identical_multiple}
+% \textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
 % 
 An intuitive understanding of the problem is gained by considering first
 multiple {\it identical} sources at realistic SNRs. Let us consider the case
@@ -1663,71 +1669,86 @@ that have $\rho\geq\rho_\mathrm{min}$. E.g., to get to the
 level of certainty afforded by a single observation with $\rho=70$, we would
 need $49/3\approx 16-17$ realistic (low SNR) detections.
 
-
 While we discussed Eq.~\ref{eq:rmsSigmaIdenticalSources} for a population
-of optimally oriented sources, it is valid more generally if the population is
+of optimally oriented sources, it is valid more generally for a population
 distributed uniformly in {\it effective} volume~\footnote{{\it effective} 
 distance $D_\mathrm{eff}$ 
 is a combination of distance to the source, its orientation, and its sky
 location angles, and has a one-to-one correspondence with SNR for non-precessing
 systems, for which these angles are constant in time. Effective volume is 
-proportional to the $D_\mathrm{eff}^3$}~\cite{Markakis:2010mp}. However, it 
+$\frac{4\pi}{3}D_\mathrm{eff}^3$.}~\cite{Markakis:2010mp}. However, it 
 still only applies to sources with identical masses and spins, and we 
 overcome this limitation by performing a fully Bayesian analysis next.
 
-% There are two main caveats to this rudimentary calculation, first outlined in 
-% Ref.~\cite{Markakis:2010mp}: (i) it applies to identical sources,
-% which is astrophysically next to impossible to achieve exactly, but could perhaps happen 
-% approximately; (ii) the combined average measurement error $\sigma_{avg}$ has been defined
-% as in the first equality in Eq.~\ref{eq:rmsSigmaIdenticalSources}. To overcome both,
-% we next perform a Bayesian population analysis.
-% 
 
 \textbf{Astrophysical source population: }\label{s2:astro_multiple}
 % 
 Imagine that we have $N$ stretches of data, $d_1, d_2, \cdots, d_N$, each 
 containing a single signal emitted by an NSBH binary. Each of these signals can
-be characterized by the following binary parameters:
-$\,\vec{\theta} = \{\mbh, \mns, \chibh, \chins, \rho\}\cup\{\lambdans\}$. Note
-that we have folded in the luminosity distance, inclination angle of the 
-binary's orbital angular momentum with respect to the plane of the detector,
-and source's sky location angles into a single parameter $\rho$, which is the 
-SNR of the received signal. This is possible because of our simplification of 
-using only the dominant $l=|m|=2$ modes of the GW strain~\footnote{The 
-$l=|m|=2$ multipoles of the GW strain, when decomposed in a spin $-2$ weighted
-spherical harmonic basis, contain more than $99\%$ of the total signal power}
-that makes various angle parameters completely degenerate with distance. 
+be characterized by the non-tidal source parameters
+$\vec{\theta} := \{\mbh, \mns, \chibh, \chins, \vec{\alpha}\}$,
+and $\{\lambdans\}$, where $\vec{\alpha}$ contains extrinsic parameters,
+such as source distance, inclination, and sky location angles.
+% 
 Further, let $K$ denote all of our collective prior knowledge, except for 
 expectations on binary parameters themselves, which enter the following 
 calculation explicitly. For instance, $K$ includes our assumption that all
 NS's in a single population have the same deformability parameter $\lambdans$, 
 and its cumulative measurement is therefore possible.
 % 
-Using Bayes' theorem, the measured probability distribution function for 
-$\lambdans$ from $N$ observations is given by~\footnote{%
-Eq.~\ref{eq:lambdaMultiple} includes the following implicit factor to normalize
-its right-hand side: $\dfrac{\prod_i p(d_i|K)}{\int p(\lambdans)\,p(d_1, d_2, \cdots, d_N | \lambdans; K)\,\D\lambdans}$}
+The probability distribution for $\lambdans$, given $N$ unique and
+independent events, is
+% 
+\begin{eqnarray}
+ p(\lambdans |&& \hspace{-4mm}d_1, d_2, \cdots, d_N, K)\hspace{50mm}\nonumber\\ &=& \dfrac{p(d_1,d_2,\cdots,d_N |\lambdans , K)\,p(\lambdans|K)}{\int p(\lambdans |K) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans},\label{eq:p11}\\
+  &=& \dfrac{p(\lambdans|K) \prod_{i} p(d_i|\lambdans, K)}{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans},\label{eq:p12} \\
+  &=& \dfrac{p(\lambdans|K) \prod_{i} \left( p(\lambdans |d_i, K)\dfrac{p(d_i)}{p(\lambdans|K)} \right)}{\int\, p(\lambdans|K )\, p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans}\label{eq:p13};
+\end{eqnarray}
+% 
+where Eq.~\ref{eq:p11} and Eq.~\ref{eq:p13} are application of Bayes' theorem,
+while Eq.~\ref{eq:p12} comes from the mutual independence of all events.
+Assuming in addition that all events are {\it equally likely}: 
+$p(d_i) = p(d_j) = p(d)$, we get
+% 
+\begin{eqnarray}
+ p(&&\hspace{-4mm}\lambdans | d_1, d_2, \cdots, d_N, K)\hspace{50mm}\nonumber\\
+  &=& \dfrac{p(\lambdans) \left(\dfrac{p(d)}{p(\lambdans)}\right)^N\prod_{i} p(\lambdans |d_i, K) }{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans}\label{eq:p21},\\
+  &=& p(\lambdans)^{1-N}\times \dfrac{p(d)^N}{\int p(\lambdans) p(d_1, d_2, \cdots, d_N |\lambdans, K)\D\lambdans}\nonumber\\ &&\hspace{3mm}\times\prod_i p(\lambdans |d_i, K)\label{eq:p22}.
+\end{eqnarray}
+% 
+The first two factors in Eq.~\ref{eq:p22} can be absorbed into a
+normalization factor $\mathcal{N}$, simplifying it to
+% 
 \begin{equation}\label{eq:lambdaMultiple}
- p(\lambdans | d_1, d_2, \cdots, d_N; K) = p(\lambdans | K)^{1-N}\prod_{i=1}^N p(\lambdans | d_i, K),
+ p(\lambdans | d_1, d_2, \cdots, d_N; K) = \mathcal{N}\prod_{i=1}^N p(\lambdans | d_i, K).
 \end{equation}
-where $p(\lambdans|K)$ is the prior expectation for $\lambdans$, and all $N$ 
-observations are taken to be mutually independent. A priori, we assume
-that no particular value of $\lambdans$ is preferred over another, and 
-$\lambdans\leq 4000$, i.e.
+% 
+% 
+% % 
+% Using Bayes' theorem, the measured probability distribution function for 
+% $\lambdans$ from $N$ observations is given by~\footnote{%
+% Eq.~\ref{eq:lambdaMultiple} includes the following implicit factor to normalize
+% its right-hand side: $\dfrac{\prod_i p(d_i|K)}{\int p(\lambdans)\,p(d_1, d_2, \cdots, d_N | \lambdans; K)\,\D\lambdans}$}
+% \begin{equation}\label{eq:lambdaMultiple}
+%  p(\lambdans | d_1, d_2, \cdots, d_N; K) = p(\lambdans | K)^{1-N}\prod_{i=1}^N p(\lambdans | d_i, K),
+% \end{equation}
+A priori, we assume that no particular value of $\lambdans$ is preferred
+over another, and restrict $\lambdans$ to $[0, 4000]$, i.e.
 \begin{equation}\label{eq:lprior}
  p(\lambdans | K) = \dfrac{1}{4000}\,\mathrm{Rect}\left(\frac{\lambdans-2000}{4000}\right).
 \end{equation}
 % 
 In the second set of terms in Eq.~\ref{eq:lambdaMultiple} (of the form 
 $p(\lambdans | d_i, K)$), each is the probability distribution for $\lambdans$
-inferred {\it a posteriori} from the \textit{i}-th observation in isolation. 
-They are calculated by integrating
+inferred {\it a posteriori} from the \textit{i}-th observation by marginalizing
 \begin{equation}\label{eq:margpost}
- p(\lambdans | d_i, K) = \int \D \vec{\theta}\, p(\vec{\theta}, \lambdans | d_i, K),
+ p(\lambdans | d_i, K) = \int\, p(\vec{\theta}, \lambdans | d_i, K)\, \D \vec{\theta},
 \end{equation}
-where $p(\vec{\theta}, \lambdans | d_n, K)$ is the inferred joint probability 
+where $p(\vec{\theta}, \lambdans | d_i, K)$ is the inferred joint probability 
 distribution of all source parameters $\vec{\theta}\cup\{\lambdans\}$ for the 
-$i$-th event, as given by Eq.~\ref{eq:postprob}. By substituting
+$i$-th event, as given by Eq.~\ref{eq:postprob}. We note that 
+Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR} illustrates $p(\lambdans | d_i, K)$
+for three individual events. By substituting
 Eq.~\ref{eq:lprior}-\ref{eq:margpost} into Eq.~\ref{eq:lambdaMultiple}, we
 calculate the probability distribution for $\lambdans$ as measured using $N$
 independent events.
@@ -1736,50 +1757,59 @@ independent events.
 
 
 Our goal is to understand the improvement in our measurement of $\lambdans$
-with the number of recorded events. To do so, we simulate populations of $N$
-observations each, and quantify what we learn from each successive observation 
-using Eq.~\ref{eq:lambdaMultiple}. For each population, we determine how
+with the number of recorded events. To do so, we simulate a population~\footnote{%
+A population here is an ordered set of events, and an event itself is the 
+set of parameters describing one astrophysical NSBH binary.}
+of $N$ events, and quantify what we learn from each successive observation 
+using Eq.~\ref{eq:lambdaMultiple}. This allows us to quantify how
 rapidly our median estimate for $\lambdans$ converges to the true value,
 and how rapidly our confidence intervals for the same shrink, with increasing
-$N$. In order to generate each population, we first fix
+$N$. Finally, we generate and analyze an ensemble of populations in order to
+average over the stochastic process of population generation itself.
+
+
+In order to generate each population, the first step is to fix
 the NS properties: (i) NS mass $\mns=1.35M_\odot$, (ii) NS spin $\chins=0$
 and (iii) NS tidal deformability $\lambdans=$ fixed value chosen from
-$\{500,800,1000,1500,2000\}$. Each event is generated independently, sampling
-the remaining source parameters uniformly from the following ranges: (i)
-mass-ratio $q\in[2,5]$, (ii) BH spin $\chibh\in[0, 0.75]$, (iii) effective 
-distance from within a spherical volume whose radius is given by the lowest 
-detectable SNR (which we take as $\rho=10$). We remind ourselves that
-once binary parameters are fixed, there is a one-to-one mapping between
-effective distance and SNR. Additionally, we consider an alternate population
-paradigm (paradigm B, with paradigm A being the standard one described 
-above), where populations are generated as above but further restricting
-mass-ratios such that source BH masses lie {\it outside} the astrophysical 
-mass-gap~\cite{Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}.
-Finally, in order to mitigate computational cost, we make an additional 
-simplification. We perform full Bayesian parameter estimation for a set of 
-simulated signals whose parameters are the vertices of the following regular
-hypercubic grid (henceforth ``G''):
-$q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
-The final population is given by substituting all of the $N$ events, generated
-as above, with their respective nearest neighbours on the parameter grid G.
+$\{500,800,1000,1500,2000\}$. Next, we generate events, by sampling BH mass
+(uniformly) from $\mbh\in[3M_\odot,6.75M_\odot]$, BH spin (uniformly)
+from $\chibh\in[0, 0.75]$, source location uniformly in spatial volume,
+and its inclination from $\iota\in[0,\pi]$. \prayush{Note that we only
+sample positive aligned BH spins, since binaries with anti-aligned spins have
+very little information to add at realistic SNRs, as shown in 
+Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}.
+}
+As noted previously, we also restrict events to have
+$\rho\geq\rho_\mathrm{min}$, where $\rho_\mathrm{min}=10$.
+Finally, we repeat the process till we have an ordered set of $N$ events.
+% 
+Since we want to analyze not just a single realization of an astrophysical
+population, but an ensemble of them, we make an additional approximation to
+mitigate computational cost. Complete Bayesian parameter estimation is
+performed for a set of simulated signals whose parameters are the vertices
+of a regular hypercubic grid (henceforth ``G'') in the space of
+$\{q\}\times\{\chibh\}\times\{\rho\}$, with each sampled at $q=\{2,3,4,5\}$,
+$\chibh=\{-0.5,0,0.5,0.75\}$, and $\rho=\{10,20,30,50,70\}$.
+All events in each population draw are substituted by their
+respective nearest neighbours on the grid G.
+
 
 
 In Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0} we show illustrative results
-for a single 
-population of $N=80$ events. The neutron star deformability is fixed at
-$\lambdans=800$ for all events. In the left panel, each curve shows the 
+for a single population with neutron star deformability $\lambdans=800$.
+In the left panel, each curve shows the 
 probability distributions for $\lambdans$ as inferred from $N$ events, with $N$
 ranging from $1-80$. We also mark the $90\%$ confidence intervals associated
-with each of the probability distribution curves. From the figure, we
-can visualize information accumulation. The first few observations do not have
-enough information to bound $\lambdans$ (with $90\%$ confidence) much more than
+with each of the probability distribution curves. The first few observations
+do not have
+enough information to bound $\lambdans$ much more than
 our prior from Eq.~\ref{eq:lprior} does. However, the median of these
 cumulative distributions appears to track the true value of $\lambdans$ 
 rapidly.
 % 
 In the right panel, we present information derived from the left panel.
-The line-circle curve shows the measured median from $N$ observations, with
-the latter on the $x$-axis. The pair of dashed (dotted) horizontal lines mark
+The line-circle curve shows the measured median from $N$ observations.
+The pair of dashed (dotted) horizontal lines mark
 $\pm25\%$ ($\pm50\%$) error bars. At each $N$, the range spanned by the 
 filled region is the $90\%$ confidence interval deduced from the same 
 events. This figure somewhat quantifies the qualitative deductions we made
@@ -1787,23 +1817,20 @@ from the left panel. We find that the measured median does track the true value
 quickly, reaching $10\%$ accuracy with $10-15$ observations. With the same
 information, our confidence intervals also shrink to $\pm 25\%$.
 % 
-In Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0} we show further results from $4$
-independent populations, with the source $\lambdans$ alone changing between
-them. The sampled values, i.e.$\lambdans=\{500,1000,1500,2000\}$, 
-range from the least to the most deformable neutron stars. As in the 
+In Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0} we show further results from four
+independent populations for $\lambdans=\{500,1000,1500,2000\}$. As in the 
 right panel of Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}, the line-circle curves
 track the median measured $\lambdans$, while the filled regions show
 the associated $90\%$ confidence intervals. From the figure, we observe
 the following: (i) the shrinkage of confidence interval widths with increasing
-$N$ happens in a similar manner for all 
-populations, (ii) within $5-10$ observations, median measured $\lambdans$ for
-all populations lie within $\pm10\%$ of the true values, and (iii) it takes
+$N$ happens in a similar manner for each $\lambdans$, (ii) within $\sim 10$
+observations, median measured $\lambdans$ for all populations lie within
+$10\%$ of the true values, and (iii) it takes
 approximately $20$ events to distinguish definitively (with $90\%$ confidence)
 between deformable NSs with $\lambdans=2000$ and compact NSs with 
 $\lambdans=500$, or equivalently to distinguish between hard, moderate and soft
 nuclear equations of state. This is comparable to what has been found for
-monolithic binaries of neutron stars~\cite{DelPozzo:13,Chatziioannou:2015uea,
-Agathos:2015a}.
+binary neutron stars~\cite{DelPozzo:13,Chatziioannou:2015uea,Agathos:2015a}.
 
 
 
@@ -1828,30 +1855,43 @@ paradigm A (i.e. with BH masses allowed to sample the mass-gap that spans
 $2-5M_\odot$).
 % 
 From the figure, we can conclude with a high likelihood that our measured
-$\lambdans$ values will be within $10\%$ of the real value in $15-20$ events
-for less deformable neutron stars with $\lambdans\leq 1000$, and in as few as
-$10$ events for more deformable stars with $\lambdans\geq 1500$.
+$\lambdans$ values will be within $10\%$ of the real value after about
+$20$ events for less deformable neutron stars with $\lambdans\leq 1000$,
+and in as few as $10$ events for more deformable stars with
+$\lambdans\geq 1500$.
+% 
+The results discussed in Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0},
+\ref{fig:TT_Lambda_vs_N_CI90_0} and the left panel
+of Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} all apply to the parameter distribution spanned by 
+the grid G. This distribution has $\mbh$ as low as $2.7M_\odot$ (i.e. $q=2$).
+Given that disruptive signatures are strongest for small $\mbh$, we now
+investigate an alternate paradigm~\footnote{We denote our standard paradigm
+which does not respect the mass-gap as paradigm A; with paradigm B being
+the scenario where no black hole masses fall within the mass gap.}
+with $\mbh\geq 5M_\odot$, consistent
+with the ``mass-gap'' suggested by astronomical observations~\cite{Bailyn:1997xt,
+Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}
 % 
 The right panel of the figure is identical to the left panel, but drawn under
 population paradigm B (no BHs alloewd within the mass-gap). Under this
 paradigm, we expectedly find that information accumulation is slower. It would
 take $20-40$ detections with $\rho\geq10$ under this paradigm, for our (median)
 measured $\lambdans$ to lie within $10\%$ of the true value (fewer for 
-more deformable NSs, as one would expect).
-% 
-This is a promising deduction, as one might expect to see $\mathcal{O}(10)$
-events over a few years' timescale with design aLIGO~\cite{Abadie:2010cfa}.
+more deformable NSs).
+% % 
+% This is a promising deduction, as one might expect to see $\mathcal{O}(10)$
+% events over a few years' timescale with design aLIGO~\cite{Abadie:2010cfa}.
 
 
 
-Further, we investigate the statistical uncertainties associated with
+Finally, we investigate the statistical uncertainties associated with
 $\lambdans$ measurements. We use $90\%$ confidence intervals as our measure of
 the same. The left column of 
 Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne} shows results
-under paradigm A, where BH mass priors include the mass-gap. In each panel
+under paradigm A. In each panel
 we show the width of the $90\%$ confidence interval measured from $N$ events
 (with $N$ on the $x$-axis), normalized by the true value of $\lambdans$ for
-the population. In grey are shown results from each of $100$ population
+the population. In gray are shown results from each of $100$ population
 realizations, with the single population highlighted in color corresponding
 to the one we focused on in 
 Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
@@ -1880,7 +1920,6 @@ can constrain $\lambdans$ within $\pm 50\%$ with a similar number of events as
 for paradigm A, but will need more ($30-40$, as compared to $25-40$) events
 to further constrain it to within $\pm 25\%$ of the true value.
 % 
-These are some of the primary findings of this paper.
 
 
 % Finally, we quantitatively explore the dependence of our statistical
@@ -1942,7 +1981,10 @@ and (iv) if BHs really do observe the astrophysical mass-gap, the information
 accumulation is somewhat slower than if they do not. We conclude that within
 $20-30$ observations, aLIGO would begin to place very interesting bounds on 
 the NS deformability, which would allow us to rule out or rank different
-equations of state for neutron star matter.
+equations of state for neutron star matter. Our key findings are 
+summarized in Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} and
+\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}.
+
 
 
 
@@ -1975,8 +2017,6 @@ $|\vec{\chi}_\mathrm{BH}|$ ranging from small to nearly extremal (Kerr) values
 examples of nearly extremal estimates of BH spins, Refs.~\cite{McClintock:2013vwa,
 Reynolds:2013qqa} for recent reviews of astrophysical BH spin measurements,
 and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
-
-\prayush{[PK: To be continued after revision of the introduction.]}
 
 \prayush{
 We find that non-inclusion of tidal effects leads to systematic biases in
@@ -2028,7 +2068,6 @@ once per population, sampled uniformly from the range $\lambdans\in[0,2000]$.
 In order to keep the computational cost tractable, we make a further 
 approximation.
 %
-\textbf{%
 We inject signals into zero noise at different SNRs and recover
 their parameters from Bayesian inferencing for a fixed set of binaries,
 whose parameters lie on a uniform grid given by:
@@ -2036,7 +2075,7 @@ $q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,1000,150
 % 
 Once the population parameters been selected, each event's parameters are
 replaced by their nearest neighbor in the above set.
-}
+% 
 We make sure that this approximation is conservative by keeping our population
 sampling ranges within the conservative side of the range spanned by the above
 set. With the caveats laid out, we report our results in
@@ -2075,7 +2114,6 @@ time-scale.
 }
 
 
-\red{Move to discussion}
 \prayush{%
 We find that when the BH is sufficiently spinning in the prograde sense,
 with $\chibh\gtrsim +0.7$, even at a relatively possible signal strengths ($\rho=20$),
@@ -2090,9 +2128,6 @@ matter, and possibly narrow the range they span.
 }
 
 
-\red{
-MOVE towards end of SUMMARY, into ``Future work''.
-}
 \prayush{
 Also note
 that more a recent work that improves upon the waveform model we use in this
