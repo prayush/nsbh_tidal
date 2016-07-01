@@ -1547,7 +1547,8 @@ framework.
 
 
 
-\textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
+% \textbf{Multiple identical sources at low SNR: }
+\label{s2:identical_multiple}
 % 
 An intuitive understanding of the problem is gained by considering first
 multiple {\it identical} sources at realistic SNRs. Let us consider the case
@@ -1557,7 +1558,8 @@ orbital angular momentum parallel to the line joining the detector to the
 source. Such a configuration maximizes the observed GW signal strength in 
 the detector.}, distributed uniformly in spacial volume out to a maximum
 distance $D^\mathrm{max}$. $D^\mathrm{max}$ is set by the minimum SNR 
-threshold at which a source is considered detectable~\footnote{which
+threshold $\rho_\mathrm{min}$ at which a source is considered
+detectable~\footnote{which
 we take as $\rho_\mathrm{min}=10$ throughout.}. Next, we divide this volume into $I$
 concentric shells, with radii $D_i$. If we have a measurement error
 $\sigma_0$ for $\lambdans$, associated with a source located at $D=D_0$,
@@ -1570,8 +1572,8 @@ measurements of $\lambdans$ in such a setting to be
 \frac{1}{\sigma^2} =& \sum_{i=1}^I \frac{N_i}{\sigma_i^2} = \left(\frac{D_0}{\sigma_0}\right)^2 \sum_{i=1}^I\frac{N_i}{D_i^2}\\ \nonumber =& \left(\frac{D_0}{\sigma_0}\right)^2 \int_0^{D^\mathrm{max}} \dfrac{4\pi D^2 n}{D^2}\D D = \left(\frac{D_0}{\sigma_0}\right)^2 \dfrac{3N}{(D^\mathrm{max})^2},
 \end{align}
 % 
-where $N_i$ is the number of sources within the $i-$th shell (such that
-$N:=\sum N_i$), and $n$ is the number density of source distribution in volume.
+where $N_i$ is the number of sources within the $i-$th shell (s.t.
+$N:=\sum N_i$), and $n$ is the number density of sources in volume.
 % 
 % \begin{equation}\label{eq:rmsSigmaIdenticalSources}
 %  \sigma_{avg} := \frac{1}{\sqrt{\langle1/\sigma^{2}\rangle}} = \frac{\sigma_0}{D_0} \deff^\mathrm{max} \frac{1}{\sqrt{3\langle N\rangle}},
@@ -1662,6 +1664,16 @@ level of certainty afforded by a single observation with $\rho=70$, we would
 need $49/3\approx 16-17$ realistic (low SNR) detections.
 
 
+While we discussed Eq.~\ref{eq:rmsSigmaIdenticalSources} for a population
+of optimally oriented sources, it is valid more generally if the population is
+distributed uniformly in {\it effective} volume~\footnote{{\it effective} 
+distance $D_\mathrm{eff}$ 
+is a combination of distance to the source, its orientation, and its sky
+location angles, and has a one-to-one correspondence with SNR for non-precessing
+systems, for which these angles are constant in time. Effective volume is 
+proportional to the $D_\mathrm{eff}^3$}~\cite{Markakis:2010mp}. However, it 
+still only applies to sources with identical masses and spins, and we 
+overcome this limitation by performing a fully Bayesian analysis next.
 
 % There are two main caveats to this rudimentary calculation, first outlined in 
 % Ref.~\cite{Markakis:2010mp}: (i) it applies to identical sources,
