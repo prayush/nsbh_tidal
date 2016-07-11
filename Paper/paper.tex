@@ -1882,31 +1882,45 @@ measured $\lambdans$ to converge within $10\%$ of its true value.
 
 Finally, we investigate the statistical uncertainties associated with
 $\lambdans$ measurements. We use $90\%$ confidence intervals as our measure of
-the same. The left column of 
-Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne} shows results
-under paradigm A. In each panel
-we show the width of the $90\%$ confidence interval measured from $N$ events
-(with $N$ on the $x$-axis), normalized by the true value of $\lambdans$ for
-the population. In gray are shown results from each of $100$ population
-realizations, with the single population highlighted in color corresponding
-to the one we focused on in 
-Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
-The inset shows the same, except that the ordinate is {\it not} normalized by
-the true value of $\lambdans$. From top to bottom, the population $\lambdans$
+the same. First, we draw an ensemble of a hundred populations each for
+$\lambdans=\{500,1000,1500,2000\}$. For each population $i$ in each ensemble,
+we construct
+its $90\%$ confidence interval $[{\lambdans^{90\%}}_{i-},{\lambdans^{90\%}}_{i+}]$.
+Next, we construct the interval $[X^-,Y^-]$ that contains ${\lambdans^{90\%}}_{i-}$
+for $90\%$ of the populations in each ensemble; and similarly $[X^+,Y^+]$
+for ${\lambdans^{90\%}}_{i+}$. Finally, in the left panel of 
+Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}, we show the
+conservative width $|Y^+ - X^-|$ that contains the $90\%$ confidence
+intervals for $90\%$ of all populations in each ensemble~\footnote{Drawn
+under paradigm A.}.
+% 
+% In each panel
+% we show the width of the $90\%$ confidence interval measured from $N$ events
+% (with $N$ on the $x$-axis), normalized by the true value of $\lambdans$ for
+% the population. In gray are shown results from each of $100$ population
+% realizations, with the single population highlighted in color corresponding
+% to the one we focused on in 
+% Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
+% The inset shows the same, except that the ordinate is {\it not} normalized by
+% the true value of $\lambdans$. 
+% 
+From top to bottom, the population $\lambdans$
 decreases from $\lambdans=2000\rightarrow 500$, corresponding to decreasingly
 deformable NSs with softer equations of state. We observe the following:
 (i) for moderately-hard to hard equations of state with $\lambdans\geq 1000$,
 we can constrain $\lambdans$ within $\pm 50\%$ using only $10-20$ events, and
-within $\pm 25\%$ with $25-40$ events; (ii) for softer equations of state with
+within $\pm 25\%$ (marked by black circles) with $25-40$ events; (ii) for softer 
+equations of state with
 $\lambdans<1000$, we will achieve the same accuracy with $20-30$ and $50+$ 
 events, respectively; and (iii) for the first $5$ or so observations, our
-measurement confidence spans the entire prior allowed range 
-$\lambdans\in[0,4000]$, as shown by the plateauing towards the left edge in
-each panel's inset.
+measurement spans the entire prior allowed range:
+$\lambdans\in[0,4000]$, as shown by the plateauing of the $90\%$ 
+confidence intervals towards the left edge to $90\%$ of $4000$, i.e. $3600$.
 % 
-In the right column, each panel panel is identical to its corresponding left
-one, with the difference that populations are drawn under paradigm B, which
-does {\it not} allow for BH masses to fall within the mass-gap. We find that
+The right panel in Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
+is identical to the left one, with the difference that populations are drawn
+under paradigm B, which does {\it not} allow for BH masses to fall within
+the mass-gap. We find that
 for NSs with $\lambdans\leq 1000$, it would take $25-40$ events to
 constrain $\lambdans$ within $\pm 50\%$ and $50+$ events to constrain it
 within $\pm 25\%$. This is somewhat slower than paradigm A, as is to be
@@ -1916,6 +1930,9 @@ can constrain $\lambdans$ within $\pm 50\%$ with a similar number of events as
 for paradigm A, but will need more ($30-40$, as compared to $25-40$) events
 to further constrain it to within $\pm 25\%$ of the true value.
 % 
+Under either paradigms, we find that measuring $\lambdans$ better than
+$25\%$ will require $\mathcal{O}(10^2)$ observations of disruptive NSBH
+mergers.
 
 
 % Finally, we quantitatively explore the dependence of our statistical
