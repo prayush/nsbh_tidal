@@ -50,7 +50,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
     Astronomy Center, California State University Fullerton,
     Fullerton, California 92834, USA}} %
 \newcommand{\AEI}{\affiliation{Albert Einstein Institute,
-Am M\"uhlenberg, G\"olm, Germany}} %
+Am M\"uhlenberg, Golm, Germany}} %
 \newcommand{\CIFAR}{\affiliation{Canadian Institute for Advanced Research, 
     180 Dundas St.~West, Toronto, ON M5G 1Z8, Canada}} %
 
@@ -571,47 +571,7 @@ future prospects with Advanced LIGO.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % #################
 % THESE FIGURES ARE FOR THE NEXT SECTION
-\begin{figure*}
-\centering 
-\includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}
-\caption{We show here probability distributions for mass ratio $\eta$ as measured
-for the same injection at different SNRs. The intrinsic parameters of the source
-are: $q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and $\lambdans=2000$;
-and the signal is injected at SNRs $\rho=\{20,30,50\}$ (left to right). The templates
-{\it ignore} tidal effects.
-% 
-In each panel: the dashed red line marks the median {\it measured} value
-$\eta^\mathrm{Median}$, while the dashed green line show the true value
-$\eta^\mathrm{Injected}$. The difference between the true and measured values
-is the systematic bias introduced
-by ignoring tidal effects in templates. The darker shading shows
-the recovered $90\%$ confidence interval for $\eta$, $(\Delta\eta)^{90\%}$, 
-which is a direct measure of our statistical uncertainty on $\eta$.
-% 
-Comparing systematic and statistical errors, we find that:
-at $\rho=20$, $\eta$ measurement is dominated by statistical
-errors; at $\rho=30$, the two become comparable; and 
-for louder signals ($\rho\simeq50$), the systematic errors dominate.
-}
-\label{fig:SingleSystemEtaPDFvsSNR}
-\end{figure*}
-% #################
-\begin{figure*}
-\centering 
-\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNMchirpCIWidths90_0_Lambda_SNR}\\
-\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}\\
-\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNChiBHCIWidths90_0_Lambda_SNR}
-\caption{
-We show here the statistical uncertainty of our measurement of the 
-dimensionless mass ratio $\eta$ (at $90\%$ confidence), over the NSBH
-parameter space.
-Individual panels show the same as a function of BH mass and spin.
-Across each row, we see the effect of increasing signal strength (i.e.
-SNR) with the NS's tidal deformability $\lambdans$ fixed. Down each
-column, we see the effect of increasing $\lambdans$, at fixed SNR.
-}
-\label{fig:CIWidths90_Lambda_SNR}
-\end{figure*}
+
 % ###############################
 % In this section we summarize various technical aspects of this paper. The model
 % used to obtain tidal waveforms is described in Sec.~\ref{s2:waveforms}. The 
@@ -620,15 +580,7 @@ column, we see the effect of increasing $\lambdans$, at fixed SNR.
 % is instead detailed in the corresponding results section,
 % Sec.~\ref{s2:astro_multiple}.
 
-\red{SAY HERE THAT WE ONLY USE THE $l=|m|=2$ modes.}
-\prayush{
-This is possible because of our simplification of 
-using only the dominant $l=|m|=2$ modes of the GW strain~\footnote{The 
-$l=|m|=2$ multipoles of the GW strain, when decomposed in a spin $-2$ weighted
-spherical harmonic basis, contain more than $99\%$ of the total signal power}
-that makes various angle parameters completely degenerate with distance. 
-}
-% 
+
 \subsection{Waveform Models}\label{s2:waveforms}
 
 % \red{
@@ -689,7 +641,14 @@ merger~\cite{Kumar:2015tha}.
 Since LEA only augments inspiral phasing with PN tidal terms, our
 change in the underlying BBH model does not change LEA's construction, {\it and}
 increases the overall model accuracy during inspiral.
-% We will refer to this enhanced-LEA model henceforth as ``LEA+''.
+% 
+Finally, we note that we approximate the full GW signal with its dominant
+$l=|m|=2$ modes, that are modeled by LEA+.
+% ~\footnote{The 
+% $l=|m|=2$ multipoles of the GW strain, when decomposed in a spin $-2$ weighted
+% spherical harmonic basis, contain more than $99\%$ of the total signal power}
+% This approximation has the added advantage of making various angle parameters
+% degenerate with source distance.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -701,8 +660,6 @@ increases the overall model accuracy during inspiral.
 % improve flow and to make it more accessible.
 % }
 
-\red{SOMEHOW INTRODUCE SNR AND MENTION IF IT IS A NETWORK SNR OR WHAT KIND OF 
-'SNR' IS IT?}
 
 The process of measuring systematic and statistical measurement errors
 involves simulating many artificial GW signals, and inferring source binary
@@ -718,12 +675,12 @@ distribution of $\vec{\Theta}$ can be written	 as
 Here, $p(\vec{\Theta} | K)$ is the a-priori probability of binary parameters
 taking particular values. Throughout this paper, we impose a prior uniform on
 individual component masses, BH spin, and NS's tidal deformability. In
-addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not valid for 
+addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not calibrated for 
 $1\leq q\leq 2$. $p(d_n|\vec{\Theta}, K)$ is the
 likelihood of obtaining the given stretch of data $d_n$ if we assume that a
 signal parameterized by $\vec{\Theta}$ is buried in it, and is given by
 \begin{equation}\label{eq:likelihood}
- \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+ p(d_n| \vec{\Theta}, K) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 \end{equation}
 where $h\equiv h(\vec{\Theta})$ is a filter template with parameters 
 $\vec{\Theta}$, and $\langle\cdot|\cdot\rangle$ is a suitably defined
@@ -733,7 +690,8 @@ $\langle\cdot|\cdot\rangle$  is defined as
 \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
 \end{equation}
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
-and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}
+and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}.
+\red{[MP: INSERT A LINE ABOUT APPROXIMATING $\LL \approx e^{\rho^2/2}$}
 The denominator in Eq.~\ref{eq:postprob} is the a-priori probability of finding
 the particular signal in $d_n$ and we assume that each injected signal is as
 likely as any other. Having constructed the probability distribution function
@@ -827,7 +785,47 @@ serve as statistical error-bars.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{How is PE affected if we ignore NS matter effects?}\label{s1:PEwithnoNS}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\begin{figure*}
+\centering 
+\includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}
+\caption{We show here probability distributions for mass ratio $\eta$ as measured
+for the same injection at different SNRs. The intrinsic parameters of the source
+are: $q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and $\lambdans=2000$;
+and the signal is injected at SNRs $\rho=\{20,30,50\}$ (left to right). The templates
+{\it ignore} tidal effects.
+% 
+In each panel: the dashed red line marks the median {\it measured} value
+$\eta^\mathrm{Median}$, while the dashed green line show the true value
+$\eta^\mathrm{Injected}$. The difference between the true and measured values
+is the systematic bias introduced
+by ignoring tidal effects in templates. The darker shading shows
+the recovered $90\%$ confidence interval for $\eta$, $(\Delta\eta)^{90\%}$, 
+which is a direct measure of our statistical uncertainty on $\eta$.
+% 
+Comparing systematic and statistical errors, we find that:
+at $\rho=20$, $\eta$ measurement is dominated by statistical
+errors; at $\rho=30$, the two become comparable; and 
+for louder signals ($\rho\simeq50$), the systematic errors dominate.
+}
+\label{fig:SingleSystemEtaPDFvsSNR}
+\end{figure*}
+% #################
+\begin{figure*}
+\centering 
+\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNMchirpCIWidths90_0_Lambda_SNR}\\
+\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}\\
+\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNChiBHCIWidths90_0_Lambda_SNR}
+\caption{
+We show here the statistical uncertainty of our measurement of the 
+dimensionless mass ratio $\eta$ (at $90\%$ confidence), over the NSBH
+parameter space.
+Individual panels show the same as a function of BH mass and spin.
+Across each row, we see the effect of increasing signal strength (i.e.
+SNR) with the NS's tidal deformability $\lambdans$ fixed. Down each
+column, we see the effect of increasing $\lambdans$, at fixed SNR.
+}
+\label{fig:CIWidths90_Lambda_SNR}
+\end{figure*}
 % #################
 \begin{figure*}
 \centering 
