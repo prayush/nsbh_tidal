@@ -85,7 +85,6 @@ plt.rcParams.update({\
 
 
 
-
 #######################################################
 ### FUNCTIONS 
 #######################################################
@@ -147,7 +146,25 @@ output:-
     #
     return [llimit, median, ulimit]
 
+#
+def ensemble_percentiles(ensembles):
+    NEVENTS = np.shape(ensembles)[1]
+    Narray = np.arange(1, NEVENTS+1)
+    #
+    plot_Lambdavec = [500, 1000, 1500, 2000]
+    #
+    yy = np.array( [ [ensemble_array[j] for ensemble_array in ensembles] for j in range(len(Narray))] )
+    ensemble_lowlims, ensemble_uplims = [], []
+    #
+    for i in range( NEVENTS ):
+        zz = np.sort(yy[i])
+        low_lim, up_lim = np.percentile(zz, [5., 95.], interpolation='nearest')
+        ensemble_lowlims.append(low_lim)
+        ensemble_uplims.append(up_lim)
+    #
+    return np.array(ensemble_lowlims), np.array(ensemble_uplims)
 
+#
 def find_closest_match(tmp_rand, vec):
     '''
 Take a random number in the range spanned by vec, and find the

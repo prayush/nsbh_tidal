@@ -1419,10 +1419,74 @@ filled region about the median), as functions of $N$.
 \label{fig:TT_Lambda_vs_N_CI90_0}
 \end{figure}
 % 
+% \begin{figure*}
+% \centering
+% \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
+% \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}
+% \caption{%
+% {\it Left:} This figure shows the median value of the recovered
+% probability distribution for $\lambdans$, as a function of the number of events
+% in the population $N$. There are four family of curves, one corresponding each
+% to $\lambdans=\{500,1000,1500,2000\}$, with $100$ independent populations
+% within each family. One curve in each family is highlighted in color, 
+% representing that it is the same population as was illustrated in
+% Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
+% In the same color we show $\pm 10\%$ error-bounds on $\lambdans$ with
+% horizontal dash-dotted lines. We observe that within $10-25$ observations, 
+% the median of the measured cumulative probability distribution for $\lambdans$
+% will lie within $10\%$ of the true value.
+% {\it Right:} This figure is identical to the left panel, with the only
+% difference that the BH masses in each population are restricted to lie
+% {\it outside} the astrophysical mass-gap (i.e. paradigm B). The difference that
+% we observe under this paradigm is that we need more ($30+$) events to achieve 
+% the same ($10\%$) measurement accuracy for populations with $\lambdans<1000$.
+% For more deformable neutron stars, $10-25$ events would suffice.
+% }
+% \label{fig:TT_LambdaMedian_vs_N_AllInOne}
+% \end{figure*}
+% %
+% % 
+% \begin{figure*}
+% \centering    
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L2000.pdf}\\
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L1500.pdf}\\
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L1000.pdf}\\
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L800.pdf}\\
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
+% \includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L500.pdf}
+% \caption{%
+% These figures show the width of the $90\%$ confidence interval for $\lambdans$
+% (normalized by its true value), as a function of the number of observed events
+% $N$. The left column panels show populations sampled under paradigm A, which
+% allows BH masses to fall within the astrophysical mass-gap, while those on the
+% right show populations drawn under paradigm B which respects the mass-gap.
+% Each panel corresponds to a unique value of populations' $\lambdans$,
+% decreasing from $2000\rightarrow 500$ as we go from top to bottom. In each panel,
+% $100$ curves are shown, each corresponding to an independent population draw. The
+% one colored curve in each panel highlights the population used in
+% Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
+% The insets in each panel show the same information, with the ordinate {\it not}
+% normalized by the true value of $\lambdans$.
+% % 
+% We find that with approximately $25$ or so events, we begin to put
+% statistically meaningful constraints on $\lambdans$, restricting it to within
+% $\pm 50\%$ of the true value. We can expect to achieve this with a few years
+% of design aLIGO operation~\cite{Abadie:2010cfa}. Further tightening of the
+% confidence intervals will require $40+$ events.
+% }
+% \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
+% \end{figure*}
+% % 
 \begin{figure*}
 \centering
 \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
-\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}
+\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}\\
+\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian90pc_vs_N_AllPopulation}
+\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian90pc_vs_N_AstroPopulation}\\
 \caption{%
 {\it Left:} This figure shows the median value of the recovered
 probability distribution for $\lambdans$, as a function of the number of events
@@ -1446,50 +1510,10 @@ For more deformable neutron stars, $10-25$ events would suffice.
 \end{figure*}
 %
 % 
-% \begin{figure*}
-% \centering    
-% \includegraphics[width=1.03\columnwidth]{plots/RelErrorLambdaMedian_vs_N.pdf}
-% \includegraphics[width=1.03\columnwidth]{plots/LambdaCIWidths_vs_N.pdf}
-% \caption{{\it Left}: In the main panel is shown the width of the measured $90\%$ 
-% confidence interval for $\lambdans$, normalized by its true value,
-%  as a function of the number of events observed $N$. In the inset, we
-%  show the same measurement uncertainty, but not normalized, and on a 
-%  logarithmic axis for $N$ as well.
-% % 
-%  From both the inset and the main plot, we find that for the first $3-4$ events
-%  our measurement is prior limited. As $N$ increases, the uncertainty falls 
-%  roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
-%  (than $1/\sqrt{N}$) narrowing of the confidence interval.
-% %  
-%  {\it Right}: This figure shows the fractional difference between the median
-%  recovered value from the posterior probability distribution for $\lambdans$
-%  as a function of $N$. Different curves correspond to different injected values
-%  of $\lambdans$, and are shaded from light to dark in direct proportion. 
-%  The horizontal dashed brown line marks $10\%$ deviation of the median from the 
-%  true value.
-% %  
-% We find that within $\approx 10$ detections, the median measured value for
-% $\lambdans$ would estimate the true value for the star with the remarkable 
-% accuracy of $10\%$.
-% }
-% \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
-% \end{figure*}
-%LambdaCIWidths_vs_N_AllPopulations_Log_L
-% 
-%
-% 
 \begin{figure*}
 \centering    
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L2000.pdf}\\
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L1500.pdf}\\
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L1000.pdf}\\
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L800.pdf}\\
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
-\includegraphics[width=0.8\columnwidth]{plots/LambdaCIWidths_vs_N_AstroPopulations_Log_L500.pdf}
+\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AllPopulation.pdf}
+\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AstroPopulation.pdf}
 \caption{%
 These figures show the width of the $90\%$ confidence interval for $\lambdans$
 (normalized by its true value), as a function of the number of observed events
@@ -1513,30 +1537,6 @@ confidence intervals will require $40+$ events.
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
 \end{figure*}
 % 
-% % 
-% \begin{figure*}
-% \centering    
-% \includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L2000.pdf}
-% \includegraphics[width=.9\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1500.pdf}\\
-% \includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L1000.pdf}
-% \includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L800.pdf}
-% \includegraphics[width=.67\columnwidth]{plots/LambdaCIWidths_vs_N_AllPopulations_Log_L500.pdf}
-% \caption{ In the main panel is shown the width of the measured $90\%$ 
-% confidence interval for $\lambdans$, normalized by its true value,
-%  as a function of the number of events observed $N$. In the inset, we
-%  show the same measurement uncertainty, but not normalized, and on a 
-%  logarithmic axis for $N$ as well.
-% % 
-%  From both the inset and the main plot, we find that for the first $3-4$ events
-%  our measurement is prior limited. As $N$ increases, the uncertainty falls 
-%  roughly as $1/\sqrt{N}$ with intermittent loud signals causing more rapid 
-%  (than $1/\sqrt{N}$) narrowing of the confidence interval.
-% }
-% \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0}
-% \end{figure*}
-% % 
-% 
-
 
 
 In the previous section, we showed that single observations of NSBH coalescences
