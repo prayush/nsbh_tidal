@@ -1486,20 +1486,28 @@ filled region about the median), as functions of $N$.
 \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian90pc_vs_N_AllPopulation}
 \includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian90pc_vs_N_AstroPopulation}\\
 \caption{%
-{\it Left:} This figure shows the median value of the recovered
+{\it Top left}: This figure shows the median value of the recovered
 probability distribution for $\lambdans$, as a function of the number of events
-in the population $N$. There are four family of curves, one corresponding each
-to $\lambdans=\{500,1000,1500,2000\}$, with $100$ independent populations
-within each family. One curve in each family is highlighted in color, 
-representing that it is the same population as was illustrated in
+in the population $N$. There are four ensembles of curves,
+corresponding to $\lambdans=\{500,1000,1500,2000\}$, with a hundred
+independent population draws within each ensemble. One curve in each ensemble
+is highlighted in color, representing only that it is the same population as 
+was discussed in
 Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
 In the same color we show $\pm 10\%$ error-bounds on $\lambdans$ with
-horizontal dash-dotted lines. We observe that within $10-25$ observations, 
-the median of the measured cumulative probability distribution for $\lambdans$
-will lie within $10\%$ of the true value.
-{\it Right:} This figure is identical to the left panel, with the only
-difference that the BH masses in each population are restricted to lie
-{\it outside} the astrophysical mass-gap (i.e. paradigm B). The difference that
+horizontal dash-dotted lines.
+{\it Bottom left}: Here we show the interval of $\lambdans$ values within
+which the median measured $\lambdans$ lies for $90\%$ of the populations in
+each ensemble shown in the top left panel.
+% 
+We observe that within $10-25$ observations, the median of the measured 
+cumulative probability distribution for $\lambdans$ converges to within $10\%$
+of its true value.
+% 
+{\it Right:} These panels are identical to their counterparts on the left,
+with the only difference that the BH masses in each population are restricted
+to lie {\it outside} the astrophysical mass-gap (i.e. paradigm B). The
+difference that
 we observe under this paradigm is that we need more ($30+$) events to achieve 
 the same ($10\%$) measurement accuracy for populations with $\lambdans<1000$.
 For more deformable neutron stars, $10-25$ events would suffice.
@@ -1510,27 +1518,27 @@ For more deformable neutron stars, $10-25$ events would suffice.
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AllPopulation.pdf}
-\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AstroPopulation.pdf}
+\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AllPopulation}
+\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AstroPopulation}
 \caption{%
-These figures show the width of the $90\%$ confidence interval for $\lambdans$
-(normalized by its true value), as a function of the number of observed events
-$N$. The left column panels show populations sampled under paradigm A, which
-allows BH masses to fall within the astrophysical mass-gap, while those on the
-right show populations drawn under paradigm B which respects the mass-gap.
+{\it Left}: This panel shows the width of $\lambdans$ interval within
+which the $90\%$ confidence intervals for $\lambdans$ lie, for $90\%$ of 
+the populations in each ensemble, as a function of the number of observed events
+$N$. Details of how this is calculated are given in the text.
+% 
+The populations are sampled under paradigm A, which allows BH masses to
+fall within the astrophysical mass-gap.
 Each panel corresponds to a unique value of populations' $\lambdans$,
-decreasing from $2000\rightarrow 500$ as we go from top to bottom. In each panel,
-$100$ curves are shown, each corresponding to an independent population draw. The
-one colored curve in each panel highlights the population used in
-Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
-The insets in each panel show the same information, with the ordinate {\it not}
-normalized by the true value of $\lambdans$.
+decreasing from $2000\rightarrow 500$ as we go from top to bottom.
+% 
+{\it Right}: This panel shows populations drawn under paradigm B, which
+respects the mass-gap.
 % 
 We find that with approximately $25$ or so events, we begin to put
 statistically meaningful constraints on $\lambdans$, restricting it to within
 $\pm 50\%$ of the true value. We can expect to achieve this with a few years
-of design aLIGO operation~\cite{Abadie:2010cfa}. Further tightening of the
-confidence intervals will require $40+$ events.
+of design aLIGO operation~\cite{Abadie:2010cfa}. Further tightening of 
+$\lambdans$ confidence intervals will require $40+$ events.
 }
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
 \end{figure*}
@@ -2214,7 +2222,9 @@ the five families of simulated NSBH populations, we construct $100$
 independent sets taking one population from each family. With each of 
 these $100$ sets, and assuming a power-law dependence:
 $\delta\lambdans\propto\lambdans^\beta$, we estimate $\beta$ and show it in
-this figure as a function of the number of observed events $N$.
+this figure as a function of the number of observed events $N$. The thicker
+curve corresponds to the populations discussed in
+Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0}.
 % 
 We find that $\beta$ can be estimated to lie within $[1/6,5/6]$ with a
 likely value close to $1/2$. Since $0<\beta<1$, the relative error
@@ -2224,7 +2234,7 @@ deformable, while the absolute error $\delta\lambdans$ {\it increases}.
 \label{fig:TT_PowerLawLambdaErrorVsLambda}
 \end{figure}
 % 
-Finally, we quantitatively explore the dependence of our statistical
+Here, we quantitatively explore the dependence of our statistical
 uncertainties for $\lambdans$ on the number of events, as well as on the true
 NS deformability itself. First, we will focus on the dependence on $N$. We
 assume a power-law dependence of the form
