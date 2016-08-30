@@ -379,6 +379,8 @@ approximation.
 % 
 Fourth, we explore how our measurement errors decrease as we gain information
 from multiple (realistic) events.
+% 
+
 
 We now outline the main questions and results discussed in this paper.
 First, we probe the effect of ignoring tidal effects in parameter 
@@ -387,7 +389,9 @@ component masses and spins. This is the case of current and planned aLIGO
 efforts.
 To do so, we first use the LEA+ model to generate a set of realistic signals;
 and then use non-tidal (BBH) waveform filters to estimate the underlying
-binary masses and spins with a Markov-chain Monte Carlo.
+binary masses and spins with a Markov-chain Monte Carlo. Here and throughout,
+we use the zero-detuning high-power design sensitivity curve~\cite{Shoemaker2009}
+to characterize the expected detector noise.
 % 
 % \red{
 % MOVE the following to SUMMARY. Here, keep 1-2 sentences:
@@ -414,7 +418,8 @@ BH masses outside of the mass-gap and/or realistic signal-to-noise
 ratios (SNR), we find it difficult to put better than a factor of $2$ bound
 on $\lambdans$ with a single observation. As we can see from
 Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, it is only at SNRs 
-$\rho\gtrsim 20-30$ (under otherwise favorable circumstances) that we are able
+$\rho\gtrsim 20-30$ (under otherwise favorable circumstances, such as a stiff
+equation of state) that we are able
 to bring this down to a $\pm 75\%$ bound on $\lambdans$. For signals louder
 than $\rho =30$, we can constrain $\lambdans$ to a much more meaningful degree
 (within $\pm 50\%$ of its true value).
@@ -434,9 +439,10 @@ information from a population of low-SNR observations?
 % }
 % % \prayush{
 The EoS of matter at nuclear densities is believed to be universal among all
-neutron stars. The Tolman-Oppenheimer-Volkoff equation would then predict that NS
-properties satisfy a universal relationship between $\lambdans$ and $\mns$. As
-the final part of
+neutron stars. The Tolman-Oppenheimer-Volkoff equation~\cite{Tolman:1939jz,
+Oppenheimer:1939ne,1934PNAS...20..169T}
+would then predict that NS properties satisfy a universal relationship
+between $\lambdans$ and $\mns$. As the final part of
 this paper, we combine information from multiple observations of realistic NSBH
 systems and perform a fully-Bayesian analysis of how our estimation of
 $\lambdans$ changes as we accumulate detections. This is similar to an earlier
@@ -624,7 +630,7 @@ During early inspiral this term is set to
 unity, but is a sensitive function of $\lambdans$ close to merger. The term with
 $\Delta\Phi$ corrects the waveform phasing. During inspiral,
 $\Delta\Phi$ is set to the PN tidal phasing corrections,
-at the leading and next-to-leading orders~\cite{Vines2011}. Close to merger,
+at the leading and next-to-leading orders~\cite{Vines2011}; close to merger,
 additional phenomenological terms are needed. Both $A$ and $\Delta\Phi$ are
 calibrated to all $134$ available NR simulations.
 
@@ -644,7 +650,9 @@ change in the underlying BBH model does not change LEA's construction, {\it and}
 increases the overall model accuracy during inspiral.
 % 
 Finally, we note that we approximate the full GW signal with its dominant
-$l=|m|=2$ modes, that are modeled by LEA+.
+$l=|m|=2$ modes, that are modeled by LEA+. For use in future LIGO science
+efforts, we have implemented the LEA+ model in the LIGO Algorithms
+Library~\cite{LAL}.
 % ~\footnote{The 
 % $l=|m|=2$ multipoles of the GW strain, when decomposed in a spin $-2$ weighted
 % spherical harmonic basis, contain more than $99\%$ of the total signal power}
@@ -674,7 +682,11 @@ distribution of $\vec{\Theta}$ can be written	 as
  p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
 \end{equation}
 Here, $p(\vec{\Theta} | K)$ is the a-priori probability of binary parameters
-taking particular values. Throughout this paper, we impose a prior uniform on
+$\vec{\Theta}$
+taking particular values, given $K$ - which denotes all our collective knowledge,
+except for expectations on binary parameters that enter
+our calculations explicitly. Throughout this paper, we impose a prior that is
+uniform in
 individual component masses, BH spin, and the tidal deformability of the NS. In
 addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not calibrated for 
 $1\leq q\leq 2$. $p(d_n|\vec{\Theta}, K)$ is the
@@ -684,14 +696,15 @@ signal parameterized by $\vec{\Theta}$ is buried in it, and is given by
  p(d_n| \vec{\Theta}, K) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 \end{equation}
 where $h\equiv h(\vec{\Theta})$ is a filter template with parameters 
-$\vec{\Theta}$, and $\langle\cdot|\cdot\rangle$ is a suitably defined
+$\vec{\Theta}$, $\langle\cdot|\cdot\rangle$ is a suitably defined
 detector-noise weighted inner-product~\footnote{The inner product
-$\langle\cdot|\cdot\rangle$  is defined as
+$\langle\cdot|\cdot\rangle$  is defined as~\cite{Shoemaker2009}
 \begin{equation}
 \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
 \end{equation}
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
-and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}.
+and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}, and
+$\mathcal{N}$ is an SNR-dependent normalization constant.
 % \red{[MP: INSERT A LINE ABOUT APPROXIMATING $\LL \approx e^{\rho^2/2}$}
 As in Ref.~\cite{Purrer:2015nkh} we use a likelihood that is maximized over
 over the template norm
@@ -795,6 +808,8 @@ serve as statistical error-bars.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure*}
 \centering 
+\textbf{Illustrative posterior probability distributions for mass-ratio $\eta$,}\par
+\textbf{at different SNR values (shown in legend).}\par\medskip
 \includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}
 \caption{We show here probability distributions for mass ratio $\eta$ as measured
 for the same injection at different SNRs. The intrinsic parameters of the source
@@ -820,6 +835,8 @@ for louder signals ($\rho\simeq50$), the systematic errors dominate.
 % #################
 \begin{figure*}
 \centering 
+\textbf{Statistical measurement uncertainty for NSBH parameters $\mchirp$ (top),
+$\eta$ (middle) and $\chibh$ (bottom);\newline ignoring tidal effects.}\par\medskip
 \includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNMchirpCIWidths90_0_Lambda_SNR}\\
 \includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}\\
 \includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNChiBHCIWidths90_0_Lambda_SNR}
@@ -837,6 +854,8 @@ column, we see the effect of increasing $\lambdans$, at fixed SNR.
 % #################
 \begin{figure*}
 \centering 
+\textbf{Ratio of systematic to statistical errors in measuring $\mchirp$;}\par
+\textbf{ignoring tidal effects.}\par\medskip
 \includegraphics[width=1.6\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear}
 \caption{We show here the ratio of systematic and statistical
 measurement uncertainties for the binary chirp mass over the NSBH parameter 
@@ -859,6 +878,8 @@ of tidal effects in filtering templates.
 %
 \begin{figure*}[!t]
 \centering
+\textbf{Ratio of systematic to statistical errors in measuring $\eta$;}\par
+\textbf{ignoring tidal effects.}\par\medskip
 \includegraphics[width=2\columnwidth]{plots/TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR20_70_linear}
 \caption{This figure is similar to Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}
 with the difference that the quantity in question here is the symmetric 
@@ -874,6 +895,8 @@ of $\eta$. We remind the reader that the SNRs here are all single detector value
 % 
 \begin{figure*}
 \centering
+\textbf{Ratio of systematic to statistical errors in measuring $\chibh$;}\par
+\textbf{ignoring tidal effects.}\par\medskip
 \includegraphics[width=1.95\columnwidth]{plots/TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear}
 % \includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI68_3.pdf}
 % \includegraphics[width=\columnwidth]{plots/TNChiBHBiasesOverCIWidthsVsSNR_All_CI90_0.pdf}
@@ -909,8 +932,9 @@ a year~\cite{Abadie:2010cfa}, and if BH masses are uniformly likely up to
 $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we would expect to detect $0.3-7$ disruptive
 NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with $\rho\geq 30$, and $0.04-1$ a
 year with $\rho\geq 70$. For our priors, we choose uniform distribution for 
-both component masses as well as for black hole spins, i.e. $\mbh\in[2,20]M_\odot$,
-$\mns\in[1,3]M_\odot$ and $-0.5\leq \chibh\leq +0.75$. \prayush{FIXME}
+both component masses as well as for black hole spins, i.e. $\mbh\in[1.2,25]M_\odot$,
+$\mns\in[1.2,3]M_\odot$ and $-0.75\leq \chibh\leq +0.75$.
+% \prayush{FIXME}
 
 
 
@@ -967,8 +991,8 @@ signals.
 
 
 
-We first calculate the ratio of errors $\arr$ associated with chirp mass measurements
-and show it in
+We first calculate the ratio of errors $\arr$ associated with the measurement of
+chirp mass, $\mchirp := (m_1 m_2)^{3/5} (m_1 + m_2)^{-1/5}$, and show it in
 Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}. $\mchirp$ is the mass combination
 that affects at leading order the GW strain emitted
 by compact binaries as they spiral in, and is therefore determined the most
@@ -1038,7 +1062,7 @@ We find that for low-mass BHs (with masses below $4.5M_\odot$), the systematic
 measurement bias for BH spin exceeds its statistical uncertainty to become the 
 dominant source of error. Not surprisingly, the systematic bias at both spin 
 extremes pushes towards milder spins, since the prior excludes any more extreme
-spins than $[-0.75, +0.75]$ and that pushes the bulk of the posterior inwards.
+spins than $[-0.75, +0.75]$ and that pushes the median of the posterior inwards.
 However as the signal's $\lambdans$ is increased from $500\rightarrow 2000$,
 low-mass BH-NS binaries with large spins on the BH show very large systematic biases
 in spin values, that become larger than the statistical uncertainty for $\rho\geq 30$
@@ -1066,6 +1090,9 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 % 
 \begin{figure*}
 \centering 
+\textbf{Illustrative posterior probability distributions for NS tidal
+deformability $\lambdans$,}\par
+\textbf{for signals with different $\lambdans$ values (shown in legend).}\par\medskip
 % \includegraphics[width=1.8\columnwidth]{plots/SingleSystem_q4_0_mc2_25_chi0_50}
 \includegraphics[width=1.9\columnwidth]{plots/SingleSystemLambdaVary_q4_0_mc2_25_chi0_50_snr50}
 \caption{We illustrate here probability distributions recovered for the NS tidal
@@ -1197,7 +1224,7 @@ year of observation.
 %
 
 In the previous section, we showed that the effect of deformation of the NS due to
-its companion BH's quadrupolar tidal field becomes discernible in the
+the quadrupolar tidal field of its companion BH becomes discernible in the
 GW spectrum only when the following hold:
 (a) the BH has a sufficiently small mass, (b) BH spin
 is positive aligned, i.e. $\chibh\gtrsim +0.4$, (c) the NS is not very compact,
@@ -1572,12 +1599,16 @@ framework.
 % 
 An intuitive understanding of the problem is gained by considering first
 multiple {\it identical} sources at realistic SNRs. Let us consider the case
-a population of optimally oriented binaries~\footnote{An optimally oriented
+of a population of optimally oriented binaries~\footnote{An optimally oriented
 binary is one which is located directly overhead the detector, with the 
 orbital angular momentum parallel to the line joining the detector to the
 source. Such a configuration maximizes the observed GW signal strength in 
-the detector.}, distributed uniformly in spacial volume out to a maximum
-distance $D^\mathrm{max}$. $D^\mathrm{max}$ is set by the minimum SNR 
+the detector.}, distributed uniformly in spatial volume out
+to a maximum {\it effective} distance~\footnote{{\it effective} distance $D$ 
+is a combination of distance to the source, its orientation, and its sky
+location angles, and has a one-to-one correspondence with SNR for non-precessing
+systems, for which these angles are constant in time.}.
+$D^\mathrm{max}$. $D^\mathrm{max}$ is set by the minimum SNR 
 threshold $\rho_\mathrm{min}$ at which a source is considered
 detectable~\footnote{which
 we take as $\rho_\mathrm{min}=10$ throughout.}. Next, we divide this volume into $I$
@@ -1673,7 +1704,7 @@ $N:=\sum N_i$), and $n$ is the number density of sources in volume.
 The root-mean-square (RMS) averaged measurement error from $N$ sources is 
 then~\cite{Markakis:2010mp}
 \begin{equation}\label{eq:rmsSigmaIdenticalSources}
- \sigma_{avg} := \frac{1}{\sqrt{1/\sigma^{2}}} = \frac{\sigma_0}{D_0} \deff^\mathrm{max} \frac{1}{\sqrt{3 N}},
+ \sigma_{avg} := \frac{1}{\sqrt{1/\sigma^{2}}} = \frac{\sigma_0}{D_0} D^\mathrm{max} \frac{1}{\sqrt{3 N}},
 \end{equation}
 given a fiducial pair $(\sigma_0, D_0)$. It is straightforward to deduce from
 Eq.~\ref{eq:rmsSigmaIdenticalSources} that measurement uncertainty scales as 
@@ -1684,13 +1715,15 @@ level of certainty afforded by a single observation with $\rho=70$, we would
 need $49/3\approx 16-17$ realistic (low SNR) detections.
 
 While we discussed Eq.~\ref{eq:rmsSigmaIdenticalSources} for a population
-of optimally oriented sources, it is valid more generally for a population
-distributed uniformly in {\it effective} volume~\footnote{{\it effective} 
-distance $D_\mathrm{eff}$ 
-is a combination of distance to the source, its orientation, and its sky
-location angles, and has a one-to-one correspondence with SNR for non-precessing
-systems, for which these angles are constant in time. Effective volume is 
-$\frac{4\pi}{3}D_\mathrm{eff}^3$.}~\cite{Markakis:2010mp}. However, it 
+of optimally oriented sources, it is valid for a more general population
+distributed uniformly in effective volume~\cite{Markakis:2010mp}
+($\propto D^3$).
+% ~\footnote{{\it effective} distance $D$ 
+% is a combination of distance to the source, its orientation, and its sky
+% location angles, and has a one-to-one correspondence with SNR for non-precessing
+% systems, for which these angles are constant in time. Effective volume is 
+% $\frac{4\pi}{3}D^3$.}
+However, it 
 still only applies to sources with identical masses and spins, and we 
 overcome this limitation by performing a fully Bayesian analysis next.
 
@@ -1704,11 +1737,10 @@ $\vec{\theta} := \{\mbh, \mns, \chibh, \chins, \vec{\alpha}\}$,
 and $\{\lambdans\}$, where $\vec{\alpha}$ contains extrinsic parameters,
 such as source distance, inclination, and sky location angles.
 % 
-Further, let $K$ denote all of our collective prior knowledge, except for 
-expectations on binary parameters themselves, which enter the following 
-calculation explicitly. For instance, $K$ includes our assumption that all
-NSs in a single population have the same deformability parameter $\lambdans$, 
-and its cumulative measurement is therefore possible.
+As before, let $K$ denote all of our collective prior knowledge; for instance,
+$K$ includes our assumption that all NSs in a single population have the same
+deformability parameter $\lambdans$, and that its cumulative measurement is
+therefore possible.
 % 
 The probability distribution for $\lambdans$, given $N$ unique and
 independent events, is
@@ -1726,10 +1758,11 @@ $p(d_i) = p(d_j) = p(d)$, we get
 % 
 \begin{eqnarray}
  p(&&\hspace{-4mm}\lambdans | d_1, d_2, \cdots, d_N, K)\hspace{50mm}\nonumber\\
-  &=& \dfrac{p(\lambdans) \left(\dfrac{p(d)}{p(\lambdans)}\right)^N\prod_{i} p(\lambdans |d_i, K) }{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans}\label{eq:p21},\\
-  &=& p(\lambdans)^{1-N}\times \dfrac{p(d)^N}{\int p(\lambdans) p(d_1, d_2, \cdots, d_N |\lambdans, K)\D\lambdans}\nonumber\\ &&\hspace{3mm}\times\prod_i p(\lambdans |d_i, K)\label{eq:p22}.
+%   &=& \dfrac{p(\lambdans) \left(\dfrac{p(d)}{p(\lambdans)}\right)^N\prod_{i} p(\lambdans |d_i, K) }{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans}\label{eq:p21},\\
+  &=& p(\lambdans)^{1-N}\times \dfrac{p(d)^N}{\int p(\lambdans) p(d_1, d_2, \cdots, d_N |\lambdans, K)\D\lambdans}\nonumber\\ &&\hspace{3mm}\times\prod_i p(\lambdans |d_i, K)\label{eq:p22},
 \end{eqnarray}
 % 
+where $p(\lambdans|K)$ is written $p(\lambdans)$ for brevity.
 The first two factors in Eq.~\ref{eq:p22} can be absorbed into a
 normalization factor $\mathcal{N}$, simplifying it to
 % 
@@ -1878,12 +1911,12 @@ of Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} apply to the parameter
 distribution spanned by the grid G. This distribution allows for $\mbh$
 as low as $2.7M_\odot$ (i.e. $q=2$).
 Given that disruptive signatures are strongest for small $\mbh$, we now
-investigate an alternate paradigm~\footnote{We denote our standard paradigm
-which does not respect the mass-gap as paradigm A; with paradigm B being
-the scenario where no black hole masses fall within the mass gap $2-5M_\odot$.}
-with $\mbh\geq 5M_\odot$, consistent
-with the ``mass-gap'' suggested by astronomical observations~\cite{Bailyn:1997xt,
-Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}
+investigate an alternate paradigm in which no black hole masses fall within
+the mass gap $2-5M_\odot$ suggested by astronomical
+observations~\cite{Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,
+Littenberg:2015tpa}. We will henceforth denote our standard paradigm, which
+does not respect the mass-gap, as paradigm A; with paradigm B being
+this alternate scenario.
 % 
 Both right panels of the figure are identical to their corresponding left
 panels, but drawn under population paradigm B. Under this paradigm, we
@@ -2166,7 +2199,7 @@ phase model. In addition, accuracy of the underlying numerical simulations
 used to calibrate the waveform model used here have not been verified against 
 independent codes so far.
 It is therefore difficult to assess the combined modeling error and its effect
-on our results. they are, therefore, limited by the limitations of our
+on our results. They are, therefore, limited by the limitations of our
 waveform model. However, we expect the combined effect of modeling errors to
 not change our qualitative conclusions.
 }
