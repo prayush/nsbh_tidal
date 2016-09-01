@@ -931,9 +931,9 @@ by results that follow. At design sensitivity, if we expect $10-300$ NSBH detect
 a year~\cite{Abadie:2010cfa}, and if BH masses are uniformly likely up to
 $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we would expect to detect $0.3-7$ disruptive
 NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with $\rho\geq 30$, and $0.04-1$ a
-year with $\rho\geq 70$. For our priors, we choose uniform distribution for 
-both component masses as well as for black hole spins, i.e. $\mbh\in[1.2,25]M_\odot$,
-$\mns\in[1.2,3]M_\odot$ and $-0.75\leq \chibh\leq +0.75$.
+year with $\rho\geq 70$. For our priors, we choose uniform distributions for 
+both component masses, and black hole spin: $\mbh\in[1.2,25]M_\odot$;
+$\mns\in[1.2,3]M_\odot$; and $-0.75\leq \chibh\leq +0.75$.
 % \prayush{FIXME}
 
 
@@ -1092,7 +1092,8 @@ of BHNS binaries, due to the use of BH-BH waveforms in deciphering an NSBH signa
 \centering 
 \textbf{Illustrative posterior probability distributions for NS tidal
 deformability $\lambdans$,}\par
-\textbf{for signals with different $\lambdans$ values (shown in legend).}\par\medskip
+\textbf{for signals with different $\lambdans$ values; $\lambdans = 1000,1500,2000,$
+from left to right.}\par\medskip
 % \includegraphics[width=1.8\columnwidth]{plots/SingleSystem_q4_0_mc2_25_chi0_50}
 \includegraphics[width=1.9\columnwidth]{plots/SingleSystemLambdaVary_q4_0_mc2_25_chi0_50_snr50}
 \caption{We illustrate here probability distributions recovered for the NS tidal
@@ -1121,16 +1122,20 @@ decreases monotonically as $\lambdans$ increases (with signal strength fixed).
 \end{figure*}
 %%
 \begin{figure*}
-\centering 
-\includegraphics[width=0.5\columnwidth]{plots/McEta2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.5\columnwidth]{plots/EtaChiBH2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.5\columnwidth]{plots/McChiBH2D_q4_mc2_25_chi0_50_snr30}\\
-\includegraphics[width=0.5\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.5\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr30}
-\includegraphics[width=0.5\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr30}\\
-\includegraphics[width=0.47\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr50}
-\includegraphics[width=0.47\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr50}
-\includegraphics[width=0.47\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr50}
+\centering
+\textbf{Illustrative posterior probability distributions for NSBH parameters,}\par
+\textbf{for signals at different SNR values; $\rho = 20$ (left) and $50$ (right).}\par\medskip
+\includegraphics[width=1.05\columnwidth,trim=2cm 0 0 0]{plots/AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20}%\\
+\includegraphics[width=1.05\columnwidth,trim=2cm 0 0 0]{plots/AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50}%\\
+% \includegraphics[width=0.5\columnwidth]{plots/McEta2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/EtaChiBH2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/McChiBH2D_q4_mc2_25_chi0_50_snr30}\\
+% \includegraphics[width=0.5\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr30}\\
+% \includegraphics[width=0.47\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr50}
+% \includegraphics[width=0.47\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr50}
+% \includegraphics[width=0.47\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr50}
 \caption{%
 We illustrate here two-dimensional joint probability distributions, as
 recovered for the intrinsic parameters of a binary with
@@ -1275,7 +1280,8 @@ perform full Bayesian analyses on each of these injections using LEA+ templates,
 and obtain probabilistic estimates for source binary parameters using GW information
 alone (including the NS tidal deformability parameter $\lambdans$). Our priors
 on component masses and spins remain as in the previous section, while $\lambdans$
-is sampled uniformly from $[0,4000]$.
+is sampled uniformly from $[0,4000]$, and mass-ratio is additionally restricted to
+$2\leq q\leq 6$.
 
 As an illustration, we show the recovered
 probability distribution for $\lambdans$ for three specific configurations in 
