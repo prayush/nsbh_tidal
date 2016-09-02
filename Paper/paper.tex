@@ -37,7 +37,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \newcommand{\mchirp}{\mathcal{M}_c}
 \newcommand{\LL}{\mathcal{L}}
 \newcommand{\deff}{D_\mathrm{eff}}
-\newcommand{\arr}{\mathtt{r}}
+\newcommand{\arr}{\mathtt{R}}
 
 \newcommand{\Caltech}{\affiliation{Theoretical Astrophysics 350-17,
     California Institute of Technology, Pasadena, CA 91125, USA}}
@@ -61,7 +61,7 @@ Am M\"uhlenberg, Golm, Germany}} %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\linenumbers
+% \linenumbers
 
 \title{
 Measuring neutron star tidal deformability with Advanced LIGO: a Bayesian analysis
@@ -832,25 +832,25 @@ for louder signals ($\rho\simeq50$), the systematic errors dominate.
 }
 \label{fig:SingleSystemEtaPDFvsSNR}
 \end{figure*}
-% #################
-\begin{figure*}
-\centering 
-\textbf{Statistical measurement uncertainty for NSBH parameters $\mchirp$ (top),
-$\eta$ (middle) and $\chibh$ (bottom);\newline ignoring tidal effects.}\par\medskip
-\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNMchirpCIWidths90_0_Lambda_SNR}\\
-\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}\\
-\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNChiBHCIWidths90_0_Lambda_SNR}
-\caption{
-We show here the statistical uncertainty of our measurement of the 
-dimensionless mass ratio $\eta$ (at $90\%$ credibility), over the NSBH
-parameter space.
-Individual panels show the same as a function of BH mass and spin.
-Across each row, we see the effect of increasing signal strength (i.e.
-SNR) with the tidal deformability of the NS $\lambdans$ fixed. Down each
-column, we see the effect of increasing $\lambdans$, at fixed SNR.
-}
-\label{fig:CIWidths90_Lambda_SNR}
-\end{figure*}
+% ################# FIXME FIXME
+% \begin{figure*}
+% \centering 
+% \textbf{Statistical measurement uncertainty for NSBH parameters $\mchirp$ (top),
+% $\eta$ (middle) and $\chibh$ (bottom);\newline ignoring tidal effects.}\par\medskip
+% \includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNMchirpCIWidths90_0_Lambda_SNR}\\
+% \includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}\\
+% \includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNChiBHCIWidths90_0_Lambda_SNR}
+% \caption{
+% We show here the statistical uncertainty of our measurement of the 
+% dimensionless mass ratio $\eta$ (at $90\%$ credibility), over the NSBH
+% parameter space.
+% Individual panels show the same as a function of BH mass and spin.
+% Across each row, we see the effect of increasing signal strength (i.e.
+% SNR) with the tidal deformability of the NS $\lambdans$ fixed. Down each
+% column, we see the effect of increasing $\lambdans$, at fixed SNR.
+% }
+% \label{fig:CIWidths90_Lambda_SNR}
+% \end{figure*}
 % #################
 \begin{figure*}
 \centering 
@@ -911,64 +911,83 @@ which remain subdominant to the statistical measurement uncertainties.
 \end{figure*}
 % 
 % 
-Past and future GW search and source characterization efforts with Advanced LIGO
-have used (or plan to use) BH-BH waveform templates for NS-BH mergers, ignoring
-NS tidal effects on the emitted GWs. In this section we present a fully
-Bayesian analysis of the effects of this assumption on the recovery of NSBH
-masses and spins from their GW signals.
+Past (and future) efforts with Advanced LIGO have used (or plan to use) BHBH
+waveform templates to search for and characterize NSBH sources. In doing so,
+they ignore the signature of NS tidal effects on the emitted GWs. In this
+section we present a fully Bayesian analysis of the effects of this
+simplification on the recovery of non-tidal parameters from NSBH signals.
 
 
-We construct NSBH waveforms using the LEA+ model. We inject these into zero
-noise and run an MCMC sampler on the injections using BBH templates (LEA+ with tidal terms
-set to zero). We perform this analysis for a variety of mass ratios
-$q\in\{2,3,4,5\}$, i.e. $\mbh\in\{2.7M_\odot, 4.05M_\odot, 5.4M_\odot, 6.75M_\odot\}$,
-and BH spins $\chibh\in\{-0.5, 0, +0.5, +0.75\}$. We always use $\mns=1.35M_\odot$ and
-$\chins=0$, but explore $\lambdans\in\{500, 800, 1000, 1500, 2000\}$. The signal
-strength is varied from $\rho=20\rightarrow70$. Our choice of this SNR range is
-motivated by previous studies which suggest that signatures of NS tidal effects
-become observable only at relatively large SNRs~\cite{Lackey:2013axa}, and is validated
-by results that follow. At design sensitivity, if we expect $10-300$ NSBH detections 
-a year~\cite{Abadie:2010cfa}, and if BH masses are uniformly likely up to
-$\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we would expect to detect $0.3-7$ disruptive
-NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with $\rho\geq 30$, and $0.04-1$ a
-year with $\rho\geq 70$. For our priors, we choose uniform distributions for 
-both component masses, and black hole spin: $\mbh\in[1.2,25]M_\odot$;
-$\mns\in[1.2,3]M_\odot$; and $-0.75\leq \chibh\leq +0.75$.
+We inject LEA+ NSBH signals into zero noise, and run an MCMC sampler on
+them using equivalent BBH templates (same model, tidal terms $\rightarrow 0$).
+We fix $\mns=1.35M_\odot$ and $\chins=0$, and explore a range of nuclear
+equations of state via the single tidal deformability parameter
+$\lambdans\in\{500, 800, 1000, 1500, 2000\}$. Our injections also span a
+hypercubic regular grid in the BH parameter space, with vertices at
+$q\in\{2,3,4,5\}$, i.e.
+$\mbh\in\{2.7M_\odot, 4.05M_\odot, 5.4M_\odot, 6.75M_\odot\}$, and BH spins
+$\chibh\in\{-0.5, 0, +0.5, +0.75\}$. 
+Finally, we sample all other source-related parameters that determine the
+signal strength but not character\footnote{For aligned-spin signals and
+aligned-spin templates both, we only consider the contribution of the dominant
+$l=|m|=2$ waveform multipoles. This approximation has the additional benefit
+of combining the dependence of the waveforms on inclination, polarization
+and sky location angles, as well as on distance, into the luminosity
+or {\it effective} distance. This quantity only appears as an overall scaling
+factor, and therefore only affects signal strength~\cite{Sathyaprakash:2009xs}.
+}, by sampling the SNR $\rho\in\{20,30,50,70\}$. Our choice of parameters here
+is motivated by two factors: (i) previous studies of the signatures of NS tidal
+effects on gravitational waves~\cite{FoucartEtAl:2011,Foucart:2013psa,
+Foucart:2014nda} (which suggest that necessary conditions for the observation
+of tidal effects with aLIGO include high SNRs and a low-mass spinning companion
+BH); and (ii) technical constraints of our chosen LEA+ model~\cite{Lackey:2013axa}.
+At design sensitivity, if we expect $10-300$ NSBH detections a 
+year~\cite{Abadie:2010cfa}, {\it and} if BH mass values are uniformly likely
+up to $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we can expect to detect $0.3-7$
+disruptive NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with
+$\rho\geq 30$, and $0.04-1$ a year with $\rho\geq 70$. Therefore, the parameter
+range spanned by our injections represents a physically interesting class of
+systems that is {\it also} likely observable in the near future. 
+For our Bayesian priors, we choose uniform distributions for both component
+masses and black hole spin: $\mbh\in[1.2,25]M_\odot$; $\mns\in[1.2,3]M_\odot$;
+and $-0.75\leq \chibh\leq +0.75$.
 % \prayush{FIXME}
 
 
 
 As an illustration, in Fig.~\ref{fig:SingleSystemEtaPDFvsSNR} we show the
-probability distribution for binary mass ratio $\eta$ recovered from a GW
-injection with intrinsic parameters: $\mns=1.35M_\odot$, $\chins=0$,
-$\mbh=5.4M_\odot$, $\chibh=+0.5$ and $\lambdans=2000$, and SNRs ranging
-from $\rho=20$ (left panel) to $\rho=50$ (right panel). In each panel, the
-{\it true} value of $\eta$ is marked by a dashed green line, and its measured
-(median) value by a dashed red line. The effect of ignoring tidal corrections
-in templates manifests as a systematic shift of the measured $\eta$ value away
-from its true value. The associated {\it systematic} bias/error is given by the
-difference between measured and true $\eta$ values. Darker shading of the
-probability distribution marks the $90\%$ credible interval for $\eta$, whose
-width is a direct measure of the {\it statistical} measurement uncertainty/error.
+probability distribution for binary mass ratio $\eta$ recovered for an NSBH
+injection with $\mns=1.35M_\odot$, $\chins=0$, $\mbh=5.4M_\odot$, $\chibh=+0.5$
+and $\lambdans=2000$, with the SNR ranging from $\rho=20$ (left) to
+$\rho=50$ (right). In each panel, both the {\it true} and the {\it 
+recovered} (median) values of $\eta$ are marked. The effect of ignoring tidal
+corrections in templates manifests as a systematic shift of the measured $\eta$
+value away from its true value. The associated {\it systematic} bias/error is
+measured by the difference between the measured and true $\eta$ values. Darker
+shading of the probability distributions marks the $90\%$ credible interval,
+whose width $(\Delta\eta)^{90.0\%}$ is a direct measure of the
+{\it statistical} measurement uncertainty/error\footnote{We generalize the
+notation $(\Delta X)^{90.0\%}$ to mean the $90\%$ credible interval width
+for the measured source parameter $X$.}.
 % 
-We clearly see that even when the signal is moderately loud, with $\rho=20$,
-statistical errors dominate over systematics completely for $\eta$.
-As we turn up the SNR
+We see clearly that even when the signal is moderately loud, with $\rho=20$,
+statistical errors dominate over systematics for $\eta$. As we turn up the SNR
 further, we find that the two error sources become comparable at $\rho\sim 30$,
 and systematic errors dominate finally when $\rho\simeq 50$.
 
 
-
+\textcolor{gray}{%
 Next, to get a better understanding of how {\it precisely} we measure NSBH
-binary parameters given BBH waveforms, we show the $90\%$ credible intervals
-associated with NSBH mass and spin measurements in Fig.~\ref{fig:CIWidths90_Lambda_SNR}.
-The three panels, corresponding to $\mchirp$ (top), $\eta$ (middle), and $\chibh$
-(bottom), show the width of these credible intervals as a function of BH
-mass/spin (within each sub-panel), and NS properties, i.e. $\lambdans$
-(downwards in each column)~\footnote{We restrict NS mass to $1.35M_\odot$ and
-its spin to zero. Varying its tidal deformability $\lambdans$ does not change
-the measurement uncertainties for non-tidal binary parameters, as is evident
-from comparing the two rows in each panel of Fig.~\ref{fig:CIWidths90_Lambda_SNR}.}.
+parameters using BBH templates, we show $90\%$ credible intervals associated
+with NSBH mass and spin measurements in Fig.~\ref{fig:CIWidths90_Lambda_SNR}.
+The three panels correspond to $\mchirp$ (top), $\eta$ (middle), and $\chibh$
+(bottom), and show the width of these credible intervals $(\Delta X)^{90\%}$
+as a function of BH mass/spin (within each sub-panel), and NS properties, i.e.
+$\lambdans$ (downwards in each column)~\footnote{We restrict NS mass to
+$1.35M_\odot$ and its spin to zero. Varying its tidal deformability $\lambdans$
+does not significantly change the measurement uncertainties for non-tidal
+binary parameters, as is evident from comparing the two rows in each panel of
+Fig.~\ref{fig:CIWidths90_Lambda_SNR}.}.
 % 
 From the left-most column, we find that: (i) at $\rho=20, \mchirp$ is already
 measured remarkably well - to a precision of $0.16\%$ of its true value, and
@@ -977,22 +996,48 @@ with $\gtrsim 25\%$ uncertainty. If the signal is even louder ($\rho\geq 30$),
 all three measurements gain further precision, with $\eta$ errors shrinking down
 to single-digit percents of its true value.
 % 
-However, we remind ourselves that there are physical effects that have not been
-incorporated in our (BBH) search templates which we use here to decipher NSBH
-signals. Therefore, we cannot know the {\it accuracy} of our parameter
-measurements unless we know how large the systematic biases due to an
-incomplete template model are. To quantify this, we find it useful to define
-$\arr$, the ratio of the systematic biases induced by unmodeled tidal effects in
-templates, to the statistical uncertainties associated with the measurement
-itself. If $\arr\gtrsim 1$, including the effect of the tidal distortion of the NS
-(during inspiral) and possible disruption (close to merger) would be imperative
-to obtain {\it accurate} estimates of source masses and spins from observed GW
+We remind ourselves that this {\it precision}, however, is only
+meaningful so long as the measurement is {\it accurate} to begin with. Due to
+unmodeled tidal effects, parameter measurements performed on NSBH signals with
+BBH templates will have systematic biases. If these biases are too large,
+using non-tidal BBH templates should severely impair our inferencing ability.
+In order to quantify the relevance of tidal signatures, we define $\arr_X$ as
+the ratio between systematic biases and statistical uncertainties associated
+with the measurement of parameter $X$. If $\arr_X\gtrsim 1$, incorporating
+tidal effects in inspiral and merger modeling would non-trivially improve our
+estimation of parameter $X$ from NSBH signals.
+% 
+% there are physical effects that have not been
+% incorporated in our (BBH) search templates which we use here to decipher NSBH
+% signals. Therefore, we cannot know the {\it accuracy} of our parameter
+% measurements unless we know how large the systematic biases due to an
+% incomplete template model are. To quantify this, we find it useful to define
+% $\arr_X$, the ratio of the systematic biases induced by unmodeled tidal effects in
+% templates, to the statistical uncertainties associated with the measurement
+% itself. If $\arr_X\gtrsim 1$, including the effects of NS tidal distortion
+% (during inspiral) and possible disruption (close to merger) would be imperative
+% to obtain {\it accurate} estimates of source masses and spins from observed GW
+% signals.}
+}
+
+\textcolor{blue}{%
+Credible intervals $(\Delta X)^{90\%}$ measure the precision with which a 
+quantity $X$ can be measured. We show credible intervals for
+$X=\{\mchirp,\eta,\chibh\}$ in Appendix~\ref{as1:illustrations}. This {\it 
+precision}, however, is only meaningful so long as the measurement is {\it
+accurate} to begin with. Due to unmodeled tidal effects, parameter measurements
+performed on NSBH signals using BBH templates will have systematic biases. If
+these biases are too large, using non-tidal BBH templates should severely impair
+our
+inferencing ability. In order to quantify the relevance of tidal signatures,
+we define $\arr_X$ as the ratio between systematic biases and statistical
+uncertainties associated with the measurement of parameter $X$. If
+$\arr_X\gtrsim 1$, incorporating tidal effects in inspiral and merger modeling
+would non-trivially improve our estimation of parameter $X$ from NSBH
 signals.
+}
 
-
-
-We first calculate the ratio of errors $\arr$ associated with the measurement of
-chirp mass, $\mchirp := (m_1 m_2)^{3/5} (m_1 + m_2)^{-1/5}$, and show it in
+We first calculate the ratio of errors $\arr_{\mchirp}$ , and show it in
 Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}. $\mchirp$ is the mass combination
 that affects at leading order the GW strain emitted
 by compact binaries as they spiral in, and is therefore determined the most
@@ -1405,8 +1450,9 @@ which will restrict our analyses of actual GW signals as well.
 % 
 \begin{figure*}
 \centering    
-\includegraphics[width=1.05\columnwidth]{plots/pdfLambda_vs_N_L800.pdf}
-\includegraphics[width=1.\columnwidth]{plots/FillBetweenErrorBarsLambda_vs_N_L800.pdf}
+\textbf{Improvement in $\lambdans$ measurement accuracy with multiple observations}\par\medskip
+\includegraphics[width=1.05\columnwidth,trim=1cm 0 0 0]{plots/pdfLambda_vs_N_L800.pdf}
+\includegraphics[width=1.\columnwidth,trim=0 0 1cm 0]{plots/FillBetweenErrorBarsLambda_vs_N_L800.pdf}
 \caption{%
 These panels show the accumulation of information from a population whose
 $\lambdans=800$.
@@ -1446,7 +1492,7 @@ bounds.
 %
 \begin{figure}
 \centering    
-\includegraphics[width=1.05\columnwidth]{plots/FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf}
+\includegraphics[width=1.05\columnwidth,trim=1cm 0 0 0]{plots/FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf}
 \caption{%
 In this figure, the filled regions show how our measurement of $\lambdans$
 improves as the number of observed events ($N$, shown on $x$-axis) increases.
@@ -1524,10 +1570,10 @@ filled region about the median), as functions of $N$.
 \begin{figure*}
 \centering
 \textbf{Paradigm A \hspace{6cm} Paradigm B}\par\medskip
-\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
-\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}\\
-\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian90pc_vs_N_AllPopulation}
-\includegraphics[trim=20 0 0 0, width=1.02\columnwidth]{plots/LambdaMedian90pc_vs_N_AstroPopulation}\\
+\includegraphics[trim=1cm 0 0 0, width=1.025\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
+\includegraphics[trim=0 0 1cm 0, width=1.025\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}\\
+\includegraphics[trim=1cm 0 0 0, width=1.025\columnwidth]{plots/LambdaMedian90pc_vs_N_AllPopulation}
+\includegraphics[trim=0 0 1cm 0, width=1.025\columnwidth]{plots/LambdaMedian90pc_vs_N_AstroPopulation}\\
 \caption{%
 {\it Top left}: This figure shows the median value of the recovered
 probability distribution for $\lambdans$, as a function of the number of events
@@ -1562,8 +1608,8 @@ For more deformable neutron stars, $10-25$ events would suffice.
 \begin{figure*}
 \centering    
 \textbf{Paradigm A \hspace{6cm} Paradigm B}\par\medskip
-\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AllPopulation}
-\includegraphics[width=\columnwidth]{plots/LambdaCIWidths90pc_vs_N_AstroPopulation}
+\includegraphics[width=1.025\columnwidth,trim=1cm 0 0 0]{plots/LambdaCIWidths90pc_vs_N_AllPopulation}
+\includegraphics[width=1.025\columnwidth,trim=0 0 1cm 0]{plots/LambdaCIWidths90pc_vs_N_AstroPopulation}
 \caption{%
 {\it Left}: This panel shows the width of $\lambdans$ interval within
 which the $90\%$ credible intervals for $\lambdans$ lie, for $90\%$ of 
@@ -1615,8 +1661,10 @@ source. Such a configuration maximizes the observed GW signal strength in
 the detector.}, distributed uniformly in spatial volume out
 to a maximum {\it effective} distance~\footnote{{\it effective} distance $D$ 
 is a combination of distance to the source, its orientation, and its sky
-location angles, and has a one-to-one correspondence with SNR for non-precessing
-systems, for which these angles are constant in time.}.
+location angles; and has a one-to-one correspondence with SNR for non-precessing
+sources. This is so because for such sources, their location and orientation
+remain constant over the timescales within which they sweep through
+aLIGO's sensitive frequency band.}.
 $D^\mathrm{max}$. $D^\mathrm{max}$ is set by the minimum SNR 
 threshold $\rho_\mathrm{min}$ at which a source is considered
 detectable~\footnote{which
@@ -2236,11 +2284,104 @@ We thank Ben Lackey, Francesco Pannarale, Francois Foucart, and Duncan Brown
 \end{acknowledgments}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{appendix}
 
+\section{Illustrations of Bayesian posteriors}\label{as1:illustrations}
+% 
+% #################
+\begin{figure*}
+\centering 
+\textbf{Statistical measurement uncertainty for NSBH parameters $\mchirp$ (top),
+$\eta$ (middle) and $\chibh$ (bottom);\newline ignoring tidal effects.}\par\medskip
+\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNMchirpCIWidths90_0_Lambda_SNR}\\
+\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNEtaCIWidths90_0_Lambda_SNR}\\
+\includegraphics[trim = {2cm 0 0 0},width=2.1\columnwidth]{plots/TNChiBHCIWidths90_0_Lambda_SNR}
+\caption{
+We show here the statistical uncertainty of our measurement of the 
+dimensionless mass ratio $\eta$ (at $90\%$ credibility), over the NSBH
+parameter space.
+Individual panels show the same as a function of BH mass and spin.
+Across each row, we see the effect of increasing signal strength (i.e.
+SNR) with the tidal deformability of the NS $\lambdans$ fixed. Down each
+column, we see the effect of increasing $\lambdans$, at fixed SNR.
+}
+\label{fig:CIWidths90_Lambda_SNR}
+\end{figure*}
+% #################
+%%
+\begin{figure*}
+\centering
+\textbf{Illustrative posterior probability distributions for NSBH parameters,}\par
+\textbf{for signals at different SNR values; $\rho = 20$ (left) and $50$ (right).}\par\medskip
+\includegraphics[width=1.05\columnwidth,trim=2cm 0 0 0]{plots/AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20}%\\
+\includegraphics[width=1.05\columnwidth,trim=2cm 0 0 0]{plots/AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50}%\\
+% \includegraphics[width=0.5\columnwidth]{plots/McEta2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/EtaChiBH2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/McChiBH2D_q4_mc2_25_chi0_50_snr30}\\
+% \includegraphics[width=0.5\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr30}
+% \includegraphics[width=0.5\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr30}\\
+% \includegraphics[width=0.47\columnwidth]{plots/LambdaMc2D_q4_mc2_25_chi0_50_snr50}
+% \includegraphics[width=0.47\columnwidth]{plots/LambdaEta2D_q4_mc2_25_chi0_50_snr50}
+% \includegraphics[width=0.47\columnwidth]{plots/LambdaChiBH2D_q4_mc2_25_chi0_50_snr50}
+\caption{%
+We illustrate here two-dimensional joint probability distributions, as
+recovered for the intrinsic parameters of a binary with
+$q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$,
+$\lambdans=2000$, and $\rho=30$ (same as in
+Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}).
+The top row shows the same for combinations of 
+non-tidal parameters, i.e. binary masses and spins, while the middle row 
+shows combinations of $\lambdans$ with non-tidal parameters. The bottom row
+is similar to the middle, with the only difference being that the SNR has been
+turned up to $\rho=50$.
+}
+\label{fig:SingleSystemLambda2DPDFs}
+\end{figure*}
+% #################
 
 
+% #################
+\begin{figure*}
+\centering    
+\textbf{Improvement in $\lambdans$ measurement accuracy with multiple observations}\par\medskip
+\includegraphics[width=1.05\columnwidth,trim=1cm 0 0 0]{plots/pdfLambda_vs_N_L800.pdf}
+\includegraphics[width=1.\columnwidth,trim=0 0 1cm 0]{plots/FillBetweenErrorBarsLambda_vs_N_L800.pdf}
+\caption{%
+These panels show the accumulation of information from a population whose
+$\lambdans=800$.
+{\it Left:} Posterior probability distributions for $\lambdans$ (colored 
+curves), and associated $90\%$ credible intervals (grey vertical lines),
+shown for different number of accumulated observations $N$. Distributions are
+normalized to unit area.
+{\it Right:} Measured median value of $\lambdans$ (as solid circles) and the 
+associated $90\%$ credible intervals (as the vertical extent of filled
+region), shown as a function of number of observations $N$. Solid horizontal
+line indicates the true value of $\lambdans$. Dashed and dotted horizontal
+lines (a pair for each line-style) demarcate $\pm 25\%$ and $\pm 50\%$ error
+bounds.
+}
+\label{fig:TT_Lambda_vs_N_L800_CI90_0}
+\end{figure*}
+%
+% #################
+
+
+
+
+
+
+
+
+
+
+
+
+% ###########################################################
+% ###########################################################
 \section{Phenomenology of $\lambdans$ measurement errors}
+% ###########################################################
 % 
 \begin{figure}
 \centering    
