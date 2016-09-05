@@ -914,7 +914,7 @@ which remain subdominant to the statistical measurement uncertainties.
 Past (and future) efforts with Advanced LIGO have used (or plan to use) BBH
 waveform templates to search for and characterize NSBH sources. In doing so,
 they ignore the signature of NS tidal effects on the emitted GWs. In this
-section we present a fully Bayesian analysis of the effects of this
+section we present a fully Bayesian analysis of the effect of this
 simplification on the recovery of non-tidal parameters from NSBH signals.
 
 
@@ -927,7 +927,7 @@ rectangular grid in the BH parameter space, with vertices at
 $q\in\{2,3,4,5\}$, i.e.
 $\mbh\in\{2.7M_\odot, 4.05M_\odot, 5.4M_\odot, 6.75M_\odot\}$, and BH spins
 $\chibh\in\{-0.5, 0, +0.5, +0.75\}$. 
-Finally, we sample all other source-related parameters that determine the
+Finally, we sample all other source-related parameters, that determine the
 signal strength but not character\footnote{For aligned-spin signals and
 aligned-spin templates both, we only consider the contribution of the dominant
 $l=|m|=2$ waveform multipoles. This approximation has the additional benefit
@@ -946,9 +946,9 @@ At design sensitivity, if we expect $10-300$ NSBH detections a
 year~\cite{Abadie:2010cfa}, {\it and} if BH mass values are uniformly likely
 up to $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we can expect to detect $0.3-7$
 {\it disruptive} NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with
-$\rho\geq 30$, and $0.04-1$ a year with $\rho\geq 70$. Therefore, the parameter
-range spanned by our injections represents a physically interesting class of
-systems that is {\it also} likely observable in the near future. 
+$\rho\geq 30$, and $0.04-1$ a year with $\rho\geq 70$. Therefore, our injection
+parameters span a physically interesting subset of NSBH binaries, that is
+{\it also} likely observable in the near future. 
 For our Bayesian priors, we choose uniform distributions for both component
 masses and black hole spin: $\mbh\in[1.2,25]M_\odot$; $\mns\in[1.2,3]M_\odot$;
 and $-0.75\leq \chibh\leq +0.75$.
@@ -956,12 +956,13 @@ and $-0.75\leq \chibh\leq +0.75$.
 
 
 
-As an illustration, in Fig.~\ref{fig:SingleSystemEtaPDFvsSNR} we show 
-recovered probability distributions for binary mass ratio $\eta$, for NSBH
-injections with $\mns=1.35M_\odot$, $\chins=0$, $\mbh=5.4M_\odot$, $\chibh=+0.5$
-and $\lambdans=2000$, with the SNR ranging from $\rho=20$ (left) to
-$\rho=50$ (right). In each panel, both the {\it true} and the {\it 
-recovered} (median) values of $\eta$ are marked. The effect of ignoring tidal
+As an illustration, in Fig.~\ref{fig:SingleSystemEtaPDFvsSNR} we show the
+recovered probability distributions for binary mass ratio $\eta$ for
+three NSBH injections, with $\rho=20$ (left), $30$ (middle), and $\rho=50$
+(right), and other parameters held fixed ($\mns=1.35M_\odot$, $\chins=0$,
+$\mbh=5.4M_\odot$, $\chibh=+0.5$ and $\lambdans=2000$). In each panel, both
+the {\it true} and the {\it measured} (i.e. median) values of $\eta$ are marked.
+The effect of ignoring tidal
 corrections in templates manifests as a systematic shift of the measured $\eta$
 value away from its true value. The associated {\it systematic} bias/error is
 measured by the difference between the measured and true $\eta$ values. Darker
@@ -1027,8 +1028,8 @@ to single-digit percents of its true value.
 
 
 \textcolor{blue}{%
-Credible intervals $(\Delta X)^{90\%}$ measuring the precision with which
-$X=\{\mchirp,\eta,\chibh\}$ can be measured, are discussed in detail in
+Credible intervals $(\Delta X)^{90\%}$ showing the precision with which
+$X=\{\mchirp,\eta,\chibh\}$ can be measured, are presented in
 Appendix~\ref{as1:illustrations}.
 }
 We remind ourselves that this {\it precision} is only meaningful so long as the
@@ -1038,24 +1039,25 @@ measurement of parameter $X$,
 \begin{equation}\label{eq:arr}
 \arr_X = \dfrac{(X^\mathrm{Median} - X^\mathrm{Injected})}{(\Delta X)^{90\%}},
 \end{equation}
-in order to compare the relative importance of both. Only when
-$|\arr_X| < 1$ can we hope that ignoring tidal effects in our templates
-will not hamper the measurement of non-tidal parameters from NSBH signals.
+in order to compare the relative magnitude of both. Only when
+$|\arr_X| < 1$ can we ignore tidal effects in our templates
+without hampering the measurement of non-tidal parameters from NSBH signals.
 % 
-We start with calculating $\arr_{\mchirp}$, and show it in
-Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}. $\mchirp$ is the leading order
+We start with calculating $\arr_{\mchirp}$ as a function of various source
+parameters and show it in Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}.
+$\mchirp$ is the leading order
 mass combination that affects the GW strain emitted by compact binaries as they
 spiral in, and is therefore determined the most precisely. We notice
 immediately that for $\rho\leq 30$ the systematics are well under control
 and so we can obtain reliable chirp mass estimates for NSBH signals using BBH
 templates.
 % 
-For louder and less likely SNRs ($\rho\simeq 50$), we show that
+For louder and less likely SNRs ($\rho\simeq 50$), we find that
 $\arr_{\mchirp}$ can become comparable to unity, but only if the BH has
 prograde spin $\chibh\gtrsim 0.4$, {\it and} the true NS tidal deformability
 is large enough, s.t. $\lambdans \gtrsim 1000$.
 % 
-We therefore conclude that only for very loud signals, with
+We can therefore conclude that only for very loud signals, with
 $\rho\gtrsim 50-70$, will the inclusion of tidal terms in our template
 models improve our $\mchirp$ estimation. For lower SNRs, inclusion of new
 physical content in templates will instead get washed out by detector noise.
@@ -1068,29 +1070,28 @@ lower merger frequency - and therefore of higher mass.
 
 
 Next, in Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}, we show the ratio of
-measurement errors $\arr_\eta$ for the symmetric mass-ratio. We straight-away
-notice that, unlike for $\mchirp$, the measured (median) value of $\eta$ is
-always {\it lower} than its true value due to the lack of $\lambdans$-dependent
-terms in filter templates. This also is so because templates with $\arr_\eta<0$
-will have a lower merger frequency than the one with $\arr_\eta=0$, and will
-therefore better fit a disruptive NSBH merger.
+measurement errors $\arr_\eta$ for the symmetric mass-ratio.
 % 
 Going through the figure from left to right, we find that for realistic
 SNRs ($\rho\leq 30$) the systematics remain below statistical errors for
-$\eta$ measurement. The worst case is for the most deformable NSs
+$\eta$ measurement. The worst case is of the most deformable NSs
 ($\lambdans = 2000$), but even for them systematics in $\eta$ are $2\times$
 smaller than the statistical measurement errors.
 % 
 Moving to louder signals with $\rho\simeq 50$, we find that for binaries of
-fairly deformable NSs ($\lambdans\gtrsim 1500$), and low-mass BHs
+fairly deformable NSs ($\lambdans\gtrsim 1500$) and low-mass BHs
 ($\mbh\leq 5M_\odot$) that have prograde spins ($\chibh\gtrsim +0.4$), our
 measurement of mass-ratio can be seriously compromised by ignoring tidal
 physics in template models. 
 % 
-This pattern is continued to even higher SNRs, as we can see from
+This pattern is continued at even higher SNRs, as we can see from
 Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}. We therefore conclude that, even if
 under moderate restrictions on BH and NS parameters, $\rho=50$ is loud enough
 to motivate the use of tidal templates in aLIGO data analyses.
+% 
+In addition, we also notice that, unlike for $\mchirp$, the measured value of
+$\eta$ is always {\it lower} than its true value, which is what we expect if we
+want BBH templates to fit NSBHs that disrupt and merge at lower frequencies.
 
 
 
@@ -1103,23 +1104,20 @@ and~\ref{fig:TN_EtaBias_vs_Lambda_SNR}. A diverging colormap is used so that bot
 extremes of the colorbar range point to large systematic biases, while its zero (or
 small) value lies in the middle.
 % 
-For the lowest considered SNR ($\rho=30$), $\chibh$ bias is about $2\times$
-smaller than the statistical measurement uncertainty and is therefore mostly
-negligible. Both can become comparable only when we have the most deformable NSs
-in orbit around low-mass BHs. 
+For the lowest SNR considered ($\rho=30$), $\chibh$ bias is about $2\times$
+smaller than its statistical measurement uncertainty, and is therefore mostly
+negligible. Both do become somewhat comparable, but only when we have the most
+deformable NSs in orbit around low-mass BHs. 
 % 
-Moving to higher SNRs, at $\rho\simeq50$ we find that systematics in $\chibh$
-measurement begin to dominate for $\mbh\leq 4.5M_\odot$.
-This suggests that we would need tidal templates to accurately
-characterize astrophysical mass-gap violating NSBH binaries.
+At higher SNRs $(\rho\simeq50-70)$, we find that the systematics in $\chibh$
+measurement can dominate completely, especially for binaries containing
+mass-gap violating BHs and/or deformable NSs with $\lambdans\geq1000$.
 % 
-At even higher SNRs, the systematics can completely dominate BH spin
-measurement.
-% 
-From Fig.~\ref{fig:TN_BHspinBias_vs_Lambda_SNR} we also note that when signal
-spins are the largest, $\chibh\times\arr_{\chibh}<0$. This is to be
-expected because the median of the recovered posterior distribution for $\chibh$
-can only get pushed inwards from the boundaries.
+From Fig.~\ref{fig:TN_BHspinBias_vs_Lambda_SNR} we additionally note that when
+the source spin magnitudes approach the highest allowed, i.e. at both extremes
+of the $x$-axes, $\chibh\times\arr_{\chibh}<0$. This is to be expected because
+the median of the recovered posterior distributions for $\chibh$ can only get
+pushed inwards from the boundaries.
 
 
 
