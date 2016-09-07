@@ -2208,20 +2208,102 @@ harbingers the dawn of an era of gravitational-wave astronomy where observations
 would finally drive scientific discovery~\cite{Abbott:2016blz}. As confirmed by
 the first observations~\cite{Abbott:2016blz,Abbott:2016nmj,Abbott:2016nhf},
 stellar-mass compact binary mergers emit GWs right in the sensitive frequency
-band of the LIGO observatories, and are therefore their primary targets.
+band of the LIGO observatories, and are their primary targets.
 Neutron star black hole binaries form a physically distinct sub-class of
-compact binaries, that we expect to detect the first of in the upcoming
-observing runs~\cite{Abbott:2016ymx}. And when the detectors reach their design
-sensitivity, we can expect to detect NSBHs at a healthy rate of $0.2-300$
-mergers a year~\cite{Abadie:2010cf}.
+compact binaries. We expect to detect the first of them in the upcoming
+observing runs~\cite{Abbott:2016ymx}, and subsequently at a healthy rate of
+$0.2-300$ mergers a year when aLIGO detectors reach design
+sensitivity~\cite{Abadie:2010cf}.
 
-\prayush{\bf Why NSBHs? 1. GRB, 2. tidal measurements.}
+NSBH binaries are interesting for various reasons. Unlike BBHs, the presence of
+matter allows for richer phenomena to occur alongside the strong-field
+gravitational dynamics. The quadrupolar moment of the NS changes during the
+course of inspiral, which increases the inspiral rate of the binary and alters the
+form of the emitted gravitational waves. Close to merger, under restricted but
+plausible conditions, the neutron star is disrupted by the tidal field of its 
+companion black hole and forms an accretion disk around it. This disruption
+reduces the quadrupolar moment of the system, and decreases the amplitude of
+the emitted GWs from the time of disruption through to the end of ringdown.
+Both of these phenomena are discernible in their gravitational-wave signatures
+alone. In addition, if the neutron star matter is magnetized, the magnetic
+winding above the remnant black hole poles can build up magnetic fields
+sufficiently to power short gamma-ray bursts (SGRB)~\cite{}.
+Therefore a coincident observation of gravitational waves from an NSBH merger
+and a SGRB can potentially confirm the hypothesis that the former is a
+progenitor of the latter~\cite{}.
 
 
-\prayush{\bf what we do in this paper - brief summary}
+In this paper we study the observability of tidal signatures in the
+gravitational-wave spectrum of NSBH binaries. More specifically, we investigate
+three questions. First, what is the effect of not including tidal effects in 
+templates while characterizing NSBH signals? Second, if we do include tidal 
+effects, how well can we measure the tidal deformability of the NS
+(parameterized by $\lambdans$) from individual NSBH signals? And third, as we
+observe more and more signals, how does our knowledge of $\lambdans$ improve?
+In the following, we summarize our main findings.
 
 
-\prayush{\bf Sec 3 summary}
+
+
+
+First, we study the effects of not including tidal terms in our search
+templates while characterizing NSBH signals. We expect that the waveform
+template that best fits the signal would compensate for the reduced number of
+degrees of freedom in the template model by moving away from the true
+parameters of the binary. This should result in a {\it systematic} bias in 
+the recovered values of non-tidal source parameters, such as its masses 
+and spins. In order to quantify it, we inject tidal signals into zero noise,
+and perform a Bayesian parameter estimation analysis on them using templates
+{\it without} tidal terms.
+% 
+We use the LEA+ model to produce tidal waveforms that incorporate the effect
+of NS distortion during inspiral, and of its disruption close to merger. Our
+injected signals sample the region of NSBH parameter space where NS disruption
+prior to binary merger is likely {\it and} can be modeled using LEA+. Their
+parameters are given by combinations of $q=\mbh/\mns=\{2,3,4,5\},
+\chibh=\{-0.5, 0, 0.5, 0.75\}$ and $\lambdans=\{500,1000,1500,2000\}$.
+Other parameters, such as source location and orientation, that factor out of
+$h(t)$ as amplitude scaling are co-sampled by varying $\rho=\{20,30,50,70\}$.
+
+
+
+At low to moderate SNRs ($\rho\lesssim 30$), we find that using BBH templates
+does not significantly hamper our estimation of non-tidal parameters for NSBH
+signals. In the worst case, when the BH mass is within the astrophysical mass-gap
+and its spin is positive aligned, the systematic biases in $\eta$ and $\chibh$
+measurements do become somewhat comparable to statistical errors (ratio
+$\sim 0.5-0.8$) under very restrictive conditions~\footnote{requiring a
+companion BH with mass $\mbh\lesssim 4.5M_\odot$ (i.e. in the astrophysical
+``mass-gap''~\cite{Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,
+Littenberg:2015tpa}), and the
+hardest NS EoS considered (with $\lambdans\simeq 2000$).}, but never exceed them.
+At high SNRs ($\rho\gtrsim 50$), systematic biases in $\mchirp$ become larger
+than the statistical uncertainties. For $\eta$ and $\chibh$ the difference
+is more drastic with the systematics reaching up to $4\times$ the statistical
+errors. We therefore conclude that $\rho\simeq 30-50$ is loud enough to
+motivate the use of tidal templates for even the estimation of non-tidal
+parameters from NSBH signals.
+% 
+We also conclude that low-latency parameter estimation algorithms, designed to
+classify GW signals into electromagnetically active (NSBH and NSNS) and
+inactive (BBH) sources, can use BBH templates to trigger GRB 
+alerts~\cite{2012A&A...541A.155A,Singer:2014qca,Singer:2015ema,Pankow:2015cra,
+Abbott:2016wya,Abbott:2016gcq} for NSBH signals with low to moderate SNRs
+($\rho\lesssim 30$).
+This is so because the primary requirement of identifying NS-X binaries (X =
+\{NS, BH\}) can be achieved just as easily with BBH templates, on the basis of
+the smaller component's mass\footnote{The smaller component mass is unlikely
+to be significantly biased by missing tidal effects in filter templates below
+$\rho\simeq 30$, as we show above.}.
+% 
+We also speculate that NSBH detection searches are unlikely to be
+affected by the choice of ignoring tidal effects in matched-filtering
+templates, if these effects are too subtle to manifest in parameter estimation
+below $\rho\simeq 30$.
+
+
+
+% 
 % % On the known NS and BH properties
 % The number of neutron stars observed using conventional astronomical methods has
 % grown rapidly in the recent past, both in isolated and two-body
@@ -2239,46 +2321,36 @@ mergers a year~\cite{Abadie:2010cf}.
 % Reynolds:2013qqa} for recent reviews of astrophysical BH spin measurements,
 % and Figure 5 of Ref.~\cite{Miller:2014aaa} for a comparison of NS and BH spins).
 
-\prayush{
-We find that non-inclusion of tidal effects leads to systematic biases in
-the measurement of non-tidal parameters. Consider first the binary chirp 
-mass $\mchirp:=M\eta^{3/5}$ where $M$ is the binary total mass, and 
-$\eta:=\mbh\mns/M^2$ is the dimensionless mass-ratio. We find that for
-realistic (moderate) SNRs, i.e. $\rho\lesssim 30$, not including tidal
-effects introduces a barely measurable bias that remains below $50\%$
-of the statistical uncertainty of the $\mchirp$ measurement itself.
-For higher signal strengths, we find that the underlying statistical
-uncertainty decreases enough for the systematic bias to become comparable
-to it for $\rho=50-70$ and higher. This is expected because chirp mass is fairly
-accurately determined by the inspiral, where tidal effects are weak.
-Next, we consider the mass-ratio $\eta$. We find that only if the NS is quite
-deformable (with $\lambdans=2000$), {\it and} has a companion BH whose mass
-is $\mbh\lesssim 4.5M_\odot$ (i.e. in the astrophysical ``mass-gap''~\cite{
-Bailyn:1997xt,Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa}),
-will the systematic bias in $\eta$ measurement become comparable to its
-statistical uncertainties at SNRs $\rho\leq 30$. For SNRs $\rho\gtrsim30$,
-however, not including tidal effects is very likely to {\it significantly} bias
-the mass-ratio estimate for NSBH binaries. Finally, we consider the spin on the
-black hole $\chibh$. We find that $\chibh$ measurements are affected in a similar
-way to $\eta$. By not including tidal effects, we compromise our measurement of
-$\chibh$ significantly only if signal $\rho\gtrsim 30$. 
-}
 
-\prayush{
-Overall, we learn an important thing. Bayesian parameter estimation algorithms
-aimed at identifying NSBH binaries with low latency in order to alert 
-electromagnetic (EM) observers in time to establish a possible coincident 
-observation of a GRB~\cite{2012A&A...541A.155A,Singer:2014qca,Singer:2015ema,
-Pankow:2015cra} can use BBH templates to look for NSBH systems with aLIGO.
-This is so because the primary requirement of the EM follow-up effort is rapid
-classification of a binary as an NSBH system, which can be achieved just as 
-easily with BBH templates, purely on the basis of the smaller component's mass.
-Another conclusion we draw is that detection searches are unaffected by the
-choice of ignoring tidal effects in matched-filtering templates.
-}
+Second, we turn the question around to ask: can we measure the tidal effects if
+our template models did account for them? Tidal effects in our waveform model
+are parameterized using a single deformability parameter 
+$\lambdans\propto (R/M)_\mathrm{NS}^5$. In order to quantify the 
+measurability of $\lambdans$, we inject the same tidal signals as before, and
+this time perform a Bayesian analysis on them using {\it tidal} templates. 
+The results are detailed in Sec.~\ref{s1:PEwithNS}.
+% 
+At low SNRs ($\rho\simeq 20$), we find that the best we can do is to constrain
+$\lambdans$ within $\pm 75\%$ of its true value at $90\%$ credible level. This
+too only if the BH is spinning sufficiently rapidly, with $\chibh\gtrsim +0.7$,
+and the NS has $\lambdans\gtrsim 1000$. At moderate SNRs ($\rho\simeq 30$), we
+can constrain $\lambdans$ a little better, i.e. within $\pm 50\%$ of its true
+value. This level of accuracy, however, again requires that BH spin
+$\chibh\gtrsim+0.7$ and $\lambdans\gtrsim 1000$. Binaries with smaller BH spins
+and/or softer NS EoSs will furnish worse than $\pm 75\%-\pm 100\%$ errors for
+$\lambdans$. This trend continues as we increase the SNR from $\rho=30-50$. It
+is not before we reach an SNRs as high as $\rho\simeq 70$ that we can shrink
+$\lambdans$ errors substantially with a single observation (i.e. within
+$\pm 25\%$ of its true value).
+% 
+In summary, we find that with a single but moderately loud NSBH signal,
+Advanced LIGO can begin to put a factor of $1-2\times$ constraints on NS tidal
+deformability parameter. These constraints can subsequently be used to assess
+the likelihood of various candidate equations of state for nuclear matter, and
+possibly to narrow the range they span.
 
 
-\prayush{\bf Sec 4 summary}
+
 
 
 \prayush{\bf Sec 5 summary}
@@ -2340,18 +2412,6 @@ state for neutron star matter from most to least likely, with a few years'
 time-scale.
 }
 
-\prayush{%
-We find that when the BH is sufficiently spinning in the prograde sense,
-with $\chibh\gtrsim +0.7$, even at a relatively possible signal strengths ($\rho=20$),
-we can begin to constraint $\lambdans$ at the level of $\pm 75\%$ errors with a $90\%$
-credible level. If the signal is stronger, say $\rho=30$, we can contraint
-$\lambdans$ better with only $\pm 50\%$ errors, for binaries with large BH spins.
-This trend continues as we vary the SNR from $\rho=30-50$ upwards. In other words,
-with a single but moderately loud NSBH signal observation, Advanced LIGO will begin
-to put constraints on NS matter properties. These constraints can consequently
-be used to assess the likelihood of different equations of state for nuclear
-matter, and possibly narrow the range they span.
-}
 
 
 
