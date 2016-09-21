@@ -1,0 +1,26 @@
+Minor issues:
+L. 445 In addition, we also note …
+L. 528, L.532 repeat “In this section”, replace one by “here"
+L. 939: LEA+ model [53]; This isn’t quite correct as Ref [53] is the LEA model. Better refer to Sec. II A for LEA+.
+L. 1009: “investigate how well do we do” -> “investigate how well we do"
+L. 1025: “each event’s parameters” -> “the parameters of each event”
+L. 1031: present tense instead of future tense?
+
+Is it possible to move the figures a bit later into the paper? Eg reading the text on p. 8 where Fig. 2 is first referenced, the reader has to flip back to p. 5 to see Fig. 2.
+
+Regarding the sampling for the populations, LambdaNS values are picked from grid values, while the other parameters are sampled from uniform distributions and later “snapped” to nearest neighbors of a grid. Isn’t this equivalent from sampling them from a grid as well?
+
+In the last paragraph of discussion, we refer to Francesco’s amplitude model. I think we should also refer to other models for these systems, eg arXiv:1602.00599.
+
+In Sec. V, can you think of additional literature to cite regarding event stacking? Have you looked at eg http://arxiv.org/abs/0912.5531 (inference on populations described by a function f(lambda)), http://arxiv.org/abs/1410.8866 (inference of EOS parameters)?
+Should we contrast the BNS results in http://arxiv.org/abs/1410.8866 and https://arxiv.org/abs/1402.5156 against ours for NSBH?
+
+While looking at some of these papers I noticed that often one samples from a prescribed population function, eg a Gaussian. In our study we have a sum over delta peaks (or a grid) for LambdaNS that is prescribed directly and not obtained from draws of a population distribution function. Maybe that is something to point out?
+
+Some references may require adding: \usepackage[utf8]{inputenc} in the latex preamble.
+
+In Fig. 13 right panel, it looks to me like some of the 2D PDFs are under-resolved. I would be a bit wary of showing these and am curious whether they can be improved.
+
+One thing I would like to do is to repeat one of your PE runs with the ROQ and compare the posteriors. The fairest comparison will be to also do this in emcee and keep the same sampling parameters, as opposed to using lalinference which would by default sample in all waveform parameters. This is possible except for adding time and phase shifts over which we can then marginalize. I hope to get to this toward the end of this week and this is something that could be added after submitting PnP. I don’t want to hold up the paper any more and this is not essential.
+
+Have you thought about who to suggest as the P&P reviewer? Ben Lackey comes to mind, or someone from the PE group.
