@@ -8,6 +8,7 @@ superscriptaddress,nofootinbib,showpacs]{revtex4-1}
 \usepackage{amssymb}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{placeins}
+\usepackage[utf8]{inputenc}
 % \usepackage[switch,columnwise]{lineno} 
 \usepackage{lineno}
 \interfootnotelinepenalty=10000
@@ -163,7 +164,7 @@ documented~\cite{Manchester:2004bp},
 in varied situations: as radio pulsars~\cite{Lattimer:2012nd,Manchester:2004bp},
 in binary systems with a stellar companion~\cite{1971ApJ...169L..23M,
 Bond:2002eh,Lattimer:2012nd,Manchester:2004bp},
-and in neutron star binaries~\cite{Hulse:1975uf,Taylor:1982wi,
+and in binary neutrons (BNS)~\cite{Hulse:1975uf,Taylor:1982wi,
 Weisberg:2010zz,Lattimer:2012nd,Manchester:2004bp}.
 Mixed binaries of black holes and neutron stars, is an astrophysically
 interesting class of systems~\cite{Wex:1998wt,
@@ -237,9 +238,13 @@ NSBH mergers and GRBs~\cite{Abbott:2016wya}.
 % Text focusing on tides
 % }
 
-Another question that NSBH mergers can help answer is `what is the 
+Another question that compact object mergers can help answer is `what is the 
 nature of matter at nuclear densities', i.e. `what is the EoS of NS material'?
-This is what we will focus on in this paper.
+A large fraction of past work aimed at measuring NS matter effects from GW
+signals has consisted of inquiries about BNSs~\cite{Lee1999a,Lee1999b,Lee2000,
+oechslin:07,Read:2008iy,Markakis:2010mp,Markakis:2011vd,stergioulas:11,
+East:2011xa,Lackey2014,Wade:2014vqa,Bauswein:2014qla}. In this paper, we will
+instead focus on NSBHs.
 % 
 During the course of early inspiral, the tidal field of the BH produces a
 deformation in its companion NS. The quadrupolar moment of the star associated
@@ -602,7 +607,7 @@ for louder signals ($\rho\simeq50$), the systematic errors dominate.
 }
 \label{fig:SingleSystemEtaPDFvsSNR}
 \end{figure*}
-
+% 
 % ###############################
 % In this section we summarize various technical aspects of this paper. The model
 % used to obtain tidal waveforms is described in Sec.~\ref{s2:waveforms}. The 
@@ -876,6 +881,7 @@ serve as statistical error-bars.
 % \label{fig:CIWidths90_Lambda_SNR}
 % \end{figure*}
 % #################
+% 
 \begin{figure*}
 \centering 
 \textbf{Ratio of systematic to statistical errors in measuring $\mchirp$;}\par
@@ -1176,7 +1182,7 @@ $\rho\gtrsim 50-70$, will the inclusion of tidal terms in our template
 models improve our $\mchirp$ estimation. For lower SNRs, inclusion of new
 physical content in templates will instead get washed out by detector noise.
 % 
-In addition to everything, we also note that $\arr_{\mchirp}\geq 0$ always,
+In addition, we also note that $\arr_{\mchirp}\geq 0$ always,
 i.e. $\mchirp$ is always being over-estimated. This is to be expected since
 the tidal deformation and disruption of NSs close to merger reduces GW signal
 power at high frequencies, making the resulting signal resemble a BBH signal of
@@ -1391,7 +1397,7 @@ Conditions (a)-(c) also reduce the onset frequency of the disruption of the NS,
 allowing for it to happen earlier in the orbit. 
 % 
 We expect that these conditions are also the ones which should maximize the
-likelihood of {\it measuring} tidal effects in NSBH signals. In this section,
+likelihood of {\it measuring} tidal effects in NSBH signals. Here,
 %
 %In addition, a SNR of $30$ corresponds to a $1.35+5M_\odot$ binary with 
 %$\chibh = 0.4$ at a luminosity distance of $XXX$~Mpc, if optimally aligned
@@ -1721,20 +1727,22 @@ $\lambdans$ credible intervals will require $40+$ events.
 }
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
 \end{figure*}
-% 
 
 
-In the previous section, we showed that single observations of NSBH coalescences
-at moderate SNRs have little information about the internal structure of neutron
-stars that will be accessible to Advanced LIGO at its design sensitivity. We
-expect all neutron stars to share the same equation of state, and hence the same
-$\lambdans(\mns)$. In addition, we know that the mass distribution of (most) NSs
-that have not been spun up to millisecond periods (which are what we focus on in 
-this paper, by approximating $\chins\approx 0$) is narrowly peaked around
-$\sim 1.35M_\odot$~\cite{Kiziltan2013}. Therefore, information from multiple NSBH
-observations can be combined to improve our estimation of $\lambdans$ for the
-population. This is what we explore in this section, within a fully Bayesian 
-framework. 
+
+
+In the previous section, we showed that single observations of NSBH
+coalescences at moderate SNRs have little information about the internal
+structure of neutron stars that will be accessible to Advanced LIGO at its
+design sensitivity. We expect all neutron stars to share the same equation of
+state, and hence the same $\lambdans(\mns)$. In addition, we know that the mass
+distribution of (most) NSs that have not been spun up to millisecond periods
+(which are the ones we focus on in this paper, by setting $\chins\approx 0$) is
+narrowly peaked around $\sim 1.35M_\odot$~\cite{Kiziltan2013}. Therefore,
+information from multiple NSBH observations can be combined to improve our
+estimation of $\lambdans$. We explore the same in this section within a fully
+Bayesian framework. We refer the reader to Ref.~\cite{Mandel:2009pc,Lackey2014,
+Wade:2014vqa} for similar analyses of BNS inspirals.
 
 
 
@@ -1742,7 +1750,7 @@ framework.
 % \textbf{Multiple identical sources at low SNR: }\label{s2:identical_multiple}
 % 
 An intuitive understanding of the problem is gained by considering first
-multiple {\it identical} sources at realistic SNRs. Let us consider the case
+multiple {\it identical} sources with realistic but different SNRs. Let us consider the case
 of a population of optimally oriented binaries~\footnote{An optimally oriented
 binary is one which is located directly overhead the detector, with the 
 orbital angular momentum parallel to the line joining the detector to the
@@ -1966,28 +1974,32 @@ the NS properties: (i) NS mass $\mns=1.35M_\odot$, (ii) NS spin $\chins=0$
 and (iii) NS tidal deformability $\lambdans=$ fixed value chosen from
 $\{500,800,1000,1500,2000\}$. Next, we generate events, by sampling BH mass
 (uniformly) from $\mbh\in[3M_\odot,6.75M_\odot]$, BH spin (uniformly)
-from $\chibh\in[0, 1]$, source location uniformly in spatial volume,
-and its inclination from $\iota\in[0,\pi]$. Note that we only
-sample positive aligned BH spins, since binaries with anti-aligned spins have
-very little information to add at realistic SNRs, as shown in 
-Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}. This further restricts the
-sub-space of all NSBH observations that our populations span, and will need to
-be take into account when the number of observations required for tidal
-measurements is related to detector observation time.
+from $\chibh\in[0, 1]$, orbital inclination from $\iota\in[0,\pi]$, and 
+source location uniform in spatial volume\footnote{with a minimum SNR 
+$\rho_\mathrm{min}=10$}.
 % 
-As noted previously, we also restrict events to have
-$\rho\geq\rho_\mathrm{min}$, where $\rho_\mathrm{min}=10$.
-Finally, we repeat the process till we have an ordered set of $N$ events.
+We restrict ourselves to positive aligned BH spins, since binaries with
+anti-aligned spins have very little information to add at realistic SNRs,
+as demonstrated in Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}. This is
+to be taken into account when the number of observations is related to detector
+operation time. 
+% 
+We repeat this process till we have an ordered set of $N$ events.
 % 
 Since we want to analyze not just a single realization of an astrophysical
 population, but an ensemble of them, we make an additional approximation to
 mitigate computational cost. Complete Bayesian parameter estimation is
 performed for a set of simulated signals whose parameters are the vertices
-of a regular hypercubic grid (henceforth ``G'') in the space of
+of a regular hyper-cubic grid (henceforth ``G'') in the space of
 $\{q\}\times\{\chibh\}\times\{\rho\}$, with each sampled at $q=\{2,3,4,5\}$,
 $\chibh=\{-0.5,0,0.5,0.75\}$, and $\rho=\{10,20,30,50,70\}$.
-All events in each population draw are substituted by their
-respective nearest neighbours on the grid G.
+All events in each population draw are substituted by their respective nearest
+neighbours on the grid G.
+% 
+Our chosen signal parameter distribution is different from some other studies
+in literature, which often sample from more astrophysically informed population
+distribution functions~\cite{Mandel:2009pc}.
+
 
 
 
@@ -2260,8 +2272,8 @@ and spins. In order to quantify it, we inject tidal signals into zero noise,
 and perform a Bayesian parameter estimation analysis on them using templates
 {\it without} tidal terms.
 % 
-We use the LEA+ model~\cite{Lackey:2013axa} to produce tidal waveforms that
-incorporate the effect
+We use the LEA+ model (c.f. Sec.~\ref{s2:waveforms}) to produce tidal waveforms
+that incorporate the effect
 of NS distortion during inspiral, and of its disruption close to merger. Our
 injected signals sample the region of NSBH parameter space where NS disruption
 prior to binary merger is likely {\it and} can be modeled using LEA+. Their
@@ -2362,7 +2374,7 @@ possibly to narrow the range they span.
 % we constrain $\lambdans$ reasonably?}\\
 % % 
 Third, knowing that single observations can furnish only so much information
-about the NS equation of state, we move on to investigate how well do we do with
+about the NS equation of state, we move on to investigate how well we do with
 multiple signals. In order to quantify how $\lambdans$ measurement improves
 with the number of observed events $N$, we generate populations of NSBH signals
 and combine the information extracted from each event.
@@ -2375,17 +2387,17 @@ and spin from $\chibh\in[0,1]$. As before, our parameter choice here is given
 by the intersection set of the mass range that allows for neutron star disruption
 and the range supported by LEA+~\cite{Foucart2012,Foucart:2013a,Lackey:2013axa}.
 In order to keep the computational cost reasonable, we make an additional
-approximation. For every population generated, we replace each event's
-parameters by their nearest neighbor on the uniform grid G, which has vertices
+approximation. For every population generated, we replace the parameters of each
+event by their nearest neighbor on the uniform grid G, which has vertices
 at: $q=\{2,3,4,5\}\times\chibh=\{-0.5,0,0.5,0.75\}\times\lambdans=\{500,800,
 1000,1500,2000\}\times\rho=\{10,20,30,50,70\}$.
 % 
 This way, we only have to run full Bayesian parameter estimation analysis on
 this fixed set of signals. 
 % 
-There are two sources of error that will enter the deductions we will make from
-a a single population generated in the manner described above. First, since the
-injection parameters are pushed to their nearest neighbor on a grid, we would 
+There are two sources of error that enter the deductions we make from
+a single population generated in the manner described above. First, since the
+injection parameters are pushed to their nearest neighbor on a grid, we
 find discrete jumps in $\lambdans$ errors as a function of $N$. And second, an
 individual population is one particular realization of a stochastic process and
 could have excursions that may never be found in another population. To
@@ -2434,16 +2446,22 @@ Our methods and results are detailed in Sec.~\ref{s1:multiple_observations}.
 
 
 
-Finally, we note that a more recent work that improves upon LEA+ has been
-published~\cite{Pannarale:2015jka}, but it
-provides only an amplitude model which needs to be (in future) augmented with a
-compatible phase model. In addition, accuracy of the underlying numerical
-simulations used to calibrate the waveform model used here have not been
-verified against independent codes so far. It is therefore difficult to assess
-the combined modeling error and its effect on our results. Our results here
-are, therefore, limited by the limitations of our waveform model, and presented
-with this caveat. However, we expect the combined effect of modeling errors to
-{\it not} affect our qualitative conclusions.
+Finally, we note that the underlying numerical simulations used to calibrate
+the waveform model used here have not been verified against
+independent codes so far.
+% 
+It is therefore difficult to assess the combined modeling error of LEA+ and its
+effect
+on our results. Our results here are, therefore, limited by the limitations of
+our waveform model, and presented with this caveat. However, we do expect the
+combined effect of modeling errors to {\it not} affect our {\it qualitative}
+conclusions.
+% 
+In future, we plan to further the results presented here by using more recent
+tidal models~\cite{Pannarale:2015jka,Hinderer:2016eia}, that
+may improve upon LEA+\footnote{One of them~\cite{Pannarale:2015jka} is only an
+amplitude model though, which has to be augmented with a compatible phase model
+first.}.
 
 
 
