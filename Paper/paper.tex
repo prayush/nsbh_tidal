@@ -62,7 +62,7 @@ Am M\"uhlenberg, Golm, Germany}} %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\linenumbers
+%\linenumbers
 
 \title{
 Measuring neutron star tidal deformability with Advanced LIGO: a Bayesian analysis
@@ -1098,60 +1098,60 @@ further, we find that the two error sources become comparable at $\rho\sim 30$,
 and systematic errors dominate finally when $\rho\simeq 50$.
 
 
-\textcolor{gray}{%
-Let us first delve into statistical errors. In
-Fig.~\ref{fig:CIWidths90_Lambda_SNR}, we show how {\it precisely} can we
-measure NSBH parameters $X=\{\mchirp,\eta,\chibh\}$ using BBH templates.
-The three panels correspond to $\mchirp$ (top), $\eta$ (middle), and $\chibh$
-(bottom), and show the width of these credible intervals $(\Delta X)^{90\%}$
-as a function of BH mass/spin (within each sub-panel), and NS properties, i.e.
-$\lambdans$ (downwards in each column)~\footnote{We restrict NS mass to
-$1.35M_\odot$ and its spin to zero. Varying its tidal deformability $\lambdans$
-does not significantly change the measurement uncertainties for non-tidal
-binary parameters, as is evident from comparing the two rows in each panel of
-Fig.~\ref{fig:CIWidths90_Lambda_SNR}.}.
-% 
-From the left-most column, we find that: (i) at $\rho=20, \mchirp$ is already
-measured remarkably well - to a precision of $0.16\%$ of its true value, and
-(ii) so is $\chibh$. (iii) Mass ratio $\eta$ is determined more loosely,
-with $\gtrsim 25\%$ uncertainty. If the signal is even louder ($\rho\geq 30$),
-all three measurements gain further precision, with $\eta$ errors shrinking down
-to single-digit percents of its true value.
+% \textcolor{gray}{%
+% Let us first delve into statistical errors. In
+% Fig.~\ref{fig:CIWidths90_Lambda_SNR}, we show how {\it precisely} can we
+% measure NSBH parameters $X=\{\mchirp,\eta,\chibh\}$ using BBH templates.
+% The three panels correspond to $\mchirp$ (top), $\eta$ (middle), and $\chibh$
+% (bottom), and show the width of these credible intervals $(\Delta X)^{90\%}$
+% as a function of BH mass/spin (within each sub-panel), and NS properties, i.e.
+% $\lambdans$ (downwards in each column)~\footnote{We restrict NS mass to
+% $1.35M_\odot$ and its spin to zero. Varying its tidal deformability $\lambdans$
+% does not significantly change the measurement uncertainties for non-tidal
+% binary parameters, as is evident from comparing the two rows in each panel of
+% Fig.~\ref{fig:CIWidths90_Lambda_SNR}.}.
 % % 
-% We remind ourselves that this {\it precision}, however, is only
-% meaningful so long as the measurement is {\it accurate} to begin with.
-% We define $\arr_X$ as the ratio between systematic and statistical
-% errors associated with the measurement of parameter $X$,
-% \begin{equation}\label{eq:arr}
-% \arr_X = \dfrac{(X^\mathrm{Median} - X^\mathrm{Injected})}{(\Delta X)^{90\%}},
-% \end{equation}
-% in order to compare the relative importance of both. Only when
-% $|\arr_X| < 1$ can we hope that ignoring tidal effects in our templates
-% will not hamper the measurement of non-tidal parameters from NSBH signals.
-% Due to
-% unmodeled tidal effects, parameter measurements performed on NSBH signals with
-% BBH templates will have systematic biases. If these biases are too large,
-% using non-tidal BBH templates should severely impair our inferencing ability.
-% 
-% there are physical effects that have not been
-% incorporated in our (BBH) search templates which we use here to decipher NSBH
-% signals. Therefore, we cannot know the {\it accuracy} of our parameter
-% measurements unless we know how large the systematic biases due to an
-% incomplete template model are. To quantify this, we find it useful to define
-% $\arr_X$, the ratio of the systematic biases induced by unmodeled tidal effects in
-% templates, to the statistical uncertainties associated with the measurement
-% itself. If $\arr_X\gtrsim 1$, including the effects of NS tidal distortion
-% (during inspiral) and possible disruption (close to merger) would be imperative
-% to obtain {\it accurate} estimates of source masses and spins from observed GW
-% signals.}
-}
+% From the left-most column, we find that: (i) at $\rho=20, \mchirp$ is already
+% measured remarkably well - to a precision of $0.16\%$ of its true value, and
+% (ii) so is $\chibh$. (iii) Mass ratio $\eta$ is determined more loosely,
+% with $\gtrsim 25\%$ uncertainty. If the signal is even louder ($\rho\geq 30$),
+% all three measurements gain further precision, with $\eta$ errors shrinking down
+% to single-digit percents of its true value.
+% % % 
+% % We remind ourselves that this {\it precision}, however, is only
+% % meaningful so long as the measurement is {\it accurate} to begin with.
+% % We define $\arr_X$ as the ratio between systematic and statistical
+% % errors associated with the measurement of parameter $X$,
+% % \begin{equation}\label{eq:arr}
+% % \arr_X = \dfrac{(X^\mathrm{Median} - X^\mathrm{Injected})}{(\Delta X)^{90\%}},
+% % \end{equation}
+% % in order to compare the relative importance of both. Only when
+% % $|\arr_X| < 1$ can we hope that ignoring tidal effects in our templates
+% % will not hamper the measurement of non-tidal parameters from NSBH signals.
+% % Due to
+% % unmodeled tidal effects, parameter measurements performed on NSBH signals with
+% % BBH templates will have systematic biases. If these biases are too large,
+% % using non-tidal BBH templates should severely impair our inferencing ability.
+% % 
+% % there are physical effects that have not been
+% % incorporated in our (BBH) search templates which we use here to decipher NSBH
+% % signals. Therefore, we cannot know the {\it accuracy} of our parameter
+% % measurements unless we know how large the systematic biases due to an
+% % incomplete template model are. To quantify this, we find it useful to define
+% % $\arr_X$, the ratio of the systematic biases induced by unmodeled tidal effects in
+% % templates, to the statistical uncertainties associated with the measurement
+% % itself. If $\arr_X\gtrsim 1$, including the effects of NS tidal distortion
+% % (during inspiral) and possible disruption (close to merger) would be imperative
+% % to obtain {\it accurate} estimates of source masses and spins from observed GW
+% % signals.}
+% }
 
 
-\textcolor{blue}{%
+%\textcolor{blue}{%
 Credible intervals $(\Delta X)^{90\%}$ showing the precision with which
 $X=\{\mchirp,\eta,\chibh\}$ can be measured, are presented in
 Appendix~\ref{as1:nontidalerrors}.
-}
+%}
 We remind ourselves that this {\it precision} is only meaningful so long as the
 measurement is {\it accurate} to begin with. Therefore, we define $\arr_X$ as
 the ratio between systematic and statistical errors associated with the
@@ -1442,26 +1442,26 @@ fractional uncertainty
 \end{equation}
 decreases instead.
 %
-\textcolor{blue}{%
+% \textcolor{blue}{%
 Further illustrations, showing the correlation between tidal and non-tidal
 parameters, are presented in Appendix~\ref{as1:illustrations}.
 We will continue here to focus on the measurement of $\lambdans$ itself.
-}
+% }
 % 
-\textcolor{gray}{%
-Next, in Fig.~\ref{fig:SingleSystemLambda2DPDFs} we show the correlation of
-mass, spin, and tidal parameter measurements. We keep the binary parameters
-as in Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}, with $\lambdans=2000$, and
-set $\rho=30$ (left panel) or $\rho=50$ (right panel).
-%
-We find that the measurement of $\lambdans$ is weakly degenerate with
-other parameters, and at realistic SNRs it would improve by a few tens of 
-percent if we knew non-tidal parameters to better accuracy. The predominant
-factor that would enhance the measurement accuracy for $\lambdans$ is the
-signal strength, and only when $\rho\gtrsim 50$ do we expect $\lambdans$ 
-measurement to be limited by its degeneracy with non-tidal parameters at 
-a factor of few level, as was reported by Ref.~\cite{Lackey:2013axa}.
-}
+% \textcolor{gray}{%
+% Next, in Fig.~\ref{fig:SingleSystemLambda2DPDFs} we show the correlation of
+% mass, spin, and tidal parameter measurements. We keep the binary parameters
+% as in Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR}, with $\lambdans=2000$, and
+% set $\rho=30$ (left panel) or $\rho=50$ (right panel).
+% %
+% We find that the measurement of $\lambdans$ is weakly degenerate with
+% other parameters, and at realistic SNRs it would improve by a few tens of 
+% percent if we knew non-tidal parameters to better accuracy. The predominant
+% factor that would enhance the measurement accuracy for $\lambdans$ is the
+% signal strength, and only when $\rho\gtrsim 50$ do we expect $\lambdans$ 
+% measurement to be limited by its degeneracy with non-tidal parameters at 
+% a factor of few level, as was reported by Ref.~\cite{Lackey:2013axa}.
+% }
 
 
 
