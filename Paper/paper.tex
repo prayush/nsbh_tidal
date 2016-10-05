@@ -99,8 +99,8 @@ by a factor of two.
 % 
 Finally, we study the improvement in our measurement of $\lambdans$ from 
 multiple observations. Using an approximately astrophysical population, 
-we find that (i) the median measured $\lambdans$ catches up to within
-$10\%$ of the true value in approximately $20$ observations; (ii) in the same
+we find that (i) the median $\lambdans$ converges within $10\%$ of the true
+value in approximately $20$ observations; (ii) in the same
 number of observations, the associated $90\%$ credible intervals shrink to
 $\pm 50\%$ of the true value.
 % 
@@ -222,7 +222,7 @@ the BH. Massive BHs (with $\mbh\gtrsim 10M_\odot$), as well as BHs with
 large retrograde spins, tend to swallow the NS whole without forming a
 disk~\cite{Foucart:2013psa}. 
 % 
-On the other hand, {\it low-mass} BHs with $\mbh\in[3M_\odot, 7M_\odot]$, 
+On the other hand, {\it low-mass} BHs with $\mbh\in[3M_\odot, 8M_\odot]$, 
 can disrupt their companion NSs much before merger, forming long-sustained disks
 that are required to sustain 
 SGRBs~\cite{Shibata:2007zm,2010PhRvD..81f4026F,Lovelace:2013vma,Kawaguchi:2015}.
@@ -374,7 +374,7 @@ how tidal effects affect the estimation of other binary parameters for the same
 class of systems. This study improves upon previous work in the following ways.
 % 
 First, we include tidal effects during inspiral and merger in a consistent
-way, by using the waveform model of Lackey et al.~\cite{Lackey:2013axa}
+way, by using the waveform model of Lackey {\it et al.}~\cite{Lackey:2013axa}
 (abbreviated henceforth to ``LEA'').
 % 
 Second, we include the effect of black hole spin on tidal GW signals, in
@@ -421,7 +421,8 @@ deformability with a single observation of an NSBH merger. For this, we
 use the same setup for signal waveforms as before, but replace the filter
 template model with one that includes tidal effects from inspiral
 through to merger (i.e. LEA+)~\cite{Lackey:2013axa}. For most binaries with
-BH masses outside of the mass-gap and/or realistic signal-to-noise
+BH masses outside of the mass-gap $(2-5M_\odot)$~\cite{Bailyn:1997xt,
+Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa} and/or realistic signal-to-noise
 ratios (SNR), we find it difficult to put better than a factor of $2$ bound
 on $\lambdans$ with a single observation. As we can see from
 Fig.~\ref{fig:TT_LambdaCIWidths90_0_Lambda_SNR}, it is only at SNRs 
@@ -470,7 +471,7 @@ spatial volume, and source orientations to be uniform on the $2-$sphere. To
 summarize, we find the following:
 % 
 (a) Our best estimate for $\lambdans$ improves much faster than our statistical
-uncertainties. Within $10-20$ detections, the median measured value of
+uncertainties. Within $10-20$ detections, the median value of
 $\lambdans$ lies within $10\%$ of the actual value.
 (b) Measurement uncertainties for $\lambdans$, on the other hand, depend on
 $\lambdans$ itself. We find that for hard equations of state (with 
@@ -478,7 +479,8 @@ $\lambdans\geq 1000$), $10-20$ observations are sufficient to constrain
 $\lambdans$ within $\pm 50\%$. For softer equations of state, the same level
 of certainty would require substantially more ($25-40$) observations.
 % 
-(c) Further, if the astrophysical ``mass-gap'' is real, we find that $20-50\%$
+(c) Further, if the astrophysical ``mass-gap''~\cite{Bailyn:1997xt,
+Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa} is real, we find that $20-50\%$
 additional observations would be required to attain the same measurement
 accuracy as above. And, (d) putting tighter constraints on the $\lambdans$ of a
 population would require $50+$ NSBH observations, in any scenario.
@@ -499,7 +501,7 @@ aLIGO operation~\cite{Abadie:2010cfa}.
 % % 
 % For paradigm A, we find the following: (i) for the softer equations of state
 % that result in less deformable neutron stars, $15-20$ detections are sufficient
-% for our median measured value of $\lambdans$ to lie within $10\%$ of the true
+% for our median value of $\lambdans$ to lie within $10\%$ of the true
 % value. (ii) For NSBH populations with more deformable NSs
 % ($\lambdans\geq 1000$), the same is achievable within as few as $10$ realistic
 % observations. (iii) The statistical uncertainty associated with $\lambdans$
@@ -542,16 +544,20 @@ SNR $\rho\in[10, 70]$.
 % }
 % 
 Further, we note that our results are applicable for the design sensitivity
-LIGO instruments ($2018-19$).
+LIGO instruments ($2018-19$). 
 We also note that the parameter space probed is somewhat restricted by the
-domain of applicability of the LEA+ model which we use as filters.
-Finally, the accuracy of our quantitative results depends on the reliability of
-the same waveform model, which is the only one available of its kind in 
-current literature. A more recent work~\cite{Pannarale:2015jka} improves on
-the GW amplitude model for NSBHs, but it needs to be augmented with a compatible
-phase model. However, we expect the combined effect of modeling errors to not
-change our broad qualitative conclusions, which are based on statistical trends
-with large errors themselves.
+domain of applicability of the LEA+ model which we use as filters. Finally,
+the accuracy of our quantitative results depends on the reliability of the same
+waveform model, which is the only one available of its kind in current
+literature. A more recent work~\cite{Pannarale:2015jka} improves upon the 
+amplitude description of LEA+, but needs to be augmented with a compatible
+phase model. However, we expect our broad conclusions here to hold despite
+the intrinsic inaccuracies of LEA+ (with errors not exceeding
+$\mathcal{O}(10\%)$~\cite{Pannarale:2015jka}).
+% 
+% we expect the combined effect of modeling errors to not
+% change our broad qualitative conclusions, which are based on statistical trends
+% with large errors themselves.
 
 
 
@@ -589,7 +595,7 @@ are: $q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and $\lambdans
 and the signal is injected at SNRs $\rho=\{20,30,50\}$ (left to right). The templates
 {\it ignore} tidal effects.
 % 
-In each panel: the dashed red line marks the median or {\it measured} value
+In each panel: the dashed red line marks the median value
 $\eta^\mathrm{Median}$, while the dashed green line show the true value
 $\eta^\mathrm{Injected}$. The darker shading shows
 the recovered $90\%$ credible interval for $\eta$, $(\Delta\eta)^{90\%}$.
@@ -617,7 +623,7 @@ for louder signals ($\rho\simeq50$), the systematic errors dominate.
 % Begin with introducing sentence:
 % }
 
-Lackey et al.~(LEA)~\cite{Lackey:2013axa} developed a complete inspiral-merger
+Lackey {\it et al.}~(LEA)~\cite{Lackey:2013axa} developed a complete inspiral-merger
 waveform model for disrupting NSBHs. Theirs is a frequency-domain
 phenomenological model that includes the effect of BH and NS masses and spins
 $\{\mbh, \chibh, \mns\}\equiv\vec{\theta}$ and NS tidal deformability
@@ -702,21 +708,21 @@ $\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ are reconstructed from this
 injected signal. Using Bayes' theorem, their joint inferred probability
 distribution of $\vec{\Theta}$ can be written	 as
 \begin{equation}\label{eq:postprob}
- p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
+ p(\vec{\Theta} | d_n, H) = \dfrac{p(d_n|\vec{\Theta}, H)\,p(\vec{\Theta} | H)}{p(d_n|H)}.
 \end{equation}
-Here, $p(\vec{\Theta} | K)$ is the a-priori probability of binary parameters
+Here, $p(\vec{\Theta} | H)$ is the {\it a priori} probability of binary parameters
 $\vec{\Theta}$
-taking particular values, given $K$ - which denotes all our collective knowledge,
+taking particular values, given $H$ - which denotes all our collective knowledge,
 except for expectations on binary parameters that enter
 our calculations explicitly. Throughout this paper, we impose a prior that is
 uniform in
 individual component masses, BH spin, and the tidal deformability of the NS. In
 addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not calibrated for 
-$1\leq q\leq 2$. $p(d_n|\vec{\Theta}, K)$ is the
+$1\leq q\leq 2$. $p(d_n|\vec{\Theta}, H)$ is the
 likelihood of obtaining the given stretch of data $d_n$ if we assume that a
 signal parameterized by $\vec{\Theta}$ is buried in it, and is given by
 \begin{equation}\label{eq:likelihood}
- p(d_n| \vec{\Theta}, K) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+ p(d_n| \vec{\Theta}, H) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 \end{equation}
 where $h\equiv h(\vec{\Theta})$ is a filter template with parameters 
 $\vec{\Theta}$, $\langle\cdot|\cdot\rangle$ is a suitably defined
@@ -734,20 +740,20 @@ over the template norm
 and we ignore extrinsic parameters that only enter in the template norm such
 as distance, orientation and sky location. In addition, we also maximize over
 coalescence time and phase.
-The denominator in Eq.~\ref{eq:postprob} is the a-priori probability of finding
+The denominator in Eq.~\ref{eq:postprob} is the {\it a priori} probability of finding
 the particular signal in $d_n$ and we assume that each injected signal is as
 likely as any other. Having constructed the probability distribution function
-$p(\vec{\Theta} | d_n, K)$, extracting the measured probability distribution
+$p(\vec{\Theta} | d_n, H)$, extracting the measured probability distribution
 for a single parameter (say $\alpha$) involves integrating
 \begin{equation}\label{eq:marginalize}
- p(\alpha | d_n, K) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, K),
+ p(\alpha | d_n, H) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, H),
 \end{equation}
 where $\vec{\Theta}_\alpha$ is the set of remaining parameters, i.e.
 $\vec{\Theta}_\alpha:=\vec{\Theta} - \{\alpha\}$.
 
 We use the ensemble sampler Markov-chain Monte-Carlo algorithm implemented in
 the {\tt emcee} package~\cite{emcee}, to sample the probability distribution 
-$p(\vec{\Theta} | d_n, K)$. We run 100 independent chains, each of which is
+$p(\vec{\Theta} | d_n, H)$. We run 100 independent chains, each of which is
 allowed to collect 100, 000 samples and combine samples from chains that have
 a Gelman-Rubin statistic~\cite{gelman1992} close to unity. This procedure yields
 about 10,000 independent samples.
@@ -763,22 +769,22 @@ about 10,000 independent samples.
 % Inferred from $d_n$, the joint probability distribution for binary parameters
 % $\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ is given by
 % \begin{equation}\label{eq:postprob}
-%  p(\vec{\Theta} | d_n, K) = \dfrac{p(d_n|\vec{\Theta}, K)\,p(\vec{\Theta} | K)}{p(d_n|K)}.
+%  p(\vec{\Theta} | d_n, H) = \dfrac{p(d_n|\vec{\Theta}, H)\,p(\vec{\Theta} | H)}{p(d_n|H)}.
 % \end{equation}
-% Here, $p(\vec{\Theta} | K)$ is the prior probability for binary parameters of
+% Here, $p(\vec{\Theta} | H)$ is the prior probability for binary parameters of
 % taking particular values. In this paper, we use a uniform prior on the
 % individual masses within pre-chosen ranges, as well as a uniform prior on the
 % spin of the black hole. We set neutron star's spin $=0$, and its tidal
 % deformability parameter $\lambdans$ is sampled uniformly from $[0, 4000]$. In
 % addition, we exclude mass-ratios between $[1,2]$ from our prior. This is done
 % because of model constraints for LEA+. The prior probability of obtaining a 
-% particular realization of data $p(d_n|K)$ is absorbed into the overall 
+% particular realization of data $p(d_n|H)$ is absorbed into the overall 
 % normalization. Finally, the first term in the numerator
-% $p(d_n|\vec{\theta}, \lambdans, K)$ is the likelihood of obtaining the given
+% $p(d_n|\vec{\theta}, \lambdans, H)$ is the likelihood of obtaining the given
 % stretch of data $d_n$ if we assume that a signal parameterized by
 % $\vec{\theta}\cup\{\lambdans\}$ is buried in it, i.e.
 % \begin{equation}\label{eq:likelihood}
-%  \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, K) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+%  \LL(\vec{\Theta}) \equiv p(d_n| \vec{\Theta}, H) = \mathcal{N} \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
 % \end{equation}
 % where $h\equiv h(\vec{\Theta})$ is a template given by our waveform model LEA+,
 % % and the detector noise weighted inner-product $\langle a|b\rangle$ is defined 
@@ -798,7 +804,7 @@ about 10,000 independent samples.
 % single binary parameter (say $\alpha$) can be obtained by integrating
 % Eq.~\ref{eq:postprob} over all other parameters, i.e. 
 % \begin{equation}
-%  p(\alpha | d_n, K) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, K),
+%  p(\alpha | d_n, H) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, H),
 % \end{equation}
 % where $\vec{\Theta}_\alpha$ is the set of remaining parameters, i.e.
 % $\vec{\Theta}_\alpha:=\vec{\Theta} - \{\alpha\}$.
@@ -817,10 +823,10 @@ frequency sampling interval to $\Delta f=0.4$~Hz, which we find to be
 sufficient for robust likelihoods calculations in zero noise~\cite{Purrer:2015nkh}.
 We integrate
 Eq.~\ref{eq:marginalize} to obtain marginalized probability distributions
-for the NS tidal deformability parameter: $p(\lambdans|d_n,K)$.
-The median value of this distribution is our {\it measured} value for
+for the NS tidal deformability parameter: $p(\lambdans|d_n,H)$. We will quote
+the median value of this distribution as our {\it measured} value for
 $\lambdans$, and the $90\%$ credible intervals associated with the distribution
-serve as statistical error-bars.
+as the statistical error-bars.
 % 
 
 
@@ -840,9 +846,9 @@ serve as statistical error-bars.
 % and the signal is injected at SNRs $\rho=\{20,30,50\}$ (left to right). The templates
 % {\it ignore} tidal effects.
 % % 
-% In each panel: the dashed red line marks the median {\it measured} value
+% In each panel: the dashed red line marks the median value
 % $\eta^\mathrm{Median}$, while the dashed green line show the true value
-% $\eta^\mathrm{Injected}$. The difference between the true and measured values
+% $\eta^\mathrm{Injected}$. The difference between the true and median values
 % is the systematic bias introduced
 % by ignoring tidal effects in templates. The darker shading shows
 % the recovered $90\%$ credible interval for $\eta$, $(\Delta\eta)^{90\%}$, 
@@ -953,7 +959,7 @@ $\rho=50$. The templates {\it include} tidal effects, with a prior $0\leq\lambda
 % These figures show that this approximation holds up to (SNR)
 % $\rho\simeq 30-50$.
 % 
-In each panel- the dashed red line marks the median {\it measured} value for
+In each panel- the dashed red line marks the median value for
 $\lambdans$, and the dashed green line marks its {\it true} value.
 The darker shading shows the $90\%$ credible interval, whose width
 $(\Delta\lambdans)^{90\%}$ is a direct measure of our statistical uncertainty.
@@ -1056,17 +1062,19 @@ effects on gravitational waves~\cite{FoucartEtAl:2011,Foucart:2013psa,
 Foucart:2014nda} (which suggest that necessary conditions for the observation
 of tidal effects with aLIGO include high SNRs and a low-mass spinning companion
 BH); and (ii) technical constraints of our chosen LEA+ model~\cite{Lackey:2013axa}.
-At design sensitivity, if we expect $10-300$ NSBH detections a 
-year~\cite{Abadie:2010cfa}, {\it and} if BH mass values are uniformly likely
-up to $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, we can expect to detect $0.3-7$
-{\it disruptive} NSBH mergers a year with $\rho\geq 20$, $0.07-2$ a year with
-$\rho\geq 30$, and $0.04-1$ a year with $\rho\geq 70$. Therefore, our injection
-parameters span a physically interesting subset of NSBH binaries, that is
-{\it also} likely observable in the near future. 
+At design sensitivity, if we expect $0.2-300$ NSBH detections a 
+year~\cite{Abadie:2010cfa}, we can expect to see $0.02-25$ 
+{\it disruptive}\footnote{We assume here that BH mass values are {\it uniformly}
+likely from $2M_\odot$ to $\sim 35M_\odot$~\cite{LIGOVirgo2016a}, but NSs are
+disrupted in NSBH mergers only if $q\leq 6$ and $\chibh\geq 0$~\cite{Foucart:2014nda,
+Foucart:2013psa}.
+} NSBH mergers a year, of which we will have $0.005-7$ observations with 
+$\rho\geq 20$, and $0.002-3$ a year with $\rho\geq 30$.
+Therefore, our injection parameters span a physically interesting subset of NSBH
+binaries, that is {\it also} likely observable in the near future. 
 For our Bayesian priors, we choose uniform distributions for both component
 masses and black hole spin: $\mbh\in[1.2,25]M_\odot$; $\mns\in[1.2,3]M_\odot$;
 and $-0.75\leq \chibh\leq +0.75$.
-% \prayush{FIXME}
 
 
 
@@ -1075,11 +1083,11 @@ recovered probability distributions for binary mass ratio $\eta$ for
 three NSBH injections, with $\rho=20$ (left), $30$ (middle), and $\rho=50$
 (right), and other parameters held fixed ($\mns=1.35M_\odot$, $\chins=0$,
 $\mbh=5.4M_\odot$, $\chibh=+0.5$ and $\lambdans=2000$). In each panel, both
-the {\it true} and the {\it measured} (i.e. median) values of $\eta$ are marked.
-The effect of ignoring tidal
-corrections in templates manifests as a systematic shift of the measured $\eta$
-value away from its true value. The associated {\it systematic} bias/error is
-measured by the difference between the measured and true $\eta$ values. Darker
+the {\it true} and the median values of $\eta$ are marked.
+The effect of ignoring tidal corrections in templates manifests as a systematic
+shift of the median $\eta$ value away from its true value. We measure
+the associated {\it systematic} bias/error by the differences between the
+true and median $\eta$ values. Darker
 shading of the probability distributions marks the $90\%$ credible interval,
 whose width $(\Delta\eta)^{90.0\%}$ is a direct measure of the
 {\it statistical} measurement uncertainty/error\footnote{We generalize the
@@ -1154,9 +1162,12 @@ measurement of parameter $X$,
 \arr_X = \dfrac{(X^\mathrm{Median} - X^\mathrm{Injected})}{(\Delta X)^{90\%}},
 \end{equation}
 in order to compare the relative magnitude of both. Only when
-$|\arr_X| < 1$ can we ignore tidal effects in our templates
+$|\arr_X| \ll 1$ can we ignore tidal effects in our templates
 without hampering the measurement of non-tidal parameters from NSBH signals.
-% 
+When $\arr_X$ approaches a few tens of percent of unity, we can begin to favor
+tidal templates for NSBH studies.
+
+
 We start with calculating $\arr_{\mchirp}$ as a function of various source
 parameters and show it in Fig.~\ref{fig:TN_chirpMassBias_vs_Lambda_SNR}.
 $\mchirp$ is the leading order
@@ -1203,7 +1214,7 @@ Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}. We therefore conclude that, even if
 under moderate restrictions on BH and NS parameters, $\rho=30-50$ is loud enough
 to motivate the use of tidal templates in aLIGO data analyses.
 % 
-In addition, we also notice that, unlike for $\mchirp$, the measured value of
+In addition, we also notice that, unlike for $\mchirp$, the median value of
 $\eta$ is always {\it lower} than its true value, which is what we expect if we
 want BBH templates to fit NSBHs that disrupt and merge at lower frequencies.
 
@@ -1274,7 +1285,7 @@ templates could especially help with the parameter estimation of astrophysical
 % % These figures show that this approximation holds up to (SNR)
 % % $\rho\simeq 30-50$.
 % % 
-% In each panel- the dashed red line marks the median {\it measured} value for
+% In each panel- the dashed red line marks the median value for
 % $\lambdans$, and the dashed green line marks its {\it true} value.
 % The darker shading shows the $90\%$ credible interval, whose width
 % $(\Delta\lambdans)^{90\%}$ is a direct measure of our statistical uncertainty.
@@ -1570,7 +1581,7 @@ bounds.
 % \caption{Filled-region plots showing the median and $90\%$ credible intervals
 % for $\lambdans$ measurement, as a function of the number of observed events $N$.
 % Each panel corresponds a unique population with injected $\lambdans$ fixed to
-% the value shown in its title. In each panel, the measured median for $\lambdans$
+% the value shown in its title. In each panel, the recovered median for $\lambdans$
 % is shown by filled circles, and the $90\%$ credible interval is shown by the 
 % height of the filled region. In addition, the dashed and 
 % dotted lines (2 of each line-style) show the $\pm 25\%$ and $\pm 50\%$ error
@@ -1587,7 +1598,7 @@ In this figure, the filled regions show how our measurement of $\lambdans$
 improves as the number of observed events ($N$, shown on $x$-axis) increases.
 Each color corresponds to an independent population with its true value of
 $\lambdans$ given in the legend. For each population, we show the median 
-measured $\lambdans$ value (as filled circles), as well as the associated
+$\lambdans$ value (as filled circles), as well as the associated
 $90\%$ credible intervals for the measurement (as the vertical extent of the
 filled region about the median), as functions of $N$.
 }
@@ -1675,7 +1686,7 @@ Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}-\ref{fig:TT_Lambda_vs_N_CI90_0}.
 In the same color we show $\pm 10\%$ error-bounds on $\lambdans$ with
 horizontal dash-dotted lines.
 {\it Bottom left}: Here we show the interval of $\lambdans$ values within
-which the median measured $\lambdans$ lies for $90\%$ of the populations in
+which the median $\lambdans$ lies for $90\%$ of the populations in
 each ensemble shown in the top left panel.
 % 
 We observe that within $10-25$ observations, the median of the measured 
@@ -1885,8 +1896,8 @@ $\vec{\theta} := \{\mbh, \mns, \chibh, \chins, \vec{\alpha}\}$,
 and $\{\lambdans\}$, where $\vec{\alpha}$ contains extrinsic parameters,
 such as source distance, inclination, and sky location angles.
 % 
-As before, let $K$ denote all of our collective prior knowledge; for instance,
-$K$ includes our assumption that all NSs in a single population have the same
+As before, let $H$ denote all of our collective prior knowledge; for instance,
+$H$ includes our assumption that all NSs in a single population have the same
 deformability parameter $\lambdans$, and that its cumulative measurement is
 therefore possible.
 % 
@@ -1894,9 +1905,9 @@ The probability distribution for $\lambdans$, given $N$ unique and
 independent events, is
 % 
 \begin{eqnarray}
- p(\lambdans |&& \hspace{-4mm}d_1, d_2, \cdots, d_N, K)\hspace{50mm}\nonumber\\ &=& \dfrac{p(d_1,d_2,\cdots,d_N |\lambdans , K)\,p(\lambdans|K)}{\int p(\lambdans |K) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans},\label{eq:p11}\\
-  &=& \dfrac{p(\lambdans|K) \prod_{i} p(d_i|\lambdans, K)}{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans},\label{eq:p12} \\
-  &=& \dfrac{p(\lambdans|K) \prod_{i} \left( p(\lambdans |d_i, K)\dfrac{p(d_i)}{p(\lambdans|K)} \right)}{\int\, p(\lambdans|K )\, p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans}\label{eq:p13};
+ p(\lambdans |&& \hspace{-4mm}d_1, d_2, \cdots, d_N, H)\hspace{50mm}\nonumber\\ &=& \dfrac{p(d_1,d_2,\cdots,d_N |\lambdans , H)\,p(\lambdans|H)}{\int p(\lambdans |H) p(d_1,d_2,\cdots,d_N |\lambdans , H)\D\lambdans},\label{eq:p11}\\
+  &=& \dfrac{p(\lambdans|H) \prod_{i} p(d_i|\lambdans, H)}{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , H)\D\lambdans},\label{eq:p12} \\
+  &=& \dfrac{p(\lambdans|H) \prod_{i} \left( p(\lambdans |d_i, H)\dfrac{p(d_i)}{p(\lambdans|H)} \right)}{\int\, p(\lambdans|H )\, p(d_1,d_2,\cdots,d_N |\lambdans , H)\D\lambdans}\label{eq:p13};
 \end{eqnarray}
 % 
 where Eq.~\ref{eq:p11} and Eq.~\ref{eq:p13} are application of Bayes' theorem,
@@ -1905,17 +1916,22 @@ Assuming in addition that all events are {\it equally likely}:
 $p(d_i) = p(d_j) = p(d)$, we get
 % 
 \begin{eqnarray}
- p(&&\hspace{-4mm}\lambdans | d_1, d_2, \cdots, d_N, K)\hspace{50mm}\nonumber\\
-%   &=& \dfrac{p(\lambdans) \left(\dfrac{p(d)}{p(\lambdans)}\right)^N\prod_{i} p(\lambdans |d_i, K) }{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , K)\D\lambdans}\label{eq:p21},\\
-  &=& p(\lambdans)^{1-N}\times \dfrac{p(d)^N}{\int p(\lambdans) p(d_1, d_2, \cdots, d_N |\lambdans, K)\D\lambdans}\nonumber\\ &&\hspace{3mm}\times\prod_i p(\lambdans |d_i, K)\label{eq:p22},
+ p(&&\hspace{-4mm}\lambdans | d_1, d_2, \cdots, d_N, H)\hspace{50mm}\nonumber\\
+%   &=& \dfrac{p(\lambdans) \left(\dfrac{p(d)}{p(\lambdans)}\right)^N\prod_{i} p(\lambdans |d_i, H) }{\int p(\lambdans ) p(d_1,d_2,\cdots,d_N |\lambdans , H)\D\lambdans}\label{eq:p21},\\
+  &=& p(\lambdans)^{1-N}\times \dfrac{p(d)^N}{\int p(\lambdans) p(d_1, d_2, \cdots, d_N |\lambdans, H)\D\lambdans}\nonumber\\ &&\hspace{3mm}\times\prod_i p(\lambdans |d_i, H)\label{eq:p22},
 \end{eqnarray}
 % 
-where $p(\lambdans|K)$ is written $p(\lambdans)$ for brevity.
-The first two factors in Eq.~\ref{eq:p22} can be absorbed into a
-normalization factor $\mathcal{N}$, simplifying it to
+where the prior probability $p(\lambdans|H)$ is written $p(\lambdans)$ for
+brevity. {\it A priori}, we assume that no particular value of $\lambdans$ is
+preferred over another within the range $[0, 4000]$, i.e.
+\begin{equation}\label{eq:lprior}
+ p(\lambdans | H) = \dfrac{1}{4000}\,\mathrm{Rect}\left(\frac{\lambdans-2000}{4000}\right).
+\end{equation}
+With a uniform prior, the first two factors in Eq.~\ref{eq:p22} can be
+absorbed into a normalization factor $\mathcal{N}$, simplifying it to
 % 
 \begin{equation}\label{eq:lambdaMultiple}
- p(\lambdans | d_1, d_2, \cdots, d_N; K) = \mathcal{N}\prod_{i=1}^N p(\lambdans | d_i, K).
+ p(\lambdans | d_1, d_2, \cdots, d_N; H) = \mathcal{N}\prod_{i=1}^N p(\lambdans | d_i, H).
 \end{equation}
 % 
 % 
@@ -1923,26 +1939,22 @@ normalization factor $\mathcal{N}$, simplifying it to
 % Using Bayes' theorem, the measured probability distribution function for 
 % $\lambdans$ from $N$ observations is given by~\footnote{%
 % Eq.~\ref{eq:lambdaMultiple} includes the following implicit factor to normalize
-% its right-hand side: $\dfrac{\prod_i p(d_i|K)}{\int p(\lambdans)\,p(d_1, d_2, \cdots, d_N | \lambdans; K)\,\D\lambdans}$}
+% its right-hand side: $\dfrac{\prod_i p(d_i|H)}{\int p(\lambdans)\,p(d_1, d_2, \cdots, d_N | \lambdans; H)\,\D\lambdans}$}
 % \begin{equation}\label{eq:lambdaMultiple}
-%  p(\lambdans | d_1, d_2, \cdots, d_N; K) = p(\lambdans | K)^{1-N}\prod_{i=1}^N p(\lambdans | d_i, K),
+%  p(\lambdans | d_1, d_2, \cdots, d_N; H) = p(\lambdans | H)^{1-N}\prod_{i=1}^N p(\lambdans | d_i, H),
 % \end{equation}
-A priori, we assume that no particular value of $\lambdans$ is preferred
-over another, and restrict $\lambdans$ to $[0, 4000]$, i.e.
-\begin{equation}\label{eq:lprior}
- p(\lambdans | K) = \dfrac{1}{4000}\,\mathrm{Rect}\left(\frac{\lambdans-2000}{4000}\right).
-\end{equation}
+
 % 
 In the second set of terms in Eq.~\ref{eq:lambdaMultiple} (of the form 
-$p(\lambdans | d_i, K)$), each is the probability distribution for $\lambdans$
+$p(\lambdans | d_i, H)$), each is the probability distribution for $\lambdans$
 inferred {\it a posteriori} from the \textit{i}-th observation by marginalizing
 \begin{equation}\label{eq:margpost}
- p(\lambdans | d_i, K) = \int\, p(\vec{\theta}, \lambdans | d_i, K)\, \D \vec{\theta},
+ p(\lambdans | d_i, H) = \int\, p(\vec{\theta}, \lambdans | d_i, H)\, \D \vec{\theta},
 \end{equation}
-where $p(\vec{\theta}, \lambdans | d_i, K)$ is the inferred joint probability 
+where $p(\vec{\theta}, \lambdans | d_i, H)$ is the inferred joint probability 
 distribution of all source parameters $\vec{\theta}\cup\{\lambdans\}$ for the 
 $i$-th event, as given by Eq.~\ref{eq:postprob}. We note that 
-Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR} illustrates $p(\lambdans | d_i, K)$
+Fig.~\ref{fig:SingleSystemLambdaPDFvsSNR} illustrates $p(\lambdans | d_i, H)$
 for three individual events. By substituting
 Eq.~\ref{eq:lprior}-\ref{eq:margpost} into Eq.~\ref{eq:lambdaMultiple}, we
 calculate the probability distribution for $\lambdans$ as measured using $N$
@@ -2012,23 +2024,23 @@ cumulative distributions appears to track the true value of $\lambdans$
 rapidly.
 % 
 In the right panel, we present information derived from the left panel.
-The line-circle curve shows the measured median from $N$ observations.
+The line-circle curve shows the measured median value from $N$ observations.
 The pair of dashed (dotted) horizontal lines mark
 $\pm25\%$ ($\pm50\%$) error bars. At each $N$, the range spanned by the 
 filled region is the $90\%$ credible interval deduced from the same 
 events. This figure somewhat quantifies the qualitative deductions we made
-from the left panel. We find that the measured median does track the true value
+from the left panel. We find that the median does track the true value
 quickly, reaching $10\%$ accuracy with $10-15$ observations. With the same
 information, our credible intervals also shrink to $\pm 25\%$.
 % 
 In Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0} we show further results from four
 independent populations for $\lambdans=\{500,1000,1500,2000\}$. As in the 
 right panel of Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}, the line-circle curves
-track the median measured $\lambdans$, while the filled regions show
+track the median $\lambdans$, while the filled regions show
 the associated $90\%$ credible intervals. From the figure, we observe
 the following: (i) the shrinkage of credible interval widths with increasing
 $N$ happens in a similar manner for each $\lambdans$, (ii) within $\sim 10$
-observations, median measured $\lambdans$ for all populations lie within
+observations, median $\lambdans$ for all populations lie within
 $10\%$ of the true values, and (iii) it takes
 approximately $20$ events to distinguish definitively (with $90\%$ credibility)
 between deformable NSs with $\lambdans=2000$ and compact NSs with 
@@ -2043,20 +2055,20 @@ underlying stochasticity of the population generation process makes it
 difficult to draw generalized inferences (from a single realization of an
 NSBH population) about the measurability of $\lambdans$. In order to mitigate
 this, we discuss ensembles of population draws next. In
-Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} we show the measured
-({median}) $\lambdans$ as a function of the number of observed
+Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} we show the median
+$\lambdans$ as a function of the number of observed
 events, for four population ensembles, with a hundred population draws
 in each ensemble. Lets focus on the {\it top left} panel first. In it, we
-show the measured (median) $\lambdans$ for all populations in four ensembles,
+show the median $\lambdans$ for all populations in four ensembles,
 with true $\lambdans=\{2000,1500,1000,500\}$ from top to bottom.
 Populations highlighted in color are simply those that we discussed in
 Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0}. Dash-dotted horizontal lines
 demarcate $\pm10\%$ error intervals around the true $\lambdans$ values.
 The panel just below it shows the range of $\lambdans$ that encloses the
-median measured $\lambdans$ for $90\%$ of the populations in {\it each}
+median $\lambdans$ for $90\%$ of the populations in {\it each}
 ensemble. In other words, this panel shows the range of $\lambdans$ within which
-the median measured $\lambdans$ value for $90\%$ of NSBH populations is
-expected to lie. From these panels, we conclude that our measured $\lambdans$
+the median $\lambdans$ value for $90\%$ of NSBH populations is
+expected to lie. From these panels, we conclude that our median $\lambdans$
 values will be within $10\%$ of the {\it true} value after $\sim 25$
 detections of less deformable neutron stars ($\lambdans\leq 1000$), or
 after as few as $15$ detections of more deformable neutron stars
@@ -2078,8 +2090,8 @@ this alternate scenario.
 Both right panels of the figure are identical to their corresponding left
 panels, but drawn under population paradigm B. Under this paradigm, we
 expectedly find that information accumulation is much slower. It would
-take $25-40$ detections with $\rho\geq10$ under this paradigm, for our (median)
-measured $\lambdans$ to converge within $10\%$ of its true value.
+take $25-40$ detections with $\rho\geq10$ under this paradigm, for our median
+$\lambdans$ to converge within $10\%$ of its true value.
 % % 
 % This is a promising deduction, as one might expect to see $\mathcal{O}(10)$
 % events over a few years' timescale with design aLIGO~\cite{Abadie:2010cfa}.
@@ -2189,7 +2201,7 @@ NS deformability parameter $\lambdans$ with an increasing number of events. We
 do so by simulating plausible populations of disrupting NSBH binaries (with
 $\rho\geq 10$). We find that:
 (i) for more deformable neutron stars (harder equation of states), the median
-measured value of $\lambdans$ comes within $10\%$ of the true value with as 
+value of $\lambdans$ comes within $10\%$ of the true value with as 
 few as $10$ events, while achieving the same accuracy for softer equations of 
 state will take $15-20$ source detections; (ii) the statistical uncertainty
 associated with $\lambdans$ measurement shrinks to within $\pm50\%$ with
@@ -2410,7 +2422,7 @@ B).
 % 
 {\it For paradigm A}, we find the following: (i) for the softer equations of state
 that result in less deformable neutron stars, $15-20$ detections are sufficient
-for our median measured value of $\lambdans$ to lie within $10\%$ of the true
+for our median value of $\lambdans$ to lie within $10\%$ of the true
 value. (ii) For NSBH populations with more deformable NSs ($\lambdans> 1000$),
 the same is achievable within as few as $10$ (or $15$ at most) realistic
 observations. (iii) The statistical uncertainty associated with $\lambdans$
