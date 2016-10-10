@@ -138,7 +138,7 @@ Nburnin  = 2000
 # Read in parameter biases and other data
 ######################################################
 datafile_postfix = 'TT_ParameterBiasesAndConfidenceIntervals.h5'
-datafile_dir     = '/home/prayush/research/NSBH/TidalParameterEstimation/set006/'
+datafile_dir     = '/home/prayush/projects/nsbh/TidalParameterEstimation/nsbh_tidal/PEData/'
 
 # Load in all the Posterior distribution function samples
 all_posterior_chains   = {}
@@ -185,7 +185,14 @@ for q in qvec:
 # In[4]:
 
 ## INITIATE A SET OF MULTIPLE OBSERVATIONS
+
+# Constants
 NEVENTS = int(sys.argv[1])
+#
+RAND = 0
+if len(sys.argv > 2):
+  RAND = int(sys.argv[2])
+#
 INDEX   = 20
 
 
@@ -194,7 +201,14 @@ INDEX   = 20
 xx = {}
 for NSL in Lambdavec:
     print "Initiating event class with Lambda = %f" % NSL
-    xx[NSL] = MO.multiple_observation_results(lambda_posterior_chains,                                      N=NEVENTS, NSLambda=NSL,                                      chi2vec=chi2vec, qvec=qvec,                                      SNRvec=SNRvec,                                      source_distribution='UniformIn3DVolumeInclination',                                      kernel='gau',                                      verbose=True)
+    xx[NSL] = MO.multiple_observation_results(lambda_posterior_chains,\
+                            N=NEVENTS, NSLambda=NSL,\
+                            chi2vec=chi2vec, qvec=qvec,\
+                            SNRvec=SNRvec,\
+                            source_distribution='UniformIn3DVolumeInclination',\
+                            kernel='gau',\
+                            RND=RAND,\
+                            verbose=True)
 
 
 # In[6]:

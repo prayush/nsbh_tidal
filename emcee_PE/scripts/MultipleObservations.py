@@ -284,7 +284,7 @@ Return the nearest neighbor of the drawn SNR from the list of SNR values given
       Fp = Fplus(sky_theta, sky_phi, polarization)
       Fc = Fcross(sky_theta, sky_phi, polarization)
       # Next, calculate the expected SNR of the event
-      hp, hc = get_fd_waveform(approximant='IMRPhenomD',\
+      hp, hc = get_fd_waveform(approximant='IMRPhenomC',\
                                 mass1=q*1.35, mass2=1.35, spin1z=chi,\
                                 distance=distance, inclination=inclination,\
                                 f_lower=f_lower, delta_f=1./time_length)
