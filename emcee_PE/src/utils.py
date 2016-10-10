@@ -448,8 +448,8 @@ def load_samples_safe(dataDir, SNR, burnin=1500, burnend=0,\
 
     s_q = qfun(s_eta)
     s_M = Mfun(s_Mc, s_eta)
-    s_m1 = m1fun(s_Mc, s_q)
-    s_m2 = m2fun(s_Mc, s_q)
+    s_m1 = m1fun(s_M, s_q)
+    s_m2 = m2fun(s_M, s_q)
     s_chieff = chi_eff(s_eta, s_chi1, s_chi2)
     s_chiPN = chi_PN(s_eta, s_chi1, s_chi2)
     
