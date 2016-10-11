@@ -52,8 +52,12 @@ ErrThresh=[100, 200]
 ######################################################
 linestyles = ['solid', 'dashed', 'dashdot', 'dashed', 'dotted', 'dashdot', 'dashed', 'dotted']
 #linecolors = ['crimson', 'olivedrab', 'k', 'b', 'm', 'y']
-linecolors = ['crimson', 'darkorange', 'olivedrab', 'royalblue', 'purple', 'k']
+linecolors = ['crimson', 'olivedrab', 'royalblue', 'purple', 'darkorange', 'k']
+linecolors = ['purple', 'royalblue', 'olivedrab', 'crimson', 'darkorange', 'k']
 linemarkers= ['', 'x', 'o', '^']
+linewidths = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
+linewidths = [0.5, 1, 2, 4, 8]
+#linewidths = [1, 2, 3, 4, 8]
 
 gmean = (5**0.5 + 1)/2.
 
@@ -440,6 +444,114 @@ def make_multilines(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='
   plt.savefig(figname)
   return
 
+
+## UNDER CONSTRUCTION
+def make_multilines_2(XY,\
+                sort_group1=True, label_group1_idx=0,\
+                sort_group2=True, label_group2_idx=0,\
+                labels=None, xlabel='SNR', ylabel='', clabel='',
+                title='', in_title='',\
+                levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r, logY=True,\
+                pcolors=linecolors, plines=linestyles, pmarkers=linemarkers,\
+                alpha=0.8,\
+                xmin=None, xmax=None, ymin=None, ymax=None,\
+                constant_line=None,\
+                single_legend=True,\
+                cbfmt='%.1f', figname='plot.png'):
+  #
+  colwidth = 4.8  
+  plt.rcParams.update({\
+    'legend.fontsize':12, \
+    'text.fontsize':16,\
+    'axes.labelsize':16,\
+    'font.family':'serif',\
+    'font.size':16,\
+    'xtick.labelsize':16,\
+    'ytick.labelsize':16,\
+    'figure.subplot.bottom':0.2,\
+    'figure.figsize':figsize, \
+    'savefig.dpi': 300.0, \
+    'figure.autolayout': True})
+  
+  ngrp1 = len(XY.keys())
+  ngrp2 = len(XY[XY.keys()[0]].keys())
+  if ngrp1 > len(pcolors) or ngrp2 > len(plines):
+    raise IOError("More lines to be made than colors/markers given")
+  if vverbose:
+    print "Making plot with %d groups of %d lines" %\
+            (ngrp1, ngrp2)
+    
+  #fig = plt.figure(int(1e7 * np.random.random()), \
+  #            figsize=((2.1*gmean*ncol+1.25)*colwidth, 1.2*colwidth*nrow))
+  plt.figure(int(1e7 * np.random.random()), figsize=(1.*gmean*colwidth, colwidth))
+  
+  # FIrst make all lines
+  all_lines = []
+  grp1_keys = XY.keys()
+  if sort_group1: grp1_keys.sort()
+  else: grp1_keys.sort(reverse=True)
+  print grp1_keys
+  for i, ki in enumerate(grp1_keys):
+    grp2_keys = XY[ki].keys()
+    if sort_group2: grp2_keys.sort()
+    else: grp2_keys.sort(reverse=True)
+    if i==0: print grp2_keys
+    grp1_lines = []
+    for j, kj in enumerate(grp2_keys):
+      X, Y = XY[ki][kj]
+      if logY:
+        line, = plt.semilogy(X, Y,\
+                        #alpha=alpha,\
+                        alpha=alpha + (1.-alpha)*j*1.0/len(grp2_keys),\
+                        c=pcolors[i], ls=plines[0], marker=pmarkers[1],\
+                        #lw=linewidths[(len(grp2_keys)-j)*1], markersize=3, label=labels[ki][kj])
+                        lw=linewidths[j+1], markersize=3, label=labels[ki][kj])
+      else:
+        line, = plt.plot(X, Y,\
+                        #alpha=alpha,\
+                        alpha=alpha + (1.-alpha)*j*1.0/len(grp2_keys),\
+                        c=pcolors[i], ls=plines[0], marker=pmarkers[1],\
+                        #lw=linewidths[1*(len(grp2_keys)-j)], markersize=3, label=labels[ki][kj])
+                        lw=linewidths[j+1], markersize=3, label=labels[ki][kj])
+      grp1_lines.append( line )
+    all_lines.append( grp1_lines )
+  #
+  plt.hold(True)
+  if constant_line is not None and logY:
+    print "Adding constant line with ", [xmin, xmax], constant_line
+    for cl in constant_line:
+      plt.semilogy([xmin, xmax], [cl,cl], 'k--', lw=1, alpha=0.5)
+  elif constant_line is not None:
+    for cl in constant_line:
+      plt.plot([xmin, xmax], [cl,cl], 'k--', lw=1, alpha=0.5)
+  #
+  # Now make legends, one to indicate each group's characteristic
+  if single_legend:
+    harray = [all_lines[i][label_group1_idx] for i in range(ngrp1)]
+    harray.extend( [all_lines[label_group2_idx][i] for i in range(ngrp2)] )
+    first_legend = plt.legend(handles=harray, loc=1, ncol=2, framealpha=False)
+    ax = plt.gca().add_artist(first_legend)
+  else:
+    harray1 = [all_lines[i][label_group1_idx] for i in range(ngrp1)]
+    harray2 = [all_lines[label_group2_idx][i] for i in range(ngrp2)]
+    first_legend = plt.legend(handles=harray1, loc=4, ncol=1, fontsize=14, framealpha=False)
+    ax = plt.gca().add_artist(first_legend)
+    second_legend = plt.legend(handles=harray2, loc=2, ncol=1, fontsize=14, framealpha=False, markerfirst=False)
+    ax2 = plt.gca().add_artist(second_legend)
+  #
+  plt.grid(alpha=0.5)
+  plt.xlim([xmin,xmax])
+  plt.ylim([ymin,ymax])
+  plt.xlabel(xlabel)
+  plt.ylabel(ylabel, fontsize=18)
+  plt.title(title)
+  if in_title != '' and not logY:
+    plt.text(0.5*(xmin+xmax), 0.95*ymax+0.05*ymin, in_title, horizontalalignment='center')
+  elif in_title != '' and logY:
+    plt.text(0.5*(xmin+xmax), 10**(0.95*np.log10(ymax)+0.05*np.log10(ymin)), in_title, horizontalalignment='center')
+  plt.savefig(figname)
+  return
+
 def make_multilines_3(XY, labels=None, xlabel='SNR', ylabel='', clabel='', title='',\
                 levelspacing=0.25, vmin=None, vmax=None, cmap=cm.Reds_r, logY=True,\
                 pcolors=linecolors, plines=linestyles, pmarkers=linemarkers,\
@@ -661,6 +773,7 @@ def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
         p='Mc', qnt='median-val', \
         CI=0, CILevs=[90.0, 68.26895, 95.44997, 99.73002], fmt='new'):
   #{{{
+  help_text = \
   '''
   Confidence interval is indexed as {0 : 90, 1 : 68%, 2 : 95%, 3 : 99.7%}
   Parameter requested in **p** has to be one of :
@@ -709,6 +822,7 @@ def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
   elif 'q' in p: pidx = 2 + 5*num_of_data_fields
   elif 'chiBH' in p: pidx = 2 + 6*num_of_data_fields
   elif 'Lambda' in p: pidx = 2 + 7*num_of_data_fields
+  else: raise RuntimeError("Parameter %s not available. \n %s" % (p, help_text))
   
   if 'old' in fmt:
     if 'median-val' in qnt: pidx += 0
@@ -724,6 +838,7 @@ def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
     elif 'CIlower' in qnt: pidx += 4
     elif 'CIhigher' in qnt: pidx += 5
     elif 'CIfwidth' in qnt: pidx += 6
+    else: raise RuntimeError("Quantity %s not available. \n %s" % (qnt, help_text))
   
   return alldata[CI, pidx]
   #}}}

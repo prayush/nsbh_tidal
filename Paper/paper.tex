@@ -470,9 +470,8 @@ For all populations, we take source locations to be uniformly distributed in
 spatial volume, and source orientations to be uniform on the $2-$sphere. To
 summarize, we find the following:
 % 
-(a) Our best estimate for $\lambdans$ improves much faster than our statistical
-uncertainties. Within $10-20$ detections, the median value of
-$\lambdans$ lies within $10\%$ of the actual value.
+(a) Our median estimate for $\lambdans$ starts out prior dominated, but 
+converges to within $10\%$ of the true value within $10-20$ detections.
 (b) Measurement uncertainties for $\lambdans$, on the other hand, depend on
 $\lambdans$ itself. We find that for hard equations of state (with 
 $\lambdans\geq 1000$), $10-20$ observations are sufficient to constrain
@@ -588,7 +587,7 @@ future prospects with Advanced LIGO.
 \centering 
 \textbf{Illustrative posterior probability distributions for mass-ratio $\eta$,}\par
 \textbf{at different SNR values (shown in legend).}\par\medskip
-\includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}
+\includegraphics[width=1.8\columnwidth]{plots/SingleSystemEta_q4_0_mc2_25_chi0_50}\\
 \caption{We show here probability distributions for mass ratio $\eta$ as measured
 for the same signal at different SNRs. The intrinsic parameters of the source
 are: $q = \mbh/\mns = 5.4M_\odot/1.35M_\odot = 4$, $\chibh=+0.5$, and $\lambdans=2000$;
@@ -887,6 +886,11 @@ as the statistical error-bars.
 \textbf{Ratio of systematic to statistical errors in measuring $\mchirp$;}\par
 \textbf{ignoring tidal effects.}\par\medskip
 \includegraphics[width=1.6\columnwidth]{plots/TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear}
+\includegraphics[width=0.8\columnwidth]{plots/TNMchirpBiasesOverCIWidthsVsSNR_Lambda500_CI90_0}
+% \includegraphics[width=0.67\columnwidth]{plots/TNMchirpBiasesOverCIWidthsVsSNR_Lambda800_CI90_0}
+\includegraphics[width=0.8\columnwidth]{plots/TNMchirpBiasesOverCIWidthsVsSNR_Lambda1000_CI90_0}\\
+\includegraphics[width=0.8\columnwidth]{plots/TNMchirpBiasesOverCIWidthsVsSNR_Lambda1500_CI90_0}
+\includegraphics[width=0.8\columnwidth]{plots/TNMchirpBiasesOverCIWidthsVsSNR_Lambda2000_CI90_0}
 \caption{We show here the ratio of systematic and statistical
 measurement uncertainties for the binary chirp mass over the NSBH parameter 
 space. Each panel shows the same as a function of BH mass and spin. NS mass
@@ -1669,7 +1673,7 @@ filled region about the median), as functions of $N$.
 % % 
 \begin{figure*}
 \centering
-\textbf{Paradigm A \hspace{6cm} Paradigm B}\par\medskip
+\textbf{No Mass-Gap \hspace{6cm} Mass-Gap}\par\medskip
 \includegraphics[trim=1cm 0 0 0, width=1.025\columnwidth]{plots/LambdaMedian_vs_N_AllPopulation}
 \includegraphics[trim=0 0 1cm 0, width=1.025\columnwidth]{plots/LambdaMedian_vs_N_AstroPopulation}\\
 \includegraphics[trim=1cm 0 0 0, width=1.025\columnwidth]{plots/LambdaMedian90pc_vs_N_AllPopulation}
@@ -1702,12 +1706,12 @@ the same ($10\%$) measurement accuracy for populations with $\lambdans<1000$.
 For more deformable neutron stars, $10-25$ events would suffice.
 }
 \label{fig:TT_LambdaMedian_vs_N_AllInOne}
-\end{figure*}
-%
+\end{figure*} 
+% 
 % 
 \begin{figure*}
 \centering    
-\textbf{Paradigm A \hspace{6cm} Paradigm B}\par\medskip
+\textbf{No Mass-Gap \hspace{6cm} Mass-Gap}\par\medskip
 \includegraphics[width=1.025\columnwidth,trim=1cm 0 0 0]{plots/LambdaCIWidths90pc_vs_N_AllPopulation}
 \includegraphics[width=1.025\columnwidth,trim=0 0 1cm 0]{plots/LambdaCIWidths90pc_vs_N_AstroPopulation}
 \caption{%
@@ -2013,25 +2017,24 @@ population ensembles.
 
 In Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0} we show illustrative results
 for a single population with neutron star deformability $\lambdans=800$.
-In the left panel, each curve shows the 
+In the top panel, each curve shows the 
 probability distributions for $\lambdans$ as inferred from $N$ events, with $N$
 ranging from $1-80$. We also mark the $90\%$ credible intervals associated
 with each of the probability distribution curves. The first few observations
-do not have
-enough information to bound $\lambdans$ much more than
-our prior from Eq.~\ref{eq:lprior} does. However, the median of these
-cumulative distributions appears to track the true value of $\lambdans$ 
-rapidly.
+do not have enough information to bound $\lambdans$ much more than
+our prior from Eq.~\ref{eq:lprior} does. 
 % 
-In the right panel, we present information derived from the left panel.
+In the bottom panel, we present information derived from the top panel.
 The line-circle curve shows the measured median value from $N$ observations.
 The pair of dashed (dotted) horizontal lines mark
 $\pm25\%$ ($\pm50\%$) error bars. At each $N$, the range spanned by the 
 filled region is the $90\%$ credible interval deduced from the same 
 events. This figure somewhat quantifies the qualitative deductions we made
-from the left panel. We find that the median does track the true value
-quickly, reaching $10\%$ accuracy with $10-15$ observations. With the same
-information, our credible intervals also shrink to $\pm 25\%$.
+from the left panel. We find that the median does track the true value quickly,
+reaching within its $10\%$ with $10-15$ observations. This is as one expects of 
+injections in zero noise where random fluctuations are unable to shift the
+median away from the true value, so long as the measurement is not restricted
+by the prior. With the same information, our credible intervals also shrink to $\pm 25\%$.
 % 
 In Fig.~\ref{fig:TT_Lambda_vs_N_CI90_0} we show further results from four
 independent populations for $\lambdans=\{500,1000,1500,2000\}$. As in the 
@@ -2039,9 +2042,10 @@ right panel of Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0}, the line-circle curves
 track the median $\lambdans$, while the filled regions show
 the associated $90\%$ credible intervals. From the figure, we observe
 the following: (i) the shrinkage of credible interval widths with increasing
-$N$ happens in a similar manner for each $\lambdans$, (ii) within $\sim 10$
-observations, median $\lambdans$ for all populations lie within
-$10\%$ of the true values, and (iii) it takes
+$N$ happens in a similar manner for each $\lambdans$, 
+% (ii) within $\sim 10$ observations, median $\lambdans$ for all populations lie
+% within $10\%$ of the true values, 
+and (ii) it takes
 approximately $20$ events to distinguish definitively (with $90\%$ credibility)
 between deformable NSs with $\lambdans=2000$ and compact NSs with 
 $\lambdans=500$, or equivalently to distinguish between hard, moderate and soft
@@ -2068,11 +2072,15 @@ The panel just below it shows the range of $\lambdans$ that encloses the
 median $\lambdans$ for $90\%$ of the populations in {\it each}
 ensemble. In other words, this panel shows the range of $\lambdans$ within which
 the median $\lambdans$ value for $90\%$ of NSBH populations is
-expected to lie. From these panels, we conclude that our median $\lambdans$
+expected to lie. From these panels, we observe that our median $\lambdans$
 values will be within $10\%$ of the {\it true} value after $\sim 25$
 detections of less deformable neutron stars ($\lambdans\leq 1000$), or
 after as few as $15$ detections of more deformable neutron stars
-($\lambdans\geq 1500$).
+($\lambdans\geq 1500$). This is not surprising because we inject simulated
+signals in {\it zero} noise, which ensures that the median not be shifted away
+from the true value. That it takes $15+$ events for the median to approach
+the true value is a manifestation of the fact that the measurement is limited
+by the prior on $\lambdans$ when we have fewer than $15$ events.
 % 
 The results discussed in Fig.~\ref{fig:TT_Lambda_vs_N_L800_CI90_0},
 \ref{fig:TT_Lambda_vs_N_CI90_0} and the left two panels
@@ -2420,10 +2428,11 @@ We probe two astrophysical paradigms, one that allows for BH masses to lie
 within the astrophysical mass-gap (paradigm A), and one that does not (paradigm
 B).
 % 
-{\it For paradigm A}, we find the following: (i) for the softer equations of state
-that result in less deformable neutron stars, $15-20$ detections are sufficient
-for our median value of $\lambdans$ to lie within $10\%$ of the true
-value. (ii) For NSBH populations with more deformable NSs ($\lambdans> 1000$),
+{\it For paradigm A}, we find the following: (i) for the softer equations of
+state that result in less deformable neutron stars, $15-20$ detections bring
+the measured probability distribution for $\lambdans$ entirely within the prior,
+which ensures that the median $\lambdans$ tracks the true value to within $10\%$.
+(ii) For NSBH populations with more deformable NSs ($\lambdans> 1000$),
 the same is achievable within as few as $10$ (or $15$ at most) realistic
 observations. (iii) The statistical uncertainty associated with $\lambdans$
 measurement can be restricted to be within $\pm50\%$ using $10-20$ observations
