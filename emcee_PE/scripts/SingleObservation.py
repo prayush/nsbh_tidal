@@ -787,11 +787,13 @@ def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
   * 'Lambda'
 
   Quantity requested in **qnt** has to be one of :
-  * 'median-val': X(median)
-  * 'fbias'     : (X(median) - X(injection)) / X(injection)
-  * 'CIlower'   : X[10%] or 100-x%
-  * 'CIhigher'  : X[90%] or x%
-  * 'CIfwidth'  : (X[90%] - X[10%]) / X(injection)
+  * 'median-val'    : X(median)
+  * 'maxLogL-val'   : X(MaxLikelihood)
+  * 'fbias'         : (X(median) - X(injection)) / X(injection)
+  * 'maxLogL-fbias' : (X(MaxLikelihood) - X(injection)) / X(injection)
+  * 'CIlower'       : X[10%] or 100-x%
+  * 'CIhigher'      : X[90%] or x%
+  * 'CIfwidth'      : (X[90%] - X[10%]) / X(injection)
   '''
   if q is None or chiBH is None or NSLmbd is None or SNR is None:
     raise IOError("Need all of (q,chi,NSL,SNR) parameters")
@@ -833,8 +835,8 @@ def get_results(data, q=None, chiBH=None, NSLmbd=None, SNR=None,\
   else:
     if 'median-val' in qnt: pidx += 0
     elif 'maxLogL-val' in qnt: pidx += 1
-    elif 'fbias' in qnt: pidx += 2
     elif 'maxLogL-fbias' in qnt: pidx += 3
+    elif 'fbias' in qnt: pidx += 2
     elif 'CIlower' in qnt: pidx += 4
     elif 'CIhigher' in qnt: pidx += 5
     elif 'CIfwidth' in qnt: pidx += 6
