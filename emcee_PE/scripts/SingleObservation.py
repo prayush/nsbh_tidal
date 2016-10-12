@@ -66,18 +66,18 @@ ppi=72.0
 aspect=(5.**0.5 - 1) * 0.5
 size=4.0 * 2# was 6
 figsize=(size,aspect*size)
-plt.rcParams.update({\
-'legend.fontsize':11, \
-'text.fontsize':11,\
-'axes.labelsize':11,\
-'font.family':'serif',\
-'font.size':11,\
-'xtick.labelsize':11,\
-'ytick.labelsize':11,\
-'figure.subplot.bottom':0.2,\
-'figure.figsize':figsize, \
-'savefig.dpi': 300.0, \
-'figure.autolayout': True})
+#plt.rcParams.update({\
+#'legend.fontsize':11, \
+#'text.fontsize':11,\
+#'axes.labelsize':11,\
+#'font.family':'serif',\
+#'font.size':11,\
+#'xtick.labelsize':11,\
+#'ytick.labelsize':11,\
+#'figure.subplot.bottom':0.2,\
+#'figure.figsize':figsize, \
+#'savefig.dpi': 300.0, \
+#'figure.autolayout': True})
 
 # hist(PercentileInterval(s1[0], pc=99.0), 100);
 
@@ -108,13 +108,13 @@ col corresponds to the lower level group
     raise IOError("X, Y and Z arrays have different number of sets to plot")
   
   plt.rcParams.update({\
-    'legend.fontsize':16, \
-    'text.fontsize':16,\
-    'axes.labelsize':16,\
+    'legend.fontsize':18, \
+    'text.fontsize':18,\
+    'axes.labelsize':18,\
     'font.family':'serif',\
-    'font.size':16,\
-    'xtick.labelsize':14,\
-    'ytick.labelsize':14,\
+    'font.size':18,\
+    'xtick.labelsize':15,\
+    'ytick.labelsize':15,\
     'figure.subplot.bottom':0.2,\
     'figure.figsize':figsize, \
     'savefig.dpi': 300.0})#, \
@@ -124,7 +124,7 @@ col corresponds to the lower level group
   if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
   pltid = 0
   
-  colwidth = 1.75
+  colwidth = 1.55
   fig = plt.figure(int(1e7 * np.random.random()), \
               figsize=((1.3*gmean*ncol+1.3)*colwidth, 1.2*colwidth*nrow),\
               dpi=100)
