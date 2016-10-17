@@ -43,7 +43,7 @@ Abstract: You introduce several acronyms in the abstract. I think the PRD style 
  
  
  Many of your figures (1--6, 8, 12 13) have titles. I don't think this is standard practice. You should probably just move the title to the first sentence of the figure caption.  
- >> I think here titles will help the reader peruse quickly through figures, especially those whose context in the text is not available on the same page as the figure. They increase clarity, and PRD says titles are OK. See, for e.g., these two articles that were forwarded to me by PRD's helpdesk: Phys. Rev. D 94, 074006 and Phys. Rev. D 94, 083506.
+ >> Moved to captions.
  
  
  You use the models "Paradigm A" and "Paradigm B" many times. It might be simpler and more clear to label these models "No mass gap" and "Mass gap"?  There are several more typos.  
