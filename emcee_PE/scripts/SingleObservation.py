@@ -89,7 +89,8 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
                        leveltextcolor='b', leveltextfontsize=10,\
         vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f', lfmt='%.1f',\
         xmin=None, xmax=None, ymin=None, ymax=None, alpha=0.9,\
-        colorticks=None, colorbartype='simple', figname='plot.png'):
+        colorticks=None, colorbartype='simple', fix_one_end_of_colorbar_to_zero=True,\
+        figname='plot.png'):
   """
   Function to plot arbitrary numbers of contour plots in a single figure
   """
@@ -154,7 +155,9 @@ col corresponds to the lower level group
   if VMIN > VMAX: raise IOError("Cant fit all data on a single colorbar")
   
   ## FIXME
-  #VMIN = 0.01
+  if fix_one_end_of_colorbar_to_zero:
+    if VMIN < 0: VMAX = 0.0
+    else: VMIN = 0
   
   # Now make contour plots
   contours_all = {}
@@ -182,7 +185,7 @@ col corresponds to the lower level group
       norm = cm.colors.Normalize(vmax=VMAX, vmin=VMIN)#zz.min())
       #cmap = cm.rainbow
       #levels = np.arange(zz.min(), zz.max(), levelspacing)
-      levels = np.arange(VMIN, VMAX, levelspacing)
+      levels = np.arange(VMIN, VMAX+levelspacing, levelspacing)
       CS = ax.contourf( xx, yy, zz,\
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
