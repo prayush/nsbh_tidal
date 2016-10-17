@@ -85,7 +85,8 @@ figsize=(size,aspect*size)
 # Plotting functions
 def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
         title='', titles=[], xticks=None, yticks=None,\
-	levellinesscale=None, levellines=[100,200], levellabels=True, levelspacing=0.25,\
+	    levellinesscale=None, levellines=[100,200], levellabels=True, levelspacing=0.25,\
+                       leveltextcolor='b', leveltextfontsize=10,\
         vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f', lfmt='%.1f',\
         xmin=None, xmax=None, ymin=None, ymax=None, alpha=0.9,\
         colorticks=None, colorbartype='simple', figname='plot.png'):
@@ -118,16 +119,16 @@ col corresponds to the lower level group
     'figure.subplot.bottom':0.2,\
     'figure.figsize':figsize, \
     'savefig.dpi': 300.0})#, \
-  #'figure.autolayout': True})
+    #'figure.autolayout': True})
 
   nrow, ncol, _ = np.shape(X)
   if vverbose: print "Making plot with %d rows, %d cols" % (nrow, ncol)
   pltid = 0
   
-  colwidth = 1.55
+  colwidth = 1.7
   fig = plt.figure(int(1e7 * np.random.random()), \
               figsize=((1.3*gmean*ncol+1.3)*colwidth, 1.2*colwidth*nrow),\
-              dpi=100)
+              dpi=300)
   fig.clf()
   grid = ImageGrid(fig, 111,\
             nrows_ncols=(nrow, ncol), \
@@ -193,9 +194,9 @@ col corresponds to the lower level group
         for c in cset.collections: c.set_linestyle('dotted')
         if levellabels:
           label_dict = {}
-          for ll in [lev * levline_scaling]: label_dict[ll] = str(int(lev*100))
+          for ll in [lev * levline_scaling]: label_dict[ll] = "{0:.0f}\%%".format(int(lev*100))
           lfmt = label_dict
-        plt.clabel(cset, colors='r', inline=1, fmt=lfmt, fontsize=10)
+        plt.clabel(cset, colors=leveltextcolor, inline=1, fmt=lfmt, fontsize=leveltextfontsize)
         contours_tmp[lev] = cset.collections[0].get_paths()
       if vverbose:
         print "for %s" % titles[idx][jdx], contours_tmp
@@ -227,7 +228,8 @@ col corresponds to the lower level group
   ax.cax.toggle_label(True)
   fig.subplots_adjust(right=0.8)
   #fig.tight_layout(rect=(0, 0, 0.82, 1))
-  fig.savefig(figname, dpi=300)
+  if vverbose: print "Saving to : ", figname
+  fig.savefig(figname)
   return contours_all
 
 
