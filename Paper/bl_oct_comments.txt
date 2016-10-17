@@ -1,0 +1,125 @@
+Benjamin Lackey wrote on Sept. 27, 2016, 2:29 p.m.:
+The results in this paper are new and interesting, and the Bayesian methods discussed in the text appear to be correct. However, many of the figures and several parts of the text need some work. I've already discussed some of the comments below with Michael Puerrer. I've tried to divide my comments by category.  
+
+
+**************** Minor comments on text of paper ******************  
+Abstract: You introduce several acronyms in the abstract. I think the PRD style guidelines say that you should avoid acronyms in the abstract. 
+
+ Page 1: You define (BNS) as "binary neutrons".   
+ >> Done
+ 
+ Page 2: The definition of mass-gap is never explicitly defined. It appears first on page 2 and is used several times in the figures and text. However, the closest thing to a definition doesn't comes until page 14 when you say it is 2--5M_\odot. Is this the exact definition you are using? It's not clear.  
+ >> Done
+ 
+ Page 3: "However, we expect the combined effect of modeling errors to not change our broad qualitative conclusions, which are based on vague statistical trends with large errors themselves." I have no idea what this means. What is a "vague" statistical trend?  
+ >> This is poorly phrased, and I've replaced with crisper language.
+ 
+ 
+ Page 4 and possibly elsewhere: "a-priori" does not have a hyphen and should probably be italicized since it is not English. Same with "et al".  
+ >> Fixed
+ 
+ 
+ Page 4: "K" is an unusual choice of symbol for prior knowledge. "H" and "I" are more common choices.  
+ >> Changed to H
+ 
+ Page 5: You quote a range of NSBH rates of 10--300. The LIGO rates paper that you cite says 0.2--300. You are only quoting the "realistic"--"high" range which is misleading. Then, on page 15, you finally use the "correct" range of 0.2--300.  
+ >> Changed to the "low"--"high" range
+ 
+ 
+ Page 5: You quote a rate of "disruptive" NSBH mergers. What does this mean exactly? Is it the same as BH masses in the mass gap? Is it systems below a specific mass ratio. Does spin determine if it is disruptive? You should be clear on the definition of "disruptive" you are using here.
+ >> Clarified in the text with explciit ranges for "disruptive"
+ 
+ 
+ Page 8: You write "Only when |R_X| < 1 can we ignore tidal effects in our templates..." Should I infer that you can ignore tidal effects in parameter estimation when R_X=0.99? "|R_X| << 1" is probably more accurate. And when do you think |R_X| is small enough? 0.1? 0.01? 
+ >> Fixed
+ 
+ 
+  Is the text of page 6 and 8 in gray and blue meant to be there? It refers to Fig. 12, so maybe the text or the figure are out of order.  
+  >> This colored text has been removed - it was left uncommented unintentionally.
+  
+  
+ Eq. 13: You say that you can absorb the prior into a normalization factor. This is not true. It can only be absorbed for a uniform/rectangular prior. You don't assume a rectangular prior until Eq. 15.  
+ >> Good catch, I've reversed the orders of Eq. 13 and 15.
+ 
+ 
+ Many of your figures (1--6, 8, 12 13) have titles. I don't think this is standard practice. You should probably just move the title to the first sentence of the figure caption.  
+ >> I think here titles will help the reader peruse quickly through figures, especially those whose context in the text is not available on the same page as the figure. They increase clarity, and PRD says titles are OK. See, for e.g., these two articles that were forwarded to me by PRD's helpdesk: Phys. Rev. D 94, 074006 and Phys. Rev. D 94, 083506.
+ 
+ 
+ You use the models "Paradigm A" and "Paradigm B" many times. It might be simpler and more clear to label these models "No mass gap" and "Mass gap"?  There are several more typos.  
+
+
+*************** More general comments / comments on methods ***************  
+
+You might want to compare your MCMC results for single events to Fisher matrix results for a single event at a similar SNR. See, for example, Figures 19 and 20 of PhysRevD.89.043009.  
+>> Included this and comparison with Agathos et al on binary neutron stars.
+
+
+In many places you call the "median" the "measured" value. The median is one of many quantities that can be used to summarize the behavior of a pdf. Other examples are the mode, mean, and standard deviation. Why have you singled out the median as the measured value? The pdf itself represents your measurement. 
+>> When we quote a "measurement" in writing as we did in Table 1 of [http://journals.aps.org/prl/pdf/10.1103/PhysRevLett.116.241102], we are forced to use one number with +/- error-bars to summarize the measurement. The PDF is indeed the actual "measurement", and there are several estimators suited for quantifying it as you point out. We use the precedent of [http://journals.aps.org/prl/pdf/10.1103/PhysRevLett.116.241102] and other works before, and choose the "median" measurement to represent our "best estimate" or the "measured value", with "90% credible intervals" as our "measurement uncertainty" that gives the error bars. Presenting the entire PDFs would be unwieldy for such a diverse parameter space.
+
+>> The fact that the median is close to the "true" value in your figures is just a feature of the shape of the pdf (being fairly symmetric and unimodal) and narrow enough (in the cases where the SNR is large enough) that the shape is not dominated by the shape of the prior.  
+
+In many places you make a comment about how the median approaches the true value as the number of observations increases. I don't think this is an especially important quantity to say something about in this paper. Because you only used zero noise injections, and because the zero noise pdf is roughly symmetric, you should expect the median to always be close to the true value. However with real data that has noise, the pdf of each observation will not be centered on the true value. As a result, after stacking observations the median of the joint pdf of N observations will probably converge to the true value at roughly the same rate that the confidence interval of the joint pdf shrinks.  
+>> In zero noise, we do expect the median to remain close to the true value if the recovered PDF is not restricted significantly by the prior. When measuring Lambda, it takes a few detections for its PDF to be contained completely wihtin the prior allowed range. If the PDF is cutoff by the prior, the median will be determined by the latter and not the true value. Therefore, by showing the convergence of median values, we show how rapidly do our measurements stop being prior-dominated because we have accumulated enough many events. I have emphasized this and reduced the discuss of this point in general.
+
+
+
+******************* Comment on how you define systematic error ****************  
+
+When you discuss the systematic error that results from using a BBH template for a NSBH source, you choose a definition that doesn't quite make sense. A correct definition of systematic error is the shift in the pdf that results when you use the BBH template compared to the pdf when you use the NSBH template. You could calculate this from the difference in medians between the two pdfs (or difference in modes or difference in means).   
+
+Instead you use the distance between the "true" NSBH injected value and the median of the BBH template. It happens to behave in many cases like the quantity you actually want to calculate, but it is not correct.  
+>>  Systematic bias is the difference between the recovered median (using BBH templates) and the value we would recover with NSBH templates. I.e.
+
+ (i) systematic bias = X^Median(Non-Tidal) - X^Median(Tidal),
+ 
+assuming identical priors for tiadal and non-tidal templates. However, our priors on NSBH templates and BBH templates are not the same, because of additional restrictions on the tidal model LEA. For instance, the mass-ratio prior for NSBH templates is restricted to 2 <= q <= 6, while for BBH templates higher mass-ratios are allowed by the prior (because they are supported by the waveform model). This means we cannot straightaway use Eq.(i).
+
+>> In zero noise, we expect the recovered PDFs to be Gaussian with the maximum likelihood value equal to the true value when using NSBH templates for NSBH signals. If the prior is not restrictive, we expect the median also to converge to the true value. However, the LEA model has very restrictive priors (both mass-ratio and spin) that leads to the median value moving away from the true value. Therefore it is not fair to use Eq.(i) in our particular case.
+
+>> On the other hand, the relatively free priors for BBH templates are what we would also impose on a 'complete' NSBH model that supports higher mass-ratio and spin values. Unfortunately, such a model is not available in current literature. But if it were, in zero noise we may be able to approximate the X^Median recovered using it with X^True. This is the primary motivation behind using Eq.(ii), i.e. that it assesses systematic biases w.r.t. to a hypothetical 'complete' NSBH model.
+
+>> Therefore, we could do one of two things:
+1) Re-weight posteriors from the BBH runs to match NSBH priors. Use the median from the new PDFs into Eq.(i), or
+2) Justify our use of Eq.(ii) in the paper as an approximation in absence of a 'complete' NSBH model in literature.
+
+>> Doing (1) will move the median parameter values, recovered with BBH templates, away from the true parameter values to imitate what the same priors do for NSBH templates. Eq.(i) can then be used, but we would be answering the question: "If we have an aligned-spin BBH models with a limited mass-ratio and spin support, will we incur a parameter bias in using these it for NSBH PE?" . I'm not sure of how useful this question is to answer because the default plan is to use SEOBNR for NSBH PE, and SEOBNR doesn't have the same restrictions as LEA.
+
+>> Doing (2) means we are approximately computing systematic biases w.r.t. a 'complete' NSBH model that may avail itself in the future. We prefer to go with (2) and approximate X^Median(Tidal) = X^True, in an attempt to measure the systematic errors purely due to the use of BBH templates in place of NSBH ones.
+
+
+
+*********** Comments on figures ***********  
+
+Don't use a colored background for figures (Figs. 1, 5, 13). See for example Rule 8 here: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833
+>> Done  
+
+Figs. 1--4: You define the difference between the true value and the median (which you incorrectly call the measured value) as your bias. See comment above.  
+>> See response above.
+
+
+Figs. 2, 3, 4, 6, 12: 
+-- These look more like a data dump than something that is ready for publication. It's cool that you can plot a function of 4 dimensions, but they are not particularly helpful, and are extremely difficult to figure out trends from. 
+-- It would probably be far more helpful if you just took several 1d slices through this parameter space so that you could plot R_x as a function of each of the 3 parameters (M_BH, chi_BH, Lambda). For example, you could plot the 3 curves R_X(chi) at rho = (30, 50, 70) on a single plot, and then plot R_X(M_BH) at rho = (30, 50, 70), and then plot R_X(Lambda) at rho = (30, 50, 70). This would reduce each figure to 3 panels and make trends clearer. 
+-- There are a lot of weird polygon artifacts that appear in both the pdf and printed version. I assume this is something related to whatever interpolation you are using in matplotlib. These are distracting. 
+-- The red labels on the contours are poorly placed. They routinely overlap labels or are cutoff on the edges. 
+-- Some of the figures have only 1 or even 0 contour lines. What is someone supposed to learn from these? This is especially the case for Fig. 12 which just looks like a brick wall. Surely there's a better way of presenting what little information is actually there. 
+-- In some cases the label for the colorbar is multiplied by 100. In other cases they are not.   
+>> 
+
+
+
+Fig. 5: Don't call the median the measured value in the legend.  
+>> Done
+
+Fig. 6: You show both the statistical error (as shading) and the fractional statistical error (as contours). This might be a bit confusing.  
+>> This is intentional
+
+Fig. 13: 
+-- This looks like the almost default settings of the corner program.  
+-- What are the values for the different contours? 
+-- There are a lot of strange artifacts in the 2d marginalized plots particularly for (\Lambda_NS, \eta) and (\chi_BH, M_C) on the left. Whatever bin size and/or smoothing is being used is making strange blobs that (I'm guessing) don't actually exist in your data. 
+-- This binning is also artificially widening the really degenerate contours. 
+>> Improved. Now the contours correspond to 1sigma, 2sigma, ...
+
