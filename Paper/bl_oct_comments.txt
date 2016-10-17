@@ -47,6 +47,7 @@ Abstract: You introduce several acronyms in the abstract. I think the PRD style 
  
  
  You use the models "Paradigm A" and "Paradigm B" many times. It might be simpler and more clear to label these models "No mass gap" and "Mass gap"?  There are several more typos.  
+ >> Those labels are degenerate as well. Does "No mass gap" mean that mass gap is *not* astrophysical, or that there is *no* mass gap? Using "A/B" forces the reader to read their definitions once at least.
 
 
 *************** More general comments / comments on methods ***************  
@@ -106,7 +107,7 @@ Figs. 2, 3, 4, 6, 12:
 -- The red labels on the contours are poorly placed. They routinely overlap labels or are cutoff on the edges. 
 -- Some of the figures have only 1 or even 0 contour lines. What is someone supposed to learn from these? This is especially the case for Fig. 12 which just looks like a brick wall. Surely there's a better way of presenting what little information is actually there. 
 -- In some cases the label for the colorbar is multiplied by 100. In other cases they are not.   
->> 
+>> These are very useful comments, and I have addressed them by drastically reducing the number of panels shown, adding contour lines to all panels, clarifying contour label texts, and other stylistic changes. Compared to taking 1-D slices, the current contour plots convey the same amount of information (if not more) in similar page area, and therefore we keep them.
 
 
 
