@@ -972,25 +972,43 @@ and $-0.75\leq \chibh\leq +0.75$.
 
 
 
+The effect of ignoring
+tidal corrections in templates will manifest as a systematic shift
+of recovered median parameter values away from what they would be if we had used
+tidal templates with identical priors. 
+In zero noise, we expect the probability distributions recovered using tidal
+templates to be multi-dimensional Gaussians with the maximum likelihood
+parameter values approaching their true values. If the priors are not
+restrictive, we expect the recovered median to also converge to the true value.
+However,
+the LEA model imposes significantly more restrictive priors (both mass-ratio
+and spin) than SEOBNRv2~\cite{Taracchini:2013rva,Lackey:2013axa}, which shifts
+the median value of parameters recovered using {\it our} tidal templates away
+from their true value. If we use LEA+ priors for our non-tidal templates, it
+would add a caveat to our original question 'can we estimate non-tidal NSBH
+parameters with equivalent BBH templates'. Instead, we approximate the median
+tidally recovered parameters by their true injected values, as one would expect
+to recover with an ideal model for tidally disruptive NSBH mergers. With this
+caveat, we estimate {\it systematic} measurement bias/errors as the
+differences between median and {\it injected} parameter values. 
+% 
 As an illustration, in Fig.~\ref{fig:SingleSystemEtaPDFvsSNR} we show the
 recovered probability distributions for binary mass ratio $\eta$ for
 three NSBH injections, with $\rho=20$ (left), $30$ (middle), and $\rho=50$
 (right), and other parameters held fixed ($\mns=1.35M_\odot$, $\chins=0$,
 $\mbh=5.4M_\odot$, $\chibh=+0.5$ and $\lambdans=2000$). In each panel, both
-the {\it true} and the median values of $\eta$ are marked.
-The effect of ignoring tidal corrections in templates manifests as a systematic
-shift of the median $\eta$ value away from its true value. We measure
-the associated {\it systematic} bias/error by the differences between the
-true and median $\eta$ values. Darker
-shading of the probability distributions marks the $90\%$ credible interval,
-whose width $(\Delta\eta)^{90.0\%}$ is a direct measure of the
+the {\it true} and median values of $\eta$ are marked, and we use
+the shift between the red and green vertical lines as our estimate of systematic
+measurement errors. Darker shading in all panels marks $90\%$ credible intervals,
+whose width $(\Delta\eta)^{90.0\%}$ we use as a direct measure of our
 {\it statistical} measurement uncertainty/error\footnote{We generalize the
 notation $(\Delta X)^{90.0\%}$ to mean the $90\%$ credible interval width
 for any measured source parameter $X$.}.
 % 
-We see clearly that even when the signal is moderately loud, with $\rho=20$,
+For the illustrated binary,
+we see clearly that even when the signal is moderately loud, with $\rho=20$,
 statistical errors dominate over systematics for $\eta$. As we turn up the SNR
-further, we find that the two error sources become comparable at $\rho\sim 30$,
+further, the two error sources become comparable at $\rho\sim 30$,
 and systematic errors dominate finally when $\rho\simeq 50$.
 
 
