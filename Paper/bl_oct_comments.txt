@@ -61,7 +61,10 @@ In many places you call the "median" the "measured" value. The median is one of 
 
 >> The fact that the median is close to the "true" value in your figures is just a feature of the shape of the pdf (being fairly symmetric and unimodal) and narrow enough (in the cases where the SNR is large enough) that the shape is not dominated by the shape of the prior.  
 
+
+
 In many places you make a comment about how the median approaches the true value as the number of observations increases. I don't think this is an especially important quantity to say something about in this paper. Because you only used zero noise injections, and because the zero noise pdf is roughly symmetric, you should expect the median to always be close to the true value. However with real data that has noise, the pdf of each observation will not be centered on the true value. As a result, after stacking observations the median of the joint pdf of N observations will probably converge to the true value at roughly the same rate that the confidence interval of the joint pdf shrinks.  
+
 >> In zero noise, we do expect the median to remain close to the true value if the recovered PDF is not restricted significantly by the prior. When measuring Lambda, it takes a few detections for its PDF to be contained completely wihtin the prior allowed range. If the PDF is cutoff by the prior, the median will be determined by the latter and not the true value. Therefore, by showing the convergence of median values, we show how rapidly do our measurements stop being prior-dominated because we have accumulated enough many events. I have emphasized this and reduced the discuss of this point in general.
 
 
