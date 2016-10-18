@@ -90,6 +90,7 @@ def make_contour_array(X, Y, Z2d, xlabel='Time (s)', ylabel='', clabel='', \
         vmin=None, vmax=None, cmap=cm.rainbow, cfmt='%.1f', lfmt='%.1f',\
         xmin=None, xmax=None, ymin=None, ymax=None, alpha=0.9,\
         colorticks=None, colorbartype='simple', fix_one_end_of_colorbar_to_zero=True,\
+        gridded=True, grid_color='lightgrey',\
         figname='plot.png'):
   """
   Function to plot arbitrary numbers of contour plots in a single figure
@@ -190,6 +191,7 @@ col corresponds to the lower level group
               levels=levels, \
               cmap = cm.get_cmap(cmap, len(levels)-1), norm=norm,\
               alpha=alpha, vmin=VMIN, vmax=VMAX)
+      ax.tick_params('both', length=6, width=1, which='major')
       contours_tmp = {}
       for lev in levellines:
         cset = ax.contour(xx, yy, zz, levels=[lev * levline_scaling],\
@@ -205,7 +207,8 @@ col corresponds to the lower level group
         print "for %s" % titles[idx][jdx], contours_tmp
         print "ymin, ymax = ", ymin, ymax
       #
-      ax.grid(True, color='k')
+      if gridded: ax.grid(True, color=grid_color)
+      else: ax.grid(False)
       if xticks is not None: ax.get_xaxis().set_ticks(xticks)
       if yticks is not None: ax.get_yaxis().set_ticks(yticks)
       ax.set_xlim([xmin, xmax])
