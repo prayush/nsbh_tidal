@@ -6,6 +6,7 @@ import sys
 import numpy as np
 
 import lal
+import pycbc
 from pycbc.waveform import *
 from pycbc.types import *
 import pycbc.psd as ppsd
@@ -113,13 +114,16 @@ class tidalWavs():
         return hp, hc
     #}}}
 
-
 def random_match( sample_rate=4096 * 8, time_length=256, \
                 mNS=1.35, Qmin=2, Qmax=5, smin=-0.5, smax=+0.75, tLambda=500.,\
                 f_lower=15., psd=None, outfile='match.dat'):
   #{{{
   N = sample_rate * time_length
   delta_f = 1./time_length
+  if psd==None:
+    psdName = 'aLIGOZeroDetHighPower'
+    psd = ppsd.from_string(psdName, N/2 + 1,
+                         delta_f, f_lower)
   # Choose only ONE mass parameter. Fix NS mass = 1.35Msun
   rnd = np.random.random()
   q = rnd*(Qmax - Qmin) + Qmin
@@ -159,3 +163,12 @@ def random_match( sample_rate=4096 * 8, time_length=256, \
 #############################################
 #############################################
 #############################################
+#tw = tidalWavs(approx='SEOBNRv2_ROM_DoubleSpin_HI', verbose=False)
+tw = tidalWavs(approx='IMRPhenomC', verbose=False)
+
+for n in range(5):
+  print "Running test %02d" % n
+  random_match()
+
+
+############
