@@ -194,7 +194,7 @@ if len(sys.argv > 2):
   RAND = np.int64(sys.argv[2].split('_'))
 #
 INDEX   = 20
-
+print "RAND = ", RAND
 
 # In[5]:
 
@@ -237,15 +237,12 @@ fout.close()
 
 # In[8]:
 
-## GENERATE A SEQUENCE OF EVENTS
+## LOAD A SEQUENCE OF EVENTS and SORT EVENTS ACCORDING TO SNR !!
 for i, NSL in enumerate(Lambdavec):
     print "---- For Lambda = %f" % NSL
-    #xx[NSL].generate_events()
-    xx[NSL].load_events(RAND[i])
+    xx[NSL].load_events(RAND[i], sort_events_column=2) # cols are M, eta, SNR, L
 
 
-## SORT EVENTS ACCORDING TO SNR !!
-# FIXME
 
 # Generate ALL Statistics with the population
 for NSL in Lambdavec:
