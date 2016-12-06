@@ -119,7 +119,7 @@ class tidalWavs():
         psi = psiT + DpsiT - psiFit
         return np.append( PhsLowF, psi)
     #
-    def getWaveform(self, M, eta, sBH, Lambda, distance=1e6*lal.PC_SI, \
+    def getWaveform(self, M, eta, sBH, Lambda, distance=1, \
                     f_lower=15., f_final=4096., \
                     delta_t=1./8192., delta_f=1./256, tidal=True):
         if self.approx in fd_approximants():
@@ -153,8 +153,21 @@ class tidalWavs():
             tid = int(0.1/M/lal.MTSUN_SI / delta_f)
             print ampC[tid], phsC[tid], Corr[tid]
             print hc[tid], hp[tid]
+        filter_n = 1./(2. * delta_t * delta_f) + 1
+        hp = extend_waveform_FrequencySeries(hp, filter_n)
+        hc = extend_waveform_FrequencySeries(hc, filter_n)
         return hp, hc
     #}}}
+
+def extend_waveform_FrequencySeries(wav, filter_n):
+  #{{{
+  if len(wav) != filter_n:
+    _wav = FrequencySeries(np.zeros(filter_n), delta_f=wav.delta_f,
+                        dtype=complex_same_precision_as(wav), epoch=wav._epoch)
+    _wav[:len(wav)] = wav
+  else: _wav = wav
+  return _wav
+  #}}}
 
 
 def windowing_function(f, f0, d, sgn=+1):
