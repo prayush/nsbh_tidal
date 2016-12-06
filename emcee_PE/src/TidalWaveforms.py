@@ -153,7 +153,10 @@ class tidalWavs():
             tid = int(0.1/M/lal.MTSUN_SI / delta_f)
             print ampC[tid], phsC[tid], Corr[tid]
             print hc[tid], hp[tid]
-        filter_n = 1./(2. * delta_t * delta_f) + 1
+        #
+        filter_n = np.round(1./(2. * delta_t * delta_f)) + 1
+        filter_n = int(filter_n)
+        print "Extending wave to %d elements" % filter_n
         hp = extend_waveform_FrequencySeries(hp, filter_n)
         hc = extend_waveform_FrequencySeries(hc, filter_n)
         return hp, hc
@@ -180,6 +183,7 @@ def windowing_function(f, f0, d, sgn=+1):
 def lorentzian(f, f0, d): return d**2 / ((f - f0)**2 + d**2 / 4.)
 
 class PNcoeffs():
+  #{{{
   def __init__(self, mass1=5, mass2=5, spin1z=0, spin2z=0, verbose=True):
     """
     This class is for storing all PN coefficients, as well for solving for
@@ -344,6 +348,8 @@ class PNcoeffs():
   #
   def GetWaveformPhase(self):
     return
+  #}}}
+
 
 class tidalWavsFP(PNcoeffs):
     #{{{
