@@ -375,6 +375,7 @@ What it does:
                  write_data=True,\
                  post_process=False,\
                  RND=0,\
+                 output_tag='',\
                  verbose_info=True,\
                  verbose=False):
         ### REMOVE BH spins < 0
@@ -415,6 +416,7 @@ What it does:
             else:
                 raise IOError("Please provide the chain number as RND")
         #
+        self.OutTAG = output_tag
         if verbose_info: self.print_info()
         return
     ###
@@ -530,7 +532,7 @@ by the constructor.
     def load_events(self, chain_set_number, N=None,\
                       lambda_posterior_chains=None,\
                       precalculate_norms=False,\
-                      NSLambda=None):
+                      NSLambda=None, sort_events_importance=False):
         '''
         Returns is a list of events. For each event, two objects are returned:
         1. array of posterior samples
@@ -555,6 +557,10 @@ by the constructor.
             raise IOError("Could not load data for chain set #%d from file %s" %\
                                 (chain_set_number, param_file))
         chain_params = np.loadtxt(param_file)
+        
+        # Sort chain parameters if required
+        if sort_events_importance:
+          # SORT
         
         # Initiate primary data structure
         chain_set = []
@@ -757,7 +763,7 @@ WRite the 'statistical_data' data structure to disk, in a self contained way.
         '''
         if not hasattr(self, 'statistical_data'):
             self.generate_cumulative_statistics()
-        foutname = self.TAG + 'StatData_Lambda%d_N%d.h5' % (self.NSLambda, self.N)
+        foutname = self.TAG + self.OutTAG + 'StatData_Lambda%d_N%d.h5' % (self.NSLambda, self.N)
         fout = h5py.File(foutname, 'a')
         for kk in self.statistical_data:
             dsetname = str(kk) + '.dat'

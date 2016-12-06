@@ -1,0 +1,165 @@
+----------------------------------------------------------------------
+Report of the Referee -- DX11765/Kumar
+----------------------------------------------------------------------
+
+"Measuring neutron star tidal deformability with Advanced LIGO: a
+Bayesian analysis of neutron star - black hole binary observations" by
+Prayush Kumasi, Michel Purrer, and Harald Pfeiffer discusses the
+effect of tidal interaction between a neutron star and its black hole
+companion during binary inspiral, and the imprint this has on the
+gravitational waveform produced by the system. The authors address
+three questions: (i) whether this effect is strong enough to cause
+significant biases in the measurement of other parameters of interest;
+(ii) whether this effect is allows us to detect the tidal
+deformability of the neutron star (and thereby deduce information
+about the nuclear equation of state that determines this parameter);
+and (iii) how well the tidal deformability can be measured given a
+multitude of observed systems rather than a single system. The paper
+is an important extension to previous work in this area by providing a
+fully-Bayesian framework for addressing parameter estimation
+questions, and by including the effects of multiple observations.
+Mixed neutron-star black-hole binaries have not yet been observed
+through gravitational waves, but it is likely that they will be quite
+soon as LIGO's sensitivity improves, which makes this paper timely.
+Furthermore, the impact of the research is quite broad, ranging from
+gravitational wave science, to astrophysics, to nuclear physics (since
+equation of state measurements probe nuclear physics at the low
+temperatures and high densities that exist only in neutron stars).
+Therefore I recommend this paper for publication in Physical Review D.
+
+### Comments
+
+#### I. INTRODUCTION
+
+There is perhaps another line of motivation for this work: In order to
+produce a SGRB, a system must either be a BNS system with a relatively
+soft equation of state, or an NSBH system with a relatively stiff
+equation of state. I don't know if there exists a range of EoSs that
+allow both BNS and NSBH mergers to produce SGRBs, but it might be
+possible that, for sufficiently stiff EoSs, that *all* SGRBs are
+produced by NSBH systems. This would have two implications: (i) you
+can probably use the known rate density of SGRBs to narrow the range
+of NSBH detection rates (though assumptions about the beaming angle
+would need to be made) under the hypothesis; and (ii), again under the
+hypothesis, you would expect the EoS to be at the stiffer,
+more-favorable end. The authors might consider whether this is a
+relevant motivation to include.
+
+In the introductory paragraph the authors claim that LIGO has made
+"the first terrestrial observation of gravitational waves" -- I am not
+sure what the meaning of "terrestrial" is in this context (e.g.,
+extraterrestrials might have made an earlier observation? or to
+distinguish LIGO from pulsar timing arrays, which are at least partly
+space-based -- but even so, they have not yet observed gravitational
+waves...).
+
+In the third paragraph, a range of black hole masses from 3 to 8 solar
+masses is given as the range of masses that allow for disruption of
+neutron stars in NSBH systems. However, I think that the upper limit
+is considerably higher if the black hole has sufficiently high
+prograde spin.
+
+In the fifth paragraph, the authors describe the tidal dephasing as
+appearing as a 5 PN effect. I would suggest saying that it has a
+frequency dependence equivalent to 5 PN effects so the reader might
+not think it a GR effect (it is Newtonian).
+
+Also in the fifth paragraph, the authors claim that Fisher matrix
+estimates are known to be unreliable at realistic signal-to-noise
+ratios. I do not think this is quite so clear cut. It is known that
+there are some cases where they are unreliable, and it is known that
+there are some cases in which they work just fine. For example, for
+BNS systems, it is seen in other work that the Fisher matrix doesn't
+do too badly and *that also appears to be true in this work*. I agree
+that the Bayesian approach used here is the gold-standard, but I
+believe that the authors should probably acknowledge at this point
+that their finding shows that the Fisher matrix results were
+consistent with their Bayesian results (they state this later).
+
+In the tenth paragraph, it should be noted that $\chi_{\rm BH}$ is the
+*dimensionless* BH spin.
+
+#### II. TECHNIQUES
+
+In the first paragraph, of IIA, the sentence beginning "The parameter
+space ..." needs to be reworked.
+
+The exact parameters considered in $\theta$ (and later extended to
+$\Theta$) should be made explicit from the beginning. For example, the
+masses of the two bodies and the spin of the black hole are explicitly
+mentioned. Later the authors describe extrinsic parameters that are
+either marginalized over, maximized over, or contribute only to a
+normalization and are unnecessary (for a single detector). I think all
+this discussion would be clearer if the parameters were made explicit
+early on. Parameters might then be divided into a set that is of
+interest (masses, spin, tidal parameter) and those that are not
+relevant (orientation angles, distance, arrival time, coalescence
+phase).
+
+The authors should indicate up front that they are treating a
+single-detector case.
+
+In section IIB -- in footnote 4 perhaps, but preferably more
+prominently -- the authors should say what noise curve they are using.
+I assume it is aLIGO design: zero-detuning, high-power, and provide a
+reference.
+
+In Eq. (3), I believe there is a missing factor of 1/2 in the
+exponent.
+
+In Eq. (4), there appears to be extraneous parentheses around "b"
+within the integral.
+#### III. HOW IS PE AFFECTED IF WE IGNORE NS MATTER EFFECTS
+
+In the second paragraph, the authors might consider refining the rates
+under the hypothesis that all SGRBs are NSBH events. Assuming 10 / yr
+/ Gpc$^3$ SGRBs and some reasonable range of beaming angles, the rate
+of events with rho > 20 or rho > 30, and having stiff equation of
+states (as required by the hypothesis) should be determinable. See,
+e.g., [Chen and Holz
+(2013)](http://dx.doi.org/10.1103/PhysRevLett.111.181101
+"Gamma-Ray-Burst Beaming and Gravitational-Wave Observations")
+
+At the end of the second sentence, the authors argue that the
+reduction of GW signal power at high frequencies makes the signal
+resemble a signal of lower frequency, and therefore of higher mass.
+However, an alternative is that the phase evolution (rather than
+amplitude) is primarily responsible: the tidal effects sap energy from
+the system (both from going into distortion of the neutron star and
+into increased GW emission) and this causes the orbit to chirp faster
+-- in much the same way an increase in chirp mass would. For NSBH
+systems, it is not clear to me whether it is the amplitude effects or
+the phase effects that the Bayesian PE is responding to -- probably
+both -- but it is worth noting that both of these would cause a bias
+toward higher chirp mass.
+
+#### IV. WHAT DO WE GAIN BY USING TEMPLATES THAT INCLUDE NS MATTER
+EFFECTS?
+
+One thing that the authors might consider is relating how parameters
+describing the disk mass produced by a disrupted NS relate to the
+measurability of the tidal parameter. That is, the subset of systems
+that potentially produce SGRBs (i.e., produce a sufficiently large
+disk mass) would be the same subset most favorable for measurement of
+the tidal parameter. Then the rate of SGRBs would be an indicator of
+the rate of events within 100 Mpc (or whatever the range limit for
+measurement of the tidal parameter).
+
+#### V. COMBINING OBSERVATIONS: LOOKING FORWARD WITH ADVANCED LIGO
+
+Figure 8 (for example) shows a steady improvement in the measurability
+of the tidal parameter as observed systems accrue. However, I am
+interested in knowing the following: is this improvement in
+measurement predominantly due to (a) the few loudest systems measured,
+with low-SNR systems adding very little, or (b) the combined effect of
+the large number of low-SNR systems. I would encourage the authors to
+make a plot of something like Figure 8, but where the posterior is
+constructed considering only those systems with SNR > some value. For
+example, in the BNS case, [Lackey and Wade
+(2015)](http://dx.doi.org/10.1103/PhysRevD.91.043002 "Reconstructing
+the neutron-star equation of state with gravitational-wave detectors
+from a realistic population of inspiralling binary neutron stars")
+compares the posteriors for the loudest one, the loudest five, and the
+loudest twenty signals. *If* it turns out that measurement requires
+intensive NR simulations, it might be relevant to know whether we need
+to fully analyze a few single events or the full set of 20+ events.
