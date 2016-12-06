@@ -532,7 +532,8 @@ by the constructor.
     def load_events(self, chain_set_number, N=None,\
                       lambda_posterior_chains=None,\
                       precalculate_norms=False,\
-                      NSLambda=None, sort_events_importance=False):
+                      NSLambda=None,\
+                      sort_events_column=-1):
         '''
         Returns is a list of events. For each event, two objects are returned:
         1. array of posterior samples
@@ -559,8 +560,13 @@ by the constructor.
         chain_params = np.loadtxt(param_file)
         
         # Sort chain parameters if required
-        if sort_events_importance:
-          # SORT
+        if sort_events_column >= 0 and sort_events_column < np.shape(chain_params)[1]:
+          chain_params = np.array(sorted(chain_params,\
+                                        key=lambda x: x[sort_events_column],\
+                                        reverse=True))
+        elif sort_events_column >= 0:
+          raise IOError("there are only %d columsn in data, %d-th requested" %\
+                        (np.shape(chain_params)[1], sort_events_column+1) )
         
         # Initiate primary data structure
         chain_set = []
