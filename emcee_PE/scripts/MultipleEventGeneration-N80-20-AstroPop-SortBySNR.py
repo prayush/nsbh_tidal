@@ -190,7 +190,7 @@ for q in qvec:
 NEVENTS = int(sys.argv[1])
 #
 RAND = np.zeros(len(Lambdavec))
-if len(sys.argv > 2):
+if len(sys.argv) > 2:
   RAND = np.int64(sys.argv[2].split('_'))
 #
 INDEX   = 20
