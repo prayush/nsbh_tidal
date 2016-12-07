@@ -541,6 +541,7 @@ by the constructor.
         
         Input:
         chain_set: list of tuples, where each tuple is (q, chi, SNR) for 1 event
+        sort_events_column: which column to sort events by. if < 0, not sorted.
         '''
         ####
         if lambda_posterior_chains == None:
