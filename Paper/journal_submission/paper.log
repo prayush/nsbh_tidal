@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.1.4)  19 OCT 2016 14:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.1.4)  17 DEC 2016 03:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -676,362 +676,362 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 89.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `cob' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `cob' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `cobo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `cobo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `com' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `com' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `coo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `coo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `hv' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `hv' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `hvb' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `hvb' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `hvbo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `hvbo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `hvo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `hvo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrb8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrb8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrb8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrb8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrb8u' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrb8u' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrb8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrb8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrbo8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrbo8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrbo8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrbo8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrbo8u' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrbo8u' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrbo8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrbo8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrr8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrr8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrr8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrr8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrr8u' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrr8u' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrr8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrr8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrro8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrro8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrro8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrro8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrro8u' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrro8u' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pcrro8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pcrro8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvb8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvb8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvb8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvb8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvb8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvb8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvb8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvb8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvbo8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvbo8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvbo8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvbo8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvbo8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvbo8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvbo8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvbo8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvr8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvr8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvr8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvr8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvr8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvr8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvr8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvr8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvro8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvro8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvro8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvro8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvro8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvro8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `phvro8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `phvro8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `psyr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `psyr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `psyrgo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `psyrgo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmb8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmb8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmb8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmb8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmb8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmb8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmb8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmb8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmbi8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmbi8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmbi8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmbi8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmbi8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmbi8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmbi8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmbi8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmr8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmr8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmr8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmr8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmr8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmr8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmr8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmr8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmri8g' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmri8g' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmri8r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmri8r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmri8y' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmri8y' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `ptmri8z' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `ptmri8z' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `pzdr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `pzdr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rpcrb' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rpcrb' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rpcrbo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rpcrbo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rpcrr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rpcrr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rpcrro' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rpcrro' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rphvb' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rphvb' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rphvbo' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rphvbo' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rphvr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rphvr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rphvro' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rphvro' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rpsyr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rpsyr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rptmb' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rptmb' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rptmbi' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rptmbi' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rptmr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rptmr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rptmri' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rptmri' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rpzdr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rpzdr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rtxphvb' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rtxphvb' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rtxphvr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rtxphvr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rtxptmb' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rtxptmb' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rtxptmbi' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rtxptmbi' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rtxptmr' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rtxptmr' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `rtxptmri' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `rtxptmri' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `sy' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `sy' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tib' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tib' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tibi' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tibi' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tii' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tii' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tir' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tir' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tmbi108r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tmbi108r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tmrb108r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tmrb108r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tmri108r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tmri108r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `tmrm108r' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `tmrm108r' already exists, duplicates ignored
 
 
-pdfTeX warning: pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p): fontmap entry for `zd' already exists, duplicates ignored
+pdfTeX warning: /usr/bin/pdflatex (file /var/lib/texmf/fonts/map/pdftex/updmap/
+pdftex.map): fontmap entry for `zd' already exists, duplicates ignored
 }] [2]
-<SingleSystemEta_q4_0_mc2_25_chi0_50.pdf, id=230, 932.28299pt x 310.761pt>
+<SingleSystemEta_q4_0_mc2_25_chi0_50.pdf, id=234, 932.28299pt x 310.761pt>
 File: SingleSystemEta_q4_0_mc2_25_chi0_50.pdf Graphic file (type pdf)
 
 <use SingleSystemEta_q4_0_mc2_25_chi0_50.pdf>
@@ -1044,7 +1044,7 @@ Underfull \hbox (badness 1067) in paragraph at lines 474--488
  []
 
 [3] [4 <./SingleSystemEta_q4_0_mc2_25_chi0_50.pdf>]
-<TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear.pdf, id=303, 934.9978
+<TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear.pdf, id=307, 934.9978
 5pt x 442.29242pt>
 File: TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_linear.pdf Graphic file
  (type pdf)
@@ -1054,7 +1054,7 @@ Package pdftex.def Info: TNMchirpBiasesOverCIWidths_CI90_0_Lambda_SNR30_70_line
 ar.pdf used on input line 611.
 (pdftex.def)             Requested size: 479.69925pt x 214.01811pt.
 
-<TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR20_50_linear.pdf, id=309, 934.99785pt
+<TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR20_50_linear.pdf, id=313, 934.99785pt
  x 442.29242pt>
 File: TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR20_50_linear.pdf Graphic file (t
 ype pdf)
@@ -1064,7 +1064,7 @@ Package pdftex.def Info: TNEtaBiasesOverCIWidths_CI90_0_Lambda_SNR20_50_linear.
 pdf used on input line 633.
 (pdftex.def)             Requested size: 479.69925pt x 214.55498pt.
 
-<TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear.pdf, id=313, 934.99785pt x 
+<TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear.pdf, id=317, 934.99785pt x 
 442.29242pt>
 File: TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear.pdf Graphic file (type
  pdf)
@@ -1073,7 +1073,7 @@ Package pdftex.def Info: TNChiBHBiasesOverCIWidths_CI90_0_Lambda_SNR_linear.pdf
  used on input line 651.
 (pdftex.def)             Requested size: 479.69925pt x 215.09186pt.
 
-<SingleSystemLambdaVary_q4_0_mc2_25_chi0_50_snr50.pdf, id=319, 1011.78pt x 310.
+<SingleSystemLambdaVary_q4_0_mc2_25_chi0_50_snr50.pdf, id=323, 1011.78pt x 310.
 761pt>
 File: SingleSystemLambdaVary_q4_0_mc2_25_chi0_50_snr50.pdf Graphic file (type p
 df)
@@ -1085,7 +1085,7 @@ sed on input line 669.
 taBiasesOverCIWidths_CI90_0_Lambda_SNR20_50_linear.pdf>] [7 <./TNChiBHBiasesOve
 rCIWidths_CI90_0_Lambda_SNR_linear.pdf> <./SingleSystemLambdaVary_q4_0_mc2_25_c
 hi0_50_snr50.pdf>]
-<TTLambdaRawCIWidths90_0_Lambda_SNR.pdf, id=452, 1193.42493pt x 589.72322pt>
+<TTLambdaRawCIWidths90_0_Lambda_SNR.pdf, id=456, 1193.42493pt x 589.72322pt>
 File: TTLambdaRawCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TTLambdaRawCIWidths90_0_Lambda_SNR.pdf>
@@ -1099,7 +1099,7 @@ Overfull \hbox (31.19925pt too wide) in paragraph at lines 904--906
 
 
 <TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0.pdf, i
-d=454, 350.80594pt x 216.81pt>
+d=458, 350.80594pt x 216.81pt>
 File: TTSNRThresholdFor100LambdaMeasurement_BHspin_BHmass_Lambda2000_0_CI90_0.p
 df Graphic file (type pdf)
 
@@ -1134,14 +1134,14 @@ LaTeX Warning: A float is stuck (cannot be placed) on input line 1079.
 
 Class revtex4-1 Warning: Deferred float stuck during \clearpage processing.
 
-<pdfLambda_vs_N_L800.pdf, id=502, 578.16pt x 357.32254pt>
+<pdfLambda_vs_N_L800.pdf, id=506, 578.16pt x 357.32254pt>
 File: pdfLambda_vs_N_L800.pdf Graphic file (type pdf)
 
 <use pdfLambda_vs_N_L800.pdf>
 Package pdftex.def Info: pdfLambda_vs_N_L800.pdf used on input line 1088.
 (pdftex.def)             Requested size: 246.0pt x 149.41742pt.
 
-<FillBetweenErrorBarsLambda_vs_N_L800.pdf, id=504, 578.16pt x 357.32254pt>
+<FillBetweenErrorBarsLambda_vs_N_L800.pdf, id=508, 578.16pt x 357.32254pt>
 File: FillBetweenErrorBarsLambda_vs_N_L800.pdf Graphic file (type pdf)
 
 <use FillBetweenErrorBarsLambda_vs_N_L800.pdf>
@@ -1149,7 +1149,7 @@ Package pdftex.def Info: FillBetweenErrorBarsLambda_vs_N_L800.pdf used on input
  line 1089.
 (pdftex.def)             Requested size: 246.0pt x 149.41742pt.
 
-<FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf, id=506, 578.16pt x 35
+<FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf, id=510, 578.16pt x 35
 7.32254pt>
 File: FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf Graphic file (typ
 e pdf)
@@ -1162,7 +1162,7 @@ Overfull \hbox (12.30075pt too wide) in paragraph at lines 1105--1106
  [][] 
  []
 
-<LambdaMedian_vs_N_AllPopulation.pdf, id=507, 613.91039pt x 379.4175pt>
+<LambdaMedian_vs_N_AllPopulation.pdf, id=511, 613.91039pt x 379.4175pt>
 File: LambdaMedian_vs_N_AllPopulation.pdf Graphic file (type pdf)
 
 <use LambdaMedian_vs_N_AllPopulation.pdf>
@@ -1170,7 +1170,7 @@ Package pdftex.def Info: LambdaMedian_vs_N_AllPopulation.pdf used on input line
  1121.
 (pdftex.def)             Requested size: 252.1485pt x 163.40686pt.
 
-<LambdaMedian_vs_N_AstroPopulation.pdf, id=508, 613.91039pt x 379.4175pt>
+<LambdaMedian_vs_N_AstroPopulation.pdf, id=512, 613.91039pt x 379.4175pt>
 File: LambdaMedian_vs_N_AstroPopulation.pdf Graphic file (type pdf)
 
 <use LambdaMedian_vs_N_AstroPopulation.pdf>
@@ -1178,7 +1178,7 @@ Package pdftex.def Info: LambdaMedian_vs_N_AstroPopulation.pdf used on input li
 ne 1122.
 (pdftex.def)             Requested size: 252.1485pt x 163.40686pt.
 
-<LambdaMedian90pc_vs_N_AllPopulation.pdf, id=509, 613.91039pt x 379.4175pt>
+<LambdaMedian90pc_vs_N_AllPopulation.pdf, id=513, 613.91039pt x 379.4175pt>
 File: LambdaMedian90pc_vs_N_AllPopulation.pdf Graphic file (type pdf)
 
 <use LambdaMedian90pc_vs_N_AllPopulation.pdf>
@@ -1186,7 +1186,7 @@ Package pdftex.def Info: LambdaMedian90pc_vs_N_AllPopulation.pdf used on input
 line 1123.
 (pdftex.def)             Requested size: 252.1485pt x 163.40686pt.
 
-<LambdaMedian90pc_vs_N_AstroPopulation.pdf, id=510, 613.91039pt x 379.4175pt>
+<LambdaMedian90pc_vs_N_AstroPopulation.pdf, id=514, 613.91039pt x 379.4175pt>
 File: LambdaMedian90pc_vs_N_AstroPopulation.pdf Graphic file (type pdf)
 
 <use LambdaMedian90pc_vs_N_AstroPopulation.pdf>
@@ -1194,7 +1194,7 @@ Package pdftex.def Info: LambdaMedian90pc_vs_N_AstroPopulation.pdf used on inpu
 t line 1124.
 (pdftex.def)             Requested size: 252.1485pt x 163.40686pt.
 
-<LambdaCIWidths90pc_vs_N_AllPopulation.pdf, id=513, 613.91039pt x 379.4175pt>
+<LambdaCIWidths90pc_vs_N_AllPopulation.pdf, id=517, 613.91039pt x 379.4175pt>
 File: LambdaCIWidths90pc_vs_N_AllPopulation.pdf Graphic file (type pdf)
 
 <use LambdaCIWidths90pc_vs_N_AllPopulation.pdf>
@@ -1202,7 +1202,7 @@ Package pdftex.def Info: LambdaCIWidths90pc_vs_N_AllPopulation.pdf used on inpu
 t line 1158.
 (pdftex.def)             Requested size: 252.1485pt x 163.40686pt.
 
-<LambdaCIWidths90pc_vs_N_AstroPopulation.pdf, id=514, 613.91039pt x 379.4175pt>
+<LambdaCIWidths90pc_vs_N_AstroPopulation.pdf, id=518, 613.91039pt x 379.4175pt>
 File: LambdaCIWidths90pc_vs_N_AstroPopulation.pdf Graphic file (type pdf)
 <use LambdaCIWidths90pc_vs_N_AstroPopulation.pdf>
 Package pdftex.def Info: LambdaCIWidths90pc_vs_N_AstroPopulation.pdf used on in
@@ -1241,21 +1241,22 @@ S/cmsy/m/n/10 g$\OT1/cmr/m/n/10 .
 [12 <./LambdaMedian_vs_N_AllPopulation.pdf> <./LambdaMedian_vs_N_AstroPopulatio
 n.pdf
 
-pdfTeX warning: pdflatex (file ./LambdaMedian_vs_N_AstroPopulation.pdf): PDF in
-clusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./LambdaMedian_vs_N_AstroPopulation.pdf
+): PDF inclusion: multiple pdfs with page group included in a single page
 > <./LambdaMedian90pc_vs_N_AllPopulation.pdf
 
-pdfTeX warning: pdflatex (file ./LambdaMedian90pc_vs_N_AllPopulation.pdf): PDF 
-inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./LambdaMedian90pc_vs_N_AllPopulation.p
+df): PDF inclusion: multiple pdfs with page group included in a single page
 > <./LambdaMedian90pc_vs_N_AstroPopulation.pdf
 
-pdfTeX warning: pdflatex (file ./LambdaMedian90pc_vs_N_AstroPopulation.pdf): PD
-F inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./LambdaMedian90pc_vs_N_AstroPopulation
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >] [13 <./LambdaCIWidths90pc_vs_N_AllPopulation.pdf> <./LambdaCIWidths90pc_vs_N
 _AstroPopulation.pdf
 
-pdfTeX warning: pdflatex (file ./LambdaCIWidths90pc_vs_N_AstroPopulation.pdf): 
-PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./LambdaCIWidths90pc_vs_N_AstroPopulati
+on.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
 >] [14]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1635
 .
@@ -1276,7 +1277,7 @@ r/m/n/10 20\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 30\OML/cmm/m/it/10 ; \OT1/cmr/m/n
 
  []
 
-[16] <TNMchirpCIWidths90_0_Lambda_SNR.pdf, id=840, 934.99785pt x 294.8616pt>
+[16] <TNMchirpCIWidths90_0_Lambda_SNR.pdf, id=844, 934.99785pt x 294.8616pt>
 File: TNMchirpCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TNMchirpCIWidths90_0_Lambda_SNR.pdf>
@@ -1284,7 +1285,7 @@ Package pdftex.def Info: TNMchirpCIWidths90_0_Lambda_SNR.pdf used on input line
  1825.
 (pdftex.def)             Requested size: 492.0pt x 165.21585pt.
 
-<TNEtaCIWidths90_0_Lambda_SNR.pdf, id=841, 934.99785pt x 294.8616pt>
+<TNEtaCIWidths90_0_Lambda_SNR.pdf, id=845, 934.99785pt x 294.8616pt>
 File: TNEtaCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TNEtaCIWidths90_0_Lambda_SNR.pdf>
@@ -1292,7 +1293,7 @@ Package pdftex.def Info: TNEtaCIWidths90_0_Lambda_SNR.pdf used on input line 18
 26.
 (pdftex.def)             Requested size: 492.0pt x 165.21585pt.
 
-<TNChiBHCIWidths90_0_Lambda_SNR.pdf, id=842, 934.99785pt x 294.8616pt>
+<TNChiBHCIWidths90_0_Lambda_SNR.pdf, id=846, 934.99785pt x 294.8616pt>
 File: TNChiBHCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TNChiBHCIWidths90_0_Lambda_SNR.pdf>
@@ -1300,7 +1301,7 @@ Package pdftex.def Info: TNChiBHCIWidths90_0_Lambda_SNR.pdf used on input line
 1827.
 (pdftex.def)             Requested size: 492.0pt x 165.21585pt.
 
-<AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf, id=847, 701.01903pt x 701.01
+<AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf, id=851, 701.01903pt x 701.01
 903pt>
 File: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf Graphic file (type pdf)
  <use AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf>
@@ -1308,7 +1309,7 @@ Package pdftex.def Info: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf used
 on input line 1874.
 (pdftex.def)             Requested size: 258.30075pt x 281.11932pt.
 
-<AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf, id=848, 701.01903pt x 701.01
+<AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf, id=852, 701.01903pt x 701.01
 903pt>
 File: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf Graphic file (type pdf)
  <use AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf>
@@ -1336,7 +1337,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 1919.
 
-<PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf, id=852, 578.16pt x 357.32254pt>
+<PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf, id=856, 578.16pt x 357.32254pt>
 File: PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf Graphic file (type pdf)
 
 <use PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf>
@@ -1349,7 +1350,7 @@ Overfull \hbox (12.30075pt too wide) in paragraph at lines 1924--1925
  []
 
 
-<PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf, id=857, 578.1
+<PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf, id=861, 578.1
 6pt x 357.32254pt>
 File: PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf Graphic f
 ile (type pdf)
@@ -1359,25 +1360,58 @@ Package pdftex.def Info: PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopula
 tions.pdf used on input line 1944.
 (pdftex.def)             Requested size: 246.0pt x 152.03181pt.
 
-(./paper.bbl [17] [18 <./TNMchirpCIWidths90_0_Lambda_SNR.pdf> <./TNEtaCIWidths9
-0_0_Lambda_SNR.pdf
+<match-q-spin1-PhenomC-mf0_01.pdf, id=871, 505.89pt x 312.65723pt>
+File: match-q-spin1-PhenomC-mf0_01.pdf Graphic file (type pdf)
 
-pdfTeX warning: pdflatex (file ./TNEtaCIWidths90_0_Lambda_SNR.pdf): PDF inclusi
-on: multiple pdfs with page group included in a single page
+<use match-q-spin1-PhenomC-mf0_01.pdf>
+Package pdftex.def Info: match-q-spin1-PhenomC-mf0_01.pdf used on input line 20
+15.
+(pdftex.def)             Requested size: 258.30075pt x 159.63913pt.
+
+Overfull \hbox (12.30075pt too wide) in paragraph at lines 2015--2016
+ [][] 
+ []
+
+
+LaTeX Warning: Reference ` fig:PhenomC_vs_SEOBNRv2_LEA' on page 17 undefined on
+ input line 2037.
+
+[17] [18 <./TNMchirpCIWidths90_0_Lambda_SNR.pdf> <./TNEtaCIWidths90_0_Lambda_SN
+R.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./TNEtaCIWidths90_0_Lambda_SNR.pdf): PD
+F inclusion: multiple pdfs with page group included in a single page
 > <./TNChiBHCIWidths90_0_Lambda_SNR.pdf
 
-pdfTeX warning: pdflatex (file ./TNChiBHCIWidths90_0_Lambda_SNR.pdf): PDF inclu
-sion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./TNChiBHCIWidths90_0_Lambda_SNR.pdf): 
+PDF inclusion: multiple pdfs with page group included in a single page
 >] [19 <./AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf> <./AllParamsMcEtPDF
 1D2D_q4_mc2_25_chi0_50_snr50.pdf
 
-pdfTeX warning: pdflatex (file ./AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.p
-df): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_5
+0_snr50.pdf): PDF inclusion: multiple pdfs with page group included in a single
+ page
 > <./PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf
 
-pdfTeX warning: pdflatex (file ./PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf): 
-PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./PowerLawCoefficient_LambdaErrorvsN_vs
+_N.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+> <./PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./PowerLawCoefficient_LambdaErrorvsLamb
+da_vs_N_AllPopulations.pdf): PDF inclusion: multiple pdfs with page group inclu
+ded in a single page
 >]
+
+LaTeX Warning: A float is stuck (cannot be placed) on input line 2047.
+
+
+LaTeX Warning: A float is stuck (cannot be placed) on input line 2047.
+
+
+Class revtex4-1 Warning: Deferred float stuck during \clearpage processing.
+
+(./paper.bbl
 Underfull \hbox (badness 4193) in paragraph at lines 103--108
  []\OT1/cmr/m/n/9 Y. Aso, Y. Michimura, K. Somiya, M. Ando,
  []
@@ -1397,12 +1431,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 264--271
  [][] \OT1/cmr/m/n/9 (2015), 10.1093/mn-rasl/slv054[][], [][]arXiv:1503.03172
  []
 
-[20 <./PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf>]
+
 Underfull \hbox (badness 1122) in paragraph at lines 355--361
  []\OT1/cmr/m/n/9 R. N. Manch-ester, G. B. Hobbs, A. Teoh,  and
  []
 
-
+[20 <./match-q-spin1-PhenomC-mf0_01.pdf>]
 Underfull \hbox (badness 1436) in paragraph at lines 510--530
  []\OT1/cmr/m/n/9 S. D. Barthelmy \OT1/cmr/m/it/9 et al.\OT1/cmr/m/n/9 , [][]Na
 -ture \OT1/cmr/bx/n/9 438\OT1/cmr/m/n/9 , 994 (2005)[][],
@@ -1481,22 +1515,26 @@ Underfull \hbox (badness 1546) in paragraph at lines 1590--1601
  []
 
 [22]) [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2017.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2060.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2017.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2017.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2060.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2060.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 225BD91DA65FF7FD590D321DF3191F99;1284.
+(rerunfilecheck)             Checksum: 4E967E7977A60C4754AF205A482BAABC;1369.
+
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 9771 strings out of 494985
- 143490 string characters out of 6180357
- 298758 words of memory out of 5000000
- 12647 multiletter control sequences out of 15000+600000
+ 9788 strings out of 494985
+ 143900 string characters out of 6180357
+ 279926 words of memory out of 5000000
+ 12660 multiletter control sequences out of 15000+600000
  13556 words of font info for 54 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 34i,11n,35p,1675b,813s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,35p,1675b,811s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
@@ -1529,10 +1567,10 @@ ts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts/type
 ic/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk
 /uncr8a.pfb>
-Output written on paper.pdf (23 pages, 3994729 bytes).
+Output written on paper.pdf (23 pages, 5949628 bytes).
 PDF statistics:
- 1508 PDF objects out of 1728 (max. 8388607)
- 1360 compressed objects within 14 object streams
- 197 named destinations out of 1000 (max. 500000)
- 298 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1579 PDF objects out of 1728 (max. 8388607)
+ 1391 compressed objects within 14 object streams
+ 200 named destinations out of 1000 (max. 500000)
+ 311 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -2003,6 +2003,49 @@ We also find that while these results are inferred from paradigm A populations,
 paradigm B gives very similar results.
 
 
+
+
+% ###########################################################
+% ###########################################################
+\section{Choice of underlying BBH model in LEA}
+% ###########################################################
+% 
+\begin{figure}
+\centering    
+\includegraphics[width=1.05\columnwidth]{match-q-spin1-PhenomC-mf0_01.pdf}
+\caption{%
+We compare two alternatives of the tidal NSBH model from Ref.~\cite{
+Lackey:2013axa}, which differ in their underlying BBH prescriptions. One which
+we use in this study uses SEOBNRv2, while the other uses IMRPhenomC as its
+base. In this figure, we show the normalized overlap (match) between the two for
+$2,000,000$ points sampled uniformly in the NSBH parameter space. We find that
+for $q\gtrsim 4$ the discrepancies between IMRPhenomC and SEOBNRv2 as reported
+in~\cite{Kumar:2015tha} dominate over tidal terms.
+}
+\label{fig:PhenomC_vs_SEOBNRv2_LEA}
+\end{figure}
+%
+The waveform model used in this paper is a variant of those calibrated
+in Ref~\cite{Lackey:2013axa}. In that work, the authors also calibrate
+a tidal prescription with the phenomenological model IMRPhenomC~\cite{
+Santamaria:2010yb}
+as the base BBH model. Previous work~\cite{Kumar:2015tha} has shown that 
+IMRPhenomC can exhibit pathological behavior for mass-ratios ever so
+$q\gtrsim 4$ and/or non-zero black hole spins. We compute noise-weighted
+inner-products between the two variants for $2,000,000$ points sampled
+over the NSBH parameter space, and show the results in Fig.~\ref{
+fig:PhenomC_vs_SEOBNRv2_LEA}. We restrict the comparison to frequencies
+that are affected by the tidal disruption of the NS, by integrating
+the inner-products from $f = \mathrm{max}(15, 0.01/M)$~Hz
+(where $M$ is expressed in seconds ($1M_\odot \simeq 4.925\mu$S, see
+Eq.~(32-34) of~\cite{Lackey:2013axa}).
+% 
+We find that the differences between the two BBH approximants dominate
+over the tidal terms that are added to their phasing. As SEOBNRv2 is
+more reliable than IMRPhenomC, we recommend the use of SEOBNRv2-based
+LEA+ in upcoming LIGO-Virgo analyses.
+
+
 \end{appendix}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2012,6 +2055,6 @@ paradigm B gives very similar results.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{References}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliography{paper}
+\bibliography{References}
 
 \end{document}
