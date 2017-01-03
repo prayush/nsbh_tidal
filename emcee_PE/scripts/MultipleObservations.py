@@ -1,4 +1,4 @@
-# 
+#
 __author__ = "Prayush Kumar <prayush.kumar@ligo.org>"
 
 import os, sys, time
@@ -86,7 +86,7 @@ plt.rcParams.update({\
 
 
 #######################################################
-### FUNCTIONS 
+### FUNCTIONS
 #######################################################
 def obtain_statistical_information_from_kde(\
                 kde_func=None,\
@@ -175,7 +175,7 @@ element in vec closest to it.
     if idx_min < 0 or idx_min >= len(vec):
         raise RuntimeError("Could not find closest match!")
     return vec[idx_min]
-    
+
 
 def sample_snr_from_volume(SNRvec):
     '''
@@ -226,12 +226,12 @@ def sample_snr_from_volume_inclination(SNRvec, q, chi,\
                         psd = None, verbose=False, vverbose=False):
     '''
 Sample the SNR of signals, as if they are distributed uniformly in
-the spacial volume, i.e. 4/3 pi D^3, and simultaneously have 
+the spacial volume, i.e. 4/3 pi D^3, and simultaneously have
 a. inclination angle with respect to our line of sight uniformly distributed \in [0, pi]
 b. polarization angle
 c. sky location angles on a 2-sphere
 
-Inputs are : 
+Inputs are :
 1. list of SNR values for Nearest-neighbor interpolation
 2,3. Chosen Q and CHI values
 
@@ -304,13 +304,13 @@ Return the nearest neighbor of the drawn SNR from the list of SNR values given
       #
       signal_snr = sigma(h, psd=psd, low_frequency_cutoff=f_lower)
       if verbose: print "SNR this iteration.. = %.2f" % signal_snr
-    #  
+    #
     SNRvec    = np.array(SNRvec)
     if verbose: print "\n\n"
     return find_closest_match(signal_snr, SNRvec)
     #
     raise RuntimeError("SNR sampling not being done properly")
-  
+
 
 #######################################################
 ### CALCULATION CLASSES
@@ -496,7 +496,7 @@ What it does:
             #lambda_gaussian_kde = gaussian_kde(lambda_chain)
             #lambda_multivariate_kde = KDEMultivariate(lambda_chain, bw=0.2*np.ones_like(lambda_chain), var_type='c')
             #lambda_skl_kde = KernelDensity(bandwidth=0.2)
-            #lambda_skl_kde.fit(lambda_chain[:, np.newaxis])    
+            #lambda_skl_kde.fit(lambda_chain[:, np.newaxis])
             ####
             ## Add the RAW DATA and KDE to the PRIMARY DATA STRUCTURE
             ##
@@ -538,7 +538,7 @@ by the constructor.
         Returns is a list of events. For each event, two objects are returned:
         1. array of posterior samples
         2. fitted kernel density estimator's evaluate method
-        
+
         Input:
         chain_set: list of tuples, where each tuple is (q, chi, SNR) for 1 event
         sort_events_column: which column to sort events by. if < 0, not sorted.
@@ -548,7 +548,7 @@ by the constructor.
             lambda_posterior_chains = self.lambda_posterior_chains
         if NSLambda == None: NSLambda = self.NSLambda
         if N == None: N = self.N
-        #### 
+        ####
         ## Read in the set of events
         tmp_dir = '%s/L%d_N%d_' % (self.data_prefix, NSLambda, N)
         self.RND = chain_set_number
@@ -559,7 +559,7 @@ by the constructor.
             raise IOError("Could not load data for chain set #%d from file %s" %\
                                 (chain_set_number, param_file))
         chain_params = np.loadtxt(param_file)
-        
+
         # Sort chain parameters if required
         if sort_events_column >= 0 and sort_events_column < np.shape(chain_params)[1]:
           chain_params = np.array(sorted(chain_params,\
@@ -568,7 +568,7 @@ by the constructor.
         elif sort_events_column >= 0:
           raise IOError("there are only %d columsn in data, %d-th requested" %\
                         (np.shape(chain_params)[1], sort_events_column+1) )
-        
+
         # Initiate primary data structure
         chain_set = []
         ###
@@ -610,7 +610,7 @@ by the constructor.
             #lambda_gaussian_kde = gaussian_kde(lambda_chain)
             #lambda_multivariate_kde = KDEMultivariate(lambda_chain, bw=0.2*np.ones_like(lambda_chain), var_type='c')
             #lambda_skl_kde = KernelDensity(bandwidth=0.2)
-            #lambda_skl_kde.fit(lambda_chain[:, np.newaxis])    
+            #lambda_skl_kde.fit(lambda_chain[:, np.newaxis])
             ####
             ## Add the RAW DATA and KDE to the PRIMARY DATA STRUCTURE
             ##
@@ -618,7 +618,7 @@ by the constructor.
         #
         ###
         ###
-        
+
         self.N              = N
         self.NSLambda       = NSLambda
         self.chain_set      = chain_set
@@ -635,15 +635,15 @@ by the constructor.
         '''
         Get the product of all posterior distributions, for a given lambda value
         i.e. returns "p(L) = p1(L) x p2(L) x p3(L) x p4(L) x .. x pN(L)"
-        
+
         Note: num goes from 1 onwards
-        
+
         '''
         if num < 0: num = self.N
         _, kde_func, kde_norm = self.FULL_chain_set[num-1]
         kde_val = kde_func(L)
         if normed: kde_val = kde_val / kde_norm
-        
+
         if False:
           try:
             mask = L < xllimit
@@ -652,11 +652,11 @@ by the constructor.
             kde_val[mask] = 1.e-999
           except TypeError:
             pass
-        
+
         return kde_val
     #####
     ### Returns P(num, X) = \PI_0^{num-1} p(i, X)
-    ### i.e. the PRODUCT of first num probability density functions, 
+    ### i.e. the PRODUCT of first num probability density functions,
     ### evaluated at X = L.
     ### Takes in a LIST of indices too!
     ###
@@ -664,8 +664,8 @@ by the constructor.
         '''
         Get the product of all posterior distributions, for a given lambda value
         i.e. returns "p(L) = p1(L) x p2(L) x p3(L) x p4(L) x .. x pN(L)"
-        
-        This is the function that implements the boundary condition that L must 
+
+        This is the function that implements the boundary condition that L must
         respect, i.e. L_low < L < L_high
         '''
         #
@@ -693,7 +693,7 @@ by the constructor.
         Calls chain_kde_product and returns its normalization integral
         '''
         def wrap_product(L): return self.chain_kde_product(L, num=num)
-        return si.quad(wrap_product, xllimit, xulimit, epsabs=1.49e-16)[0]    
+        return si.quad(wrap_product, xllimit, xulimit, epsabs=1.49e-16)[0]
     #
     ###
     def generate_cumulative_normalizations(self):
@@ -703,10 +703,10 @@ by the constructor.
         for i in range(self.N):
             self.normalization_data[i] = self.chain_kde_product_norm(num=range(1, i+1))
             if self.verbose:
-              print " .. NORM over first %d events = %e" % (i+1, self.normalization_data[i])            
+              print " .. NORM over first %d events = %e" % (i+1, self.normalization_data[i])
         return
     #####
-    ### Calculate various statistics from the probability density 
+    ### Calculate various statistics from the probability density
     ### function P(X), where P(X) = \PI_0^{num-1} p(i, x)
     ###
     ###
@@ -714,7 +714,7 @@ by the constructor.
         '''
 This function computes the median and confidence level bounds on a given set
 of events. the events can be specified as an integer value of num of a list of
-integers for num. 
+integers for num.
 
 n is integer: first 'n' chains are used to get statistics
 n is a list of integers: all the indexed chains are used
@@ -724,11 +724,11 @@ n is a list of integers: all the indexed chains are used
           print "Here we compute statistics from the join distribution for the event set provided by user."
         #####
         ### Calculate the Normalized (in the integration sense) KDE
-        def tmp_chain_kde_product(L): 
+        def tmp_chain_kde_product(L):
             return self.chain_kde_product(L, num=num, normed=False)
         #
         #####
-        ### Calculate Median, Standard Deviation, Confidence intervals from the COMBINED 
+        ### Calculate Median, Standard Deviation, Confidence intervals from the COMBINED
         # probability distribution
         ll, ml, ul = obtain_statistical_information_from_kde(\
                             kde_func=tmp_chain_kde_product,\
@@ -778,7 +778,9 @@ WRite the 'statistical_data' data structure to disk, in a self contained way.
         fout.close()
         return
     #
-    def read_cumulative_statistics(self, chain_set_number=None, filename=None, NSLambda=None, N=None,\
+    def read_cumulative_statistics(self, chain_set_number=None,\
+                                filename=None, file_start_tag='',\
+                                NSLambda=None, N=None,\
                                 verbose=False):
         '''
 READ the 'statistical_data' data structure to disk, in a self contained way.
@@ -790,11 +792,11 @@ READ the 'statistical_data' data structure to disk, in a self contained way.
             tmp_dir = '%s/L%d_N%d_' % (self.data_prefix, self.NSLambda, self.N)
             self.RND = chain_set_number
             self.TAG =  tmp_dir + ('%d/' % self.RND)
-            finname = self.TAG + 'StatData_Lambda%d_N%d.h5' % (self.NSLambda, self.N)
+            finname = self.TAG + file_start_tag + 'StatData_Lambda%d_N%d.h5' % (self.NSLambda, self.N)
         elif os.path.exists(filename):
             finname = filename
         #
-        if not hasattr(self, 'statistical_data'): self.statistical_data = {}        
+        if not hasattr(self, 'statistical_data'): self.statistical_data = {}
         fin = h5py.File(finname, 'r')
         #for kk in self.statistical_data: # fin
         #    dsetname = str(kk) + '.dat' # keyname = int(kk.split('.')[0])
@@ -813,7 +815,7 @@ self.FULL_chain_sets = same as above (read-only)
 self.N                      : No of events
 self.qvec/chi2vec/Lambdavec : parameters array
 self.normalization_data     : Norm of \PI_I p(I,X)
-self.statistical_data       : [CL lower limit, Median, CL upper limit] for 
+self.statistical_data       : [CL lower limit, Median, CL upper limit] for
                                cumulative number of events
 Functions:
 
@@ -821,12 +823,12 @@ self.chain_kde              = get p(Lambda) for chain number 'num' (STARTING FRO
 self.chain_kde_product      = get p(Lambda) for the product of first 'num' posterior
                               distributions. num is either chain numbers' list or
                               their max
-self.kde_product_norm       = get the \int chain_kde_product() dLambda for a given 
+self.kde_product_norm       = get the \int chain_kde_product() dLambda for a given
                               chain set, specified by the set of indices 'num'
-self.generate_cumulative_normalizations = populate 
+self.generate_cumulative_normalizations = populate
 self.statistics_from_events = get a chain set and get statistics about it as one entity
 self.generate_cumulative_statistics = call "statistics_from_events" for first 1, first 2,
                                        .. first N independently
-            
+
             """
 #
