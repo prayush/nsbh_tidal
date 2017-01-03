@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.1.4)  3 JAN 2017 22:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.1.4)  3 JAN 2017 22:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1230,26 +1230,26 @@ used on input line 1188.
 .pdf> <./pdfLambda_vs_N_L800.pdf> <./FillBetweenErrorBarsLambda_vs_N_L800.pdf>]
 
 
-LaTeX Warning: A float is stuck (cannot be placed) on input line 1245.
+LaTeX Warning: A float is stuck (cannot be placed) on input line 1247.
 
 
-LaTeX Warning: A float is stuck (cannot be placed) on input line 1245.
+LaTeX Warning: A float is stuck (cannot be placed) on input line 1247.
 
 
 Class revtex4-1 Warning: Deferred float stuck during \clearpage processing.
 
 
-Overfull \hbox (5.64076pt too wide) in alignment at lines 1291--1295
+Overfull \hbox (5.64076pt too wide) in alignment at lines 1293--1297
  [][][] []
  []
 
 
-Overfull \hbox (8.92004pt too wide) in alignment at lines 1302--1306
+Overfull \hbox (8.92004pt too wide) in alignment at lines 1304--1308
  [][][] []
  []
 
 [11 <./FillBetweenRelErrorBarsLambda_vs_NShifted_AllLambda.pdf>]
-Underfull \hbox (badness 2617) in paragraph at lines 1354--1386
+Underfull \hbox (badness 2617) in paragraph at lines 1356--1388
 \OT1/cmr/m/n/10 fixed value cho-sen from $\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 500
 \OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 800\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1000\O
 ML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1500\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2000\OM
@@ -1286,16 +1286,16 @@ pdfTeX warning: /usr/bin/pdflatex (file ./LambdaCIWidths90pc_vs_N_AstroPopulati
 on_SNRSorted.pdf): PDF inclusion: multiple pdfs with page group included in a s
 ingle page
 >] [14]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1651
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1653
 .
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1651.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1653.
 
  [15]
-Underfull \hbox (badness 1028) in paragraph at lines 1713--1744
+Underfull \hbox (badness 1028) in paragraph at lines 1715--1746
 \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 500\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 800\OML
 /cmm/m/it/10 ; \OT1/cmr/m/n/10 1000\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1500\OML/
 cmm/m/it/10 ; \OT1/cmr/m/n/10 2000\OMS/cmsy/m/n/10 g ^^B \OML/cmm/m/it/10 ^^Z \
@@ -1310,7 +1310,7 @@ File: TNMchirpCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TNMchirpCIWidths90_0_Lambda_SNR.pdf>
 Package pdftex.def Info: TNMchirpCIWidths90_0_Lambda_SNR.pdf used on input line
- 1841.
+ 1843.
 (pdftex.def)             Requested size: 492.0pt x 165.21585pt.
 
 <TNEtaCIWidths90_0_Lambda_SNR.pdf, id=874, 934.99785pt x 294.8616pt>
@@ -1318,7 +1318,7 @@ File: TNEtaCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TNEtaCIWidths90_0_Lambda_SNR.pdf>
 Package pdftex.def Info: TNEtaCIWidths90_0_Lambda_SNR.pdf used on input line 18
-42.
+44.
 (pdftex.def)             Requested size: 492.0pt x 165.21585pt.
 
 <TNChiBHCIWidths90_0_Lambda_SNR.pdf, id=875, 934.99785pt x 294.8616pt>
@@ -1326,7 +1326,7 @@ File: TNChiBHCIWidths90_0_Lambda_SNR.pdf Graphic file (type pdf)
 
 <use TNChiBHCIWidths90_0_Lambda_SNR.pdf>
 Package pdftex.def Info: TNChiBHCIWidths90_0_Lambda_SNR.pdf used on input line 
-1843.
+1845.
 (pdftex.def)             Requested size: 492.0pt x 165.21585pt.
 
 <AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf, id=880, 701.01903pt x 701.01
@@ -1334,7 +1334,7 @@ Package pdftex.def Info: TNChiBHCIWidths90_0_Lambda_SNR.pdf used on input line
 File: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf Graphic file (type pdf)
  <use AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf>
 Package pdftex.def Info: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr20.pdf used 
-on input line 1890.
+on input line 1892.
 (pdftex.def)             Requested size: 258.30075pt x 281.11932pt.
 
 <AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf, id=881, 701.01903pt x 701.01
@@ -1342,38 +1342,38 @@ on input line 1890.
 File: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf Graphic file (type pdf)
  <use AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf>
 Package pdftex.def Info: AllParamsMcEtPDF1D2D_q4_mc2_25_chi0_50_snr50.pdf used 
-on input line 1891.
+on input line 1893.
 (pdftex.def)             Requested size: 258.30075pt x 277.45036pt.
 
-Overfull \hbox (6.6015pt too wide) in paragraph at lines 1890--1892
+Overfull \hbox (6.6015pt too wide) in paragraph at lines 1892--1894
  [][][] 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1935.
+(hyperref)                removing `math shift' on input line 1937.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\Lambda' on input line 1935.
+(hyperref)                removing `\Lambda' on input line 1937.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 1935.
+(hyperref)                removing `subscript' on input line 1937.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1935.
+(hyperref)                removing `math shift' on input line 1937.
 
 <PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf, id=885, 578.16pt x 357.32254pt>
 File: PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf Graphic file (type pdf)
 
 <use PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf>
 Package pdftex.def Info: PowerLawCoefficient_LambdaErrorvsN_vs_N.pdf used on in
-put line 1940.
+put line 1942.
 (pdftex.def)             Requested size: 258.30075pt x 159.63776pt.
 
-Overfull \hbox (12.30075pt too wide) in paragraph at lines 1940--1941
+Overfull \hbox (12.30075pt too wide) in paragraph at lines 1942--1943
  [][] 
  []
 
@@ -1385,7 +1385,7 @@ ile (type pdf)
 
 <use PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopulations.pdf>
 Package pdftex.def Info: PowerLawCoefficient_LambdaErrorvsLambda_vs_N_AllPopula
-tions.pdf used on input line 1960.
+tions.pdf used on input line 1962.
 (pdftex.def)             Requested size: 246.0pt x 152.03181pt.
  [17]
 [18 <./TNMchirpCIWidths90_0_Lambda_SNR.pdf> <./TNEtaCIWidths90_0_Lambda_SNR.pdf
@@ -1418,16 +1418,16 @@ File: match-q-spin1-PhenomC-mf0_01.pdf Graphic file (type pdf)
 
 <use match-q-spin1-PhenomC-mf0_01.pdf>
 Package pdftex.def Info: match-q-spin1-PhenomC-mf0_01.pdf used on input line 20
-31.
+33.
 (pdftex.def)             Requested size: 258.30075pt x 159.63913pt.
 
-Overfull \hbox (12.30075pt too wide) in paragraph at lines 2031--2032
+Overfull \hbox (12.30075pt too wide) in paragraph at lines 2033--2034
  [][] 
  []
 
 
 LaTeX Warning: Reference ` fig:PhenomC_vs_SEOBNRv2_LEA' on page 20 undefined on
- input line 2053.
+ input line 2055.
 
 (./paper.bbl
 Underfull \hbox (badness 4193) in paragraph at lines 103--108
@@ -1533,10 +1533,10 @@ Underfull \hbox (badness 1546) in paragraph at lines 1590--1601
  []
 
 ) [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2076.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2078.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2076.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2076.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2078.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2078.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 4E967E7977A60C4754AF205A482BAABC;1369.
@@ -1546,10 +1546,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 9801 strings out of 494985
- 144568 string characters out of 6180357
- 281270 words of memory out of 5000000
- 12670 multiletter control sequences out of 15000+600000
+ 9802 strings out of 494985
+ 144578 string characters out of 6180357
+ 281364 words of memory out of 5000000
+ 12671 multiletter control sequences out of 15000+600000
  13556 words of font info for 54 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  34i,11n,35p,1675b,780s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1585,7 +1585,7 @@ ts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts/type
 ic/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk
 /uncr8a.pfb>
-Output written on paper.pdf (23 pages, 5975017 bytes).
+Output written on paper.pdf (23 pages, 5975266 bytes).
 PDF statistics:
  1611 PDF objects out of 1728 (max. 8388607)
  1419 compressed objects within 15 object streams
