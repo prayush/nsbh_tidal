@@ -45,6 +45,11 @@ hypothesis, you would expect the EoS to be at the stiffer,
 more-favorable end. The authors might consider whether this is a
 relevant motivation to include.
 
+>> The authors are not aware of literature suggesting "a system must 
+either be a BNS system with a relatively soft equation of state, or an 
+NSBH system with a relatively stiff equation of state."
+ 
+ 
 In the introductory paragraph the authors claim that LIGO has made
 "the first terrestrial observation of gravitational waves" -- I am not
 sure what the meaning of "terrestrial" is in this context (e.g.,
@@ -53,16 +58,34 @@ distinguish LIGO from pulsar timing arrays, which are at least partly
 space-based -- but even so, they have not yet observed gravitational
 waves...).
 
+>> By "terrestrial", we meant that the actual measured physical effect of 
+gravitational waves (i.e. the change in LIGO's arm lengths) happened on
+Earth. In contrast, the observed effect of gravitational wave emission by
+binary pulsars on binary pulsars happens at the source (and not on Earth),
+since we observe the shrinking of their orbit directly. 
+>> However, we appreciate how the term may be somewhat misleading, and 
+have replaced it with "direct".
+
+
 In the third paragraph, a range of black hole masses from 3 to 8 solar
 masses is given as the range of masses that allow for disruption of
 neutron stars in NSBH systems. However, I think that the upper limit
 is considerably higher if the black hole has sufficiently high
 prograde spin.
 
+>> Indeed, we have replaced the range with 3-12Msolar as per 
+arxiv:1405.1121 for BHs with spinsn up to ~0.9, and added a note on
+the dependence of the upper mass limit on BH spin.
+
+
+
 In the fifth paragraph, the authors describe the tidal dephasing as
 appearing as a 5 PN effect. I would suggest saying that it has a
 frequency dependence equivalent to 5 PN effects so the reader might
 not think it a GR effect (it is Newtonian).
+
+>> Incorporated.
+
 
 Also in the fifth paragraph, the authors claim that Fisher matrix
 estimates are known to be unreliable at realistic signal-to-noise
@@ -76,13 +99,32 @@ believe that the authors should probably acknowledge at this point
 that their finding shows that the Fisher matrix results were
 consistent with their Bayesian results (they state this later).
 
+>> Changed text to acknowledge this:
+"Fisher matrix estimates may become unreliable at realistic 
+ signal-to-noise ratios (SNR)~\cite{Vallisneri:2007ev}, such as those 
+ as we might expect in the upcoming observing runs of GW 
+ detectors~\cite{Abadie:2010cf}, and we supplement such studies with 
+ a fully Bayesian treatment of the problem here."
+
+
 In the tenth paragraph, it should be noted that $\chi_{\rm BH}$ is the
 *dimensionless* BH spin.
+
+>> Done
+
 
 #### II. TECHNIQUES
 
 In the first paragraph, of IIA, the sentence beginning "The parameter
 space ..." needs to be reworked.
+
+>> Rephrased to:
+".. It was calibrated to a suite of $134$ numerical relativity (NR)
+ simulations of NSs inspiraling into spinning BHs, with
+ NS masses ranging between $1.2M_\odot\leq\mns\leq 1.45M_\odot$,
+ mass-ratios $2\leq q\leq 5$, and BH spins $-0.5\leq\chibh\leq+0.75$.
+ .."
+
 
 The exact parameters considered in $\theta$ (and later extended to
 $\Theta$) should be made explicit from the beginning. For example, the
@@ -96,19 +138,36 @@ interest (masses, spin, tidal parameter) and those that are not
 relevant (orientation angles, distance, arrival time, coalescence
 phase).
 
+>> 
+
+
 The authors should indicate up front that they are treating a
 single-detector case.
+
+>>
+
 
 In section IIB -- in footnote 4 perhaps, but preferably more
 prominently -- the authors should say what noise curve they are using.
 I assume it is aLIGO design: zero-detuning, high-power, and provide a
 reference.
 
+>> We have mentioned it in paragraph 7 of the introduction, but
+have also added to footnote 4.
+
+
 In Eq. (3), I believe there is a missing factor of 1/2 in the
 exponent.
 
+>> This was an oversight, now corrected.
+
+
 In Eq. (4), there appears to be extraneous parentheses around "b"
 within the integral.
+
+>> Fixed.
+
+
 #### III. HOW IS PE AFFECTED IF WE IGNORE NS MATTER EFFECTS
 
 In the second paragraph, the authors might consider refining the rates
@@ -119,6 +178,9 @@ states (as required by the hypothesis) should be determinable. See,
 e.g., [Chen and Holz
 (2013)](http://dx.doi.org/10.1103/PhysRevLett.111.181101
 "Gamma-Ray-Burst Beaming and Gravitational-Wave Observations")
+
+>>
+
 
 At the end of the second sentence, the authors argue that the
 reduction of GW signal power at high frequencies makes the signal
@@ -133,6 +195,9 @@ the phase effects that the Bayesian PE is responding to -- probably
 both -- but it is worth noting that both of these would cause a bias
 toward higher chirp mass.
 
+>> 
+
+
 #### IV. WHAT DO WE GAIN BY USING TEMPLATES THAT INCLUDE NS MATTER
 EFFECTS?
 
@@ -144,6 +209,9 @@ disk mass) would be the same subset most favorable for measurement of
 the tidal parameter. Then the rate of SGRBs would be an indicator of
 the rate of events within 100 Mpc (or whatever the range limit for
 measurement of the tidal parameter).
+
+>> ??
+
 
 #### V. COMBINING OBSERVATIONS: LOOKING FORWARD WITH ADVANCED LIGO
 
@@ -163,3 +231,12 @@ compares the posteriors for the loudest one, the loudest five, and the
 loudest twenty signals. *If* it turns out that measurement requires
 intensive NR simulations, it might be relevant to know whether we need
 to fully analyze a few single events or the full set of 20+ events.
+
+>> Thank you for the constructive suggestion. We have added a figure
+(now Fig.12) where we show how the measurement of NS tidal deformability
+improves with the loudest signal first, second-loudest next, and so on.
+We also discuss the figure in the Discussion, and hope it addresses
+the point brought up above.
+
+
+

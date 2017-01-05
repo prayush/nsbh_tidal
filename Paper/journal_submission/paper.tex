@@ -133,7 +133,7 @@ early-2016, operating at a factor of $3-4$ higher gravitational-wave
 (GW) strain sensitivity than their first-generation 
 counterparts~\cite{Shoemaker2009}.
 % 
-During O1, they made the first terrestrial observation of gravitational 
+During O1, they made the first direct observation of gravitational 
 waves~\cite{LIGOVirgo2016a}. Emitted by a pair of coalescing black holes, these
 waves heralded an era of observational GW astrophysics as they traveled 
 through Earth.
@@ -145,13 +145,8 @@ and LIGO-India~\cite{2013IJMPD..2241010U} to begin observing at comparable
 sensitivities within a few years. With a global network of sensitive GW
  observatories, we can expect GW astronomy to face significant developments over the
 coming years.
-% 
-% At design sensitivity, we expect aLIGO to observe $\sim 70$ compact binary
-% mergers a year~\cite{Abadie:2010cf}.
 
-% \red{
-% Text about CBCs. How was each type observed so far?
-% }
+
 Coalescing compact binaries of stellar-mass black holes (BH) and/or
 neutron stars (NS) are the primary targets for the second
 generation GW detectors~\cite{Timmes:1995kp,Fryer:1999mi,RevModPhys.74.1015,
@@ -197,20 +192,21 @@ through the production of relativistic jets~\cite{Foucart:2015a,
 Lovelace:2013vma,Deaton2013,Foucart2012,Shibata:2005mz,Paschalidis2014}.
 % 
 However, whether or not such a system forms depends also on the nature of
-the BH. Massive BHs (with $\mbh\gtrsim 10M_\odot$), as well as BHs with
+the BH. Massive BHs (with $\mbh\gtrsim 12M_\odot$), as well as BHs with
 large retrograde spins, tend to swallow the NS whole without forming a
-disk~\cite{Foucart:2013psa}. 
+disk~\cite{Foucart:2013psa}.
 % 
-On the other hand, {\it low-mass} BHs with $\mbh\in[3M_\odot, 8M_\odot]$, 
+On the other hand, {\it low-mass} BHs with $\mbh\in[3M_\odot, 12M_\odot]$\footnote{
+The upper limit on BH mass that allows for NS disruption may very well be
+higher, depending strongly on the magnitude of BH spin~\cite{Foucart:2014nda}.},
 can disrupt their companion NSs much before merger, forming long-sustained disks
-that are required to sustain 
-SGRBs~\cite{Shibata:2007zm,2010PhRvD..81f4026F,Lovelace:2013vma,Kawaguchi:2015}.
+that are required to sustain SGRBs~\cite{Shibata:2007zm,2010PhRvD..81f4026F,
+Lovelace:2013vma,Foucart:2014nda,Kawaguchi:2015}.
 % 
 % Such systems additionally leave a strong imprint on the emitted GW signal.
 A {\it coincident} detection of both GWs and gamma-rays from an NSBH merger,
-will
-provide us with a unique opportunity to confirm this hypothesized link between
-NSBH mergers and GRBs~\cite{Abbott:2016wya}.
+will provide us with a unique opportunity to confirm this hypothesized link
+between NSBH mergers and GRBs~\cite{Abbott:2016wya}.
 
 
 
@@ -257,8 +253,9 @@ GW spectrum~\cite{Foucart:2014nda,Deaton2013}.
 
 Gravitational waves emitted by coalescing NSBH binaries carry subtle hints of
 the NS EoS from inspiral through to merger. During early inspiral, the tidal
-dephasing is relatively weak and appears as a $5^{th}$ Post-Newtonian (PN)
-order effect~\cite{Vines2011}. Closer to merger, a disruptive fate of the NS
+dephasing is relatively weak and has a frequency dependence equivalent to a
+$5^{th}$ Post-Newtonian (PN) order effect~\cite{Vines2011}. Closer to merger,
+a disruptive fate of the NS
 can result in a strong suppression of GW emission above a cut-off 
 frequency~\cite{Pannarale:2015jia}. Some past studies of tidal measurements
 with NSBH binaries have used PN inspiral-only waveforms~\cite{Maselli:2013rza}.
@@ -273,10 +270,11 @@ parameter space they sample.
 % 
 Others, that do the same through the use of phenomenological waveform
 models~\cite{Lackey2011,Lackey:2013axa} use the Fisher matrix to estimate
-$\lambdans$ measurement errors. Fisher matrix estimates are known to be
+$\lambdans$ measurement errors. Fisher matrix estimates may become
 unreliable at realistic signal-to-noise ratios (SNR)~\cite{Vallisneri:2007ev},
 such as those as we might expect in the upcoming observing runs of GW
-detectors~\cite{Abadie:2010cf}.
+detectors~\cite{Abadie:2010cf}, and we supplement such studies with a
+fully Bayesian treatment of the problem here.
 
 
 
@@ -384,7 +382,7 @@ aLIGO operation~\cite{Abadie:2010cfa}.
 
 
 In this paper, we restrict our parameter space to span mass-ratios
-$q:=\mbh/\mns\in[2,5]$, BH spin (aligned with orbit)
+$q:=\mbh/\mns\in[2,5]$, dimensionless BH spin (aligned with orbit)
 $\chibh\in[-0.5, +0.75]$, and dimensionless NS tidal deformability 
 $\lambdans:= G\left(\frac{c^2}{G \mns}\right)^5\lambda \in[500, 2000]$.
 These ranges are governed by the calibration of the LEA+ model which we use as
@@ -458,13 +456,6 @@ for louder signals ($\rho\simeq50$), the systematic errors dominate.
 \label{fig:SingleSystemEtaPDFvsSNR}
 \end{figure*}
 % 
-% ###############################
-% In this section we summarize various technical aspects of this paper. The model
-% used to obtain tidal waveforms is described in Sec.~\ref{s2:waveforms}. The 
-% process of inferring source parameters from a GW signal is summarized in 
-% Sec.~\ref{s2:bayesian}. The process of generating and combining multiple events
-% is instead detailed in the corresponding results section,
-% Sec.~\ref{s2:astro_multiple}.
 
 
 \subsection{Waveform Models}\label{s2:waveforms}
@@ -476,9 +467,8 @@ waveform model for disrupting NSBHs. Theirs is a frequency-domain
 phenomenological model that includes the effect of BH and NS masses and spins
 $\{\mbh, \chibh, \mns\}\equiv\vec{\theta}$ and NS tidal deformability
 $\lambdans$. It was calibrated to a suite of $134$ numerical relativity (NR)
-simulations of NSs inspiraling into spinning BHs. The parameter space these
-simulations span, which we assume to be the domain of validity for the LEA
-model, includes NS masses $1.2M_\odot\leq\mns\leq 1.45M_\odot$,
+simulations of NSs inspiraling into spinning BHs, with
+NS masses ranging between $1.2M_\odot\leq\mns\leq 1.45M_\odot$,
 mass-ratios $2\leq q\leq 5$, and BH spins $-0.5\leq\chibh\leq+0.75$.
 They also sample a total of $21$ two-parameter nuclear EoSs to cover the
 spectrum of NS deformability.
@@ -536,7 +526,7 @@ We start with generating a signal waveform, using the model LEA+, and injecting
 it in zero noise to obtain a stretch of data $d_n$. Source binary parameters
 $\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ are reconstructed from this
 injected signal. Using Bayes' theorem, their joint inferred probability
-distribution of $\vec{\Theta}$ can be written	 as
+distribution of $\vec{\Theta}$ can be written as
 \begin{equation}\label{eq:postprob}
  p(\vec{\Theta} | d_n, H) = \dfrac{p(d_n|\vec{\Theta}, H)\,p(\vec{\Theta} | H)}{p(d_n|H)}.
 \end{equation}
@@ -552,17 +542,19 @@ $1\leq q\leq 2$. $p(d_n|\vec{\Theta}, H)$ is the
 likelihood of obtaining the given stretch of data $d_n$ if we assume that a
 signal parameterized by $\vec{\Theta}$ is buried in it, and is given by
 \begin{equation}\label{eq:likelihood}
- p(d_n| \vec{\Theta}, H) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[- \langle d_n - h | d_n - h\rangle ],
+ p(d_n| \vec{\Theta}, H) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[-\frac{1}{2} \langle d_n - h | d_n - h\rangle ],
 \end{equation}
 where $h\equiv h(\vec{\Theta})$ is a filter template with parameters 
 $\vec{\Theta}$, $\langle\cdot|\cdot\rangle$ is a suitably defined
 detector-noise weighted inner-product~\footnote{The inner product
-$\langle\cdot|\cdot\rangle$  is defined as~\cite{Shoemaker2009}
+$\langle\cdot|\cdot\rangle$  is defined as
 \begin{equation}
-\langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde(b)(f)^*}{S_n(|f|)}\,\D f\right],
+\langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde{b}(f)^*}{S_n(|f|)}\,\D f\right],
 \end{equation}
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
-and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise.}, and
+and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. In this
+work, we use the zero-detuning high-power design sensitivity curve~\cite{
+Shoemaker2009} for Advanced LIGO, with $15$Hz as the lower frequency cutoff.}, and
 $\mathcal{N}$ is an SNR-dependent normalization constant.
 As in Ref.~\cite{Purrer:2015nkh} we use a likelihood that is maximized over
 over the template norm
@@ -1558,7 +1550,7 @@ summarized in Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} and
 \section{Discussion}\label{s1:discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The pioneering terrestrial observation of gravitational waves by Advanced LIGO
+The pioneering observation of gravitational waves by Advanced LIGO
 harbingers the dawn of an era of gravitational-wave astronomy where observations
 would finally drive scientific discovery~\cite{Abbott:2016blz}. As confirmed by
 the first observations~\cite{Abbott:2016blz,Abbott:2016nmj,Abbott:2016nhf},
