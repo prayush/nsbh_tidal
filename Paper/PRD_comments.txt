@@ -138,13 +138,16 @@ interest (masses, spin, tidal parameter) and those that are not
 relevant (orientation angles, distance, arrival time, coalescence
 phase).
 
->> 
+>> Parameters that are actually sampled, and parameters that are
+marginalized over are now enumerated explicitly in the text, and so are
+those that are maximized over or are irrelevant for the single detector
+case. Please see Sec. IIB.
 
 
 The authors should indicate up front that they are treating a
 single-detector case.
 
->>
+>> Indicated as in above.
 
 
 In section IIB -- in footnote 4 perhaps, but preferably more
@@ -159,7 +162,7 @@ have also added to footnote 4.
 In Eq. (3), I believe there is a missing factor of 1/2 in the
 exponent.
 
->> This was an oversight, now corrected.
+>> This was an typographical oversight, now corrected.
 
 
 In Eq. (4), there appears to be extraneous parentheses around "b"
@@ -179,7 +182,7 @@ e.g., [Chen and Holz
 (2013)](http://dx.doi.org/10.1103/PhysRevLett.111.181101
 "Gamma-Ray-Burst Beaming and Gravitational-Wave Observations")
 
->>
+>> READ!!!
 
 
 At the end of the second sentence, the authors argue that the
@@ -195,7 +198,13 @@ the phase effects that the Bayesian PE is responding to -- probably
 both -- but it is worth noting that both of these would cause a bias
 toward higher chirp mass.
 
->> 
+>> Argument incorporated in the text, which now reads as:
+".. In addition, we also note that $\arr_{\mchirp}\geq 0$ always,
+i.e. $\mchirp$ is always being over-estimated. This is to be expected since
+the tidal deformation of the NS drains energy from the orbit faster than in
+the BBH case, and the disruption of NS close to merger reduces GW signal
+power at high frequencies. Both of these effects make the resulting signal
+resemble a BBH signal of higher chirp mass. "
 
 
 #### IV. WHAT DO WE GAIN BY USING TEMPLATES THAT INCLUDE NS MATTER
@@ -210,7 +219,16 @@ the tidal parameter. Then the rate of SGRBs would be an indicator of
 the rate of events within 100 Mpc (or whatever the range limit for
 measurement of the tidal parameter).
 
->> ??
+>> Thank you for this suggestion, we have augmented the text with:
+" It is interesting to note that the parameter ranges most favorable to
+the measurability of $\lambdans$ are also those which produce
+relatively more massive post-merger disks~\cite{Foucart2012}. That is, 
+the subset of NSBHs that potentially produce SGRBs (using a sufficiently-large
+disk mass as an indicator) would be the same subset most favorable
+for measurement of tidal effects. Therefore the rate of SGRBs in the 
+local universe (allowing for the fraction that are produced by NSBHs versus
+BNSs) would be an indicator of the rate of events most favorable for nuclear
+equation of state measurements. "
 
 
 #### V. COMBINING OBSERVATIONS: LOOKING FORWARD WITH ADVANCED LIGO
@@ -232,11 +250,11 @@ loudest twenty signals. *If* it turns out that measurement requires
 intensive NR simulations, it might be relevant to know whether we need
 to fully analyze a few single events or the full set of 20+ events.
 
->> Thank you for the constructive suggestion. We have added a figure
+>> Thank you for this constructive suggestion. We have added a figure
 (now Fig.12) where we show how the measurement of NS tidal deformability
 improves with the loudest signal first, second-loudest next, and so on.
 We also discuss the figure in the Discussion, and hope it addresses
-the point brought up above.
+this point.
 
 
 

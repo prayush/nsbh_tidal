@@ -523,10 +523,16 @@ The process of measuring systematic and statistical measurement errors
 involves simulating many artificial GW signals, and inferring source binary
 parameters from them using Bayesian statistics.
 We start with generating a signal waveform, using the model LEA+, and injecting
-it in zero noise to obtain a stretch of data $d_n$. Source binary parameters
-$\vec{\Theta}:=\vec{\theta}\cup\{\lambdans\}$ are reconstructed from this
-injected signal. Using Bayes' theorem, their joint inferred probability
-distribution of $\vec{\Theta}$ can be written as
+it in zero noise to obtain a stretch of data $d_n$. Source intrinsic parameters
+$\vec{\Theta}:=\{\mbh,\mns,\chibh,\lambdans\}$ are reconstructed from this
+injected signal. Extrinsic parameters $\vec{\theta}:=\{t_c,\phi_c\}$ 
+representing the time of and phase at the arrival of signal are marginalized
+over numerically and analytically (respectively), while source location and
+orientation parameters such as its luminosity distance, sky location, inclination
+and polarization angles are absorbed into a normalization, as describe later,
+and subsequently maximized over. This is justified because in this paper we
+consider the {\it single-detector case}. Using Bayes' theorem, the joint inferred
+probability  distribution of $\vec{\Theta}$ can be evaluated as
 \begin{equation}\label{eq:postprob}
  p(\vec{\Theta} | d_n, H) = \dfrac{p(d_n|\vec{\Theta}, H)\,p(\vec{\Theta} | H)}{p(d_n|H)}.
 \end{equation}
@@ -534,19 +540,18 @@ Here, $p(\vec{\Theta} | H)$ is the {\it a priori} probability of binary paramete
 $\vec{\Theta}$
 taking particular values, given $H$ - which denotes all our collective knowledge,
 except for expectations on binary parameters that enter
-our calculations explicitly. Throughout this paper, we impose a prior that is
-uniform in
-individual component masses, BH spin, and the tidal deformability of the NS. In
-addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not calibrated for 
-$1\leq q\leq 2$. $p(d_n|\vec{\Theta}, H)$ is the
-likelihood of obtaining the given stretch of data $d_n$ if we assume that a
+our calculations explicitly. Throughout this paper, we impose priors that are
+uniform in individual component masses, BH spin, and the tidal deformability of
+the NS. In addition, we restrict mass-ratios to $q\geq 2$, as LEA+ is not
+calibrated for $1\leq q\leq 2$. $p(d_n|\vec{\Theta}, H)$ is the {\it likelihood}
+of obtaining the given stretch of data $d_n$ if we assume that a
 signal parameterized by $\vec{\Theta}$ is buried in it, and is given by
 \begin{equation}\label{eq:likelihood}
  p(d_n| \vec{\Theta}, H) \equiv \LL(\vec{\Theta}) = \mathcal{N}\, \mathrm{exp}[-\frac{1}{2} \langle d_n - h | d_n - h\rangle ],
 \end{equation}
 where $h\equiv h(\vec{\Theta})$ is a filter template with parameters 
 $\vec{\Theta}$, $\langle\cdot|\cdot\rangle$ is a suitably defined
-detector-noise weighted inner-product~\footnote{The inner product
+detector-noise weighted inner-product\footnote{The inner product
 $\langle\cdot|\cdot\rangle$  is defined as
 \begin{equation}
 \langle a|b\rangle \equiv 4\,\mathrm{Re}\left[\int_0^\infty \dfrac{\tilde{a}(f) \tilde{b}(f)^*}{S_n(|f|)}\,\D f\right],
@@ -554,17 +559,19 @@ $\langle\cdot|\cdot\rangle$  is defined as
 where $\tilde{a}(f)$ is the Fourier transform of the finite time series $a(t)$,
 and $S_n(|f|)$ is the one-sided amplitude spectrum of detector noise. In this
 work, we use the zero-detuning high-power design sensitivity curve~\cite{
-Shoemaker2009} for Advanced LIGO, with $15$Hz as the lower frequency cutoff.}, and
-$\mathcal{N}$ is an SNR-dependent normalization constant.
-As in Ref.~\cite{Purrer:2015nkh} we use a likelihood that is maximized over
-over the template norm
-and we ignore extrinsic parameters that only enter in the template norm such
-as distance, orientation and sky location. In addition, we also maximize over
-coalescence time and phase.
+Shoemaker2009} for Advanced LIGO, with $15$Hz as the lower frequency cutoff.},
+and $\mathcal{N}$ is the normalization constant that absorbs source distance,
+orientation and sky location parameters. As in Ref.~\cite{Purrer:2015nkh} we
+use a likelihood that is maximized over the template
+norm, allowing us to ignore the extrinsic parameters that only enter in the
+template norm through $\mathcal{N}$. As a result, we only need to sample over
+$\vec{\Theta}$ (or $\vec{\Theta} - \{\lambdans\}$ in the case of non-tidal
+templates).
+%In addition, we also maximize over coalescence time and phase.
 The denominator in Eq.~\ref{eq:postprob} is the {\it a priori} probability of finding
 the particular signal in $d_n$ and we assume that each injected signal is as
-likely as any other. Having constructed the probability distribution function
-$p(\vec{\Theta} | d_n, H)$, extracting the measured probability distribution
+likely as any other. From the joint probability distribution
+$p(\vec{\Theta} | d_n, H)$ so constructed, extracting the measured probability distribution
 for a single parameter (say $\alpha$) involves integrating
 \begin{equation}\label{eq:marginalize}
  p(\alpha | d_n, H) = \int\D \vec{\Theta}_\alpha\, p(\vec{\Theta} | d_n, H),
@@ -810,9 +817,11 @@ physical content in templates will instead get washed out by detector noise.
 % 
 In addition, we also note that $\arr_{\mchirp}\geq 0$ always,
 i.e. $\mchirp$ is always being over-estimated. This is to be expected since
-the tidal deformation and disruption of NSs close to merger reduces GW signal
-power at high frequencies, making the resulting signal resemble a BBH signal of
-lower merger frequency - and therefore of higher mass.
+the tidal deformation of the NS drains energy from the orbit faster than in
+the BBH case, and the disruption of NS close to merger reduces GW signal
+power at high frequencies. Both of these effects make the resulting signal
+resemble a BBH signal of higher chirp mass.
+
 
 
 Next, in Fig.~\ref{fig:TN_EtaBias_vs_Lambda_SNR}, we show the ratio of
@@ -1055,6 +1064,16 @@ to $\chibh\gtrsim +0.5$ to obtain the same measurement credibility at the same
 source location.
 
 
+It is interesting to note that the parameter ranges most favorable to
+the measurability of $\lambdans$ are also those which produce
+relatively more massive post-merger disks~\cite{Foucart2012}. That is, 
+the subset of NSBHs that potentially produce SGRBs (using a sufficiently-large
+disk mass as an indicator) would be the same subset most favorable
+for measurement of tidal effects. Therefore the rate of SGRBs in the 
+local universe (allowing for the fraction that are produced by NSBHs versus
+BNSs) would be an indicator of the rate of events most favorable for nuclear
+equation of state measurements.
+
 
 In summary, with a single moderately loud ($\rho\lesssim 30$) GW signal from
 a disruptive BHNS coalescence, we can constrain
@@ -1172,25 +1191,6 @@ $\lambdans$ credible intervals will require $40+$ events.
 }
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
 \end{figure*}
-% 
-\begin{figure*}
-\centering    
-% \textbf{No Mass-Gap \hspace{6cm} Mass-Gap}\par\medskip
-\includegraphics[width=1.025\columnwidth,trim=1cm 0 0 0]{LambdaMedianCIWidths90pc_vs_N_AllPopulation_SNRSorted}
-\includegraphics[width=1.025\columnwidth,trim=0 0 1cm 0]{LambdaCIWidths90pc_vs_N_AstroPopulation_SNRSorted}
-\caption{This figure is similar to Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne},
-with the difference
-that events in each population have been sorted according to their
-signal strength (SNR). We note that information about
-the tidal deformability of neutron stars comes primarily 
-from the loudest $5-10$ events, whether we allow BH masses
-in the mass gap (left panel) or restrict them to
-$\mbh\geq 5M_\odot$ (right panel).
-}
-\label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne_SNRSorted}
-\end{figure*}
-
-
 
 
 
@@ -1549,6 +1549,25 @@ summarized in Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}\label{s1:discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+\begin{figure*}
+\centering    
+% \textbf{No Mass-Gap \hspace{6cm} Mass-Gap}\par\medskip
+\includegraphics[width=1.025\columnwidth,trim=1cm 0 0 0]{LambdaMedianCIWidths90pc_vs_N_AllPopulation_SNRSorted}
+\includegraphics[width=1.025\columnwidth,trim=0 0 1cm 0]{LambdaCIWidths90pc_vs_N_AstroPopulation_SNRSorted}
+\caption{This figure is similar to Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne},
+with the difference
+that events in each population have been sorted according to their
+signal strength (SNR). We note that information about
+the tidal deformability of neutron stars comes primarily 
+from the loudest $5-10$ events, whether we allow BH masses
+in the mass gap (left panel) or restrict them to
+$\mbh\geq 5M_\odot$ (right panel).
+}
+\label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne_SNRSorted}
+\end{figure*}
+% 
+
 
 The pioneering observation of gravitational waves by Advanced LIGO
 harbingers the dawn of an era of gravitational-wave astronomy where observations
