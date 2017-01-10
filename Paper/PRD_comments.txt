@@ -45,11 +45,33 @@ hypothesis, you would expect the EoS to be at the stiffer,
 more-favorable end. The authors might consider whether this is a
 relevant motivation to include.
 
->> The authors are not aware of literature suggesting "a system must 
-either be a BNS system with a relatively soft equation of state, or an 
-NSBH system with a relatively stiff equation of state."
+>> While Ref.[1] demonstrate the production of SGRB for a BNS with a ‘soft’
+ equation of state (polytropic index n=1), and Ref.[2] demonstrates the
+ same for a NSBH with a 'hard' EOS, it has also been shown (for e.g. [3])
+ that even BNSs with 'hard' EOSs can form a collimated magnetic field
+ structure potentially capable of supporting SGRBs. In fact, for the
+ harder EOS “H4”, Ref.[3] found a stronger  magnetic field before collapse
+ to a BH - which can be further amplified due to magnetorotational
+ instability.
  
- 
+ Further, Ref.[4] finds that for a BNS with same H4 (hard) EOS, moderate
+ (realistic) seed magnetic fields can get amplified by a factor of $10^3$
+ within 4-5ms after the onset of merger, about which the authors of [1]
+ speculate that "It is likely that their calculations (referring to [4]) 
+ require longer integration times for an incipient jet to emerge [despite 
+ H4 being the NS EOS in [4]]".
+  
+ We therefore feel that it is best to wait for broader consensus on the
+ point that "a system must either be a BNS system with a relatively soft
+ equation of state, or an NSBH system with a relatively stiff equation of
+ state" before using it to motivate our work. 
+
+[1] https://arxiv.org/pdf/1604.02455.pdf
+[2] https://arxiv.org/pdf/1410.7392.pdf
+[3] https://arxiv.org/pdf/1607.01791.pdf
+[4] https://arxiv.org/pdf/1509.09205v2.pdf
+
+
 In the introductory paragraph the authors claim that LIGO has made
 "the first terrestrial observation of gravitational waves" -- I am not
 sure what the meaning of "terrestrial" is in this context (e.g.,
@@ -182,7 +204,11 @@ e.g., [Chen and Holz
 (2013)](http://dx.doi.org/10.1103/PhysRevLett.111.181101
 "Gamma-Ray-Burst Beaming and Gravitational-Wave Observations")
 
->> READ!!!
+>> We believe that there is not enough consensus in contemporary 
+literature on the prospect of NSBHs alone being the progenitors of
+SGRBs (and not BNSs at all), and would prefer to refrain from using it 
+presently to motivate the importance of NSBH events for nuclear EOS
+measurements.
 
 
 At the end of the second sentence, the authors argue that the

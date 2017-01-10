@@ -109,6 +109,10 @@ the mass-gap remains {\it preserved} in NSBHs detected by LIGO, we estimate that
 approximately $25\%$ additional detections will furnish comparable $\lambdans$
 measurement accuracy.
 % 
+In both cases, we find that it is the loudest $5-10$ events that provide
+most of the tidal information, and not the combination of tens of low-SNR
+events, thereby facilitating targeted numerical-GR follow-ups of NSBHs.
+% 
 We find these results encouraging, and recommend that an effort to 
 measure $\lambdans$ be planned for upcoming NSBH observations with the
 LIGO-Virgo instruments.
@@ -372,8 +376,11 @@ of certainty would require substantially more ($25-40$) observations.
 (c) Further, if the astrophysical ``mass-gap''~\cite{Bailyn:1997xt,
 Kalogera:1996ci,Kreidberg:2012,Littenberg:2015tpa} is real, we find that $20-50\%$
 additional observations would be required to attain the same measurement
-accuracy as above. And, (d) putting tighter constraints on the $\lambdans$ of a
+accuracy as above. (d) Putting tighter constraints on the $\lambdans$ of a
 population would require $50+$ NSBH observations, in any scenario.
+And, (e) it is the loudest $5-10$ events that will furnish the bulk
+of tidal information, and not the combination of a large number of 
+low-SNR events.
 % 
 All of the above is possible within a few years of design
 aLIGO operation~\cite{Abadie:2010cfa}.
@@ -875,7 +882,6 @@ the median of the recovered posterior distributions for $\chibh$ can only get
 pushed inwards from the boundaries.
 
 
-
 Summarizing these results, we find that irrespective of system parameters,
 below a signal-to-noise ratio of $30$, our measurements of mass and spin
 parameters of astrophysical NSBH binaries will remain limited by the intrinsic
@@ -1191,7 +1197,24 @@ $\lambdans$ credible intervals will require $40+$ events.
 }
 \label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}
 \end{figure*}
-
+% 
+\begin{figure*}
+\centering    
+% \textbf{No Mass-Gap \hspace{6cm} Mass-Gap}\par\medskip
+\includegraphics[width=1.025\columnwidth,trim=1cm 0 0 0]{LambdaMedianCIWidths90pc_vs_N_AllPopulation_SNRSorted}
+\includegraphics[width=1.025\columnwidth,trim=0 0 1cm 0]{LambdaCIWidths90pc_vs_N_AstroPopulation_SNRSorted}
+\caption{This figure is similar to Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne},
+with the only difference being that events in each population
+have been sorted according to their signal strength (SNR), instead of
+their simulated chronology. We note that information about
+the tidal deformability of neutron stars comes primarily 
+from the loudest $5-10$ events, whether we allow BH masses
+in the mass gap (left panel) or restrict them to
+$\mbh\geq 5M_\odot$ (right panel).
+}
+\label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne_SNRSorted}
+\end{figure*}
+% 
 
 
 In the previous section, we showed that single observations of NSBH
@@ -1522,6 +1545,25 @@ from NSBH signals in general may be slower than from binary neutron stars,
 depending on the distribution of BH masses in coalescing NSBH binaries.
 
 
+{\it Do all events matter?} In Ref.~\cite{Lackey2014} the authors demonstrate
+that the overwhelming majority of information about the NS equation of state
+comes from the loudest $\sim 5$ events in the case of binary neutron star
+detections, and not from the combined effect of a large number of low-SNR
+systems.
+The question naturally arises if the same is true for NSBH sources as well.
+Therefore, in Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne_SNRSorted}
+we re-evaluate the accumulation of information with each successive NSBH 
+detection, sorting the events in each population by their SNR instead of 
+simulated chronology. We find the same qualitative behavior as in the case of 
+BNSs~\cite{Lackey2014}. 
+Whether or not there is an astrophysical mass gap, we find
+that the bulk of tidal information will be furnished by the loudest $5-10$
+NSBH detections of aLIGO detectors. This result is especially encouraging
+to NR follow-up efforts for GW detections, as we now know that only a handful
+of loudest NSBH events will merit full numerical-GR follow-up simulations.
+
+
+
 To summarize, in this section we study the improvement in our measurement of 
 NS deformability parameter $\lambdans$ with an increasing number of events. We
 do so by simulating plausible populations of disrupting NSBH binaries (with
@@ -1538,9 +1580,11 @@ and (iv) if BHs really do observe the astrophysical mass-gap, the information
 accumulation is somewhat slower than if they do not. We conclude that within
 $20-30$ observations, aLIGO would begin to place very interesting bounds on 
 the NS deformability, which would allow us to rule out or rank different
-equations of state for neutron star matter. Our key findings are 
-summarized in Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} and
-\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne}.
+equations of state for neutron star matter. Within this population, we also
+find that it will be the loudest $5-10$ events that will furnish most of the
+tidal information. Our key findings are summarized in 
+Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} -
+\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne_SNRSorted}.
 
 
 
@@ -1549,24 +1593,6 @@ summarized in Fig.~\ref{fig:TT_LambdaMedian_vs_N_AllInOne} and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}\label{s1:discussion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-\begin{figure*}
-\centering    
-% \textbf{No Mass-Gap \hspace{6cm} Mass-Gap}\par\medskip
-\includegraphics[width=1.025\columnwidth,trim=1cm 0 0 0]{LambdaMedianCIWidths90pc_vs_N_AllPopulation_SNRSorted}
-\includegraphics[width=1.025\columnwidth,trim=0 0 1cm 0]{LambdaCIWidths90pc_vs_N_AstroPopulation_SNRSorted}
-\caption{This figure is similar to Fig.~\ref{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne},
-with the difference
-that events in each population have been sorted according to their
-signal strength (SNR). We note that information about
-the tidal deformability of neutron stars comes primarily 
-from the loudest $5-10$ events, whether we allow BH masses
-in the mass gap (left panel) or restrict them to
-$\mbh\geq 5M_\odot$ (right panel).
-}
-\label{fig:TT_LambdaError_vs_N_L500_2000_CI90_0_AllInOne_SNRSorted}
-\end{figure*}
-% 
 
 
 The pioneering observation of gravitational waves by Advanced LIGO
@@ -1792,6 +1818,10 @@ mergers, aLIGO will begin to place interesting bounds on NS deformability.
 This, amongst other things, will allow us to rank different equations of 
 state for neutron star matter from most to least likely, within a few years'
 detector operation.
+% 
+We also find that, within this population, the loudest $\sim 5-10$ events
+will provide us with most of the tidal information, and will therefore
+merit full NR follow-up.
 % 
 Our methods and results are detailed in Sec.~\ref{s1:multiple_observations}.
 
@@ -2050,8 +2080,8 @@ base. In this figure, we show the normalized overlap (match) between the two for
 $2,000,000$ points sampled uniformly in the NSBH parameter space. We find that
 for $q\gtrsim 4$ the discrepancies between IMRPhenomC and SEOBNRv2 as reported
 in~\cite{Kumar:2015tha} dominate over tidal terms.
-}
 \label{fig:PhenomC_vs_SEOBNRv2_LEA}
+}
 \end{figure}
 %
 The waveform model used in this paper is a variant of those calibrated
@@ -2062,8 +2092,7 @@ as the base BBH model. Previous work~\cite{Kumar:2015tha} has shown that
 IMRPhenomC can exhibit pathological behavior for mass-ratios ever so
 $q\gtrsim 4$ and/or non-zero black hole spins. We compute noise-weighted
 inner-products between the two variants for $2,000,000$ points sampled
-over the NSBH parameter space, and show the results in Fig.~\ref{
-fig:PhenomC_vs_SEOBNRv2_LEA}. We restrict the comparison to frequencies
+over the NSBH parameter space, and show the results in Fig.~\ref{fig:PhenomC_vs_SEOBNRv2_LEA}. We restrict the comparison to frequencies
 that are affected by the tidal disruption of the NS, by integrating
 the inner-products from $f = \mathrm{max}(15, 0.01/M)$~Hz
 (where $M$ is expressed in seconds ($1M_\odot \simeq 4.925\mu$S, see
