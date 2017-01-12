@@ -807,6 +807,32 @@ READ the 'statistical_data' data structure to disk, in a self contained way.
         fin.close()
         return
     #
+    def read_snrs(self, chain_set_number=None,\
+                                filename=None, file_start_tag='',\
+                                NSLambda=None, N=None, sort=False,\
+                                verbose=False):
+        '''
+READ the 'statistical_data' data structure to disk, in a self contained way.
+        '''
+        if filename == None and chain_set_number == None:
+            raise IOError("Need to give either file name to chain set's RND'")
+        #
+        if filename is None or not os.path.exists(filename):
+            tmp_dir = '%s/L%d_N%d_' % (self.data_prefix, self.NSLambda, self.N)
+            self.RND = chain_set_number
+            self.TAG = tmp_dir + ('%d/' % self.RND)
+            finname = self.TAG + file_start_tag + 'chain_params.dat'
+        elif os.path.exists(filename):
+            finname = filename
+        #
+        if not hasattr(self, 'snr_data'): self.snr_data = np.array([])
+        fdata = np.loadtxt(finname)
+        for fline in fdata: self.snr_data = np.append(self.snr_data, fline[2])
+        if sort:
+            self.snr_data.sort()
+            self.snr_data = self.snr_data[::-1]
+        return
+    #
     def print_info(self):
         print """
 For each event:-
