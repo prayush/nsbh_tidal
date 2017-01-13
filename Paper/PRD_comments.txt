@@ -227,10 +227,11 @@ toward higher chirp mass.
 >> Argument incorporated in the text, which now reads as:
 ".. In addition, we also note that $\arr_{\mchirp}\geq 0$ always,
 i.e. $\mchirp$ is always being over-estimated. This is to be expected since
-the tidal deformation of the NS drains energy from the orbit faster than in
-the BBH case, and the disruption of NS close to merger reduces GW signal
-power at high frequencies. Both of these effects make the resulting signal
-resemble a BBH signal of higher chirp mass. "
+the tidal deformation of the NS drains energy faster from the orbit during
+inspiral (as compared to the BBH case), and its disruption close to merger
+reduces GW signal power at high frequencies. Both of these effects make the
+resulting signal resemble a BBH signal of higher chirp (or total) mass, although
+we expect the latter effect to be dominant~\cite{Pannarale:2011pk}."
 
 
 #### IV. WHAT DO WE GAIN BY USING TEMPLATES THAT INCLUDE NS MATTER
@@ -279,8 +280,7 @@ to fully analyze a few single events or the full set of 20+ events.
 >> Thank you for this constructive suggestion. We have added a figure
 (now Fig.12) where we show how the measurement of NS tidal deformability
 improves with the loudest signal first, second-loudest next, and so on.
-We also discuss the figure in the Discussion, and hope it addresses
-this point.
+We also discuss the figure in the Sec.V, and hope it addresses this point.
 
 
 

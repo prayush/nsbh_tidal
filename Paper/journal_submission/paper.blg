@@ -35,45 +35,45 @@ Warning--empty year in LAL
 Warning--missing journal in Purrer:2015nkh
 Warning--missing journal in Inprerp-LVC-WaveModels:2016
 Warning--missing journal in Abbott:2016ymx
-You've used 113 entries,
+You've used 114 entries,
             5847 wiz_defined-function locations,
-            2554 strings with 45456 characters,
-and the built_in function-call counts, 137627 in all, are:
-= -- 7580
-> -- 4636
-< -- 951
-+ -- 1428
-- -- 1202
-* -- 24010
-:= -- 12524
-add.period$ -- 114
-call.type$ -- 113
-change.case$ -- 448
-chr.to.int$ -- 111
-cite$ -- 123
-duplicate$ -- 12720
-empty$ -- 9898
-format.name$ -- 2717
-if$ -- 27273
+            2563 strings with 45718 characters,
+and the built_in function-call counts, 138784 in all, are:
+= -- 7652
+> -- 4669
+< -- 958
++ -- 1438
+- -- 1210
+* -- 24206
+:= -- 12632
+add.period$ -- 115
+call.type$ -- 114
+change.case$ -- 452
+chr.to.int$ -- 112
+cite$ -- 124
+duplicate$ -- 12825
+empty$ -- 9983
+format.name$ -- 2736
+if$ -- 27504
 int.to.chr$ -- 11
-int.to.str$ -- 120
-missing$ -- 1590
-newline$ -- 440
-num.names$ -- 334
-pop$ -- 4733
+int.to.str$ -- 121
+missing$ -- 1603
+newline$ -- 444
+num.names$ -- 337
+pop$ -- 4772
 preamble$ -- 1
-purify$ -- 554
+purify$ -- 559
 quote$ -- 0
-skip$ -- 4444
+skip$ -- 4484
 stack$ -- 0
-substring$ -- 2637
-swap$ -- 13111
-text.length$ -- 576
+substring$ -- 2669
+swap$ -- 13217
+text.length$ -- 580
 text.prefix$ -- 0
 top$ -- 10
-type$ -- 1825
+type$ -- 1840
 warning$ -- 11
-while$ -- 315
+while$ -- 318
 width$ -- 0
-write$ -- 1067
+write$ -- 1077
 (There were 12 warnings)
