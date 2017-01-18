@@ -277,7 +277,7 @@ models~\cite{Lackey2011,Lackey:2013axa} use the Fisher matrix to estimate
 $\lambdans$ measurement errors. Fisher matrix estimates may become
 unreliable at realistic signal-to-noise ratios (SNR)~\cite{Vallisneri:2007ev},
 such as those as we might expect in the upcoming observing runs of GW
-detectors~\cite{Abadie:2010cf}, and we supplement such studies with a
+detectors~\cite{Abadie:2010cf}, and we improve such studies with a
 fully Bayesian treatment of the problem here.
 
 
@@ -2094,20 +2094,23 @@ The waveform model used in this paper is a variant of those calibrated
 in Ref~\cite{Lackey:2013axa}. In that work, the authors also calibrate
 a tidal prescription with the phenomenological model IMRPhenomC~\cite{
 Santamaria:2010yb}
-as the base BBH model. Previous work~\cite{Kumar:2015tha} has shown that 
-IMRPhenomC can exhibit pathological behavior for mass-ratios ever so
+as the base BBH model. Previous work~\cite{Kumar:2015tha,Kumar:2016dhh} has 
+shown that IMRPhenomC can exhibit pathological behavior for mass-ratios
 $q\gtrsim 4$ and/or non-zero black hole spins. We compute noise-weighted
 inner-products between the two variants for $2,000,000$ points sampled
-over the NSBH parameter space, and show the results in Fig.~\ref{fig:PhenomC_vs_SEOBNRv2_LEA}. We restrict the comparison to frequencies
+over the NSBH parameter space, and show the results in 
+Fig.~\ref{fig:PhenomC_vs_SEOBNRv2_LEA}. We restrict the comparison to frequencies
 that are affected by the tidal disruption of the NS, by integrating
 the inner-products from $f = \mathrm{max}(15, 0.01/M)$~Hz
 (where $M$ is expressed in seconds ($1M_\odot \simeq 4.925\mu$S, see
 Eq.~(32-34) of~\cite{Lackey:2013axa}).
 % 
-We find that the differences between the two BBH approximants dominate
-over the tidal terms that are added to their phasing. As SEOBNRv2 is
-more reliable than IMRPhenomC, we recommend the use of SEOBNRv2-based
-LEA+ in upcoming LIGO-Virgo analyses.
+We find that the differences between the two BBH approximants cause mismatches
+of a few percent, while the tidal corrections contribute at a sub-percent
+level. We conclude that the differences of the underlying BBH model in LEA+
+dominates over their tidal calibration, and since SEOBNRv2 has been shown to
+be more reliable than IMRPhenomC~\cite{Kumar:2015tha,Kumar:2016dhh}, we 
+recommend the use of SEOBNRv2-based LEA+ in upcoming LIGO-Virgo analyses.
 
 
 \end{appendix}

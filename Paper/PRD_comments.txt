@@ -125,7 +125,7 @@ consistent with their Bayesian results (they state this later).
 "Fisher matrix estimates may become unreliable at realistic 
  signal-to-noise ratios (SNR)~\cite{Vallisneri:2007ev}, such as those 
  as we might expect in the upcoming observing runs of GW 
- detectors~\cite{Abadie:2010cf}, and we supplement such studies with 
+ detectors~\cite{Abadie:2010cf}, and we improve such studies with 
  a fully Bayesian treatment of the problem here."
 
 
