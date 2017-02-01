@@ -1,0 +1,95 @@
+RESPONSES TO QUESTIONS FROM PRD:
+
+1) Please change affiliation "2" to "Max Planck Institute for Gravitational Physics (Albert Einstein Institute), Am Muhlenberg 1, Potsdam-Golm, 14476, Germany"
+
+2) Please remove street addresses from affiliations 1 and 2, to make them "Canadian Institute for Theoretical Astrophysics, University of Toronto, Toronto M5S 3H8, Canada" and "Canadian Institute for Advanced Research, Toronto M5G 1Z8, Canada" respectively.
+
+3) See "Other Changes" below.
+
+4) Expand "BBH" to "binary black hole (BBH)".
+
+5) OK
+
+6) replace "an MCMC" with "a Markov-chain Monte Carlo"
+
+7) expand all occurances of "s.t." to "such that". No need for abbreviation really.
+
+8) No.
+
+9) Replace footnote 12 with "We distribute sources out to distances where the SNR remains above $\rho_\mathrm{min} = 10$."
+
+   Replace footnote 13 with "With source parameters sampled under paradigm A, in which mass-gap is \textit{not} respected."
+
+   Replace footnote 14 with "Those conditions being: a companion BH with mass $m_\mathrm{BH} \lesssim 4.5M_\odot$ (i.e. in the astrophysical mass-gap), and the \textit{hardest} NS EoS amongst those considered in this work (with $\Lambda_\mathrm{NS}\simeq 2000$)."
+
+
+10) TODO: Harald
+
+11) Please expand "NSERC" to "Natural Sciences and Engineering Research Council of Canada"
+
+12) Looks good.
+
+13) Click on: 8, 14, 16, 17, 27, 34, 36, 37, 38, 52, 53, 54, 55, 59, 74, 93
+
+14) Verified to be correct.
+
+15) Please replace Ref.[3] with a citation to http://iopscience.iop.org/article/10.1088/0264-9381/32/2/024001/meta
+
+16) Rest are OK, but please replace Ref.[91] back with 
+
+@Misc{LAL,
+  author =	 {{LIGO} Scientific Collaboration},
+  title =	 {{LSC} {A}lgorithm {L}ibrary software packages
+                  {\scshape lal}, {\scshape lalwrapper}, and {\scshape
+                  lalapps}},
+  url =		 "http://www.lsc-group.phys.uwm.edu/lal",
+}
+
+This is a reference to a software package, not a journal article. There is no journal article describing this package, and no representative author, at least so far as we are aware. Its the proprietary software used by the LIGO Collaboration to analyze their data, and has been cited in PRD articles countless times.
+
+
+
+17) "L1" is correct.
+
+18) OK
+
+19) Its correct.
+
+20) This is a citation to a talk given at the Marcel Grosman meeting in Paris, France, and here is its arxiv page: https://arxiv.org/abs/1008.1822 . 
+
+21) They're correct.
+
+22) Please see response to #16 above for Ref.[91].
+
+23) Please see response to #16 above for Ref.[91].
+
+
+
+OTHER CHANGES
+
+
+1) replace back all occurances of "nontidal" with "non-tidal". Former is not a word, and "non-" here is a negation qualifier for "tidal" which is a commonly used technical word in the field.
+
+2) replace back all occurances of "mass gap" with "mass-gap". The hyphen is important to highlight that its a single (compound) technical word.
+
+3) Capitalize "Effective One Body" on line 273
+
+4) Line 302: "LIGO Algorithms Library" is a software package. Please capitalize it accordingly, as was done on line 350 for "EMCEE".
+
+5) replace back all occurances of "subdominant" with "sub-dominant".
+
+6) replace back all occurances of "multidimensional" with "multi-dimensional"
+
+7) replace back all occurances of "postmerger" with "post-merger". Former is not a word, and "post-" is a qualifier for the "merger" event of compact objects.
+
+8) line 934: replace "ten" with "10" as that is more consistent with what follows in the sentence.
+
+9) replace back all occurances of "cosampled" with "co-sampled". Former is not a word, while latter would mean "sampled together / sampled as one entity".
+
+10) replace back all occurances of "subpercent" with "sub-percent". Former is not a word, while latter would mean "below 1%".
+
+
+
+
+
+
