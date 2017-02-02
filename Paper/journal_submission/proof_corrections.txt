@@ -1,6 +1,6 @@
 RESPONSES TO QUESTIONS FROM PRD:
 
-1) Please change affiliation "2" to "Max Planck Institute for Gravitational Physics (Albert Einstein Institute), Am Muhlenberg 1, Potsdam-Golm, 14476, Germany"
+1) Please change affiliation "2" to "Max Planck Institute for Gravitational Physics (Albert Einstein Institute), Am M\"uhlenberg 1, Potsdam-Golm, 14476, Germany"
 
 2) Please remove street addresses from affiliations 1 and 2, to make them "Canadian Institute for Theoretical Astrophysics, University of Toronto, Toronto M5S 3H8, Canada" and "Canadian Institute for Advanced Research, Toronto M5G 1Z8, Canada" respectively.
 
@@ -29,7 +29,23 @@ RESPONSES TO QUESTIONS FROM PRD:
 
 12) Looks good.
 
-13) Click on: 8, 14, 16, 17, 27, 34, 36, 37, 38, 52, 53, 54, 55, 59, 74, 93
+13) Others verified to be correct. Ref[92] should point to Phys. Rev. D 93, 084042 (2016) instead of its arxiv entry. Please replace it with:
+
+@article{Purrer:2015nkh,
+      author         = "Pürrer, Michael and Hannam, Mark and Ohme, Frank",
+      title          = "{Can we measure individual black-hole spins from
+                        gravitational-wave observations?}",
+      journal        = "Phys. Rev.",
+      volume         = "D93",
+      year           = "2016",
+      number         = "8",
+      pages          = "084042",
+      doi            = "10.1103/PhysRevD.93.084042",
+      eprint         = "1512.04955",
+      archivePrefix  = "arXiv",
+      primaryClass   = "gr-qc",
+      SLACcitation   = "%%CITATION = ARXIV:1512.04955;%%"
+}
 
 14) Verified to be correct.
 
