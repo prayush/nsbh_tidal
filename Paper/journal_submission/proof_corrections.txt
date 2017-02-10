@@ -12,7 +12,7 @@ RESPONSES TO QUESTIONS FROM PRD:
 
 6) replace "an MCMC" with "a Markov-chain Monte Carlo"
 
-7) expand all occurances of "s.t." to "such that". No need for abbreviation really.
+7) expand all occurrences of "s.t." to "such that". No need for abbreviation really.
 
 8) No.
 
@@ -23,7 +23,18 @@ RESPONSES TO QUESTIONS FROM PRD:
    Replace footnote 14 with "Those conditions being: a companion BH with mass $m_\mathrm{BH} \lesssim 4.5M_\odot$ (i.e. in the astrophysical mass-gap), and the \textit{hardest} NS EoS amongst those considered in this work (with $\Lambda_\mathrm{NS}\simeq 2000$)."
 
 
-10) TODO: Harald
+10) Here are our funding agencies and their DOI / CrossRef links:
+ (a) NSERC of Canada
+http://dx.doi.org/10.13039/501100000038,"Natural Sciences and Engineering Research Council of Canada",
+ (b) the Ontario Early Researcher Awards Program
+http://dx.doi.org/10.13039/501100000192,"Ontario MINISTRY OF ECONOMIC DEVELOPMENT AND INNOVATION",
+ (c) Canada Research Chairs Program,
+http://dx.doi.org/10.13039/501100001804,"Canada Research Chairs",
+ (d) Canadian Institute for Advanced Research
+http://dx.doi.org/10.13039/100007631,"Canadian Institute for Advanced Research",
+
+
+
 
 11) Please expand "NSERC" to "Natural Sciences and Engineering Research Council of Canada"
 
@@ -84,25 +95,25 @@ This is a reference to a software package, not a journal article. There is no jo
 OTHER CHANGES
 
 
-1) replace back all occurances of "nontidal" with "non-tidal". Former is not a word, and "non-" here is a negation qualifier for "tidal" which is a commonly used technical word in the field.
+1) replace back all occurrences of "nontidal" with "non-tidal". Former is not a word, and "non-" here is a negation qualifier for "tidal" which is a commonly used technical word in the field.
 
-2) replace back all occurances of "mass gap" with "mass-gap". The hyphen is important to highlight that its a single (compound) technical word.
+2) replace back all occurrences of "mass gap" with "mass-gap". The hyphen is important to highlight that its a single (compound) technical word.
 
 3) Capitalize "Effective One Body" on line 273
 
 4) Line 302: "LIGO Algorithms Library" is a software package. Please capitalize it accordingly, as was done on line 350 for "EMCEE".
 
-5) replace back all occurances of "subdominant" with "sub-dominant".
+5) replace back all occurrences of "subdominant" with "sub-dominant".
 
-6) replace back all occurances of "multidimensional" with "multi-dimensional"
+6) replace back all occurrences of "multidimensional" with "multi-dimensional"
 
-7) replace back all occurances of "postmerger" with "post-merger". Former is not a word, and "post-" is a qualifier for the "merger" event of compact objects.
+7) replace back all occurrences of "postmerger" with "post-merger". Former is not a word, and "post-" is a qualifier for the "merger" event of compact objects.
 
 8) line 934: replace "ten" with "10" as that is more consistent with what follows in the sentence.
 
-9) replace back all occurances of "cosampled" with "co-sampled". Former is not a word, while latter would mean "sampled together / sampled as one entity".
+9) replace back all occurrences of "cosampled" with "co-sampled". Former is not a word, while latter would mean "sampled together / sampled as one entity".
 
-10) replace back all occurances of "subpercent" with "sub-percent". Former is not a word, while latter would mean "below 1%".
+10) replace back all occurrences of "subpercent" with "sub-percent". Former is not a word, while latter would mean "below 1%".
 
 
 
