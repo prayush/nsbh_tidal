@@ -43,3 +43,13 @@ both cases, we find that it is the loudest 5 − 10 events that provide most of 
 and not the combination of tens of low-SNR events, thereby facilitating targeted numerical-GR
 follow-ups of NSBHs. We find these results encouraging, and recommend that an effort to measure
 Λ_NS be planned for upcoming NSBH observations with the LIGO-Virgo instruments.
+
+## Notes
+
+ * SEOBNRv2_ROM_DoubleSpin_LM contains a preliminary low-mass SEOBNRv2 DS ROM.
+ * emcee_PE contains a Python PE code using emcee, lal and triangle.
+ * emcee 
+	  * Code: 	http://dan.iel.fm/emcee/current/ 
+	  * Paper: 	http://arxiv.org/pdf/1202.3665.pdf
+ * triangle
+    * Code: 	https://github.com/dfm/triangle.py
