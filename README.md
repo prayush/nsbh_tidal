@@ -26,7 +26,7 @@ era of observational GW astrophysics. Compact binaries remain the primary target
 observation, of which neutron star - black hole (NSBH) binaries form an important subset. GWs
 from NSBH sources carry signatures of (a) the tidal distortion of the neutron star by its companion
 black hole during inspiral, and (b) its potential tidal disruption near merger. In this paper, we
-present a Bayesian study of the measurability of neutron star tidal deformability ΛNS ∝ (R/M)^5
+present a Bayesian study of the measurability of neutron star tidal deformability Λ_NS ∝ (R/M)^5
 using observation(s) of inspiral-merger GW signals from disruptive NSBH coalescences, taking into
 account the crucial effect of black hole spins. First, we find that if non-tidal templates are used to
 estimate source parameters for an NSBH signal, the bias introduced in the estimation of non-tidal
